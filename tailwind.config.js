@@ -10,6 +10,8 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
         elMessiri: ["El Messiri", "sans-serif"],
         irishGrove: ["Irish Grover", "cursive"],
+        amiri: ["Amiri", "serif"],
+        lateef: ["Lateef", "serif"],
       },
       colors: {
         color1: "#043B3B",

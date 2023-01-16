@@ -2,7 +2,7 @@ import React from "react";
 
 const SurahViewSideBar = () => {
   return (
-    <div className="bg-[#012424] px-5 py-3 w-max">
+    <div className="bg-[#012424] px-5 py-3 w-max sticky top-0">
       <div className="bg-gray-800 w-64 grid grid-cols-3 gap-2 divide-x divide-slate-700 rounded-full text-gray-300">
         <button className="text-white bg-green-900 rounded-full py-1 shadow-lg">
           Surah
