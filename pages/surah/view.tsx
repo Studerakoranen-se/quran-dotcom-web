@@ -33,7 +33,7 @@ const SurahViewPage = (props: any) => {
     axios
       .get("https://api.quran.com/api/v3/chapters/" + chpID)
       .then(({ data }) => setChapterInfo(data.chapter));
-  }, []);
+  }, [chpID]);
 
   return (
     <>
@@ -43,11 +43,11 @@ const SurahViewPage = (props: any) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="relative font-inter bg-color1 flex flex-col min-h-screen">
+      <main className="relative font-inter bg-color1 flex flex-col min-h-screen scroll-smooth">
         <TopBar />
         <NavBar />
-        <div className="flex-grow flex">
-          <SurahViewSideBar />
+        <div className="flex">
+          <SurahViewSideBar chpID={chpID} />
           <div className="flex-grow container px-5 py-10">
             {chapterInfo.bismillah_pre ? (
               <svg
@@ -71,7 +71,7 @@ const SurahViewPage = (props: any) => {
             ) : (
               ""
             )}
-            <div className="space-y-6 mt-10">
+            <div className="space-y-6 mt-10 h-screen overflow-auto scrollbar-hide">
               {/* verse */}
               {chapter?.verses?.map((verse: any, i: number) => (
                 <div
