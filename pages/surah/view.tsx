@@ -24,7 +24,7 @@ const SurahViewPage = (props: any) => {
 
     axios
       .get(
-        "http://api.quran.com/api/v3/chapters/" +
+        "https://api.quran.com/api/v3/chapters/" +
           chpID +
           "/verses?recitation=1&translations=21&language=en&text_type=words"
       )
