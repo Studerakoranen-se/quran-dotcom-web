@@ -17,22 +17,23 @@ const SurahViewPage = (props: any) => {
   const [chapterInfo, setChapterInfo] = useState<any>([]);
 
   useEffect(() => {
-    if (!chpID) {
-      router.back();
-      return;
+    // if (!chpID) {
+    //   router.back();
+    //   return;
+    // }
+    if (chpID) {
+      axios
+        .get(
+          "https://api.quran.com/api/v3/chapters/" +
+            chpID +
+            "/verses?recitation=1&translations=21&language=en&text_type=words"
+        )
+        .then(({ data }) => setChapter(data));
+
+      axios
+        .get("https://api.quran.com/api/v3/chapters/" + chpID)
+        .then(({ data }) => setChapterInfo(data.chapter));
     }
-
-    axios
-      .get(
-        "https://api.quran.com/api/v3/chapters/" +
-          chpID +
-          "/verses?recitation=1&translations=21&language=en&text_type=words"
-      )
-      .then(({ data }) => setChapter(data));
-
-    axios
-      .get("https://api.quran.com/api/v3/chapters/" + chpID)
-      .then(({ data }) => setChapterInfo(data.chapter));
   }, [chpID]);
 
   return (
