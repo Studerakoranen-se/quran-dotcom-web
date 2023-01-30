@@ -2,7 +2,7 @@ import React from "react";
 
 const CopyrightSection = () => {
   return (
-    <div className="bg-white py-2">
+    <div className="bg-white py-2 px-5">
       <div className="container flex justify-between font-semibold">
         <p>© 2022 ALL RIGHTS RESERVED</p>
         <p>

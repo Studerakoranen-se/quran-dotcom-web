@@ -8,6 +8,10 @@ import axios from "axios";
 import { IoMdPlay } from "react-icons/io";
 import { IoChatbubble } from "react-icons/io5";
 import { BsBookHalf, BsThreeDots } from "react-icons/bs";
+import { RxCross2 } from "react-icons/rx";
+import { RiMenuUnfoldFill } from "react-icons/ri";
+
+import ReactAudioPlayer from "react-audio-player";
 
 const SurahViewPage = (props: any) => {
   const router = useRouter();
@@ -15,6 +19,62 @@ const SurahViewPage = (props: any) => {
 
   const [chapter, setChapter] = useState<any>([]);
   const [chapterInfo, setChapterInfo] = useState<any>([]);
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const [audio, setAudio] = useState<any>();
+  const [currentAudio, setCurrentAudio] = useState("");
+  const [audioPlaying, setAudioPlaying] = useState(false);
+  const [showControl, setShowControl] = useState(false);
+
+  const playAudio = () => {
+    audio.audioEl.current.play();
+    setAudioPlaying(true);
+  };
+
+  const pauseAudio = () => {
+    audio.audioEl.current.pause();
+    setAudioPlaying(false);
+  };
+
+  const higLightText = (id: any, segment: any) => {
+    console.log(id, segment);
+    const childs: any = document?.querySelector<HTMLElement>(
+      "#" + id
+    )?.children;
+    segment.forEach((seg: any, i: any) => {
+      setTimeout(() => {
+        if (childs) {
+          childs[i].style.color = "#10de5d";
+        }
+      }, segment[i][2]);
+      setTimeout(() => {
+        if (childs) {
+          childs[i].style.color = "#fff";
+        }
+      }, segment[i][3]);
+    });
+  };
+
+  // const nextAudio = () => {
+  //   console.log(currentAudio);
+  //   const i = verseAudios.findIndex((ele) => {
+  //     return ele === currentAudio ? true : false;
+  //   });
+  //   console.log(verseAudios.length, i);
+  //   setCurrentAudio(verseAudios[i + 1]);
+  //   audio.audioEl.current.play();
+  // };
+
+  // const prevAudio = () => {
+  //   console.log(currentAudio);
+  //   const i = verseAudios.findIndex((ele) => {
+  //     return ele === currentAudio ? true : false;
+  //   });
+  //   if (i !== 0) {
+  //     setCurrentAudio(verseAudios[i - 1]);
+  //     audio.audioEl.current.play();
+  //   }
+  // };
 
   useEffect(() => {
     // if (!chpID) {
@@ -44,12 +104,39 @@ const SurahViewPage = (props: any) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="relative font-inter bg-color1 flex flex-col min-h-screen scroll-smooth">
+      <main className="relative font-inter bg-color1 flex flex-col min-h-screen scroll-smooth overflow-x-hidden">
         <TopBar />
         <NavBar />
-        <div className="flex">
-          <SurahViewSideBar chpID={chpID} />
-          <div className="flex-grow container px-5 py-10">
+        <div className="flex relative">
+          <div
+            className={
+              (showSidebar ? "" : "hidden") +
+              " absolute md:static top-0 left-0 bg-[#012424]"
+            }
+          >
+            <RxCross2
+              className="ml-auto text-red-500 text-xl cursor-pointer mt-5"
+              onClick={() => setShowSidebar(false)}
+            />
+            <SurahViewSideBar chpID={chpID} />
+          </div>
+          <div className="flex-grow container px-5">
+            <ReactAudioPlayer
+              src={currentAudio}
+              autoPlay
+              // controls
+              ref={(element) => {
+                setAudio(element);
+              }}
+              onPlay={() => {
+                setAudioPlaying(true);
+              }}
+              onEnded={() => setAudioPlaying(false)}
+            />
+            <RiMenuUnfoldFill
+              className="text-white text-xl mt-5 cursor-pointer"
+              onClick={() => setShowSidebar(true)}
+            />
             {chapterInfo.bismillah_pre ? (
               <svg
                 baseProfile="tiny"
@@ -58,7 +145,7 @@ const SurahViewPage = (props: any) => {
                 height="45"
                 viewBox="0 0 176 36"
                 overflow="inherit"
-                className="mx-auto text-white"
+                className="mx-auto text-white py-10"
               >
                 <switch>
                   <g>
@@ -72,7 +159,7 @@ const SurahViewPage = (props: any) => {
             ) : (
               ""
             )}
-            <div className="space-y-6 mt-10 h-screen overflow-auto scrollbar-hide">
+            <div className="space-y-6 pt-10 h-screen overflow-auto scrollbar-hide">
               {/* verse */}
               {chapter?.verses?.map((verse: any, i: number) => (
                 <div
@@ -80,23 +167,46 @@ const SurahViewPage = (props: any) => {
                   className="border-b border-green-800 pb-5 pt-2 flex justify-between gap-5"
                 >
                   <div className="w-10 text-white flex flex-col items-center gap-4">
-                    <IoMdPlay />
+                    <IoMdPlay
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setCurrentAudio(
+                          "https://audio.qurancdn.com/" + verse.audio.url
+                        );
+                        audio.audioEl.current.play();
+                        setShowControl(true);
+                        higLightText("v" + i, verse.audio.segments);
+                      }}
+                    />
                     <IoChatbubble />
                     <BsBookHalf />
                     <BsThreeDots />
                   </div>
                   <div className="flex-grow flex flex-col gap-10 justify-between">
                     <div
+                      id={"v" + i}
                       className="flex flex-wrap text-white font-lateef text-4xl gap-2"
                       dir="rtl"
                     >
                       {verse.words.map((word: any, i: number) => (
                         <button
+                          onClick={() => {
+                            if (
+                              currentAudio ===
+                              "https://audio.qurancdn.com/" + word.audio.url
+                            ) {
+                              audio.audioEl.current.play();
+                            } else {
+                              setCurrentAudio(
+                                "https://audio.qurancdn.com/" + word.audio.url
+                              );
+                            }
+                          }}
                           key={i}
                           className={
                             word.char_type == "end"
                               ? "hidden"
-                              : "" + " hover:text-green-400 relative group"
+                              : "" + " hover:!text-green-400 relative group"
                           }
                         >
                           {word.text_madani}

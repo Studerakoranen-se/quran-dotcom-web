@@ -3,7 +3,7 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <section className="flex justify-center gap-5 container items-center">
+    <section className="flex justify-center gap-5 container items-center py-10">
       <div className="text-white text-center mx-auto">
         <h1 className="font-elMessiri font-bold text-5xl">
           Välkommen till <br /> StuderaKoranen!
@@ -53,7 +53,7 @@ const HeroSection = () => {
         height={10}
         src="/assets/logo-lg.png"
         alt=""
-        className="inline-block px-16 py-10 md:px-0 mx-auto"
+        className="absolute md:static opacity-30 md:opacity-100 inline-block px-16 py-10 md:px-0 mx-auto"
       />
     </section>
   );

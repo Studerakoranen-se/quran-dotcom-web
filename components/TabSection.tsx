@@ -12,7 +12,7 @@ const TabSection = () => {
   }, []);
 
   return (
-    <div className="text-white container py-5">
+    <div className="text-white container py-5 px-5">
       <div className="flex gap-10 border-b border-white">
         <button className="border-b-2 border-white pb-1">Surah</button>
         <button className="border-b-2 border-transparent pb-1">Juz</button>
@@ -31,7 +31,7 @@ const TabSection = () => {
           </option>
         </select>
       </div>
-      <div className="grid grid-cols-4 gap-5 mt-10">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
         {sort == "asc"
           ? chapters.map((chapter: any, i: number) => (
               <SurahCard key={i} chapter={chapter} />

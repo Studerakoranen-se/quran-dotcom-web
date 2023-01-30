@@ -13,8 +13,6 @@ const SurahViewSideBar = (props: any) => {
       .then(({ data }) => setChapters(data.chapters));
   }, []);
 
-  console.log(chapters);
-
   return (
     <div className="bg-[#012424] px-5 py-3 w-max sticky top-0 z-10">
       <div className="bg-gray-800 w-64 grid grid-cols-3 gap-2 divide-x divide-slate-700 rounded-full text-gray-300">

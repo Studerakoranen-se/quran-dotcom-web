@@ -3,13 +3,13 @@ import Link from "next/link";
 
 const NavBar = () => {
   return (
-    <nav className=" z-50 bg-color1 text-white drop-shadow-lg">
+    <nav className=" z-50 bg-color1 text-white drop-shadow-lg px-5">
       <div className="container flex items-center justify-between py-3">
         <Link href={"/"} className="">
           <Image width={80} height={42} src="/assets/logo.png" alt="" />
         </Link>
 
-        <div className="flex gap-8 font-semibold">
+        <div className="hidden md:flex gap-8 font-semibold">
           <Link href={"/"}>HEM</Link>
           <Link href={"#!"}>KURSER</Link>
           <Link href={"#!"}>ARTIKLAR</Link>

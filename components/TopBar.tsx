@@ -4,7 +4,7 @@ import React from "react";
 
 const TopBar = () => {
   return (
-    <div className="flex justify-between py-3 sm:px-14 bg-color2">
+    <div className="flex justify-between py-3 sm:px-14 bg-color2 px-5">
       {/* Socials  */}
       <div className="flex items-center gap-3.5">
         <Link href="#">
