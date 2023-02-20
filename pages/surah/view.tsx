@@ -55,6 +55,8 @@ const SurahViewPage = (props: any) => {
     });
   };
 
+  console.log(chapter);
+
   // const nextAudio = () => {
   //   console.log(currentAudio);
   //   const i = verseAudios.findIndex((ele) => {
@@ -167,6 +169,7 @@ const SurahViewPage = (props: any) => {
                   className="border-b border-green-800 pb-5 pt-2 flex justify-between gap-5"
                 >
                   <div className="w-10 text-white flex flex-col items-center gap-4">
+                    <div className="">{verse.verse_key}</div>
                     <IoMdPlay
                       className="cursor-pointer"
                       onClick={() => {

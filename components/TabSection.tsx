@@ -12,7 +12,7 @@ const TabSection = () => {
   }, []);
 
   return (
-    <div className="text-white container py-5 px-5">
+    <div className="text-white container py-5 px-5 bg-[url('/assets/bg-arbic.png')] bg-repeat-y bg-center bg-contain">
       <div className="flex gap-10 border-b border-white">
         <button className="border-b-2 border-white pb-1">Surah</button>
         <button className="border-b-2 border-transparent pb-1">Juz</button>

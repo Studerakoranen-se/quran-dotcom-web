@@ -3,7 +3,7 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <section className="flex justify-center gap-5 container items-center py-10">
+    <section className="flex justify-center gap-5 container items-center py-10 bg-[url('/assets/bg-arbic.png')] bg-opacity-20 bg-center bg-no-repeat">
       <div className="text-white text-center mx-auto">
         <h1 className="font-elMessiri font-bold text-5xl">
           Välkommen till <br /> StuderaKoranen!
