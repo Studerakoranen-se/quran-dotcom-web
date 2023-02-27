@@ -1,13 +1,20 @@
+import Link from "next/link";
 import React from "react";
 
-const RecentCard = () => {
+const RecentCard = (props: any) => {
+  const { data } = props;
+  console.table(data);
+
   return (
-    <div className="flex flex-col border border-[#E0D2B4] w-44 h-52 rounded p-3 shadow-xl shadow-gray-900">
+    <Link
+      href={"/surah/view?chapter_id=" + data.chapter_number}
+      className="flex flex-col border border-[#E0D2B4] w-44 h-52 rounded p-3 shadow-xl shadow-gray-900"
+    >
       <div className="flex justify-between gap-5">
-        <p className="text-sm text-gray-200">The Cow</p>
-        <p>2</p>
+        <p className="text-sm text-gray-200">{data.translated_name.name}</p>
+        <p>{data.chapter_number}</p>
       </div>
-      <h1 className="py-1">Surah Al-Baqarah</h1>
+      <h1 className="py-1">Surah {data.name_simple}</h1>
       <div className="flex-grow"></div>
       <div className="flex flex-col justify-center items-center h-20 bg-[#022929] rounded">
         <svg
@@ -23,9 +30,9 @@ const RecentCard = () => {
           />
         </svg>
 
-        <p>Ayah1</p>
+        <p>Ayah {data.verses_count}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

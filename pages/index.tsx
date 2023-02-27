@@ -28,7 +28,7 @@ export default function Home() {
         <SearchSection />
         <RecentSection />
         <TabSection />
-        <BottomPage />
+        {/* <BottomPage /> */}
         <Footer />
         <CopyrightSection />
       </main>

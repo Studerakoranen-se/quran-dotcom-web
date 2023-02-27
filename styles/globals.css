@@ -22,3 +22,7 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.currentPlaying {
+  background-color: red;
+}

@@ -7,15 +7,23 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { IoMdPlay } from "react-icons/io";
 import { IoChatbubble } from "react-icons/io5";
-import { BsBookHalf, BsThreeDots, BsPlayFill } from "react-icons/bs";
+import {
+  BsBookHalf,
+  BsThreeDots,
+  BsPlayFill,
+  BsFillPauseFill,
+} from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { RiMenuUnfoldFill } from "react-icons/ri";
+import { useDispatch } from "react-redux";
 
 import ReactAudioPlayer from "react-audio-player";
+import { addToHistory } from "../../store/historySlice";
 
 const SurahViewPage = (props: any) => {
   const router = useRouter();
   const chpID = router.query.chapter_id;
+  const dispatch = useDispatch();
 
   const [chapter, setChapter] = useState<any>([]);
   const [verses, setVerses] = useState<any>([]);
@@ -28,15 +36,10 @@ const SurahViewPage = (props: any) => {
   const [currentAudio, setCurrentAudio] = useState("");
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [showControl, setShowControl] = useState(false);
-
-  const playAudio = () => {
-    audio.audioEl.current.play();
-    setAudioPlaying(true);
-  };
+  console.log("c", currentAudio);
 
   const handleAudioEnded = (id: any) => {
     const audios = verses.map((verse: any) => verse.audio);
-    console.log(currentVerse);
 
     const currentIndex = audios.indexOf(currentAudio);
     if (currentVerse === audios.length - 1) {
@@ -57,8 +60,15 @@ const SurahViewPage = (props: any) => {
     return audios;
   };
 
+  const playAudio = () => {
+    audio.audioEl.current.play();
+    setAudioPlaying(true);
+  };
+
   const pauseAudio = () => {
     audio.audioEl.current.pause();
+    audio.audioEl.current.currentTime = 0;
+    setCurrentAudio("");
     setAudioPlaying(false);
   };
 
@@ -92,7 +102,10 @@ const SurahViewPage = (props: any) => {
 
       axios
         .get("https://api.quran.com/api/v3/chapters/" + chpID)
-        .then(({ data }) => setChapterInfo(data.chapter));
+        .then(({ data }) => {
+          setChapterInfo(data.chapter);
+          dispatch(addToHistory(data.chapter));
+        });
     }
   }, [chpID]);
 
@@ -167,18 +180,29 @@ const SurahViewPage = (props: any) => {
                 )}
               </div>
               <div className="py-5">
-                <button
-                  onClick={() => {
-                    setCurrentAudio(
-                      "https://audio.qurancdn.com/" + verses[0].audio.url
-                    );
-                    setCurrentVerse(1);
-                    audio.audioEl.current.play();
-                  }}
-                  className="text-[#E0D2B4] flex items-center gap-2 ml-auto"
-                >
-                  <BsPlayFill /> Spela upp ljud
-                </button>
+                {audioPlaying ? (
+                  <button
+                    onClick={() => {
+                      pauseAudio();
+                    }}
+                    className="text-[#E0D2B4] flex items-center gap-2 ml-auto"
+                  >
+                    <BsFillPauseFill /> pausa ljud
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setCurrentAudio(
+                        "https://audio.qurancdn.com/" + verses[0].audio.url
+                      );
+                      setCurrentVerse(1);
+                      audio.audioEl.current.play();
+                    }}
+                    className="text-[#E0D2B4] flex items-center gap-2 ml-auto"
+                  >
+                    <BsPlayFill /> Spela upp ljud
+                  </button>
+                )}
               </div>
               {/* verse */}
               {verses?.map((verse: any, i: number) => (
@@ -188,21 +212,34 @@ const SurahViewPage = (props: any) => {
                 >
                   <div className="w-10 text-white flex flex-col items-center gap-4">
                     <div className="">{verse.verse_key}</div>
-                    <IoMdPlay
-                      className="cursor-pointer"
-                      onClick={() => {
-                        setCurrentVerse(verse.verse_number);
-                        setCurrentAudio(
-                          "https://audio.qurancdn.com/" + verse.audio.url
-                        );
-                        audio.audioEl.current.play();
-                        setShowControl(true);
-                        higLightText(
-                          "v" + verse.verse_number,
-                          verse.audio.segments
-                        );
-                      }}
-                    />
+                    {audioPlaying &&
+                    currentAudio ==
+                      "https://audio.qurancdn.com/" + verse.audio.url ? (
+                      <BsFillPauseFill
+                        className="cursor-pointer"
+                        onClick={() => {
+                          pauseAudio();
+                        }}
+                      />
+                    ) : (
+                      <IoMdPlay
+                        className="cursor-pointer"
+                        onClick={() => {
+                          setCurrentVerse(verse.verse_number);
+                          setCurrentAudio(
+                            "https://audio.qurancdn.com/" + verse.audio.url
+                          );
+                          audio.audioEl.current.play();
+                          setShowControl(true);
+                          setAudioPlaying(true);
+                          higLightText(
+                            "v" + verse.verse_number,
+                            verse.audio.segments
+                          );
+                        }}
+                      />
+                    )}
+
                     <IoChatbubble />
                     <BsBookHalf />
                     <BsThreeDots />
@@ -210,7 +247,14 @@ const SurahViewPage = (props: any) => {
                   <div className="flex-grow flex flex-col gap-10 justify-between">
                     <div
                       id={"v" + verse.verse_number}
-                      className="flex flex-wrap text-white font-lateef text-4xl gap-2"
+                      className={
+                        // (audioPlaying &&
+                        // currentAudio ==
+                        //   "https://audio.qurancdn.com/" + verse.audio.url
+                        //   ? "currentPlaying"
+                        //   : "") +
+                        " flex flex-wrap text-white font-lateef text-4xl gap-2"
+                      }
                       dir="rtl"
                     >
                       {verse.words.map((word: any, i: number) => (

@@ -7,11 +7,11 @@ const SurahCard = (props: any) => {
   return (
     <Link
       href={"/surah/view?chapter_id=" + chapter.id}
-      className="flex justify-between items-center p-4 border-2 border-[#E0D2B4]"
+      className="flex justify-between items-center p-4 border-2 border-[#E0D2B4] hover:border-white group"
     >
       <div className="flex justify-start items-center gap-5">
         <div className="relative">
-          <p className="font-irishGrove w-5 text-center absolute top-[1.2rem] left-[.9rem]">
+          <p className="font-irishGrove w-5 text-center absolute top-[1.2rem] left-[.9rem] group-hover:text-[#E0D2B4]">
             {chapter.id}
           </p>
           <svg
@@ -24,6 +24,7 @@ const SurahCard = (props: any) => {
             <path
               d="M24.0179 52.6523C36.8485 52.6523 47.2499 42.651 47.2499 30.3138C47.2499 17.9767 36.8485 7.97538 24.0179 7.97538C11.1872 7.97538 0.785858 17.9767 0.785858 30.3138C0.785858 42.651 11.1872 52.6523 24.0179 52.6523Z"
               fill="#D3D29E"
+              className="group-hover:fill-[#fff]"
               stroke="black"
             />
             <path
@@ -34,6 +35,7 @@ const SurahCard = (props: any) => {
             <path
               d="M38.6559 16.501C42.3452 18.1994 44.8283 17.3861 46.3997 15.3892C43.2009 14.894 40.3593 11.8389 37.5842 9.92385C31.5469 5.75856 27.9969 7.7897 24.0094 1.19819C20.0223 7.78859 16.4722 5.75745 10.435 9.92274C7.65906 11.8377 4.81861 14.8926 1.62219 15.3881C3.19383 17.385 5.67685 18.1983 9.36594 16.4999C13.4878 20.7892 14.8468 9.40841 24.0094 16.8825C33.1724 9.40966 34.5314 20.7905 38.6544 16.5011L38.6559 16.501Z"
               fill="url(#paint0_linear_629_2354)"
+              className="group-hover:fill-[#fff]"
               stroke="black"
             />
             <path
@@ -64,6 +66,7 @@ const SurahCard = (props: any) => {
               d="M38.6559 43.499C42.3452 41.8006 44.8283 42.6139 46.3997 44.6108C43.201 45.106 40.3594 48.1611 37.5842 50.0762C31.5469 54.2414 27.9969 52.2103 24.0094 58.8018C20.0223 52.2114 16.4722 54.2426 10.435 50.0773C7.65906 48.1623 4.81861 45.1074 1.62219 44.6119C3.19383 42.615 5.67685 41.8017 9.36594 43.5002C13.4878 39.2108 14.8468 50.5916 24.0094 43.1175C33.1724 50.5903 34.5314 39.2095 38.6544 43.4989L38.6559 43.499Z"
               fill="url(#paint1_linear_629_2354)"
               stroke="black"
+              className="group-hover:fill-[#fff]"
             />
             <path
               d="M24.0178 47.3723C25.4812 47.3723 26.6674 48.5129 26.6674 49.92C26.6674 51.3271 25.4812 52.4677 24.0178 52.4677C22.5545 52.4677 21.3682 51.3271 21.3682 49.92C21.3682 48.5129 22.5545 47.3723 24.0178 47.3723Z"
@@ -117,7 +120,7 @@ const SurahCard = (props: any) => {
         </div>
         <div className="">
           <h1 className="font-semibold">{chapter.name_simple}</h1>
-          <p className="text-[#C6C6C6] text-sm">
+          <p className="text-[#C6C6C6] group-hover:text-[#E0D2B4] text-sm">
             {chapter.translated_name.name}
           </p>
         </div>
