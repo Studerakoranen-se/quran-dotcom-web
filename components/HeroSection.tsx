@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const HeroSection = () => {
@@ -30,7 +31,10 @@ const HeroSection = () => {
             </svg>
             Koranen
           </button>
-          <button className="flex items-center justify-center py-1.5 shadow-lg shadow-gray-900 gap-3 bg-white rounded-lg w-32">
+          <Link
+            href={"/course"}
+            className="flex items-center justify-center py-1.5 shadow-lg shadow-gray-900 gap-3 bg-white rounded-lg w-32"
+          >
             <svg
               width="16"
               height="16"
@@ -45,7 +49,7 @@ const HeroSection = () => {
               />
             </svg>
             Kurser
-          </button>
+          </Link>
         </div>
       </div>
       <Image

@@ -3,7 +3,11 @@ import React from "react";
 const SearchSection = () => {
   return (
     <div className="flex justify-center py-10">
-      <div className=" w-[300px] h-[32px] md:w-[600px] lg:w-[733px] sm:h-[62px] bg-white flex justify-center items-center px-4 rounded-full">
+      <form
+        action="/quran/search"
+        method="get"
+        className=" w-[300px] h-[32px] md:w-[600px] lg:w-[733px] sm:h-[62px] bg-white flex justify-center items-center px-4 rounded-full"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -17,7 +21,8 @@ const SearchSection = () => {
           />
         </svg>
         <input
-          type="text"
+          type="search"
+          name="s"
           placeholder="Sök efter ord"
           className="inline-block w-[733px] h-6 focus:outline-none pl-2"
         />
@@ -35,7 +40,7 @@ const SearchSection = () => {
             d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
           />
         </svg>
-      </div>
+      </form>
     </div>
   );
 };

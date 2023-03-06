@@ -36,7 +36,6 @@ const SurahViewPage = (props: any) => {
   const [currentAudio, setCurrentAudio] = useState("");
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [showControl, setShowControl] = useState(false);
-  console.log("c", currentAudio);
 
   const handleAudioEnded = (id: any) => {
     const audios = verses.map((verse: any) => verse.audio);
