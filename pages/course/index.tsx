@@ -32,7 +32,7 @@ const CourseHomePage = () => {
           <UspSection />
           <CourseList />
           <Reasons />
-          <Testemonial />
+          {/* <Testemonial /> */}
         </div>
         <Footer />
         <CopyrightSection />
