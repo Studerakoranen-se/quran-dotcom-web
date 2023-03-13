@@ -6,6 +6,9 @@ import Footer from "../../components/Footer";
 import CopyrightSection from "../../components/CopyrightSection";
 import CourseHeroSection from "../../components/course/HeroSection";
 import UspSection from "../../components/course/UspSection";
+import CourseList from "../../components/course/CourseList";
+import Reasons from "../../components/course/Reasons";
+import Testemonial from "../../components/course/Testemonial";
 
 const CourseHomePage = () => {
   return (
@@ -26,6 +29,9 @@ const CourseHomePage = () => {
           humour, or
         </p>
         <UspSection />
+        <CourseList />
+        <Reasons />
+        <Testemonial />
         <Footer />
         <CopyrightSection />
       </main>
