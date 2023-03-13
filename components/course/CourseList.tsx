@@ -34,13 +34,13 @@ const CourseList = () => {
   ];
 
   return (
-    <div className="container px-5 text-white pt-16">
+    <div className="container text-white pt-16">
       <h1 className="font-elMessiri text-3xl text-center">our courses</h1>
       <p className="text-sm text-center text-gray-300 pt-8">
         There are many variations of passages of Lorem Ipsum available, but the
         majority have suffered alteration in some form, by injected humour, or
       </p>
-      <div className="space-y-10 py-10 xl:w-2/3 mx-auto">
+      <div className="space-y-10 py-10 mx-auto">
         {courses.map((course: any, i: number) => (
           <CourseCard key={i} course={course} />
         ))}

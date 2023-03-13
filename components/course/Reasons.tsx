@@ -35,7 +35,7 @@ const Reasons = () => {
     },
   ];
   return (
-    <div className="container px-10 text-center">
+    <div className="container text-center">
       <h1 className="text-4xl font-elMessiri text-white py-10">
         Why Learn Koran?
       </h1>

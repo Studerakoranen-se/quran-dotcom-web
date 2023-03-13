@@ -11,7 +11,7 @@ const NavBar = () => {
 
         <div className="hidden md:flex gap-8 font-semibold">
           <Link href={"/"}>HEM</Link>
-          <Link href={"#!"}>KURSER</Link>
+          <Link href={"/course"}>KURSER</Link>
           <Link href={"#!"}>ARTIKLAR</Link>
           <Link href={"#!"}>ORDKUNSKAP</Link>
           <Link href={"#!"}>FAQ</Link>

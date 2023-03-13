@@ -23,15 +23,17 @@ const CourseHomePage = () => {
         <TopBar />
         <NavBar />
         <CourseHeroSection />
-        <p className="text-white container text-center">
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or
-        </p>
-        <UspSection />
-        <CourseList />
-        <Reasons />
-        <Testemonial />
+        <div className="a max-w-5xl px-5 mx-auto">
+          <p className="text-white container text-center">
+            There are many variations of passages of Lorem Ipsum available, but
+            the majority have suffered alteration in some form, by injected
+            humour, or
+          </p>
+          <UspSection />
+          <CourseList />
+          <Reasons />
+          <Testemonial />
+        </div>
         <Footer />
         <CopyrightSection />
       </main>
