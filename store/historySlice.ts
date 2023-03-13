@@ -7,7 +7,6 @@ export const historySlice = createSlice({
   },
   reducers: {
     addToHistory: (state, action) => {
-      console.log("a", action.payload);
       if (state.recentSurahs.length == 0) {
         state.recentSurahs.push(action.payload);
       }

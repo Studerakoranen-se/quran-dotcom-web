@@ -33,7 +33,7 @@ const SurahViewSideBar = (props: any) => {
           <div className="overflow-auto h-[calc(100vh)] text-white flex flex-col gap-1 pr-2">
             {chapters.map((chapter: any, i: number) => (
               <Link
-                href={"/surah/view?chapter_id=2" + chapter.id}
+                href={"/surah/view?chapter_id=" + chapter.id}
                 key={i}
                 className={
                   (chpID == chapter.id ? "bg-black " : "") +

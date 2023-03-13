@@ -3,7 +3,6 @@ import React from "react";
 
 const RecentCard = (props: any) => {
   const { data } = props;
-  console.table(data);
 
   return (
     <Link
