@@ -21,7 +21,7 @@ const SearchPage = () => {
           router.query.s
       )
       .then((res: any) => setResult(res.data.search));
-  }, []);
+  }, [router]);
 
   return (
     <>

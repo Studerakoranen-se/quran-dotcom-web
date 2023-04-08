@@ -19,7 +19,7 @@ const CourseCard = (props: any) => {
         ></div>
         <div className="mt-5 text-right">
           <Link
-            href={"course.url"}
+            href={"/course/course"}
             className={
               "bg-[#043B3B] px-14 py-1.5 text-sm text-white font-semibold rounded-full"
             }
