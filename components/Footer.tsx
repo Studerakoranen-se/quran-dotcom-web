@@ -3,11 +3,11 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="grid grid-rows-3 md:grid-rows-1 grid-flow-col md:grid-cols-5 md:gap-5 container items-center text-white py-5 md:py-8 px-5">
+    <div className="grid grid-rows-3 md:grid-rows-1 grid-flow-col md:grid-cols-5 md:gap-5 container items-center text-white py-5 md:py-8 px-5 text-sm">
       <div className="row-span-2 md:row-span-1">
         <Image width={150} height={42} src="/assets/logo-lg.png" alt="Logo" />
       </div>
-      <div className="col-span-2 md:col-span-3 grid grid-cols-3 text-lg font-medium">
+      <div className="col-span-2 md:col-span-3 grid grid-cols-3 font-medium">
         <div className="flex flex-col gap-2 mx-auto">
           <Link href={"#!"}>Hem</Link>
           <Link href={"#!"}>Kurser</Link>
@@ -25,7 +25,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="row-span-2 md:row-span-1 md:ml-auto">
-        <h1 className="text-lg">Ta kontakt med oss</h1>
+        <h1 className="">Ta kontakt med oss</h1>
         <div className="flex items-center gap-3.5 pt-3">
           <Link href="#">
             <svg

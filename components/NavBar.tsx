@@ -1,9 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const NavBar = () => {
+const NavBar = (props: any) => {
+  const { overlay } = props;
   return (
-    <nav className=" z-50 bg-color1 text-white drop-shadow-lg px-5">
+    <nav
+      className={
+        (overlay ? "bg-opacity-10 absolute  left-0 top-0" : "") +
+        " w-full z-50 bg-color1 text-white drop-shadow-lg px-5"
+      }
+    >
       <div className="container flex items-center justify-between py-3">
         <Link href={"/"} className="">
           <Image width={80} height={42} src="/assets/logo.png" alt="" />
@@ -15,7 +21,7 @@ const NavBar = () => {
           <Link href={"#!"}>ARTIKLAR</Link>
           <Link href={"#!"}>ORDKUNSKAP</Link>
           <Link href={"#!"}>FAQ</Link>
-          <Link href={"#!"}>OM OSS</Link>
+          <Link href={"about-us"}>OM OSS</Link>
         </div>
         <button className="">
           <svg

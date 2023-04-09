@@ -26,3 +26,17 @@
 .currentPlaying {
   background-color: red;
 }
+
+.about-bg1 {
+  background: #043b3b;
+  box-shadow: inset 0px 4px 136px rgba(0, 29, 29, 0.8);
+  backdrop-filter: blur(45.5px);
+}
+.about-bg2 {
+  background: linear-gradient(
+    180.03deg,
+    #043b3b 31.97%,
+    rgba(4, 59, 59, 0.85) 61.39%,
+    #043b3b 104.17%
+  );
+}
