@@ -43,7 +43,7 @@ const Reasons = () => {
         There are many variations of passages of Lorem Ipsum available, but the
         majority have suffered alteration in some form, by injected humour, or
       </p>
-      <div className="grid lg:grid-cols-2 gap-5 py-10">
+      <div className="grid lg:grid-cols-2 gap-5 py-10 pl-10 lg:pl-0">
         {reasons.map((reason: any, i: number) => (
           <ReasonCard key={i} reason={reason} />
         ))}

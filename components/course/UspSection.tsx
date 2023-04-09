@@ -2,13 +2,13 @@ import React from "react";
 
 const UspSection = () => {
   return (
-    <div className="container flex gap-10 justify-center mt-20">
+    <div className="container grid md:grid-cols-2 justify-items-center lg:grid-cols-3 gap-16 lg:gap-10 justify-center mt-20">
       <div className="bg-[#04332A] border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
-        <div className="absolute w-full flex justify-center items-center -top-12 ">
-          <div className="border border-[#E0D2B4] rounded-full w-24 h-24 flex items-center justify-center bg-[#04332A]">
+        <div className="absolute w-full flex justify-center items-center -top-11">
+          <div className="border border-[#E0D2B4] rounded-full w-20 h-20 flex items-center justify-center bg-[#04332A]">
             <svg
-              width="64"
-              height="64"
+              width="45"
+              height="45"
               viewBox="0 0 64 64"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@ const UspSection = () => {
             </svg>
           </div>
         </div>
-        <div className="p-5 pt-14">
+        <div className="p-5 pt-12">
           <h5 className="font-semibold text-lg">LISTEN</h5>
           <p className="text-sm text-[#E0D2B4]">
             Vi har tillgång till utbildade lärare med ijaza{" "}
@@ -36,11 +36,11 @@ const UspSection = () => {
         </div>
       </div>
       <div className="bg-[#04332A] border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
-        <div className="absolute w-full flex justify-center items-center -top-12 ">
-          <div className="border border-[#E0D2B4] rounded-full w-24 h-24 flex items-center justify-center bg-[#04332A]">
+        <div className="absolute w-full flex justify-center items-center -top-11 ">
+          <div className="border border-[#E0D2B4] rounded-full w-20 h-20 flex items-center justify-center bg-[#04332A]">
             <svg
-              width="64"
-              height="64"
+              width="45"
+              height="45"
               viewBox="0 0 64 64"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -56,19 +56,19 @@ const UspSection = () => {
             </svg>
           </div>
         </div>
-        <div className="p-5 pt-14">
+        <div className="p-5 pt-12">
           <h5 className="font-semibold text-lg">READ</h5>
           <p className="text-sm text-[#E0D2B4]">
             Vi har tillgång till utbildade lärare med ijaza{" "}
           </p>
         </div>
       </div>
-      <div className="bg-[#04332A] border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
-        <div className="absolute w-full flex justify-center items-center -top-12 ">
-          <div className="border border-[#E0D2B4] rounded-full w-24 h-24 flex items-center justify-center bg-[#04332A]">
+      <div className="md:col-span-2 lg:col-span-1 bg-[#04332A] border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
+        <div className="absolute w-full flex justify-center items-center -top-11">
+          <div className="border border-[#E0D2B4] rounded-full w-20 h-20 flex items-center justify-center bg-[#04332A]">
             <svg
-              width="50"
-              height="51"
+              width="35"
+              height="35"
               viewBox="0 0 50 51"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ const UspSection = () => {
             </svg>
           </div>
         </div>
-        <div className="p-5 pt-14">
+        <div className="p-5 pt-12">
           <h5 className="font-semibold text-lg">WRITE</h5>
           <p className="text-sm text-[#E0D2B4]">
             Vi har tillgång till utbildade lärare med ijaza{" "}
