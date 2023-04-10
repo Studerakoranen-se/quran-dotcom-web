@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import CopyrightSection from "../../components/CopyrightSection";
 import YouTube from "react-youtube";
+import LessonsSidebar from "../../components/course/LessonsSidebar";
+import CourseTab from "../../components/course/CourseTab";
+import AboutSection from "../../components/course/AboutSection";
+import ResourcesTab from "../../components/course/ResourcesTab";
 
 const SingleCoursePage = () => {
+  const [tab, setTab] = useState("about");
   return (
     <>
       <Head>
@@ -15,10 +20,10 @@ const SingleCoursePage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="font-inter bg-color1 overflow-x-hidden">
+      <main className="flex flex-col min-h-screen font-inter bg-color1 overflow-x-hidden">
         <TopBar />
         <NavBar />
-        <div className="max-w-5xl px-5 mx-auto grid grid-cols-12">
+        <div className="flex-grow max-w-5xls container px-5 mx-auto grid grid-cols-12 gap-5 mt-10">
           <div className="text-white col-span-8 py-10">
             <h1 className="text-2xl font-elMessiri py-2">Qaidah Nooraniyyah</h1>
             <p className="">
@@ -26,10 +31,18 @@ const SingleCoursePage = () => {
               but the majority have suffered alteration in some form, by
               injected humour, or
             </p>
-            <YouTube videoId="XC62pWvw4b0" />
-            <div className=""></div>
+            {/* <YouTube videoId="XC62pWvw4b0" /> */}
+            <div className="mt-10">
+              <CourseTab tab={tab} setTab={setTab} />
+            </div>
+            <div className="mt-5">
+              {/* <AboutSection /> */}
+              <ResourcesTab />
+            </div>
           </div>
-          <div className=""></div>
+          <div className="col-span-4">
+            <LessonsSidebar />
+          </div>
         </div>
         <Footer />
         <CopyrightSection />
