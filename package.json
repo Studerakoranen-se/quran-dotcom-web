@@ -10,6 +10,9 @@
     "mrs": "npx knex migrate:rollback && npx knex migrate:latest && npx knex seed:run"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@mantine/core": "^5.10.5",
+    "@mantine/hooks": "^5.10.5",
     "@next/font": "13.1.1",
     "@popperjs/core": "^2.11.7",
     "@reduxjs/toolkit": "^1.9.3",
@@ -25,6 +28,7 @@
     "eslint-config-next": "13.1.1",
     "i18next": "^22.4.14",
     "knex": "^2.4.2",
+    "mantine-datatable": "^1.7.35",
     "mysql2": "^3.2.0",
     "next": "13.1.1",
     "ni18n": "^1.0.5",
@@ -49,6 +53,7 @@
     "@faker-js/faker": "^7.6.0",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.9",
+    "@types/lodash": "^4.14.192",
     "@types/node": "18.11.18",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",

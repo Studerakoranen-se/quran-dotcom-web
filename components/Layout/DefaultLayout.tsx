@@ -2,6 +2,7 @@ import { IRootState } from "@/store";
 import { toggleSidebar } from "@/store/themeConfigSlice";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import App from "./App";
 import Footer from "./Footer";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -30,7 +31,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
       setShowTopButton(false);
     }
   };
-  console.log("a", themeConfig.sidebar);
+
   useEffect(() => {
     window.addEventListener("scroll", onScrollHandler);
 
@@ -60,9 +61,9 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
   }, [router.asPath]);
 
   return (
-    <>
+    <App>
       {/* BEGIN MAIN CONTAINER */}
-      <div className="relative font-nunito text-sm font-normal antialiased">
+      <div className="relative">
         {/* screen loader  */}
         {showLoader && (
           <div className="screen_loader animate__animated fixed inset-0 z-[60] grid place-content-center bg-[#fafafa] dark:bg-[#060818]">
@@ -98,10 +99,9 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
         )}
         {/* sidebar menu overlay */}
         <div
-          className={
-            (themeConfig.sidebar ? "hidden" : "") +
-            " fixed inset-0 z-50 bg-[black]/60 lg:hidden"
-          }
+          className={`${
+            (!themeConfig.sidebar && "hidden") || ""
+          } fixed inset-0 z-50 bg-[black]/60 lg:hidden`}
           onClick={() => dispatch(toggleSidebar())}
         ></div>
         <div className="fixed bottom-6 z-50 ltr:right-6 rtl:left-6">
@@ -155,7 +155,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
           {/* END CONTENT AREA */}
         </div>
       </div>
-    </>
+    </App>
   );
 };
 

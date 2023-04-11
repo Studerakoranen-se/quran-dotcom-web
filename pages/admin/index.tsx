@@ -14,7 +14,7 @@ const ReactApexChart = dynamic(() => import("react-apexcharts"), {
 const AdminDashboard = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setPageTitle("Analytics Admin"));
+    dispatch(setPageTitle("Dashboard"));
   });
 
   const isDark =
@@ -363,9 +363,6 @@ const AdminDashboard = () => {
             <Link href="/" className="text-primary hover:underline">
               Dashboard
             </Link>
-          </li>
-          <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-            <span>Analytics</span>
           </li>
         </ul>
         <div className="pt-5">
