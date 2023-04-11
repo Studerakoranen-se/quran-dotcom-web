@@ -8,4 +8,4 @@ if (!db.paginate) {
   attachPaginate();
 }
 
-module.exports = db;
+export default db;

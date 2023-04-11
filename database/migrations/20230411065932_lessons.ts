@@ -1,13 +1,15 @@
 import { Knex } from "knex";
 
-const tableName: string = "courses";
+const tableName: string = "lessons";
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable(tableName, (table) => {
     table.increments("id").unique().primary();
+    table.bigInteger("course_id").notNullable();
     table.string("name");
-    table.string("image");
+    table.string("youtube_video");
     table.text("description");
+    table.text("content");
     table.timestamps(true, true);
   });
 }
