@@ -1,11 +1,16 @@
 import "../styles/globals.css";
+// Perfect Scrollbar
+import "react-perfect-scrollbar/dist/css/styles.css";
+import "../styles/tailwind.css";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import store from "../store";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import { appWithI18Next } from "ni18n";
+import { ni18nConfig } from "ni18n.config.ts";
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   let persistor = persistStore(store);
   return (
     <Provider store={store}>
@@ -15,3 +20,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </Provider>
   );
 }
+
+export default appWithI18Next(App, ni18nConfig);
