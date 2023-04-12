@@ -1,6 +1,7 @@
-import knex from "knex";
-const config = require("../knexfile.ts");
-var db: any = knex(config);
+const environment = process.env.ENVIRONMENT || "development";
+
+const config = require("../knexfile.ts")[environment];
+var db: any = require("knex")(config);
 
 const { attachPaginate } = require("knex-paginate");
 
@@ -8,4 +9,4 @@ if (!db.paginate) {
   attachPaginate();
 }
 
-export default db;
+export { db };
