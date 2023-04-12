@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { CourseController } from "@/controllers/CourseController";
 import formData from "@/helpers/formData";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { uploadFile } from "../../../../helpers/fileUpload";
+import { TeacherController } from "@/controllers/TeacherController";
+import { uploadFile } from "@/helpers/fileUpload";
 export const config = {
   api: {
     bodyParser: false,
@@ -19,10 +19,10 @@ export default async function handler(
     data.fields.image = fileName;
   }
 
-  const course = await CourseController.create(data.fields);
+  const teacher = await TeacherController.update(req.query.id, data.fields);
   res.status(200).send({
     success: true,
-    msg: "Course created successfully",
-    data: course,
+    msg: "Teacher updated successfully",
+    data: teacher,
   });
 }
