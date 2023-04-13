@@ -15,6 +15,7 @@ export async function seed(knex: Knex): Promise<void> {
         course_id: course.id,
         name: "Lesson " + (i + 1),
         youtube_video: "wO2DRVC-g9w",
+        duration: "10:30",
         description: faker.lorem.sentences(),
         content: faker.lorem.sentences(),
       };

@@ -2,7 +2,6 @@ import { log } from "console";
 
 const CourseTab = (props: any) => {
   const { tab, setTab } = props;
-  console.log(tab);
 
   return (
     <div className="flex items-center gap-10 border-b-2 border-[#365F5F] ">

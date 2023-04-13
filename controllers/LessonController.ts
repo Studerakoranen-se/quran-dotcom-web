@@ -17,6 +17,10 @@ class LessonController {
     return await query;
   };
 
+  static view = async (id: any) => {
+    return await db("lessons").where("id", id).first();
+  };
+
   static create = async (data: LessonInterface): Promise<any> => {
     await db("lessons").insert(data);
     return data;

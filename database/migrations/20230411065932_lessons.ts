@@ -8,6 +8,7 @@ export async function up(knex: Knex): Promise<void> {
     table.bigInteger("course_id").notNullable();
     table.string("name");
     table.string("youtube_video");
+    table.string("duration");
     table.text("description");
     table.text("content");
     table.timestamps(true, true);

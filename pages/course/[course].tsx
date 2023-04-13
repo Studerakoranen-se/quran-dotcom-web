@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
@@ -9,9 +9,33 @@ import LessonsSidebar from "../../components/course/LessonsSidebar";
 import CourseTab from "../../components/course/CourseTab";
 import AboutSection from "../../components/course/AboutSection";
 import ResourcesTab from "../../components/course/ResourcesTab";
+import { useRouter } from "next/router";
 
 const SingleCoursePage = () => {
+  const router = useRouter();
+
   const [tab, setTab] = useState("about");
+  const [lesson, setLesson] = useState<any>();
+  const [lessons, setLessons] = useState<any>([]);
+  const [course, setCourse] = useState<any>();
+  useEffect(() => {
+    fetch("/api/v1/course/details?id=" + router.query.course, {
+      method: "GET",
+      redirect: "follow",
+    })
+      .then((response) => response.json())
+      .then((result) => setCourse(result))
+      .catch((error) => console.log("error", error));
+
+    fetch("/api/v1/lesson/list?course_id=" + router.query.course, {
+      method: "GET",
+      redirect: "follow",
+    })
+      .then((response) => response.json())
+      .then((result) => setLessons(result))
+      .catch((error) => console.log("error", error));
+  }, []);
+
   return (
     <>
       <Head>
@@ -25,23 +49,27 @@ const SingleCoursePage = () => {
         <NavBar />
         <div className="flex-grow max-w-5xls container px-5 mx-auto grid grid-cols-12 gap-5 mt-10">
           <div className="text-white col-span-8 py-10">
-            <h1 className="text-2xl font-elMessiri py-2">Qaidah Nooraniyyah</h1>
-            <p className="">
-              There are many variations of passages of Lorem Ipsum available,
-              but the majority have suffered alteration in some form, by
-              injected humour, or
-            </p>
-            {/* <YouTube videoId="XC62pWvw4b0" /> */}
+            <h1 className="text-2xl font-elMessiri py-2">{course?.name}</h1>
+            <p className="">{course?.description}</p>
+            <div className="mt-5">
+              {lesson?.youtube_video && (
+                <YouTube videoId={lesson?.youtube_video} />
+              )}
+            </div>
             <div className="mt-10">
               <CourseTab tab={tab} setTab={setTab} />
             </div>
             <div className="mt-5">
-              {/* <AboutSection /> */}
-              <ResourcesTab />
+              {/* <AboutSection lesson={lesson} /> */}
+              <ResourcesTab lesson={lesson} lessonCount={lessons.length} />
             </div>
           </div>
           <div className="col-span-4">
-            <LessonsSidebar />
+            <LessonsSidebar
+              lessons={lessons}
+              lessonID={lesson?.id}
+              setLesson={setLesson}
+            />
           </div>
         </div>
         <Footer />

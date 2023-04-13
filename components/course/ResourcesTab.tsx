@@ -2,25 +2,23 @@ import { ImFilePlay } from "react-icons/im";
 import { ImFileText2 } from "react-icons/im";
 import { FaFilePdf } from "react-icons/fa";
 
-const ResourcesTab = () => {
+const ResourcesTab = (props: any) => {
+  const { lesson, lessonCount } = props;
   const files = ["file1", "file2", "file3"];
   return (
     <div className="font-light">
       <h1 className="font-medium">Course Summary</h1>
-      <div className="space-y-3 py-3">
-        <p>
-          Lorem ipsum dolor sit amet, eos cu solum soluta invi- dunt, usu ne
-          elitr intellegebat. An nec laoreet assen- tior, eam facilisi pericula
-          torquatos te. Inani interpre-caris mediocritatem nec ad. Debitis
-          periculis compre-hensam duo. Vim ex nibh lorem concludaturque.ne sed
-          animal perpetua conclusionemque
-        </p>
-      </div>
+      <div
+        className="space-y-3 py-3"
+        dangerouslySetInnerHTML={{
+          __html: lesson?.description,
+        }}
+      ></div>
       {/* Resource count  */}
       <div className="flex gap-10 my-3">
         <div className="flex items-center gap-2">
           <ImFilePlay />
-          <p>7 lessons</p>
+          <p>{lessonCount} lessons</p>
         </div>
         <div className="flex items-center gap-2">
           <ImFileText2 />

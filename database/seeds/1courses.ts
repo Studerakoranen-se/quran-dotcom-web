@@ -10,7 +10,7 @@ export async function seed(knex: Knex): Promise<void> {
   for (let i = 0; i < 5; i++) {
     const course = {
       name: "course " + i + 1,
-      image: faker.image.nature(),
+      image: "delete.png",
       description: faker.lorem.paragraphs(1),
     };
     courses.push(course);

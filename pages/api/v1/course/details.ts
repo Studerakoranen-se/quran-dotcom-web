@@ -14,8 +14,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  let courses = await CourseController.index();
+  let course = await CourseController.view(req.query.id);
 
-  courses.forEach((course: any) => (course.image = "/uploads/" + course.image));
-  res.status(200).json(courses);
+  course.image = "/uploads/" + course.image;
+  res.status(200).json(course);
 }

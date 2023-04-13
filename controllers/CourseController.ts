@@ -11,6 +11,10 @@ class CourseController {
     return await db("courses");
   };
 
+  static view = async (id: any) => {
+    return await db("courses").where("id", id).first();
+  };
+
   static create = async (data: CourseInterface): Promise<any> => {
     await db("courses").insert(data);
     return data;
