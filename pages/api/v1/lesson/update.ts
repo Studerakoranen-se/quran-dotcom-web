@@ -2,7 +2,7 @@
 
 import formData from "@/helpers/formData";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { uploadFile } from "../../../../helpers/fileUpload";
+import { uploadImage } from "../../../../helpers/fileUpload";
 import { LessonController } from "@/controllers/LessonController";
 export const config = {
   api: {

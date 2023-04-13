@@ -3,7 +3,7 @@
 import { CourseController } from "@/controllers/CourseController";
 import formData from "@/helpers/formData";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { uploadFile } from "../../../../helpers/fileUpload";
+import { uploadImage } from "../../../../helpers/fileUpload";
 export const config = {
   api: {
     bodyParser: false,
@@ -15,7 +15,7 @@ export default async function handler(
 ) {
   const data: any = await formData(req);
   if (data.files.image) {
-    const fileName = await uploadFile(data.files.image);
+    const fileName = await uploadImage(data.files.image);
     data.fields.image = fileName;
   }
 
