@@ -1,10 +1,20 @@
 import { ImFilePlay } from "react-icons/im";
 import { ImFileText2 } from "react-icons/im";
 import { FaFilePdf } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 const ResourcesTab = (props: any) => {
   const { lesson, lessonCount } = props;
-  const files = ["file1", "file2", "file3"];
+  const [files, setFiles] = useState([]);
+  useEffect(() => {
+    fetch("/api/v1/file/list?lesson_id=" + lesson.id, {
+      method: "GET",
+      redirect: "follow",
+    })
+      .then((response) => response.json())
+      .then((result) => setFiles(result))
+      .catch((error) => console.log("error", error));
+  }, [lesson]);
   return (
     <div className="font-light">
       <h1 className="font-medium">Course Summary</h1>
@@ -22,7 +32,7 @@ const ResourcesTab = (props: any) => {
         </div>
         <div className="flex items-center gap-2">
           <ImFileText2 />
-          <p>9 files</p>
+          <p>{files.length} files</p>
         </div>
       </div>
       {/* Files */}
@@ -30,15 +40,18 @@ const ResourcesTab = (props: any) => {
         <h1 className="font-medium mb-5">Download Resources</h1>
         <div className="space-y-3">
           {files.map((file: any, i: number) => (
-            <button
+            <a
               key={i}
+              href={file.file}
+              target="_blank"
+              rel="noreferrer"
               className="bg-[#365F5F] hover:bg-[#427474] transition-all px-5 py-2 rounded flex justify-between items-center w-full"
             >
-              <div className="">{i + 1 + ". " + file}</div>
+              <div className="">{i + 1 + ". " + file.name}</div>
               <div className="">
                 <FaFilePdf className="fill-red-300" />
               </div>
-            </button>
+            </a>
           ))}
         </div>
       </div>
