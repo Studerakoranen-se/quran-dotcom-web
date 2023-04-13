@@ -13,12 +13,11 @@ export async function seed(knex: Knex): Promise<void> {
     for (let i = 0; i < 5; i++) {
       const quize = {
         lesson_id: lesson.id,
-        name: "Quize " + (i + 1),
-        description: faker.lorem.sentence(),
-        q1: faker.word.noun(),
-        q2: faker.word.noun(),
-        q3: faker.word.noun(),
-        q4: faker.word.noun(),
+        question: "Quize " + (i + 1),
+        o1: faker.word.noun(),
+        o2: faker.word.noun(),
+        o3: faker.word.noun(),
+        o4: faker.word.noun(),
         answer: JSON.stringify([1, 2]),
       };
       quizes.push(quize);

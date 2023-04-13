@@ -10,6 +10,7 @@ import CourseTab from "../../components/course/CourseTab";
 import AboutSection from "../../components/course/AboutSection";
 import ResourcesTab from "../../components/course/ResourcesTab";
 import { useRouter } from "next/router";
+import QuizeTab from "@/components/course/QuizeTab";
 
 const SingleCoursePage = () => {
   const router = useRouter();
@@ -36,6 +37,23 @@ const SingleCoursePage = () => {
       .catch((error) => console.log("error", error));
   }, []);
 
+  const TabContent = () => {
+    switch (tab) {
+      case "about":
+        return <AboutSection lesson={lesson} />;
+        break;
+      case "resources":
+        return <ResourcesTab lesson={lesson} lessonCount={lessons.length} />;
+        break;
+      case "quiz":
+        return <QuizeTab lessonID={lesson?.id} />;
+        break;
+      default:
+        return <AboutSection lesson={lesson} />;
+        break;
+    }
+  };
+
   return (
     <>
       <Head>
@@ -60,8 +78,7 @@ const SingleCoursePage = () => {
               <CourseTab tab={tab} setTab={setTab} />
             </div>
             <div className="mt-5">
-              {/* <AboutSection lesson={lesson} /> */}
-              <ResourcesTab lesson={lesson} lessonCount={lessons.length} />
+              <TabContent />
             </div>
           </div>
           <div className="col-span-4">
