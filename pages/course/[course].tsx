@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import TopBar from "../../components/TopBar";
 import NavBar from "../../components/NavBar";
@@ -66,12 +66,19 @@ const SingleCoursePage = () => {
         <TopBar />
         <NavBar />
         <div className="flex-grow max-w-5xls container px-5 mx-auto grid grid-cols-12 gap-5 mt-10">
-          <div className="text-white col-span-8 py-10">
+          <div className="order-last lg:order-first text-white col-span-12 lg:col-span-8 py-10">
             <h1 className="text-2xl font-elMessiri py-2">{course?.name}</h1>
             <p className="">{course?.description}</p>
-            <div className="mt-5">
+            <div className="mt-5 w-full h-auto ">
               {lesson?.youtube_video && (
-                <YouTube videoId={lesson?.youtube_video} />
+                <YouTube
+                  opts={{
+                    height: "390",
+                    width: "100%",
+                  }}
+                  className="w-full h-auto"
+                  videoId={lesson?.youtube_video}
+                />
               )}
             </div>
             <div className="mt-10">
@@ -81,7 +88,7 @@ const SingleCoursePage = () => {
               <TabContent />
             </div>
           </div>
-          <div className="col-span-4">
+          <div className="col-span-12 lg:col-span-4">
             <LessonsSidebar
               lessons={lessons}
               lessonID={lesson?.id}

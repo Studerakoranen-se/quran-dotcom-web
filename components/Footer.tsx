@@ -9,12 +9,12 @@ const Footer = () => {
       </div>
       <div className="col-span-2 md:col-span-3 grid grid-cols-3 font-medium">
         <div className="flex flex-col gap-2 mx-auto">
-          <Link href={"#!"}>Hem</Link>
-          <Link href={"#!"}>Kurser</Link>
+          <Link href={"/"}>Hem</Link>
+          <Link href={"/course"}>Kurser</Link>
           <Link href={"#!"}>Ordkunskap</Link>
         </div>
         <div className="flex flex-col gap-2 mx-auto">
-          <Link href={"#!"}>Om oss</Link>
+          <Link href={"/about-us"}>Om oss</Link>
           <Link href={"#!"}>FAQ</Link>
           <Link href={"#!"}>Quran Radio</Link>
         </div>

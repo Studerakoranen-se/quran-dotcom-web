@@ -3,7 +3,7 @@ import React from "react";
 const UspSection = () => {
   return (
     <div className="container grid md:grid-cols-2 justify-items-center lg:grid-cols-3 gap-16 lg:gap-10 justify-center mt-20">
-      <div className="bg-[#04332A] border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
+      <div className="border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
         <div className="absolute w-full flex justify-center items-center -top-11">
           <div className="border border-[#E0D2B4] rounded-full w-20 h-20 flex items-center justify-center bg-[#04332A]">
             <svg
@@ -29,13 +29,13 @@ const UspSection = () => {
           </div>
         </div>
         <div className="p-5 pt-12">
-          <h5 className="font-semibold text-lg">LISTEN</h5>
-          <p className="text-sm text-[#E0D2B4]">
+          <h5 className="pb-2">LISTEN</h5>
+          <p className="text-sm font-light">
             Vi har tillgång till utbildade lärare med ijaza{" "}
           </p>
         </div>
       </div>
-      <div className="bg-[#04332A] border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
+      <div className="border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
         <div className="absolute w-full flex justify-center items-center -top-11 ">
           <div className="border border-[#E0D2B4] rounded-full w-20 h-20 flex items-center justify-center bg-[#04332A]">
             <svg
@@ -57,13 +57,13 @@ const UspSection = () => {
           </div>
         </div>
         <div className="p-5 pt-12">
-          <h5 className="font-semibold text-lg">READ</h5>
-          <p className="text-sm text-[#E0D2B4]">
+          <h5 className="pb-2">READ</h5>
+          <p className="text-sm font-light">
             Vi har tillgång till utbildade lärare med ijaza{" "}
           </p>
         </div>
       </div>
-      <div className="md:col-span-2 lg:col-span-1 bg-[#04332A] border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
+      <div className="md:col-span-2 lg:col-span-1 border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
         <div className="absolute w-full flex justify-center items-center -top-11">
           <div className="border border-[#E0D2B4] rounded-full w-20 h-20 flex items-center justify-center bg-[#04332A]">
             <svg
@@ -81,8 +81,8 @@ const UspSection = () => {
           </div>
         </div>
         <div className="p-5 pt-12">
-          <h5 className="font-semibold text-lg">WRITE</h5>
-          <p className="text-sm text-[#E0D2B4]">
+          <h5 className="pb-2">WRITE</h5>
+          <p className="text-sm font-light">
             Vi har tillgång till utbildade lärare med ijaza{" "}
           </p>
         </div>

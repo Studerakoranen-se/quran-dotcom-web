@@ -18,7 +18,7 @@ export async function seed(knex: Knex): Promise<void> {
         o2: faker.word.noun(),
         o3: faker.word.noun(),
         o4: faker.word.noun(),
-        answer: JSON.stringify([1, 2]),
+        answer: JSON.stringify([2]),
       };
       quizes.push(quize);
     }

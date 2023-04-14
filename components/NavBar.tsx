@@ -21,7 +21,7 @@ const NavBar = (props: any) => {
           <Link href={"#!"}>ARTIKLAR</Link>
           <Link href={"#!"}>ORDKUNSKAP</Link>
           <Link href={"#!"}>FAQ</Link>
-          <Link href={"about-us"}>OM OSS</Link>
+          <Link href={"/about-us"}>OM OSS</Link>
         </div>
         <button className="">
           <svg

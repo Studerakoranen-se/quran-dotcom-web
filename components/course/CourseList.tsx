@@ -16,8 +16,8 @@ const CourseList = () => {
 
   return (
     <div className="container text-white pt-16">
-      <h1 className="font-elMessiri text-3xl text-center">our courses</h1>
-      <p className="text-sm text-center text-gray-300 pt-8">
+      <h1 className="font-elMessiri text-4xl text-center">Our Courses</h1>
+      <p className="text-sm text-center text-gray-300 py-5 max-w-2xl mx-auto">
         There are many variations of passages of Lorem Ipsum available, but the
         majority have suffered alteration in some form, by injected humour, or
       </p>
