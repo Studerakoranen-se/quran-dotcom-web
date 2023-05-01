@@ -2,18 +2,34 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { RxCross2 } from "react-icons/rx";
+import { useRouter } from "next/router";
 
 const SurahViewSideBar = (props: any) => {
-  const { chpID, juzID } = props;
+  const { chpID, juzID, pID } = props;
   const [search, setSearch] = useState("");
   const [chapters, setChapters] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("juz");
+  const [selectedTab, setSelectedTab] = useState("");
+
+  const router = useRouter();
 
   useEffect(() => {
     axios
       .get("https://api.quran.com/api/v4/chapters?language=en")
       .then(({ data }) => setChapters(data.chapters));
-  }, []);
+
+    setSelectedTab(router.pathname.split("/")[1]);
+
+    // if (chpID) {
+    //   setSelectedTab("surah");
+    // } else if (juzID) {
+    //   setSelectedTab("juz");
+    // } else if (juzID) {
+    //   setSelectedTab("page");
+    // } else {
+    //   setSelectedTab("surah");
+    // }
+  }, [router]);
+  console.log("ok");
 
   const juzs = () => {
     let juzsEle: any = [];
@@ -32,7 +48,24 @@ const SurahViewSideBar = (props: any) => {
     }
     return juzsEle;
   };
-  console.log(juzID);
+
+  const pages = () => {
+    let pageEle: any = [];
+    for (let index = 0; index < 604; index++) {
+      pageEle.push(
+        <Link
+          href={"/page/" + (index + 1)}
+          key={index}
+          className={
+            (pID == index + 1 ? "bg-black " : "") + " rounded-lg px-2 py-1"
+          }
+        >
+          page {index + 1}
+        </Link>
+      );
+    }
+    return pageEle;
+  };
 
   return (
     <div className="bg-[#012424] px-5 py-3 w-max sticky top-0 z-10 h-[calc(100vh-9.5rem)] overflow-hidden flex flex-col">
@@ -167,6 +200,15 @@ const SurahViewSideBar = (props: any) => {
           <div className="w-44a w-full">
             <div className="overflow-y-auto text-white flex flex-col gap-1 pr-2 py-2">
               {juzs()}
+            </div>
+          </div>
+        </div>
+      )}
+      {selectedTab == "page" && (
+        <div className="flex gap-3 flex-grow h-full overflow-scroll">
+          <div className="w-44a w-full">
+            <div className="overflow-y-auto text-white flex flex-col gap-1 pr-2 py-2">
+              {pages()}
             </div>
           </div>
         </div>

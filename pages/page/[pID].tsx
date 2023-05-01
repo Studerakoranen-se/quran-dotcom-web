@@ -20,10 +20,10 @@ import { useDispatch } from "react-redux";
 import ReactAudioPlayer from "react-audio-player";
 import { addToHistory } from "../../store/historySlice";
 
-const SurahViewPage = (props: any) => {
+const PageViewPage = (props: any) => {
   const router = useRouter();
 
-  const juzID = router.query.juzID;
+  const pID = router.query.pID;
   const dispatch = useDispatch();
 
   const [chapter, setChapter] = useState<any>([]);
@@ -91,9 +91,9 @@ const SurahViewPage = (props: any) => {
   };
 
   useEffect(() => {
-    if (juzID) {
+    if (pID) {
       axios
-        .get("https://api.quran.com/api/v4/verses/by_juz/" + juzID, {
+        .get("https://api.quran.com/api/v4/verses/by_page/" + pID, {
           params: {
             audio: "1",
             translations: "131",
@@ -102,7 +102,7 @@ const SurahViewPage = (props: any) => {
             reciter: 7,
             word_translation_language: "en",
             words: true,
-            per_page: 1000,
+            per_page: 10,
             word_fields:
               "verse_key,verse_id,page_number,location,text_uthmani,text_indopak,qpc_uthmani_hafs",
           },
@@ -112,13 +112,13 @@ const SurahViewPage = (props: any) => {
         });
 
       axios
-        .get("https://api.quran.com/api/v3/chapters/" + juzID)
+        .get("https://api.quran.com/api/v3/chapters/" + pID)
         .then(({ data }) => {
           setChapterInfo(data.chapter);
           dispatch(addToHistory(data.chapter));
         });
     }
-  }, [juzID]);
+  }, [pID]);
 
   const toggleSideBar = () => {
     const s = document.getElementById("sidebar");
@@ -154,7 +154,7 @@ const SurahViewPage = (props: any) => {
               " hidden md:block absolute md:static top-0 left-0 bg-[#012424]"
             }
           >
-            <SurahViewSideBar juzID={juzID} setShowSidebar={toggleSideBar} />
+            <SurahViewSideBar pID={pID} setShowSidebar={toggleSideBar} />
           </div>
           <div className="flex-grow container px-5">
             <ReactAudioPlayer
@@ -321,4 +321,4 @@ const SurahViewPage = (props: any) => {
   );
 };
 
-export default SurahViewPage;
+export default PageViewPage;
