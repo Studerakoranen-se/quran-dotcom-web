@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const PrivateHero = () => {
   return (
@@ -10,9 +11,11 @@ const PrivateHero = () => {
           koranundervisning i Sverige. Vi erbjuder inspelade kurser,
           kursmaterial, koran-app, rådgivning och mycket mer!
         </p>
-        <button className="bg-white text-black rounded-full px-4 py-2 mt-5">
-          Request a Private Class
-        </button>
+        <Link href={"#applyform"}>
+          <div className="bg-white text-black rounded-full px-4 py-2 mt-5 w-max">
+            Request a Private Class
+          </div>
+        </Link>
       </div>
       <div className="absolute md:static top-0 left-0 opacity-20 md:opacity-100">
         <Image

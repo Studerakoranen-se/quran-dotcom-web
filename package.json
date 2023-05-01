@@ -41,6 +41,7 @@
     "react-apexcharts": "^1.4.0",
     "react-audio-player": "^0.17.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-i18next": "^12.2.0",
     "react-icons": "^4.7.1",
     "react-owl-carousel": "^2.3.3",

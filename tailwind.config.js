@@ -95,7 +95,7 @@ module.exports = {
           DEFAULT: "2rem",
         },
         screens: {
-          lg: "70rem",
+          lg: "84rem",
         },
       },
     },

@@ -1,15 +1,28 @@
 import Footer from "@/components/Footer";
 import NavBar from "@/components/NavBar";
 import TopBar from "@/components/TopBar";
+import ApplyForm from "@/components/course/ApplyForm";
 import PrivateGuideSection from "@/components/course/PrivateGuideSection";
 import PrivateHero from "@/components/course/PrivateHero";
 import TutorsSection from "@/components/course/TutorsSection";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const PrivateCoursePage = () => {
-  const [selectedTutor, setSelectedTutor] = useState();
+  const [tutors, setTutors] = useState([]);
+  const [selectedTutor, setSelectedTutor] = useState("");
+
+  useEffect(() => {
+    fetch("/api/v1/teacher/list", {
+      method: "GET",
+      redirect: "follow",
+    })
+      .then((response) => response.json())
+      .then((result) => setTutors(result))
+      .catch((error) => console.log("error", error));
+  }, []);
+
   return (
     <>
       <Head>
@@ -26,7 +39,8 @@ const PrivateCoursePage = () => {
           <Image fill src={"/assets/borderh.png"} alt="" />
         </div>
         <PrivateGuideSection />
-        <TutorsSection setSelectedTutor={setSelectedTutor} />
+        <TutorsSection tutors={tutors} setSelectedTutor={setSelectedTutor} />
+        <ApplyForm tutors={tutors} selectedTutor={selectedTutor} />
         <Footer />
       </main>
     </>
