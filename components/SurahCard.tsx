@@ -6,7 +6,7 @@ const SurahCard = (props: any) => {
 
   return (
     <Link
-      href={"/surah/view?chapter_id=" + chapter.id}
+      href={"/surah/" + chapter.id}
       className="flex justify-between items-center p-4 border-2 border-[#E0D2B4] hover:border-white group"
     >
       <div className="flex justify-start items-center gap-5">
