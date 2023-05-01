@@ -7,10 +7,10 @@ const NavBar = (props: any) => {
     <nav
       className={
         (overlay ? "bg-opacity-10 absolute  left-0 top-0" : "") +
-        " w-full z-50 bg-color1 text-white drop-shadow-lg px-5"
+        " w-full z-50 bg-color1 text-white drop-shadow-lg px-5 h-[7rem] flex items-center"
       }
     >
-      <div className="container flex items-center justify-between py-3">
+      <div className="container flex items-center justify-between">
         <Link href={"/"} className="">
           <Image width={80} height={42} src="/assets/logo.png" alt="" />
         </Link>

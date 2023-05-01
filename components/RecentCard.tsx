@@ -6,7 +6,7 @@ const RecentCard = (props: any) => {
 
   return (
     <Link
-      href={"/surah/view?chapter_id=" + data.chapter_number}
+      href={"/surah/" + data.chapter_number}
       className="flex flex-col border border-[#E0D2B4] w-44 h-52 rounded p-3 shadow-xl shadow-gray-900"
     >
       <div className="flex justify-between gap-5">

@@ -23,7 +23,7 @@ import { addToHistory } from "../../store/historySlice";
 const SurahViewPage = (props: any) => {
   const router = useRouter();
 
-  const chpID = router.query.chapterID;
+  const juzID = router.query.juzID;
   const dispatch = useDispatch();
 
   const [chapter, setChapter] = useState<any>([]);
@@ -91,23 +91,34 @@ const SurahViewPage = (props: any) => {
   };
 
   useEffect(() => {
-    if (chpID) {
+    if (juzID) {
       axios
-        .get(
-          "https://api.quran.com/api/v3/chapters/" +
-            chpID +
-            "/verses?recitation=1&translations=21&language=en&text_type=words&per_page=1000"
-        )
-        .then(({ data }) => setVerses(data.verses));
+        .get("https://api.quran.com/api/v4/verses/by_juz/" + juzID, {
+          params: {
+            audio: "1",
+            translations: "131",
+            translation_fields: "resource_name,language_id",
+            fields: "text_uthmani,chapter_id,hizb_number,text_imlaei_simple",
+            reciter: 7,
+            word_translation_language: "en",
+            words: true,
+            per_page: 1000,
+            word_fields:
+              "verse_key,verse_id,page_number,location,text_uthmani,text_indopak,qpc_uthmani_hafs",
+          },
+        })
+        .then(({ data }) => {
+          setVerses(data.verses);
+        });
 
       axios
-        .get("https://api.quran.com/api/v3/chapters/" + chpID)
+        .get("https://api.quran.com/api/v3/chapters/" + juzID)
         .then(({ data }) => {
           setChapterInfo(data.chapter);
           dispatch(addToHistory(data.chapter));
         });
     }
-  }, [chpID]);
+  }, [juzID]);
 
   const toggleSideBar = () => {
     const s = document.getElementById("sidebar");
@@ -122,6 +133,8 @@ const SurahViewPage = (props: any) => {
       os?.classList.remove("md:hidden");
     }
   };
+
+  console.log(verses);
 
   return (
     <>
@@ -141,7 +154,7 @@ const SurahViewPage = (props: any) => {
               " hidden md:block absolute md:static top-0 left-0 bg-[#012424]"
             }
           >
-            <SurahViewSideBar chpID={chpID} setShowSidebar={toggleSideBar} />
+            <SurahViewSideBar juzID={juzID} setShowSidebar={toggleSideBar} />
           </div>
           <div className="flex-grow container px-5">
             <ReactAudioPlayer
@@ -262,7 +275,7 @@ const SurahViewPage = (props: any) => {
                         //   "https://audio.qurancdn.com/" + verse.audio.url
                         //   ? "currentPlaying"
                         //   : "") +
-                        " flex flex-wrap text-white font-scheherazade text-3xl gap-2"
+                        " flex flex-wrap text-white font-lateef text-4xl gap-2"
                       }
                       dir="rtl"
                     >
@@ -271,7 +284,7 @@ const SurahViewPage = (props: any) => {
                           onClick={() => {
                             setCurrentVerse(0);
                             setCurrentAudio(
-                              "https://audio.qurancdn.com/" + word.audio.url
+                              "https://audio.qurancdn.com/" + word.audio_url
                             );
                             audio.audioEl.current.play();
                           }}
@@ -282,16 +295,19 @@ const SurahViewPage = (props: any) => {
                               : "" + " hover:!text-green-400 relative group"
                           }
                         >
-                          {word.text_madani}
-                          <span className="hidden group-hover:block text-white text-lg w-max absolute -top-10 right-0 bg-green-700 rounded-lg px-2 font-inter">
+                          {word.text_indopak}
+                          <span className="hidden group-hover:block text-white text-2xl w-max absolute -top-10 right-0 bg-green-700 rounded-lg px-2">
                             {word.translation.text}
                           </span>
                         </button>
                       ))}
                     </div>
-                    <p className="text-[#E0D2B4]">
-                      {verse.translations[0].text}
-                    </p>
+                    <div
+                      className="text-[#E0D2B4]"
+                      dangerouslySetInnerHTML={{
+                        __html: verse.translations[0].text,
+                      }}
+                    ></div>
                   </div>
                 </div>
               ))}

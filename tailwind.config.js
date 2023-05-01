@@ -14,6 +14,7 @@ module.exports = {
         amiri: ["Amiri", "serif"],
         lateef: ["Lateef", "serif"],
         nunito: ["Nunito", "sans-serif"],
+        scheherazade: ["Scheherazade New", "serif"],
       },
 
       colors: {
