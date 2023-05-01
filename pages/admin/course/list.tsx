@@ -554,11 +554,11 @@ const AdminCourseList = () => {
     });
   }, [search]);
 
-  useEffect(() => {
-    const data = sortBy(initialRecords, sortStatus.columnAccessor);
-    setInitialRecords(sortStatus.direction === "desc" ? data.reverse() : data);
-    setPage(1);
-  }, [sortStatus]);
+  // useEffect(() => {
+  //   const data = sortBy(initialRecords, sortStatus.columnAccessor);
+  //   setInitialRecords(sortStatus.direction === "desc" ? data.reverse() : data);
+  //   setPage(1);
+  // }, [sortStatus]);
   return (
     <DefaultLayout>
       <div className="panel">
