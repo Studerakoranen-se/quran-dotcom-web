@@ -91,6 +91,12 @@ module.exports = {
       }),
       container: {
         center: true,
+        padding: {
+          DEFAULT: "2rem",
+        },
+        screens: {
+          lg: "70rem",
+        },
       },
     },
   },

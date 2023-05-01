@@ -15,7 +15,7 @@ const NavBar = (props: any) => {
           <Image width={80} height={42} src="/assets/logo.png" alt="" />
         </Link>
 
-        <div className="hidden md:flex gap-8 font-semibold">
+        <div className="hidden md:flex gap-8 text-sm">
           <Link href={"/"}>HEM</Link>
           <Link href={"/course"}>KURSER</Link>
           <Link href={"#!"}>ARTIKLAR</Link>

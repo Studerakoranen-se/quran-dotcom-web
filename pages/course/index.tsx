@@ -695,7 +695,7 @@ const CourseHomePage = () => {
               koranundervisning i Sverige. Vi erbjuder inspelade kurser,
               kursmaterial, koran-app, rådgivning och mycket mer!
             </p>
-            <Link href={""} className="">
+            <Link href={"/course/private"} className="">
               <div className="bg-white text-sm rounded-full w-max mx-auto p-8 py-3 text-black">
                 Private Classes
               </div>
