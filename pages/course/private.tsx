@@ -3,10 +3,13 @@ import NavBar from "@/components/NavBar";
 import TopBar from "@/components/TopBar";
 import PrivateGuideSection from "@/components/course/PrivateGuideSection";
 import PrivateHero from "@/components/course/PrivateHero";
+import TutorsSection from "@/components/course/TutorsSection";
 import Head from "next/head";
 import Image from "next/image";
+import { useState } from "react";
 
 const PrivateCoursePage = () => {
+  const [selectedTutor, setSelectedTutor] = useState();
   return (
     <>
       <Head>
@@ -23,6 +26,7 @@ const PrivateCoursePage = () => {
           <Image fill src={"/assets/borderh.png"} alt="" />
         </div>
         <PrivateGuideSection />
+        <TutorsSection setSelectedTutor={setSelectedTutor} />
         <Footer />
       </main>
     </>

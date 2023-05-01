@@ -13,6 +13,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("image");
     table.string("address");
     table.string("nationality");
+    table.text("description");
     table.timestamps(true, true);
   });
 }
