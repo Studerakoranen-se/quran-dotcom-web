@@ -14,7 +14,9 @@ class LessonFileController {
     if (lessonID) {
       query = query.where("lesson_id", lessonID);
     }
-    return await query;
+    return await query
+      .join("lessons as l", "lesson_files.lesson_id", "=", "l.id")
+      .select("lesson_files.*", "l.name as lesson_name");
   };
 
   static view = async (id: any) => {

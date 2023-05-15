@@ -11,12 +11,18 @@ import Link from "next/link";
 
 type RowData = {
   id: number;
+  course_id: number;
+  course_name: string;
   name: string;
+  youtube_video: string;
+  duration: string;
+  description: string;
+  content: string;
   created_at: string;
   updated_at: string;
 };
 
-const AdminCourseList = () => {
+const AdminLessonList = () => {
   const [rowData, setRowData] = useState<RowData[]>([]);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -56,20 +62,23 @@ const AdminCourseList = () => {
       return rowData.filter((item) => {
         return (
           item.id.toString().includes(search.toLowerCase()) ||
-          item.name.toLowerCase().includes(search.toLowerCase())
+          item.name.toLowerCase().includes(search.toLowerCase()) ||
+          item.course_name.toLowerCase().includes(search.toLowerCase())
         );
       });
     });
   }, [search, rowData]);
-  function getData() {
-    fetch("/api/v1/course/list", {
+
+  const getData = () => {
+    fetch("/api/v1/lesson/list", {
       method: "GET",
       redirect: "follow",
     })
       .then((response) => response.json())
       .then((result) => setRowData(result))
       .catch((error) => console.log("error", error));
-  }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -86,12 +95,12 @@ const AdminCourseList = () => {
 
   const deleteData = (id: number) => {
     const confirmation = confirm(
-      "Do you want to delete?\n\nWarning: All lessons, files and quizes of this course will also be deleted.!!!"
+      "Do you want to delete?\n\nWarning: All files and quizes of this Lesson will also be deleted.!!!"
     );
     if (confirmation) {
       var formdata = new FormData();
 
-      fetch("/api/v1/course/delete?id=" + id, {
+      fetch("/api/v1/lesson/delete?id=" + id, {
         method: "DELETE",
         body: formdata,
         redirect: "follow",
@@ -103,6 +112,7 @@ const AdminCourseList = () => {
         .catch((error) => console.log("error", error));
     }
   };
+
   return (
     <DefaultLayout>
       <div className="panel">
@@ -138,7 +148,8 @@ const AdminCourseList = () => {
                   <strong className="text-info">#{id}</strong>
                 ),
               },
-              { accessor: "name", title: "Name", sortable: true },
+              { accessor: "name", title: "Lesson", sortable: true },
+              { accessor: "course_name", title: "Course", sortable: true },
               {
                 accessor: "created_at",
                 title: "Created at",
@@ -189,4 +200,4 @@ const AdminCourseList = () => {
   );
 };
 
-export default AdminCourseList;
+export default AdminLessonList;

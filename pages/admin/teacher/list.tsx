@@ -11,16 +11,24 @@ import Link from "next/link";
 
 type RowData = {
   id: number;
-  name: string;
+  fullname: string;
+  sex: string;
+  age: number;
+  mail: string;
+  phone: string;
+  image: string;
+  address: string;
+  nationality: string;
+  description: string;
   created_at: string;
   updated_at: string;
 };
 
-const AdminCourseList = () => {
+const AdminTeacherList = () => {
   const [rowData, setRowData] = useState<RowData[]>([]);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setPageTitle("Course List"));
+    dispatch(setPageTitle("Teacher List"));
   });
   const isRtl =
     useSelector((state: IRootState) => state.themeConfig.rtlClass) === "rtl"
@@ -56,20 +64,25 @@ const AdminCourseList = () => {
       return rowData.filter((item) => {
         return (
           item.id.toString().includes(search.toLowerCase()) ||
-          item.name.toLowerCase().includes(search.toLowerCase())
+          item.fullname.toLowerCase().includes(search.toLowerCase()) ||
+          item.sex.toLowerCase().includes(search.toLowerCase()) ||
+          item.mail.toLowerCase().includes(search.toLowerCase()) ||
+          item.phone.toLowerCase().includes(search.toLowerCase())
         );
       });
     });
   }, [search, rowData]);
-  function getData() {
-    fetch("/api/v1/course/list", {
+
+  const getData = () => {
+    fetch("/api/v1/teacher/list", {
       method: "GET",
       redirect: "follow",
     })
       .then((response) => response.json())
       .then((result) => setRowData(result))
       .catch((error) => console.log("error", error));
-  }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -85,13 +98,11 @@ const AdminCourseList = () => {
   }, [sortStatus]);
 
   const deleteData = (id: number) => {
-    const confirmation = confirm(
-      "Do you want to delete?\n\nWarning: All lessons, files and quizes of this course will also be deleted.!!!"
-    );
+    const confirmation = confirm("Do you want to delete?");
     if (confirmation) {
       var formdata = new FormData();
 
-      fetch("/api/v1/course/delete?id=" + id, {
+      fetch("/api/v1/teacher/delete?id=" + id, {
         method: "DELETE",
         body: formdata,
         redirect: "follow",
@@ -103,12 +114,13 @@ const AdminCourseList = () => {
         .catch((error) => console.log("error", error));
     }
   };
+
   return (
     <DefaultLayout>
       <div className="panel">
         <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
           <h5 className="text-lg font-semibold dark:text-white-light">
-            Courses
+            Teachers
           </h5>
           <div className="ltr:ml-auto rtl:mr-auto">
             <input
@@ -138,21 +150,41 @@ const AdminCourseList = () => {
                   <strong className="text-info">#{id}</strong>
                 ),
               },
-              { accessor: "name", title: "Name", sortable: true },
+              { accessor: "fullname", title: "Name", sortable: true },
               {
-                accessor: "created_at",
-                title: "Created at",
+                accessor: "age",
+                title: "Age",
                 sortable: true,
-                render: ({ created_at }) => (
-                  <p>{moment(created_at).format("DD MMM, YYYY")}</p>
+                render: ({ age }) => <p>{age + "y"}</p>,
+              },
+              {
+                accessor: "sex",
+                title: "Gender",
+                sortable: true,
+                render: ({ sex }) => (
+                  <p
+                    className={
+                      (sex == "male" ? " text-blue-500 " : " text-pink-500 ") +
+                      " capitalize"
+                    }
+                  >
+                    {sex}
+                  </p>
                 ),
               },
               {
-                accessor: "updated_at",
-                title: "Updated at",
+                accessor: "mail, phone",
+                title: "Contact",
                 sortable: true,
-                render: ({ updated_at }) => (
-                  <p>{moment(updated_at).format("DD MMM, YYYY")}</p>
+                render: ({ mail, phone }) => (
+                  <div className="text-xs flex flex-col gap-1">
+                    <a href={"mailto:" + mail} className="hover:underline">
+                      {mail}
+                    </a>
+                    <a href={"tel:" + phone} className="hover:underline">
+                      {phone}
+                    </a>
+                  </div>
                 ),
               },
               {
@@ -189,4 +221,4 @@ const AdminCourseList = () => {
   );
 };
 
-export default AdminCourseList;
+export default AdminTeacherList;

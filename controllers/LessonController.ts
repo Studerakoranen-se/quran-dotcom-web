@@ -14,7 +14,9 @@ class LessonController {
     if (courseID) {
       query = query.where("course_id", courseID);
     }
-    return await query;
+    return await query
+      .join("courses as c", "lessons.course_id", "=", "c.id")
+      .select("lessons.*", "c.name as course_name");
   };
 
   static view = async (id: any) => {
