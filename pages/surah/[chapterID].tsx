@@ -253,7 +253,7 @@ const SurahViewPage = (props: any) => {
                     <BsBookHalf />
                     <BsThreeDots />
                   </div>
-                  <div className="flex-grow flex flex-col gap-5 justify-end">
+                  <div className="flex-grow flex flex-col gap-5 justify-center px-10">
                     <div
                       id={"v" + verse.verse_number}
                       className={

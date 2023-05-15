@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchSection = () => {
   return (
-    <div className="flex justify-center py-10">
+    <div className="flex justify-center items-center h-44">
       <form
         action="/quran/search"
         method="get"
@@ -24,7 +24,7 @@ const SearchSection = () => {
           type="search"
           name="s"
           placeholder="Sök efter ord"
-          className="inline-block w-[733px] h-6 focus:outline-none pl-2"
+          className="inline-block w-[733px] h-8 focus:outline-none pl-5        text-[20px]"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"

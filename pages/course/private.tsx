@@ -35,7 +35,7 @@ const PrivateCoursePage = () => {
         <TopBar />
         <NavBar />
         <PrivateHero />
-        <div className="relative h-0.5 w-[30rem] mx-auto">
+        <div className="hidden md:block relative h-1 w-[80vw] mx-auto mb-10">
           <Image fill src={"/assets/borderh.png"} alt="" />
         </div>
         <PrivateGuideSection />

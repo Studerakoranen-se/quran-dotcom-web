@@ -19,7 +19,7 @@ const PrivateHero = () => {
       </div>
       <div className="absolute md:static top-0 left-0 opacity-20 md:opacity-100">
         <Image
-          width={1000}
+          width={2000}
           height={100}
           src={"/assets/private-teaching.png"}
           alt=""

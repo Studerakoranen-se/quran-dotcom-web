@@ -35,7 +35,7 @@ const SingleCoursePage = () => {
       .then((response) => response.json())
       .then((result) => setLessons(result))
       .catch((error) => console.log("error", error));
-  }, []);
+  }, [router]);
 
   const TabContent = () => {
     switch (tab) {

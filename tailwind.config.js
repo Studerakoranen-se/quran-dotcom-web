@@ -93,10 +93,10 @@ module.exports = {
       container: {
         center: true,
         padding: {
-          DEFAULT: "2rem",
+          DEFAULT: "4.375rem",
         },
         screens: {
-          lg: "84rem",
+          lg: "90.375rem",
         },
       },
     },

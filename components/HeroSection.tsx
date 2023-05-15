@@ -4,19 +4,22 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <section className="flex justify-center gap-5 container items-center py-10 bg-[url('/assets/bg-arbic.png')] bg-opacity-20 bg-center bg-no-repeat">
-      <div className="text-white text-center mx-auto">
+    <section className="flex justify-between gap-5 container items-center bg-[url('/assets/bg-arbic.png')] bg-cover bg-opacity-20 bg-center bg-no-repeat">
+      <div className="text-white">
         <h1 className="font-elMessiri font-bold text-5xl">
           Välkommen till <br /> StuderaKoranen!
         </h1>
         <p className="font-semibold text-xl">-Studera Koranen online</p>
-        <p className="w-96 text-justify font-medium py-5 text-gray-300">
+        <p className="w-96 text-justify font-medium py-6 text-gray-300">
           StuderaKoranen är en unik satsning vars syfte är att främja
           koranundervisning i Sverige. Vi erbjuder inspelade kurser,
           kursmaterial, koran-app, rådgivning och mycket mer!
         </p>
-        <div className="text-black flex justify-center gap-8 mt-5">
-          <button className="flex items-center justify-center py-1.5 shadow-lg shadow-gray-900 gap-3 bg-white rounded-lg w-32">
+        <div className="text-black flex justify-start gap-8 mt-5">
+          <Link
+            href={"/"}
+            className="flex items-center justify-center py-2 shadow-lg shadow-gray-900 gap-3 bg-white rounded-full w-32"
+          >
             <svg
               width="15"
               height="18"
@@ -30,10 +33,10 @@ const HeroSection = () => {
               />
             </svg>
             Koranen
-          </button>
+          </Link>
           <Link
             href={"/course"}
-            className="flex items-center justify-center py-1.5 shadow-lg shadow-gray-900 gap-3 bg-white rounded-lg w-32"
+            className="flex items-center justify-center py-2 shadow-lg shadow-gray-900 gap-3 bg-white rounded-full w-32"
           >
             <svg
               width="16"
@@ -53,11 +56,11 @@ const HeroSection = () => {
         </div>
       </div>
       <Image
-        width={300}
-        height={10}
+        width={435}
+        height={486}
         src="/assets/logo-lg.png"
         alt=""
-        className="absolute md:static opacity-30 md:opacity-100 inline-block px-16 py-10 md:px-0 mx-auto"
+        className="absolute md:static opacity-30 md:opacity-100 inline-block px-16 py-10 md:px-0 "
       />
     </section>
   );
