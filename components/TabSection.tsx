@@ -39,7 +39,7 @@ const TabSection = () => {
   const [selectedTab, setSelectedTab] = useState("surah");
   useEffect(() => {
     axios
-      .get("https://api.quran.com/api/v4/chapters?language=sv")
+      .get("https://api.quran.com/api/v4/chapters?language=sb")
       .then(({ data }) => setChapters(data.chapters));
     axios
       .get("https://api.quran.com/api/v4/juzs")
