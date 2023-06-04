@@ -22,7 +22,7 @@
         </linearGradient>
         <path d="M9,3.75 L10,4 L10.5,3.5 L11,4 L12,3.75 L11.596405,4.75898743 C11.543162,4.892095 11.3924713,5 11.2547607,5 L9.74523926,5 C9.60979736,5 9.46076584,4.9019146 9.40359497,4.75898743 L9,3.75 Z M10.5,3 C10.2238576,3 10,2.77614237 10,2.5 C10,2.22385763 10.2238576,2 10.5,2 C10.7761424,2 11,2.22385763 11,2.5 C11,2.77614237 10.7761424,3 10.5,3 Z" id="path-5"></path>
     </defs>
-    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
         <g id="GB-NIR">
             <rect id="FlagBackground" fill="url(#linearGradient-1)" x="0" y="0" width="21" height="15"></rect>
             <path d="M9,6 L0,6 L0,9 L9,9 L9,15 L12,15 L12,9 L21,9 L21,6 L12,6 L12,0 L9,0 L9,6 Z" id="Rectangle-2" fill="url(#linearGradient-2)"></path>

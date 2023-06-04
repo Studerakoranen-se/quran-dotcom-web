@@ -116,6 +116,14 @@ const AdminLessonList = () => {
   return (
     <DefaultLayout>
       <div className="panel">
+        <div className="flex justify-end pb-5">
+          <Link
+            href={"/admin/lesson/add"}
+            className="btn btn-outline-primary rounded-full"
+          >
+            Add lesson
+          </Link>
+        </div>
         <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
           <h5 className="text-lg font-semibold dark:text-white-light">
             Courses

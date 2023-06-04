@@ -99,7 +99,7 @@ const Footer = () => {
             r="20.6524"
             transform="rotate(180 21.6523 21.7345)"
             stroke="#E0D2B4"
-            stroke-width="2"
+            strokeWidth="2"
           />
           <path
             d="M20.5 34.0823V15.8198L12.1 24.2198L10 22.0823L22 10.0823L34 22.0823L31.9 24.2198L23.5 15.8198V34.0823H20.5Z"
