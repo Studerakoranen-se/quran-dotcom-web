@@ -17,7 +17,7 @@ const SearchPage = () => {
   useEffect(() => {
     axios
       .get(
-        "https://api.quran.com/api/v4/search?size=20&page=0&language=en&q=" +
+        "https://api.quran.com/api/v4/search?size=20&page=0&language=sv&q=" +
           router.query.s
       )
       .then((res: any) => setResult(res.data.search));

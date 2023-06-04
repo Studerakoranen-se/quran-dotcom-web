@@ -100,7 +100,7 @@ const SurahViewPage = (props: any) => {
             translation_fields: "resource_name,language_id",
             fields: "text_uthmani,chapter_id,hizb_number,text_imlaei_simple",
             reciter: 7,
-            word_translation_language: "en",
+            word_translation_language: "sv",
             words: true,
             per_page: 1000,
             word_fields:

@@ -14,7 +14,7 @@ const SurahViewSideBar = (props: any) => {
 
   useEffect(() => {
     axios
-      .get("https://api.quran.com/api/v4/chapters?language=en")
+      .get("https://api.quran.com/api/v4/chapters?language=sv")
       .then(({ data }) => setChapters(data.chapters));
 
     setSelectedTab(router.pathname.split("/")[1]);
@@ -96,7 +96,7 @@ const SurahViewSideBar = (props: any) => {
             }
             onClick={() => setSelectedTab("page")}
           >
-            Page
+            Sida
           </button>
         </div>
         <RxCross2
@@ -122,14 +122,14 @@ const SurahViewSideBar = (props: any) => {
                   key={i}
                   className={
                     (chpID == chapter.id ? "bg-black " : "") +
-                    (chapter.name_simple
+                    (chapter.translated_name.name
                       .toLowerCase()
                       .match(search.toLowerCase()) ?? "hidden") +
                     " rounded-lg px-2 py-1"
                   }
                 >
-                  {chapter.id} {chapter.name_simple}
-                </Link>
+                  {chapter.id} {chapter.name_simple} ({chapter.translated_name.name})                
+                  </Link>
               ))}
             </div>
           </div>

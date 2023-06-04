@@ -41,7 +41,7 @@ const NavBar = (props: any) => {
                 fill="black"
               />
             </svg>
-            Register Now
+            Registrera nu
             {/* <svg
               viewBox="0 0 219 81"
               fill="none"

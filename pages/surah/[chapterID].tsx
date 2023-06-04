@@ -96,7 +96,7 @@ const SurahViewPage = (props: any) => {
         .get(
           "https://api.quran.com/api/v3/chapters/" +
             chpID +
-            "/verses?recitation=1&translations=21&language=en&text_type=words&per_page=1000"
+            "/verses?recitation=1&translations=21&language=sv&text_type=words&per_page=1000"
         )
         .then(({ data }) => setVerses(data.verses));
 
