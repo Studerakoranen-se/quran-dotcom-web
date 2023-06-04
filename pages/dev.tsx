@@ -6,7 +6,7 @@ const DevPage = () => {
   const { pass } = router.query;
   useEffect(() => {
     if (pass && pass == "novatech") {
-      localStorage.setItem("devmode", "true");
+      localStorage.setItem("devmode", "truefornovatech");
       router.push("/");
     } else {
       console.log("error");

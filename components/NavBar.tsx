@@ -9,7 +9,7 @@ const NavBar = (props: any) => {
   const router = useRouter();
   useEffect(() => {
     const devmode = localStorage.getItem("devmode");
-    if (!devmode) {
+    if (!devmode || devmode !== "truefornovatech") {
       router.push("/maintenance");
     }
   }, []);
