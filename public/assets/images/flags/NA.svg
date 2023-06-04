@@ -48,25 +48,25 @@
             <stop stop-color="#D01739" offset="100%"></stop>
         </linearGradient>
     </defs>
-    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
+    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="NA">
             <rect id="FlagBackground" fill="url(#linearGradient-1)" x="0" y="0" width="21" height="15"></rect>
             <g id="Group-2" transform="translate(-3.120000, -2.300000)">
                 <g id="Rectangle-2">
-                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
-                    <use fill="url(#linearGradient-2)" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <use fill="black" fillOpacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <use fill="url(#linearGradient-2)" fillRule="evenodd" xlink:href="#path-3"></use>
                 </g>
                 <g id="Star-31">
-                    <use fill="black" fill-opacity="1" filter="url(#filter-7)" xlink:href="#path-6"></use>
-                    <use fill="url(#linearGradient-5)" fill-rule="evenodd" xlink:href="#path-6"></use>
+                    <use fill="black" fillOpacity="1" filter="url(#filter-7)" xlink:href="#path-6"></use>
+                    <use fill="url(#linearGradient-5)" fillRule="evenodd" xlink:href="#path-6"></use>
                 </g>
                 <g id="Rectangle-2">
-                    <use fill="black" fill-opacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
-                    <use fill="url(#linearGradient-8)" fill-rule="evenodd" xlink:href="#path-9"></use>
+                    <use fill="black" fillOpacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
+                    <use fill="url(#linearGradient-8)" fillRule="evenodd" xlink:href="#path-9"></use>
                 </g>
                 <g id="Rectangle-2">
-                    <use fill="black" fill-opacity="1" filter="url(#filter-12)" xlink:href="#path-11"></use>
-                    <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-11"></use>
+                    <use fill="black" fillOpacity="1" filter="url(#filter-12)" xlink:href="#path-11"></use>
+                    <use fill="url(#linearGradient-1)" fillRule="evenodd" xlink:href="#path-11"></use>
                 </g>
                 <polygon id="Rectangle-2" fill="url(#linearGradient-13)" points="2.64959632 19.6078991 27.2429911 4.24024048 24.5933948 1.77635684e-15 -1.77635684e-14 15.3676587"></polygon>
             </g>

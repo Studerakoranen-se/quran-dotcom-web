@@ -19,12 +19,12 @@
             <stop stop-color="#CC1838" offset="100%"></stop>
         </linearGradient>
     </defs>
-    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
+    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="GL">
             <rect id="FlagBackground" fill="url(#linearGradient-1)" x="0" y="0" width="21" height="15"></rect>
             <g id="Rectangle-2">
-                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
-                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <use fill="black" fillOpacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fillRule="evenodd" xlink:href="#path-2"></use>
             </g>
             <path d="M3,8 L0,8 L0,15 L21,15 L21,8 L11,8 C11,5.790861 9.209139,4 7,4 C4.790861,4 3,5.790861 3,8 Z" id="Combined-Shape" fill="url(#linearGradient-4)"></path>
             <path d="M3,8 C3,10.209139 4.790861,12 7,12 C9.209139,12 11,10.209139 11,8 L3,8 Z" id="Combined-Shape" fill="url(#linearGradient-1)"></path>

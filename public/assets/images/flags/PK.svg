@@ -18,14 +18,14 @@
             <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.06 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
         </filter>
     </defs>
-    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
+    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="PK">
             <rect id="FlagBackground" fill="url(#linearGradient-1)" x="0" y="0" width="21" height="15"></rect>
             <rect id="Mask-Copy" fill="url(#linearGradient-2)" x="0" y="-0.00182540814" width="21" height="15"></rect>
             <rect id="Rectangle-2-Copy" fill="url(#linearGradient-1)" x="0" y="-0.00182540814" width="6" height="15"></rect>
             <g id="Star-8" transform="translate(13.465392, 7.327527) rotate(-45.000000) translate(-13.465392, -7.327527) ">
-                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
-                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-3"></use>
+                <use fill="black" fillOpacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                <use fill="url(#linearGradient-1)" fillRule="evenodd" xlink:href="#path-3"></use>
             </g>
         </g>
     </g>

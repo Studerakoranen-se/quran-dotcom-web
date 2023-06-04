@@ -17,7 +17,7 @@
             <stop stop-color="#E11B2B" offset="100%"></stop>
         </linearGradient>
     </defs>
-    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
+    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="CD">
             <rect id="FlagBackground" fill="url(#linearGradient-1)" x="0" y="0" width="21" height="15"></rect>
             <g id="Group-2" transform="translate(-4.290000, -1.440000)">

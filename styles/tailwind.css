@@ -60,7 +60,7 @@
 @tailwind utilities;
 
 * {
-  shape-rendering: geometricPrecision;
+  shaperendering: geometricPrecision;
 }
 
 /* ===== Scrollbar CSS ===== */

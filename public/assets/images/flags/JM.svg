@@ -21,7 +21,7 @@
             <stop stop-color="#FED02F" offset="100%"></stop>
         </linearGradient>
     </defs>
-    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fill-rule="evenodd">
+    <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="JM">
             <rect id="FlagBackground" fill="url(#linearGradient-1)" x="0" y="0" width="21" height="15"></rect>
             <rect id="Mask-Copy" fill="url(#linearGradient-2)" x="0.000237781813" y="-0.00266538434" width="21" height="15"></rect>

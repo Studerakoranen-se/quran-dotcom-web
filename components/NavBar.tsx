@@ -1,8 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const NavBar = (props: any) => {
   const { overlay } = props;
+
+  const router = useRouter();
+  useEffect(() => {
+    const devmode = localStorage.getItem("devmode");
+    if (!devmode) {
+      router.push("/maintenance");
+    }
+  }, []);
+
   return (
     <nav
       className={
