@@ -5,7 +5,7 @@ const PrivateHero = () => {
   return (
     <div className="relative container flex gap-5 items-center justify-between my-10 pt-10">
       <div className="text-white z-10">
-        <h1 className="font-elMessiri text-4xl">Private Classes</h1>
+        <h1 className="font-elMessiri text-4xl">Privata Klasser</h1>
         <p className="py-5 text-lg text-justify">
           StuderaKoranen är en unik satsning vars syfte är att främja
           koranundervisning i Sverige. Vi erbjuder inspelade kurser,
@@ -13,7 +13,7 @@ const PrivateHero = () => {
         </p>
         <Link href={"#applyform"}>
           <div className="bg-white text-black rounded-full px-4 py-2 mt-5 w-max">
-            Request a Private Class
+            Förfrågan för en privat utbildning
           </div>
         </Link>
       </div>

@@ -10,7 +10,7 @@ const TutorsSection = ({ setSelectedTutor, tutors }: Props) => {
   return (
     <div className="container text-white py-10">
       <div className="text-center">
-        <h1 className=" font-elMessiri text-3xl">Our Tutor</h1>
+        <h1 className=" font-elMessiri text-3xl">Våra handledare</h1>
         <p className="py-3">
           There are many variations of passages of Lorem Ipsum available, but
           the majority have suffered alteration in some form, by injected
@@ -43,7 +43,7 @@ const TutorsSection = ({ setSelectedTutor, tutors }: Props) => {
                 onClick={() => setSelectedTutor(tutor.mail)}
                 className="absolute bottom-0 right-0 text-sm bg-color1 px-5 rounded-full py-1 mb-1 mr-1"
               >
-                Select this tutor
+                Välj din handledare
               </button>
             </div>
           </div>

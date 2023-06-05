@@ -101,11 +101,11 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
   const genderOptions = [
     {
       value: "male",
-      label: "Male",
+      label: "Man",
     },
     {
       value: "female",
-      label: "Female",
+      label: "Kvinna",
     },
   ];
 
@@ -113,31 +113,30 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
     <div className="container" id="applyform">
       <div className="bg-white rounded-lg p-10">
         <div className="text-[#064B4B] text-center pb-5">
-          <h1 className=" text-xl font-semibold">Registration Form</h1>
-          <p>Read All Ahadith In The Book Of Revelation By Sahih Al Bukhari</p>
+          <h1 className=" text-xl font-semibold">Registration</h1>
         </div>
         {success ? (
           <div className="text-[#064B4B] text-center py-10">
             <h1 className="font-semibold text-xl pb-3">
-              Application sended successfully!
+              Ansökan har skickats!
             </h1>
-            <p>The tutor will reply you via email.</p>
+            <p>Handledaren kommer att kontakta dig via mejl.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className=" py-5">
             <div className="grid md:grid-cols-2 gap-5">
               <InputField
-                label="First Name"
+                label="Förnamn"
                 control={control}
                 name="first_name"
-                placeholder="First name"
+                placeholder="Förnamn"
                 rules={{ required: true }}
               />
               <InputField
-                label="Last name"
+                label="Efternamn"
                 control={control}
                 name="last_name"
-                placeholder="Last name"
+                placeholder="Efternamn"
                 rules={{ required: true }}
               />
               <InputField
@@ -145,27 +144,27 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                 label="Email"
                 control={control}
                 name="email"
-                placeholder="example@email.com"
+                placeholder="exempel@email.com"
                 rules={{ required: true }}
               />
               <InputField
                 type="tel"
-                label="Mobile number"
+                label="Mobilnummer"
                 control={control}
                 name="phone"
-                placeholder="Mobile number"
+                placeholder="Mobilnummer"
                 rules={{ required: true }}
               />
               <SelectField
                 control={control}
-                label="What is your level of study?"
+                label="Vad är din studynivå?"
                 name="studyLevel"
                 options={learnLevels}
                 rules={{ required: true }}
               />
               <SelectField
                 control={control}
-                label="Select instructor?"
+                label="Välj instruktör?"
                 name="tutor"
                 options={tutorOptions()}
                 rules={{ required: true }}
@@ -173,16 +172,16 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
               />
               <InputField
                 type="date"
-                label="Age?"
+                label="Ålder?"
                 control={control}
-                name="age"
+                name="Ålder"
                 rules={{ required: true }}
               />
               <div className=""></div>
               <RadioField
-                label="Gender"
+                label="Kön"
                 control={control}
-                name="gender"
+                name="Kön"
                 options={genderOptions}
               />
             </div>
@@ -190,7 +189,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
               type="submit"
               className="bg-[#043B3B] text-center py-3 px-5 text-white rounded-full mt-10"
             >
-              Submit Application
+              Skicka Ansökan
             </button>
           </form>
         )}
