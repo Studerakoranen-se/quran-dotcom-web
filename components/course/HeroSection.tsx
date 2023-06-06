@@ -8,19 +8,26 @@ const CourseHeroSection = () => {
       <div className="relative py-10 h-[30rem] container max-w-5xl px-5 grid md:grid-cols-2 justify-items-center items-center gap-5 text-sm ">
         <div className="z-10 text-white">
           <h1 className="text-4xl font-elMessiri">
-            Välkommen till <br /> StuderaKoranen!
+            Välkommen till Självstudier!
           </h1>
-          <p className="py-3">-Studera Koranen online</p>
+          <p className="py-3">-Unika kurser och material</p>
           <p className="pt-3 pb-6">
-            StuderaKoranen är en unik satsning vars syfte är att främja
-            koranundervisning i Sverige. Vi erbjuder inspelade kurser,
-            kursmaterial, koran-app, rådgivning och mycket mer!
+            Här hittar du alla våra kurser och material. StuderaKoranen producerar kurser och spelar in
+            nya lektioner löpande. Följ oss på våra sociala medier för mer info.
+          </p>
+
+          <p className="pb-7">
+            Elever som vill fördjupa sig i det arabiska språket rekommenderas att besöka
+            <a href="https://arabiskacentret.se" className="underline underline-offset-4 decoration-sky-400 
+            decoration-1 text-semibold text-[#50d71e]
+            font-semibold px-1"> 
+             Arabiska centret</a>.
           </p>
           <Link
             href={""}
             className="bg-white text-black px-5 py-2 rounded-full"
           >
-            Enroll Now
+            Anmäl dig nu
           </Link>
         </div>
         <div className="absolute opacity-20 md:opacity-100 md:relative w-full h-[18rem] md:w-[20rem]">

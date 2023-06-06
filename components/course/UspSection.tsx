@@ -29,8 +29,8 @@ const UspSection = () => {
           </div>
         </div>
         <div className="p-5 pt-12">
-          <h5 className="pb-2">LISTEN</h5>
-          <p className="text-sm font-light">
+          <h5 className="pb-2">LYSSNA</h5>
+          <p className="text-sm font-light px-[28px] w-[280px]">
             Vi har tillgång till utbildade lärare med ijaza{" "}
           </p>
         </div>
@@ -57,8 +57,8 @@ const UspSection = () => {
           </div>
         </div>
         <div className="p-5 pt-12">
-          <h5 className="pb-2">READ</h5>
-          <p className="text-sm font-light">
+          <h5 className="pb-2">LÄS</h5>
+          <p className="text-sm font-light px-[28px] w-[280px]">
             Vi har tillgång till utbildade lärare med ijaza{" "}
           </p>
         </div>
@@ -81,8 +81,8 @@ const UspSection = () => {
           </div>
         </div>
         <div className="p-5 pt-12">
-          <h5 className="pb-2">WRITE</h5>
-          <p className="text-sm font-light">
+          <h5 className="pb-2">SKRIV</h5>
+          <p className="text-sm font-light px-[28px] w-[280px]">
             Vi har tillgång till utbildade lärare med ijaza{" "}
           </p>
         </div>
