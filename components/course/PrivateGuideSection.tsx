@@ -75,9 +75,9 @@ const PrivateGuideSection = () => {
           </div>
           <div className="relative flex flex-col md:flex-row items-center justify-center md:justify-between md:gap-5 bg-[#0A5757] rounded-full w-full md:w-[660px] h-[192px] px-12 md:px-0 md:pl-10">
             <div className="z-10 md:w-[350px] mx-auto -mt-8 md:mt-0 text-center md:text-right">
-              <h1 className="font-semibold pb-1 text-lg">Skicka in ansökan</h1>
+              <h1 className="font-semibold pb-1 text-lg">Fyll i formulerät och skicka in ansökan</h1>
               <p className="text-sm">
-              Efter att du skickat in din ansökan vidarebefordras den direkt till läraren via e-post.
+              Efter att man har skickat sin ansökan, så vidarebefordras den direkt till läraren via mejl.
               </p>
             </div>
             <div className="absolute -bottom-16 -left-10 md:static scale-50 md:scale-100 flex items-center justify-center bg-[#0A5757] rounded-full w-[168px] h-[168px] outline outline-[10px] outline-[#043B3B]">
@@ -143,8 +143,9 @@ const PrivateGuideSection = () => {
             <div className="z-10 md:w-[350px] mx-auto -mt-8 md:mt-0 text-center md:text-left">
               <h1 className="font-semibold pb-1 text-lg">Godkänande</h1>
               <p className="text-sm text-justify">
-                Målet är att behandla ansökan inom 72 timmar. Läraren läser igenom varje ansökan och ger feedback via e-post. 
-                Det finns dock ingen garanti att du kommer att erbjudas en plats.
+                Målet är att behandla ansökan inom 72 timmar. Läraren läser igenom varje ansökan och 
+                återkopplar via mejl.
+                Det finns dock ingen garanti att man blir erbjuden en plats.
               </p>
             </div>
           </div>

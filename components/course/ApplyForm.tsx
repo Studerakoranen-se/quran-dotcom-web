@@ -3,6 +3,7 @@ import InputField from "../fields/InputField";
 import SelectField from "../fields/SelectField";
 import RadioField from "../fields/RadioField";
 import { sendEmail } from "@/utils/sendMail";
+import MessageField from "../fields/MessageField";
 import { useState } from "react";
 
 type FormValues = {
@@ -14,6 +15,7 @@ type FormValues = {
   studyLevel: string;
   email: string;
   phone: string;
+  message: string;
 };
 
 type Props = {
@@ -47,17 +49,13 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
     });
 
     const subject = "Subject: Application for Tutor";
-    const txt = `Dear ${
-      tutor?.fullname
-    },\r\n\r\nI hope this email finds you well. My name is ${
-      data.first_name + " " + data.last_name
-    } and I am a student seeking a tutor to help me with my studies.\r\n\r\nAfter careful consideration and research, I came across your profile and I was impressed with your qualifications and experience in the field of teaching. I am interested in working with you as my tutor.\r\n\r\nA little about myself, I am a ${getAge(
-      data.age
-    )} years old ${data.gender} student currently pursuing ${
-      data.studyLevel
-    }. I am passionate about learning and I am seeking a tutor who can guide me in my academic journey and help me reach my full potential.\r\n\r\nI believe that your expertise and teaching style will be a perfect fit for my learning needs. I am confident that with your guidance, I will be able to achieve my academic goals.\r\n\r\nPlease let me know if you are available to take me on as a student and what your availability and rates are. I am looking forward to hearing from you soon.\r\n\r\nThank you for considering my application.\r\n\r\nSincerely,\r\n\r\n${
-      data.first_name + " " + data.last_name
-    }\r\n${data.email}\r\n${data.phone}`;
+    const txt = `Dear ${tutor?.fullname
+      },\r\n\r\nI hope this email finds you well. My name is ${data.first_name + " " + data.last_name
+      } and I am a student seeking a tutor to help me with my studies.\r\n\r\nAfter careful consideration and research, I came across your profile and I was impressed with your qualifications and experience in the field of teaching. I am interested in working with you as my tutor.\r\n\r\nA little about myself, I am a ${getAge(
+        data.age
+      )} years old ${data.gender} student currently pursuing ${data.studyLevel
+      }. I am passionate about learning and I am seeking a tutor who can guide me in my academic journey and help me reach my full potential.\r\n\r\nI believe that your expertise and teaching style will be a perfect fit for my learning needs. I am confident that with your guidance, I will be able to achieve my academic goals.\r\n\r\nPlease let me know if you are available to take me on as a student and what your availability and rates are. I am looking forward to hearing from you soon.\r\n\r\nThank you for considering my application.\r\n\r\nSincerely,\r\n\r\n${data.first_name + " " + data.last_name
+      }\r\n${data.email}\r\n${data.phone}`;
 
     var formdata = new FormData();
     formdata.append("to", data.tutor);
@@ -85,16 +83,16 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
 
   const learnLevels = [
     {
-      value: "Arabic level 1",
-      label: "Arabic level 1",
+      value: "Nybörjare",
+      label: "Nybörjare",
     },
     {
-      value: "Arabic level 2",
-      label: "Arabic level 2",
+      value: "Medel",
+      label: "Medel",
     },
     {
-      value: "Arabic level 3",
-      label: "Arabic level 3",
+      value: "Avancerad",
+      label: "Avancerad",
     },
   ];
 
@@ -124,7 +122,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
           </div>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className=" py-5">
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-3 gap-5">
               <InputField
                 label="Förnamn"
                 control={control}
@@ -141,9 +139,9 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
               />
               <InputField
                 type="email"
-                label="Email"
+                label="Mail adress"
                 control={control}
-                name="email"
+                name="Mail adress"
                 placeholder="exempel@email.com"
                 rules={{ required: true }}
               />
@@ -157,7 +155,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
               />
               <SelectField
                 control={control}
-                label="Vad är din studynivå?"
+                label="Vad är din studienivå?"
                 name="studyLevel"
                 options={learnLevels}
                 rules={{ required: true }}
@@ -184,6 +182,16 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                 name="Kön"
                 options={genderOptions}
               />
+              <div className="">
+                <MessageField
+                  type="message"
+                  label="Vad vill du studera? (Här skriver du om du har specifika önskemål om att studera en viss bok eller lära dig en viss kunskap.)"
+                  span="Kryssa i 'läraren bedömer' om du önskar att läraren gör en specifik bedömning"
+                  control={control}
+                  name="Vad vill du studera?"
+                  rules={{ required: true }}
+                />
+              </div>
             </div>
             <button
               type="submit"
