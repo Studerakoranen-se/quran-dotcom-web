@@ -2,7 +2,7 @@ import React from "react";
 
 const UspSection = () => {
   return (
-    <div className="container grid md:grid-cols-2 justify-items-center lg:grid-cols-3 gap-16 lg:gap-10 justify-center mt-20">
+    <div className="container grid md:grid-cols-2 justify-items-center lg:grid-cols-3 gap-16 lg:gap-12 justify-center mt-20">
       <div className="border border-[#E0D2B4] w-max rounded-xl relative text-white text-center">
         <div className="absolute w-full flex justify-center items-center -top-11">
           <div className="border border-[#E0D2B4] rounded-full w-20 h-20 flex items-center justify-center bg-[#04332A]">
@@ -28,9 +28,9 @@ const UspSection = () => {
             </svg>
           </div>
         </div>
-        <div className="p-5 pt-12">
-          <h5 className="pb-2">LISTEN</h5>
-          <p className="text-sm font-light">
+        <div className="pt-14">
+          <h5 className="pb-2">LYSSNA</h5>
+          <p className="text-sm font-light px-[28px] w-[280px] pb-8">
             Vi har tillgång till utbildade lärare med ijaza{" "}
           </p>
         </div>
@@ -56,9 +56,9 @@ const UspSection = () => {
             </svg>
           </div>
         </div>
-        <div className="p-5 pt-12">
-          <h5 className="pb-2">READ</h5>
-          <p className="text-sm font-light">
+        <div className="pt-14">
+          <h5 className="pb-2">LÄS</h5>
+          <p className="text-sm font-light px-[28px] w-[280px] pb-8">
             Vi har tillgång till utbildade lärare med ijaza{" "}
           </p>
         </div>
@@ -80,9 +80,9 @@ const UspSection = () => {
             </svg>
           </div>
         </div>
-        <div className="p-5 pt-12">
-          <h5 className="pb-2">WRITE</h5>
-          <p className="text-sm font-light">
+        <div className="pt-14">
+          <h5 className="pb-2">SKRIV</h5>
+          <p className="text-sm font-light px-[28px] w-[280px] pb-8">
             Vi har tillgång till utbildade lärare med ijaza{" "}
           </p>
         </div>

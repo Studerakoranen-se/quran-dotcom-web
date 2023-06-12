@@ -2,7 +2,9 @@ import { useForm } from "react-hook-form";
 import InputField from "../fields/InputField";
 import SelectField from "../fields/SelectField";
 import RadioField from "../fields/RadioField";
+import RadioAssessment from "../fields/RadioAssessment";
 import { sendEmail } from "@/utils/sendMail";
+import MessageField from "../fields/MessageField";
 import { useState } from "react";
 
 type FormValues = {
@@ -14,6 +16,7 @@ type FormValues = {
   studyLevel: string;
   email: string;
   phone: string;
+  message: string;
 };
 
 type Props = {
@@ -35,9 +38,12 @@ function getAge(dateString: string) {
 const ApplyForm = ({ tutors, selectedTutor }: Props) => {
   const [success, setSuccess] = useState(false);
 
+
   const { handleSubmit, control } = useForm<FormValues>({
     mode: "onChange",
   });
+
+
   const onSubmit = (data: FormValues) => {
     let tutor: any = null;
     tutors.forEach((t: any) => {
@@ -47,17 +53,13 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
     });
 
     const subject = "Subject: Application for Tutor";
-    const txt = `Dear ${
-      tutor?.fullname
-    },\r\n\r\nI hope this email finds you well. My name is ${
-      data.first_name + " " + data.last_name
-    } and I am a student seeking a tutor to help me with my studies.\r\n\r\nAfter careful consideration and research, I came across your profile and I was impressed with your qualifications and experience in the field of teaching. I am interested in working with you as my tutor.\r\n\r\nA little about myself, I am a ${getAge(
-      data.age
-    )} years old ${data.gender} student currently pursuing ${
-      data.studyLevel
-    }. I am passionate about learning and I am seeking a tutor who can guide me in my academic journey and help me reach my full potential.\r\n\r\nI believe that your expertise and teaching style will be a perfect fit for my learning needs. I am confident that with your guidance, I will be able to achieve my academic goals.\r\n\r\nPlease let me know if you are available to take me on as a student and what your availability and rates are. I am looking forward to hearing from you soon.\r\n\r\nThank you for considering my application.\r\n\r\nSincerely,\r\n\r\n${
-      data.first_name + " " + data.last_name
-    }\r\n${data.email}\r\n${data.phone}`;
+    const txt = `Dear ${tutor?.fullname
+      },\r\n\r\nI hope this email finds you well. My name is ${data.first_name + " " + data.last_name
+      } and I am a student seeking a tutor to help me with my studies.\r\n\r\nAfter careful consideration and research, I came across your profile and I was impressed with your qualifications and experience in the field of teaching. I am interested in working with you as my tutor.\r\n\r\nA little about myself, I am a ${getAge(
+        data.age
+      )} years old ${data.gender} student currently pursuing ${data.studyLevel
+      }. I am passionate about learning and I am seeking a tutor who can guide me in my academic journey and help me reach my full potential.\r\n\r\nI believe that your expertise and teaching style will be a perfect fit for my learning needs. I am confident that with your guidance, I will be able to achieve my academic goals.\r\n\r\nPlease let me know if you are available to take me on as a student and what your availability and rates are. I am looking forward to hearing from you soon.\r\n\r\nThank you for considering my application.\r\n\r\nSincerely,\r\n\r\n${data.first_name + " " + data.last_name
+      }\r\n${data.email}\r\n${data.phone}`;
 
     var formdata = new FormData();
     formdata.append("to", data.tutor);
@@ -85,87 +87,93 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
 
   const learnLevels = [
     {
-      value: "Arabic level 1",
-      label: "Arabic level 1",
+      value: "Nybörjare",
+      label: "Nybörjare",
     },
     {
-      value: "Arabic level 2",
-      label: "Arabic level 2",
+      value: "Medel",
+      label: "Medel",
     },
     {
-      value: "Arabic level 3",
-      label: "Arabic level 3",
+      value: "Avancerad",
+      label: "Avancerad",
     },
   ];
 
   const genderOptions = [
     {
       value: "male",
-      label: "Male",
+      label: "Man",
     },
     {
       value: "female",
-      label: "Female",
+      label: "Kvinna",
     },
   ];
+  const teacherAssessment = [
+    {
+      value: "Läraren bedömer",
+      label: "Läraren bedömer",
+    },
+  ];
+
 
   return (
     <div className="container" id="applyform">
       <div className="bg-white rounded-lg p-10">
         <div className="text-[#064B4B] text-center pb-5">
-          <h1 className=" text-xl font-semibold">Registration Form</h1>
-          <p>Read All Ahadith In The Book Of Revelation By Sahih Al Bukhari</p>
+          <h1 className=" text-xl font-semibold">Registrering</h1>
         </div>
         {success ? (
           <div className="text-[#064B4B] text-center py-10">
             <h1 className="font-semibold text-xl pb-3">
-              Application sended successfully!
+              Ansökan har skickats!
             </h1>
-            <p>The tutor will reply you via email.</p>
+            <p>Handledaren kommer att kontakta dig via mejl.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit(onSubmit)} className=" py-5">
-            <div className="grid md:grid-cols-2 gap-5">
+            <div className="grid md:grid-cols-3 gap-5">
               <InputField
-                label="First Name"
+                label="Förnamn"
                 control={control}
                 name="first_name"
-                placeholder="First name"
+                placeholder="Förnamn"
                 rules={{ required: true }}
               />
               <InputField
-                label="Last name"
+                label="Efternamn"
                 control={control}
                 name="last_name"
-                placeholder="Last name"
+                placeholder="Efternamn"
                 rules={{ required: true }}
               />
               <InputField
                 type="email"
-                label="Email"
+                label="Mail adress"
                 control={control}
-                name="email"
-                placeholder="example@email.com"
+                name="Mail adress"
+                placeholder="exempel@email.com"
                 rules={{ required: true }}
               />
               <InputField
                 type="tel"
-                label="Mobile number"
+                label="Mobilnummer"
                 control={control}
                 name="phone"
-                placeholder="Mobile number"
+                placeholder="Mobilnummer"
                 rules={{ required: true }}
               />
               <SelectField
                 control={control}
-                label="What is your level of study?"
+                label="Vad är din studienivå?"
                 name="studyLevel"
                 options={learnLevels}
                 rules={{ required: true }}
               />
               <SelectField
                 control={control}
-                label="Select instructor?"
+                label="Välj instruktör?"
                 name="tutor"
                 options={tutorOptions()}
                 rules={{ required: true }}
@@ -173,24 +181,57 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
               />
               <InputField
                 type="date"
-                label="Age?"
+                label="Ålder?"
                 control={control}
-                name="age"
+                name="Ålder"
                 rules={{ required: true }}
               />
               <div className=""></div>
               <RadioField
-                label="Gender"
+                label="Kön"
                 control={control}
-                name="gender"
+                name="Kön"
                 options={genderOptions}
               />
+              <div className="flex flex-col pt-5 gap-10">
+
+                <div className="pt-2">
+                  <MessageField
+                    type="message"
+                    label="Vad vill du studera?"
+                    p="Här skriver du om du har specifika önskemål om att studera en viss bok eller lära dig en viss kunskap."
+                    // span="Kryssa i 'Läraren bedömer' om du önskar att läraren gör en specifik bedömning"
+                    control={control}
+                    name="Vad vill du studera?"
+                    rules={{ required: true }}
+                  />
+                </div>
+         
+                <MessageField
+                  type="message"
+                  label="Vad har du för mål eller förväntningar?"
+                    p="Här beskriver du vad du vill uppnå med dessa lektioner, så att läraren
+                    kan anpassa dina behov"
+                  control={control}
+                  name="Vad har du för mål"
+                  rules={{ required: true }}
+                />
+
+                <MessageField
+                  type="message"
+                  label="Överiga önskemål"
+                  control={control}
+                  name="Överiga önskemål"
+                  rules={{ required: true }}
+                />
+              </div>
+
             </div>
             <button
               type="submit"
               className="bg-[#043B3B] text-center py-3 px-5 text-white rounded-full mt-10"
             >
-              Submit Application
+              Skicka Ansökan
             </button>
           </form>
         )}

@@ -29,7 +29,6 @@ const SurahViewSideBar = (props: any) => {
     //   setSelectedTab("surah");
     // }
   }, [router]);
-  console.log("ok");
 
   const juzs = () => {
     let juzsEle: any = [];

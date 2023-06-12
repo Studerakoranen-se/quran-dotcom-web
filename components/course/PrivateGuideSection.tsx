@@ -11,7 +11,7 @@ const PrivateGuideSection = () => {
     >
       <div className="text-white py-10 bg-[url('/assets/bg-2.png')] bg-cover bg-top bg-no-repeat bg-opacity-50">
         <h1 className=" font-elMessiri text-center text-3xl pb-10 bg-opacity-50">
-          How it Works
+          Hur det funkar
         </h1>
         <div className="flex flex-col gap-5 items-center md:w-max mx-auto relative px-2 md:px-0">
           <div className="relative flex flex-col md:flex-row items-center justify-center md:justify-between md:gap-5 bg-[#0A5757] rounded-full w-full md:w-[660px] h-[192px] px-12 md:px-0 md:pr-10">
@@ -51,11 +51,11 @@ const PrivateGuideSection = () => {
             </div>
             <div className="z-10 md:w-[350px] mx-auto text-center md:text-left">
               <h1 className="font-semibold pb-1 text-lg">
-                Choose your teacher
+                Välj din lärare
               </h1>
               <p className="text-sm text-justify">
-                Each teacher has a registered profile and description on the
-                website, so you can easily find the one that suits you best.
+                Varje lärare har en registrerad profil och beskrivning på webbplatsen, 
+                så att du enkelt kan hitta den som passar dig bäst.
               </p>
             </div>
           </div>
@@ -75,10 +75,9 @@ const PrivateGuideSection = () => {
           </div>
           <div className="relative flex flex-col md:flex-row items-center justify-center md:justify-between md:gap-5 bg-[#0A5757] rounded-full w-full md:w-[660px] h-[192px] px-12 md:px-0 md:pl-10">
             <div className="z-10 md:w-[350px] mx-auto -mt-8 md:mt-0 text-center md:text-right">
-              <h1 className="font-semibold pb-1 text-lg">Send Application</h1>
+              <h1 className="font-semibold pb-1 text-lg">Fyll i formulerät och skicka in ansökan</h1>
               <p className="text-sm">
-                After you send your application, it is forwarded directly to the
-                teacher via email.
+              Efter att man har skickat sin ansökan, så vidarebefordras den direkt till läraren via mejl.
               </p>
             </div>
             <div className="absolute -bottom-16 -left-10 md:static scale-50 md:scale-100 flex items-center justify-center bg-[#0A5757] rounded-full w-[168px] h-[168px] outline outline-[10px] outline-[#043B3B]">
@@ -142,12 +141,11 @@ const PrivateGuideSection = () => {
               </svg>
             </div>
             <div className="z-10 md:w-[350px] mx-auto -mt-8 md:mt-0 text-center md:text-left">
-              <h1 className="font-semibold pb-1 text-lg">Approval</h1>
+              <h1 className="font-semibold pb-1 text-lg">Godkänande</h1>
               <p className="text-sm text-justify">
-                The goal is to process the application within 72 hours. The
-                teacher reads through each application and gives feedback via
-                email. However, there is no guarantee that you will be offered a
-                place.
+                Målet är att behandla ansökan inom 72 timmar. Läraren läser igenom varje ansökan och 
+                återkopplar via mejl.
+                Det finns dock ingen garanti att man blir erbjuden en plats.
               </p>
             </div>
           </div>

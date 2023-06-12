@@ -689,15 +689,13 @@ const CourseHomePage = () => {
                 />
               </svg>
             </div>
-            <h1 className="text-4xl font-elMessiri">Private Class</h1>
+            <h1 className="text-4xl font-elMessiri">Privatundervisning</h1>
             <p className="text-sm font-light py-5 pb-8">
-              StuderaKoranen är en unik satsning vars syfte är att främja
-              koranundervisning i Sverige. Vi erbjuder inspelade kurser,
-              kursmaterial, koran-app, rådgivning och mycket mer!
+              Här kan du ansöka för att studera under en lärare som skräddarsyr en kurs som matchar dina behov.
             </p>
             <Link href={"/course/private"} className="">
               <div className="bg-white text-sm rounded-full w-max mx-auto p-8 py-3 text-black">
-                Private Classes
+                Gå vidare
               </div>
             </Link>
           </div>
@@ -1347,15 +1345,13 @@ const CourseHomePage = () => {
                 />
               </svg>
             </div>
-            <h1 className="text-4xl font-elMessiri">Public Class</h1>
+            <h1 className="text-4xl font-elMessiri">Självstudier</h1>
             <p className="text-sm font-light py-5 pb-8">
-              StuderaKoranen är en unik satsning vars syfte är att främja
-              koranundervisning i Sverige. Vi erbjuder inspelade kurser,
-              kursmaterial, koran-app, rådgivning och mycket mer!
+              Här kan du studera själv och välja bland våra kurser för att studera online i din egen takt.
             </p>
             <Link href={"/course/public"} className="">
               <div className="bg-white text-sm rounded-full w-max mx-auto p-8 py-3 text-black">
-                Public Classes
+              Gå vidare
               </div>
             </Link>
           </div>

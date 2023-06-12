@@ -100,8 +100,14 @@ const SurahViewPage = (props: any) => {
         )
         .then(({ data }) => setVerses(data.verses));
 
-      axios
-        .get("https://api.quran.com/api/v3/chapters/" + chpID)
+      // axios
+      //   .get("https://api.quran.com/api/v3/chapters/" + chpID)
+      //   .then(({ data }) => {
+      //     // setChapterInfo(data.chapter);
+      //   });
+
+        axios
+        .get("https://api.quran.com/api/v3/chapters/" + chpID + "?language=sv")
         .then(({ data }) => {
           setChapterInfo(data.chapter);
           dispatch(addToHistory(data.chapter));

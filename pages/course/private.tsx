@@ -1,10 +1,10 @@
 import Footer from "@/components/Footer";
 import NavBar from "@/components/NavBar";
 import TopBar from "@/components/TopBar";
-import ApplyForm from "@/components/course/ApplyForm";
-import PrivateGuideSection from "@/components/course/PrivateGuideSection";
 import PrivateHero from "@/components/course/PrivateHero";
+import PrivateGuideSection from "@/components/course/PrivateGuideSection";
 import TutorsSection from "@/components/course/TutorsSection";
+import ApplyForm from "@/components/course/ApplyForm";
 import Head from "next/head";
 import Image from "next/image";
 import { useState, useEffect } from "react";
