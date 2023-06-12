@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import InputField from "../fields/InputField";
 import SelectField from "../fields/SelectField";
 import RadioField from "../fields/RadioField";
+import RadioAssessment from "../fields/RadioAssessment";
 import { sendEmail } from "@/utils/sendMail";
 import MessageField from "../fields/MessageField";
 import { useState } from "react";
@@ -37,9 +38,12 @@ function getAge(dateString: string) {
 const ApplyForm = ({ tutors, selectedTutor }: Props) => {
   const [success, setSuccess] = useState(false);
 
+
   const { handleSubmit, control } = useForm<FormValues>({
     mode: "onChange",
   });
+
+
   const onSubmit = (data: FormValues) => {
     let tutor: any = null;
     tutors.forEach((t: any) => {
@@ -106,12 +110,19 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
       label: "Kvinna",
     },
   ];
+  const teacherAssessment = [
+    {
+      value: "Läraren bedömer",
+      label: "Läraren bedömer",
+    },
+  ];
+
 
   return (
     <div className="container" id="applyform">
       <div className="bg-white rounded-lg p-10">
         <div className="text-[#064B4B] text-center pb-5">
-          <h1 className=" text-xl font-semibold">Registration</h1>
+          <h1 className=" text-xl font-semibold">Registrering</h1>
         </div>
         {success ? (
           <div className="text-[#064B4B] text-center py-10">
@@ -182,16 +193,39 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                 name="Kön"
                 options={genderOptions}
               />
-              <div className="">
+              <div className="flex flex-col pt-5 gap-10">
+
+                <div className="pt-2">
+                  <MessageField
+                    type="message"
+                    label="Vad vill du studera?"
+                    p="Här skriver du om du har specifika önskemål om att studera en viss bok eller lära dig en viss kunskap."
+                    // span="Kryssa i 'Läraren bedömer' om du önskar att läraren gör en specifik bedömning"
+                    control={control}
+                    name="Vad vill du studera?"
+                    rules={{ required: true }}
+                  />
+                </div>
+         
                 <MessageField
                   type="message"
-                  label="Vad vill du studera? (Här skriver du om du har specifika önskemål om att studera en viss bok eller lära dig en viss kunskap.)"
-                  span="Kryssa i 'läraren bedömer' om du önskar att läraren gör en specifik bedömning"
+                  label="Vad har du för mål eller förväntningar?"
+                    p="Här beskriver du vad du vill uppnå med dessa lektioner, så att läraren
+                    kan anpassa dina behov"
                   control={control}
-                  name="Vad vill du studera?"
+                  name="Vad har du för mål"
+                  rules={{ required: true }}
+                />
+
+                <MessageField
+                  type="message"
+                  label="Överiga önskemål"
+                  control={control}
+                  name="Överiga önskemål"
                   rules={{ required: true }}
                 />
               </div>
+
             </div>
             <button
               type="submit"

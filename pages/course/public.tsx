@@ -39,7 +39,7 @@ const PublicCoursePage = () => {
           <UspSection />
           <CourseList />
           <Reasons />
-          <Testemonial />
+          {/* <Testemonial /> */}
         </div>
         <Footer />
         <CopyrightSection />
