@@ -120,7 +120,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
 
   return (
     <div className="container" id="applyform">
-      <div className="bg-white rounded-lg p-10">
+      <div className="bg-white rounded-lg p-10 border-[5px] shadow-inner border-[#E0D2B4]">
         <div className="text-[#064B4B] text-center pb-5">
           <h1 className=" text-xl font-semibold">Registrering</h1>
         </div>
@@ -219,9 +219,9 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
 
                 <MessageField
                   type="message"
-                  label="Överiga önskemål"
+                  label="Övriga önskemål"
                   control={control}
-                  name="Överiga önskemål"
+                  name="Övriga önskemål"
                   rules={{ required: true }}
                 />
               </div>

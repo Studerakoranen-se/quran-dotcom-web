@@ -121,7 +121,7 @@ const SurahViewSideBar = (props: any) => {
                   key={i}
                   className={
                     (chpID == chapter.id ? "bg-black " : "") +
-                    (chapter.translated_name.name
+                    (chapter.name_simple
                       .toLowerCase()
                       .match(search.toLowerCase()) ?? "hidden") +
                     " rounded-lg px-2 py-1"
