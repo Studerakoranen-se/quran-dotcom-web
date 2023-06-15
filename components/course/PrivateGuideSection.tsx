@@ -4,15 +4,17 @@ const PrivateGuideSection = () => {
   return (
     <div
       className=""
+      
+    >
+      <div className="text-white py-10  bg-cover bg-hero-pattern bg-top bg-no-repeat"
       style={{
         backgroundColor:
-          "linear-gradient(180deg, #043B3B 0%, rgba(4, 59, 59, 0.5) 53.47%, #043B3B 100%)",
-      }}
-    >
-      <div className="text-white py-10 bg-[url('/assets/bg-2.png')] bg-cover bg-top bg-no-repeat bg-opacity-50">
-        <h1 className=" font-elMessiri text-center text-3xl pb-10 bg-opacity-50">
+          "linear-gradient(to bottom, rgba(43, 108, 176, 0.9), rgba(43, 108, 176, 0.1)",
+      }}>
+        <h1 className=" font-elMessiri text-center text-3xl pb-10  ">
           Hur det funkar
         </h1>
+        <div className="w-full h-1/2 bg-gray-500/60"></div>
         <div className="flex flex-col gap-5 items-center md:w-max mx-auto relative px-2 md:px-0">
           <div className="relative flex flex-col md:flex-row items-center justify-center md:justify-between md:gap-5 bg-[#0A5757] rounded-full w-full md:w-[660px] h-[192px] px-12 md:px-0 md:pr-10">
             <div className="absolute -bottom-16 -right-10 md:static scale-50 md:scale-100 flex items-center justify-center bg-[#0A5757] rounded-full w-[168px] h-[168px] outline outline-[10px] outline-[#043B3B]">

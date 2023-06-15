@@ -24,7 +24,7 @@ const SearchSection = () => {
           type="search"
           name="s"
           placeholder="Sök efter ord"
-          className="inline-block w-[733px] h-8 focus:outline-none pl-5        text-[20px]"
+          className="inline-block w-[733px] h-8 focus:outline-none pl-5 text-[20px] font-inter"
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"

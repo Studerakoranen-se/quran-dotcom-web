@@ -8,6 +8,7 @@ interface RadioOption {
 interface Props extends UseControllerProps<any> {
   label: string;
   options: RadioOption[];
+  p?: string;
 }
 
 const RadioField = (props: Props) => {
@@ -15,7 +16,13 @@ const RadioField = (props: Props) => {
 
   return (
     <div className="w-full">
-      <label className="font-normal block py-3">{props.label}</label>
+      <label className="font-normal block py-3">
+        <div className="flex gap-2">
+          <p>{props.p}</p>
+          {props.label}
+
+        </div>
+      </label>
       <div className="flex gap-5 items-center ">
         {props.options.map((option, index) => (
           <label key={index} className="flex items-center font-normal">

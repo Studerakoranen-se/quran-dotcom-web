@@ -9,7 +9,7 @@ const HeroSection = () => {
         <h1 className="font-elMessiri font-bold text-5xl">
           Välkommen till <br /> StuderaKoranen!
         </h1>
-        <p className="font-semibold text-xl">-Studera Koranen online</p>
+        <p className="text-xl">-Studera Koranen online</p>
         <p className="w-96 text-justify font-medium py-6 text-gray-300">
           StuderaKoranen är en unik satsning vars syfte är att främja
           koranundervisning i Sverige. Vi erbjuder inspelade kurser,
@@ -18,7 +18,7 @@ const HeroSection = () => {
         <div className="text-black flex justify-start gap-8 mt-5">
           <Link
             href={"/"}
-            className="flex items-center justify-center py-2 shadow-lg shadow-gray-900 gap-3 bg-white rounded-full w-32"
+            className="font-sans flex items-center justify-center py-2 shadow-lg shadow-gray-900 gap-3 bg-white rounded-full w-32"
           >
             <svg
               width="15"
@@ -36,7 +36,7 @@ const HeroSection = () => {
           </Link>
           <Link
             href={"/course"}
-            className="flex items-center justify-center py-2 shadow-lg shadow-gray-900 gap-3 bg-white rounded-full w-32"
+            className="font-sans flex items-center justify-center py-2 shadow-lg shadow-gray-900 gap-3 bg-white rounded-full w-32"
           >
             <svg
               width="16"

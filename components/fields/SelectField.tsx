@@ -10,6 +10,7 @@ interface Props extends UseControllerProps<any> {
   placeholder?: string;
   options: Option[];
   selectedOption?: string;
+  p?: string;
 }
 
 const SelectField = (props: Props) => {
@@ -18,7 +19,11 @@ const SelectField = (props: Props) => {
   return (
     <div className="w-full">
       <label htmlFor="" className="font-normal">
-        {props.label}
+        <div className="flex gap-2">
+          <p>{props.p}</p>
+          {props.label}
+
+        </div>
       </label>
       <select
         defaultValue={props.selectedOption}

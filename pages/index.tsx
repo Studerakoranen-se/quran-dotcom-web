@@ -1,15 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
+import NavBar from "../components/NavBar";
 import AlQuran from "../components/AlQuran";
 import BottomPage from "../components/BottomPage";
-import CopyrightSection from "../components/CopyrightSection";
 import Footer from "../components/Footer";
 import HeroSection from "../components/HeroSection";
-import NavBar from "../components/NavBar";
-import RecentSection from "../components/RecentSection";
 import SearchSection from "../components/SearchSection";
+import RecentSection from "../components/RecentSection";
 import TabSection from "../components/TabSection";
 import TopBar from "../components/TopBar";
+import CopyrightSection from "../components/CopyrightSection";
 
 export default function Home() {
   return (

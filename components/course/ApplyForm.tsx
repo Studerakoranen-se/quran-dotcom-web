@@ -121,6 +121,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
   return (
     <div className="container" id="applyform">
       <div className="bg-white rounded-lg p-10 border-[5px] shadow-inner border-[#E0D2B4]">
+        <p className="font-semibold">* = Obligatorisk att fylla i.</p>
         <div className="text-[#064B4B] text-center pb-5">
           <h1 className=" text-xl font-semibold">Registrering</h1>
         </div>
@@ -135,6 +136,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
           <form onSubmit={handleSubmit(onSubmit)} className=" py-5">
             <div className="grid md:grid-cols-3 gap-5">
               <InputField
+                p="*"
                 label="Förnamn"
                 control={control}
                 name="first_name"
@@ -142,6 +144,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                 rules={{ required: true }}
               />
               <InputField
+                p="*"
                 label="Efternamn"
                 control={control}
                 name="last_name"
@@ -149,6 +152,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                 rules={{ required: true }}
               />
               <InputField
+                p="*"
                 type="email"
                 label="Mail adress"
                 control={control}
@@ -157,6 +161,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                 rules={{ required: true }}
               />
               <InputField
+                p="*"
                 type="tel"
                 label="Mobilnummer"
                 control={control}
@@ -166,12 +171,14 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
               />
               <SelectField
                 control={control}
+                p="*"
                 label="Vad är din studienivå?"
                 name="studyLevel"
                 options={learnLevels}
                 rules={{ required: true }}
               />
               <SelectField
+                p="*"
                 control={control}
                 label="Välj instruktör?"
                 name="tutor"
@@ -180,6 +187,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                 selectedOption={selectedTutor}
               />
               <InputField
+                p="*"
                 type="date"
                 label="Ålder?"
                 control={control}
@@ -188,29 +196,33 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
               />
               <div className=""></div>
               <RadioField
+                p="*"
                 label="Kön"
                 control={control}
                 name="Kön"
                 options={genderOptions}
+                rules={{ required: true }}
               />
               <div className="flex flex-col pt-5 gap-10">
 
                 <div className="pt-2">
                   <MessageField
+                    p="*"
                     type="message"
                     label="Vad vill du studera?"
-                    p="Här skriver du om du har specifika önskemål om att studera en viss bok eller lära dig en viss kunskap."
+                    span="Här skriver du om du har specifika önskemål om att studera en viss bok eller lära dig en viss kunskap."
                     // span="Kryssa i 'Läraren bedömer' om du önskar att läraren gör en specifik bedömning"
                     control={control}
                     name="Vad vill du studera?"
                     rules={{ required: true }}
                   />
                 </div>
-         
+
                 <MessageField
+                  p="*"
                   type="message"
                   label="Vad har du för mål eller förväntningar?"
-                    p="Här beskriver du vad du vill uppnå med dessa lektioner, så att läraren
+                  span="Här beskriver du vad du vill uppnå med dessa lektioner, så att läraren
                     kan anpassa dina behov"
                   control={control}
                   name="Vad har du för mål"
@@ -222,7 +234,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                   label="Övriga önskemål"
                   control={control}
                   name="Övriga önskemål"
-                  rules={{ required: true }}
+                  rules={{ required: false }}
                 />
               </div>
 

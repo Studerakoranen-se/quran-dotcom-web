@@ -4,6 +4,7 @@ interface Props extends UseControllerProps<any> {
   label: string;
   placeholder?: string;
   type?: string;
+  p?: string;
 }
 
 const InputField = (props: Props) => {
@@ -12,7 +13,11 @@ const InputField = (props: Props) => {
   return (
     <div className="w-full">
       <label htmlFor="" className="font-normal">
-        {props.label}
+        <div className="flex gap-2">
+          <p className="">{props.p}</p>
+          {props.label}
+        </div>
+
       </label>
       <input
         {...field}
