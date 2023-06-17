@@ -11,7 +11,7 @@ const PrivateGuideSection = () => {
         backgroundColor:
           "linear-gradient(to bottom, rgba(43, 108, 176, 0.9), rgba(43, 108, 176, 0.1)",
       }}>
-        <h1 className=" font-elMessiri text-center text-3xl pb-10  ">
+        <h1 className=" font-elMessiri text-center text-[48px] pb-10 font-bold">
           Hur det funkar
         </h1>
         <div className="w-full h-1/2 bg-gray-500/60"></div>
@@ -52,10 +52,10 @@ const PrivateGuideSection = () => {
               </svg>
             </div>
             <div className="z-10 md:w-[350px] mx-auto text-center md:text-left">
-              <h1 className="font-semibold pb-1 text-lg">
+              <h1 className="font-semibold pb-1 text-[22px]">
                 Välj din lärare
               </h1>
-              <p className="text-sm text-justify">
+              <p className="text-[14px] text-justify">
                 Varje lärare har en registrerad profil och beskrivning på webbplatsen, 
                 så att du enkelt kan hitta den som passar dig bäst.
               </p>
@@ -77,8 +77,8 @@ const PrivateGuideSection = () => {
           </div>
           <div className="relative flex flex-col md:flex-row items-center justify-center md:justify-between md:gap-5 bg-[#0A5757] rounded-full w-full md:w-[660px] h-[192px] px-12 md:px-0 md:pl-10">
             <div className="z-10 md:w-[350px] mx-auto -mt-8 md:mt-0 text-center md:text-right">
-              <h1 className="font-semibold pb-1 text-lg">Fyll i formulerät och skicka in ansökan</h1>
-              <p className="text-sm">
+              <h1 className="font-semibold pb-1 text-[22px] text-justify">Fyll i formulerät och skicka in ansökan</h1>
+              <p className="text-[14px]">
               Efter att man har skickat sin ansökan, så vidarebefordras den direkt till läraren via mejl.
               </p>
             </div>
@@ -143,8 +143,8 @@ const PrivateGuideSection = () => {
               </svg>
             </div>
             <div className="z-10 md:w-[350px] mx-auto -mt-8 md:mt-0 text-center md:text-left">
-              <h1 className="font-semibold pb-1 text-lg">Godkänande</h1>
-              <p className="text-sm text-justify">
+              <h1 className="font-semibold pb-1 text-[22px]">Godkänande</h1>
+              <p className="text-[14px] text-justify">
                 Målet är att behandla ansökan inom 72 timmar. Läraren läser igenom varje ansökan och 
                 återkopplar via mejl.
                 Det finns dock ingen garanti att man blir erbjuden en plats.

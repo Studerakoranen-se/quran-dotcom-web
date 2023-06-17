@@ -10,8 +10,8 @@ const TutorsSection = ({ setSelectedTutor, tutors }: Props) => {
   return (
     <div className="container text-white py-10">
       <div className="text-center">
-        <h1 className=" font-elMessiri text-3xl">Våra handledare</h1>
-        <p className="py-3">
+        <h1 className=" font-elMessiri text-[48px] font-bold">Våra handledare</h1>
+        <p className="py-3 text-[16px]">
           There are many variations of passages of Lorem Ipsum available, but
           the majority have suffered alteration in some form, by injected
           humour, or

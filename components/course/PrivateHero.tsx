@@ -13,7 +13,7 @@ const PrivateHero = () => {
           Första lektionen är alltid gratis. Därefter meddelar varje elev sin kursledare om man vill fortsätta eller inte.
         </p>
         <Link href={"#applyform"}>
-          <div className="bg-white text-black rounded-full px-4 py-2 mt-5 w-max">
+          <div className="bg-white text-black rounded-full px-4 py-2 mt-5 w-max font-inter">
             Skicka förfrågan
           </div>
         </Link>
