@@ -9,11 +9,11 @@ const RecentCard = (props: any) => {
       href={"/surah/" + data.chapter_number}
       className="flex flex-col border border-[#E0D2B4] w-44 h-52 rounded p-3 shadow-xl shadow-gray-900"
     >
-      <div className="flex justify-between gap-5">
-        <p className="text-sm text-gray-200">{data.translated_name.name}</p>
+      <div className="flex justify-between gap-5 font-inter">
+        <p className="text-sm text-gray-200 font-inter">{data.translated_name.name}</p>
         <p>{data.chapter_number}</p>
       </div>
-      <h1 className="py-1">Surah {data.name_simple}</h1>
+      <h1 className="py-1 font-inter">Surah {data.name_simple}</h1>
       <div className="flex-grow"></div>
       <div className="flex flex-col justify-center items-center h-20 bg-[#022929] rounded">
         <svg

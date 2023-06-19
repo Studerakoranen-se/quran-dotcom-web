@@ -223,7 +223,7 @@ const SurahViewPage = (props: any) => {
               {verses?.map((verse: any, i: number) => (
                 <div
                   key={i}
-                  className="border-b border-green-800 pb-5 pt-2 flex justify-between gap-5"
+                  className="border-b border-green-800 pb-12 pt-12 flex justify-between gap-5"
                 >
                   <div className="w-10 text-white flex flex-col items-center gap-4">
                     <div className="">{verse.verse_key}</div>

@@ -8,7 +8,7 @@ const RecentSection = () => {
 
   return (
     <div className="container text-white py-5 px-5">
-      <h1 className="text-center text-xl">Senast visade</h1>
+      <h1 className="text-center text-xl font-inter">Senast visade</h1>
       <div className="flex flex-wrap gap-5 justify-center py-5">
         {histories.length > 0 &&
           histories.map((history: any, i: number) => (

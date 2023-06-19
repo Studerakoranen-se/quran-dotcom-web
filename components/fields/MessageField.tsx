@@ -5,6 +5,7 @@ interface Props extends UseControllerProps<any> {
   placeholder?: string;
   type?: string;
   span?: string;
+  p?:string;
 }
 
 const MessageField = (props: Props) => {
@@ -13,18 +14,22 @@ const MessageField = (props: Props) => {
   return (
     <>
       <div className="">
-        <label htmlFor="" className="font-normal">
+        <label htmlFor="" className="font-semibold">
+          <div className="flex gap-2">
+            <p>{props.p}</p>
           {props.label}
-          <span className="font-bold px-2">{props.span}</span>
-        </label>
 
-        <div className="flex justify-start align-top">
-          <input
+          </div>
+
+        </label>
+          <span className="pt-4">{props.span}</span>
+
+        <div className="flex justify-start align-top pt-2">
+          <textarea
             {...field}
-            type={props.type ?? "text"}
             placeholder={props.placeholder}
-            className="border to-color1 h-[200px]"
-          />
+            className="border to-color1 h-[200px] w-full"
+          ></textarea>
         </div>
       </div>
 
