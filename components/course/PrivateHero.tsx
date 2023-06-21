@@ -7,10 +7,13 @@ const PrivateHero = () => {
       <div className="text-white z-10">
         <h1 className="font-elMessiri text-4xl">Privatundervisning</h1>
         <p className="py-5 text-lg text-justify">
-          Här kan man skicka en ansökan om man vill studera Koranen med en utbildad kursledare på distans.
-          Kurserna äger run via Zoom, Teams eller genom en annan platform efter överenskommelse med läraren.
-          StuderaKoranen är endast medlare mellan lärare och elever. Alla specifika frågor om lektionerna, betalning m.m tas med varje enskild lärare.
-          Första lektionen är alltid gratis. Därefter meddelar varje elev sin kursledare om man vill fortsätta eller inte.
+          <ul className="list-disc">
+            <li>Här kan man ansöka om privatundervisning med en utbildad koranlärare på distans.
+              Kurserna äger rum via Zoom, Teams eller genom annan plattform efter överenskommelse med läraren.</li>
+            <li>StuderaKoranen är endast en medlare mellan lärare och elever.
+              Alla specifika frågor om lektionerna, betalning m.m tas med varje enskild lärare. </li>
+            <li>Första lektionen är alltid gratis. Därefter meddelar varje elev sin kursledare om man vill fortsätta eller inte.</li>
+          </ul>
         </p>
         <Link href={"#applyform"}>
           <div className="bg-white text-black rounded-full px-4 py-2 mt-5 w-max font-inter">

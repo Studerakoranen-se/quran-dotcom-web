@@ -154,7 +154,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
               <InputField
                 p="*"
                 type="email"
-                label="Mail adress"
+                label="Mejladress"
                 control={control}
                 name="Mail adress"
                 placeholder="exempel@email.com"

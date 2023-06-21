@@ -12,9 +12,8 @@ const TutorsSection = ({ setSelectedTutor, tutors }: Props) => {
       <div className="text-center">
         <h1 className=" font-elMessiri text-[48px] font-bold">Våra handledare</h1>
         <p className="py-3 text-[16px]">
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or
+          Här kan du läsa igenom lärarnas profiler för att kunna välja
+          det som passar ditt behov bäst.
         </p>
       </div>
       <div className="py-10 grid gap-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
