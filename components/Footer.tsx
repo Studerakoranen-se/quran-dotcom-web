@@ -1,27 +1,43 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
+  const [scrollTop, setScrollTop] = useState(false);
+
+  const handleScrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <div className="flex items-center justify-between md:gap-5 container text-white py-5 md:py-8 px-5 text-xl h-[20.913rem]">
       <div className="">
-        <Image width={180} height={42} src="/assets/logo-lg.png" alt="Logo" />
+        <Link href="/">
+          <Image width={180} height={42} src="/assets/logo-lg.png" alt="Logo" />
+        </Link>
+
       </div>
       <div className="flex justify-between font-medium w-[825px]">
         <div className="flex flex-col gap-4.5">
-          <Link href={"/"}>Hem</Link>
+
+          {/* <Link href={"#!"}>Ordkunskap</Link> */}
+        </div>
+        <div className="flex flex-col gap-4.5">
           <Link href={"/course"}>Kurser</Link>
-          <Link href={"#!"}>Ordkunskap</Link>
-        </div>
-        <div className="flex flex-col gap-4.5">
-          <Link href={"/about-us"}>Om oss</Link>
-          <Link href={"#!"}>FAQ</Link>
-          <Link href={"#!"}>Quran Radio</Link>
-        </div>
-        <div className="flex flex-col gap-4.5">
-          <Link href={"#!"}>Artiklar</Link>
           <Link href={"#!"}>Stöd oss</Link>
+
+          {/* <Link href={"#!"}>FAQ</Link>
+          <Link href={"#!"}>Quran Radio</Link> */}
+        </div>
+        <div className="flex flex-col gap-4.5">
+          <Link href={"/"}>Hem</Link>
+          <Link href={"/about-us"}>Om oss</Link>
           <Link href={"#!"}>Kontakt</Link>
+          {/* <Link href={"#!"}>Artiklar</Link> */}
+
         </div>
         <div className="flex flex-col">
           <h1 className="">Ta kontakt med oss</h1>
@@ -92,6 +108,8 @@ const Footer = () => {
           viewBox="0 0 44 44"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          onClick={handleScrollTop}
+          style={{ cursor: 'pointer' }}
         >
           <circle
             cx="21.6523"

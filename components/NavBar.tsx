@@ -34,12 +34,13 @@ const NavBar = (props: any) => {
           <div className="hidden md:flex gap-[3rem] text-sm mr-[70px] text-[18px]">
             <Link href={"/"}>HEM</Link>
             <Link href={"/course"}>KURSER</Link>
-            <Link href={"#!"}>ARTIKLAR</Link>
+            {/* <Link href={"#!"}>ARTIKLAR</Link>
             <Link href={"#!"}>ORDKUNSKAP</Link>
-            <Link href={"#!"}>FAQ</Link>
+            <Link href={"#!"}>FAQ</Link> */}
             <Link href={"/about-us"}>OM OSS</Link>
+          <Link href={"/"}>KONTAKTA OSS</Link>
           </div>
-          <button className="text-black bg-white flex items-center gap-2 px-4 rounded-full py-2 text-sm">
+          {/* <button className="text-black bg-white flex items-center gap-2 px-4 rounded-full py-2 text-sm">
             <svg
               width="18"
               height="18"
@@ -52,7 +53,7 @@ const NavBar = (props: any) => {
                 fill="black"
               />
             </svg>
-            Registrera nu
+            Registrera nu */}
             {/* <svg
               viewBox="0 0 219 81"
               fill="none"
@@ -271,7 +272,7 @@ const NavBar = (props: any) => {
                 </clipPath>
               </defs>
             </svg> */}
-          </button>
+          {/* </button> */}
         </div>
       </div>
     </nav>

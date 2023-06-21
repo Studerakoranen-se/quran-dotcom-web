@@ -295,7 +295,7 @@ const SurahViewPage = (props: any) => {
                         </button>
                       ))}
                     </div>
-                    <p className="text-[#E0D2B4]">
+                    <p className="text-white">
                       {verse.translations[0].text}
                     </p>
                   </div>

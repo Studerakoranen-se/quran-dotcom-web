@@ -16,7 +16,7 @@ const HeroSection = () => {
         </p>
         <div className="text-black flex justify-start gap-8 mt-5">
           <Link
-            href={"/"}
+            href={"/surah/1"}
             className="font-sans flex items-center justify-center py-2 shadow-lg shadow-gray-900 gap-3 bg-white rounded-full w-32"
           >
             <svg

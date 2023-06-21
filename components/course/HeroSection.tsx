@@ -23,12 +23,6 @@ const CourseHeroSection = () => {
             font-semibold px-1"> 
              Arabiska centret</a>.
           </p>
-          <Link
-            href={""}
-            className="bg-white text-black px-5 py-2 rounded-full"
-          >
-            Anmäl dig nu
-          </Link>
         </div>
         <div className="absolute opacity-20 md:opacity-100 md:relative w-full h-[18rem] md:w-[20rem]">
           <Image fill src={"/assets/quran.png"} alt="Quran" />
