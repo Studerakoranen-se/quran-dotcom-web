@@ -2,10 +2,8 @@ import Image from "next/image";
 
 const PrivateGuideSection = () => {
   return (
-    <div
-      className=""
-      
-    >
+    <div>
+      {/* The image which is hero-pattern is in tailwind.config.js */}
       <div className="text-white py-10  bg-cover bg-hero-pattern bg-top bg-no-repeat"
       style={{
         backgroundColor:
