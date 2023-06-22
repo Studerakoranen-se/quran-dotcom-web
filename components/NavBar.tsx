@@ -31,14 +31,14 @@ const NavBar = (props: any) => {
         </Link>
 
         <div className="flex items-center justify-end">
-          <div className="hidden md:flex gap-[3rem] text-sm mr-[70px] text-[18px]">
+          <div className="hidden md:flex gap-[3rem] text-sm mr-[70px] text-[18px] font-inter">
             <Link href={"/"}>HEM</Link>
             <Link href={"/course"}>KURSER</Link>
+            <Link href={"/about-us"}>OM OSS</Link>
+            <Link href={"/"}>KONTAKTA OSS</Link>
             {/* <Link href={"#!"}>ARTIKLAR</Link>
             <Link href={"#!"}>ORDKUNSKAP</Link>
             <Link href={"#!"}>FAQ</Link> */}
-            <Link href={"/about-us"}>OM OSS</Link>
-          <Link href={"/"}>KONTAKTA OSS</Link>
           </div>
           {/* <button className="text-black bg-white flex items-center gap-2 px-4 rounded-full py-2 text-sm">
             <svg
@@ -54,7 +54,7 @@ const NavBar = (props: any) => {
               />
             </svg>
             Registrera nu */}
-            {/* <svg
+          {/* <svg
               viewBox="0 0 219 81"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

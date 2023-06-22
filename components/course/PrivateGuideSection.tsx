@@ -75,7 +75,7 @@ const PrivateGuideSection = () => {
           </div>
           <div className="relative flex flex-col md:flex-row items-center justify-center md:justify-between md:gap-5 bg-[#0A5757] rounded-full w-full md:w-[660px] h-[192px] px-12 md:px-0 md:pl-10">
             <div className="z-10 md:w-[350px] mx-auto -mt-8 md:mt-0 text-center md:text-right">
-              <h1 className="font-semibold pb-1 text-[22px] text-justify w-[290px]">Fyll i formulerät och skicka in ansökan</h1>
+              <h1 className="font-semibold pb-1 text-[22px] text-justify w-[290px]">Fyll i formuläret och skicka in ansökan</h1>
               <p className="text-[14px] text-justify w-[400px] pr-5">
                 Efter en skickad ansökan, så vidarebefordras ansökan till lärarens mejl.
               </p>
@@ -141,7 +141,7 @@ const PrivateGuideSection = () => {
               </svg>
             </div>
             <div className="z-10 md:w-[350px] mx-auto -mt-8 md:mt-0 text-center md:text-left">
-              <h1 className="font-semibold pb-1 text-[22px]">Godkänande</h1>
+              <h1 className="font-semibold pb-1 text-[22px]">Godkännande</h1>
               <p className="text-[14px] text-justify">
                 Målet är att behandla ansökan inom 72 timmar. Läraren läser igenom varje ansökan och
                 återkopplar via mejl.
