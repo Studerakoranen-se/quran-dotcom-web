@@ -95,7 +95,7 @@ module.exports = {
         'hero-pattern':
           "linear-gradient(180deg, #043B3B 0%, rgba(4, 59, 59, 0.5) 53.47%, #043B3B 100%), url('/assets/bg-2.png')",
           'hero-patternFirstP':
-          "linear-gradient(180deg, #043B3B 30%, rgba(4, 59, 59, 0.2) 54.47%, #043B3B 100%), url('/assets/bg-2.png')",
+          "linear-gradient(180deg, #043B3B 30%, rgba(4, 59, 59, 0.2) 63.47%, #043B3B 95%), url('/assets/bg-2.png')",
       },
       container: {
         center: true,
