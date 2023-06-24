@@ -26,11 +26,10 @@ export default function AboutUs() {
           <div className="about-bg1 py-10">
             <div className="text-white grid md:grid-cols-2 gap-2 items-center justify-items-center container px-5 md:h-96 ">
               <div className="font-light">
-                <h1 className="text-3xl font-elMessiri pb-5">Who are we?</h1>
-                <p>StuderaKoranen is an initiative from Arabiskacentret.se</p>
+                <h1 className="text-3xl font-elMessiri pb-5">Vilka är vi?</h1>
+                <p>StuderaKoranen är ett initiativ från Arabiskacentret.se</p>
                 <p>
-                  The founder, Mustafa Abu Adam, is a student at the Islamic
-                  University of al-Madinah.
+                  Grundaren Mustafa Abu Adam är en student i Islamiska universitet i Al-Madinah.
                 </p>
               </div>
               <div className="h-full row-start-1 md:row-start-auto">
@@ -2540,19 +2539,17 @@ export default function AboutUs() {
               </div>
               <div className="font-light">
                 <h1 className="text-3xl font-elMessiri pb-5">
-                  What are our goals?
+                  Vad är vårt mål?
                 </h1>
                 <p className="pb-5">
-                  Our goal is for the website to become the best website for
-                  Quran teaching. We want all Swedish Muslims to have access to
-                  a platform that supports every student to reach their Koranic
-                  goals.
+                  Vårt mål är att hemsidan ska bli den bästa sidan för koranundervisning.
+                  Vi vill att alla svenska muslimer ska ha tillgång till en platform som stödjer varje
+                  elev att nå sina mål.
                 </p>
-                <p>Is it possible to study with you on site?</p>
+                <p>Är det möjligt att studera med dig på plats?</p>
                 <p>
-                  Not yet, but in the future we want to join in offering
-                  Svergie&#39;s mosques courses and conferences for anyone
-                  interested in learning the Koran and Arabic.
+                  Inte ännu, men i framtiden vill vi vara med och erbjuda Sverige&#39;s moskéer kurser och konferenser 
+                  för alla intresserade av att lära sig koranen och arabiskan.
                 </p>
               </div>
             </div>
@@ -2562,18 +2559,18 @@ export default function AboutUs() {
             <div className="text-white grid md:grid-cols-2 gap-2 items-center justify-items-center container px-5 md:h-96">
               <div className="font-light">
                 <h1 className="text-3xl font-elMessiri pb-5">
-                  What comes next?
+                  Vad kommer härnäst?
                 </h1>
                 <p className="pb-5">
-                  We want to develop the website and launch more functions and
-                  services.
+                Vi vill fortsätta utveckla hemsidan och lansera fler funktioner och
+                   tjänster.
                 </p>
                 <p>
-                  Likewise, we want to launch a Koran app that will function as
-                  an offline version of the website. In the app, you should be
-                  able to easily read and study the Koran in Swedish. There must
-                  also be opportunities to read Tafsir (Quran interpretation) in
-                  connection with each verse.
+                  Likaså vill vi lansera en Koran-app som kommer att fungera som
+                   en offlineversion av webbplatsen. I appen borde du
+                   kunna enkelt läsa och studera Koranen på svenska. Det måste
+                   också finnas möjligheter att läsa Tafsir (Korantolkning) i
+                   samband med varje vers.
                 </p>
               </div>
               <div className="h-full row-start-1 md:row-start-auto">

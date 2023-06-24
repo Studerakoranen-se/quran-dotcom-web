@@ -10,14 +10,13 @@ const HeroSection = () => {
           Välkommen till <br /> StuderaKoranen!
         </h1>
         <p className="text-xl">-Studera Koranen online</p>
-        <p className="w-96 text-justify font-medium py-6 text-gray-300">
-          StuderaKoranen är en unik satsning vars syfte är att främja
-          koranundervisning i Sverige. Vi erbjuder inspelade kurser,
-          kursmaterial, koran-app, rådgivning och mycket mer!
+        <p className="w-[535px] text-justify font-medium py-6 text-gray-300">
+          StuderaKoranen är en unik satsning vars syfte är att främja koranundervisning i Sverige.
+          <br />Vi erbjuder privatundervisning, kursmaterial, rådgivning, Koran-online och mycket mer!
         </p>
         <div className="text-black flex justify-start gap-8 mt-5">
           <Link
-            href={"/"}
+            href={"/surah/1"}
             className="font-sans flex items-center justify-center py-2 shadow-lg shadow-gray-900 gap-3 bg-white rounded-full w-32"
           >
             <svg
