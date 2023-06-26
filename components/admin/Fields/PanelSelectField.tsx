@@ -9,7 +9,7 @@ interface Props {
   required?: boolean;
   label?: string;
   name?: string;
-  defaultValue?: string;
+  defaultValue?: string | number;
   options: Option[];
 }
 
