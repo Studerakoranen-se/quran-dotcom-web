@@ -126,7 +126,7 @@ const AdminLessonList = () => {
         </div>
         <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
           <h5 className="text-lg font-semibold dark:text-white-light">
-            Courses
+            Lessons
           </h5>
           <div className="ltr:ml-auto rtl:mr-auto">
             <input
@@ -179,7 +179,7 @@ const AdminLessonList = () => {
                 title: "Action",
                 render: ({ id }) => (
                   <div className="flex items-center gap-3 text-lg">
-                    <Link href={""} className="">
+                    <Link href={"/admin/lesson/edit?id=" + id} className="">
                       <HiOutlinePencilAlt />
                     </Link>
                     <button onClick={() => deleteData(id)} className="">

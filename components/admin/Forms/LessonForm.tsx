@@ -1,27 +1,37 @@
-import { GetServerSideProps } from "next";
-import FileInput from "../Fields/FileInput";
 import InputField from "../Fields/InputField";
 import TextField from "../Fields/TextField";
-import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
+import PanelSelectField from "../Fields/PanelSelectField";
 
 type Props = {
-  course?: any;
+  lesson?: any;
+  courses?: any;
 };
 
-const CourseForm = ({ course }: Props) => {
+const LessonForm = ({ lesson, courses }: Props) => {
   const router = useRouter();
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    setContent(lesson?.content);
+  }, [lesson?.content]);
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     var formdata = new FormData();
+
+    formdata.append("course_id", e.target.course_id.value);
     formdata.append("name", e.target.name.value);
-    if (e.target.image.files.length > 0) {
-      formdata.append("image", e.target.image.files[0], e.target.image.value);
-    }
+    formdata.append("youtube_video", e.target.youtube_video.value);
     formdata.append("description", e.target.description.value);
-    if (course) {
-      fetch("/api/v1/course/update?id=1", {
+    formdata.append("content", content);
+    if (lesson) {
+      fetch("/api/v1/lesson/update?id=" + lesson.id, {
         method: "POST",
         body: formdata,
         redirect: "follow",
@@ -38,7 +48,7 @@ const CourseForm = ({ course }: Props) => {
         })
         .catch((error) => console.log("error", error));
     } else {
-      fetch("/api/v1/course/add", {
+      fetch("/api/v1/lesson/add", {
         method: "POST",
         body: formdata,
         redirect: "follow",
@@ -46,29 +56,46 @@ const CourseForm = ({ course }: Props) => {
         .then((response) => response.json())
         .then(({ success, msg, result }) => {
           if (success) {
-            router.push("/admin/course/list");
+            router.push("/admin/lesson/list");
           }
         })
         .catch((error) => console.log("error", error));
     }
   };
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+      <PanelSelectField
+        label="Course"
+        name="course_id"
+        options={courses}
+        defaultValue={lesson?.course_id}
+      />
       <InputField
         name="name"
         label="Name"
         required
-        placeholder="course name ..."
-        defaultValue={course?.name}
+        placeholder="isUJXYdhkpg"
+        defaultValue={lesson?.name}
       />
-      <FileInput label="Image" name="image" />
+      <InputField
+        name="youtube_video"
+        label="Youtube video ID"
+        required
+        placeholder="lesson name ..."
+        defaultValue={lesson?.youtube_video}
+      />
       <TextField
         name="description"
         label="Description"
         required
         placeholder="Write description.."
-        defaultValue={course?.description}
+        defaultValue={lesson?.description}
       />
+      <div className="">
+        <label htmlFor={"content"}>Content</label>
+        <ReactQuill theme="snow" value={content} onChange={setContent} />
+      </div>
       <button type="submit" className="btn btn-primary w-max px-10">
         Submit
       </button>
@@ -76,4 +103,4 @@ const CourseForm = ({ course }: Props) => {
   );
 };
 
-export default CourseForm;
+export default LessonForm;
