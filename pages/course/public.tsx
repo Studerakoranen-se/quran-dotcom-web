@@ -29,7 +29,7 @@ const PublicCoursePage = () => {
         </div>
         <div className="max-w-5xl px-5 mx-auto">
           <h1 className="text-white text-center font-elMessiri text-3xl mb-3">
-            How it Works
+            Hur det funkar
           </h1>
           <p className="text-white container text-center text-sm pb-5">
             There are many variations of passages of Lorem Ipsum available, but

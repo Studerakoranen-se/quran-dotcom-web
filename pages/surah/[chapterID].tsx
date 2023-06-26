@@ -100,8 +100,14 @@ const SurahViewPage = (props: any) => {
         )
         .then(({ data }) => setVerses(data.verses));
 
-      axios
-        .get("https://api.quran.com/api/v3/chapters/" + chpID)
+      // axios
+      //   .get("https://api.quran.com/api/v3/chapters/" + chpID)
+      //   .then(({ data }) => {
+      //     // setChapterInfo(data.chapter);
+      //   });
+
+        axios
+        .get("https://api.quran.com/api/v3/chapters/" + chpID + "?language=sv")
         .then(({ data }) => {
           setChapterInfo(data.chapter);
           dispatch(addToHistory(data.chapter));
@@ -217,7 +223,7 @@ const SurahViewPage = (props: any) => {
               {verses?.map((verse: any, i: number) => (
                 <div
                   key={i}
-                  className="border-b border-green-800 pb-5 pt-2 flex justify-between gap-5"
+                  className="border-b border-green-800 pb-12 pt-12 flex justify-between gap-5"
                 >
                   <div className="w-10 text-white flex flex-col items-center gap-4">
                     <div className="">{verse.verse_key}</div>
@@ -289,7 +295,7 @@ const SurahViewPage = (props: any) => {
                         </button>
                       ))}
                     </div>
-                    <p className="text-[#E0D2B4]">
+                    <p className="text-white">
                       {verse.translations[0].text}
                     </p>
                   </div>

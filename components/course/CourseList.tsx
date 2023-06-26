@@ -16,10 +16,10 @@ const CourseList = () => {
 
   return (
     <div className="container text-white pt-16">
-      <h1 className="font-elMessiri text-4xl text-center">Our Courses</h1>
+      <h1 className="font-elMessiri text-4xl text-center">Våra Kurser</h1>
       <p className="text-sm text-center text-gray-300 py-5 max-w-2xl mx-auto">
-        There are many variations of passages of Lorem Ipsum available, but the
-        majority have suffered alteration in some form, by injected humour, or
+        Våra kurser är specialanpassade för att erbjuda högkvalitativ undervisning, precisionell pedagogik och
+        unikt material. Välj den nivån som passar dig!
       </p>
       <div className="space-y-10 py-10 mx-auto">
         {courses.map((course: any, i: number) => (
