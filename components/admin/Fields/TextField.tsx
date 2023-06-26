@@ -1,20 +1,22 @@
-type Props = {
+interface Props {
   placeholder?: string;
   required?: boolean;
-  name?: string;
   label?: string;
-};
+  name?: string;
+  defaultValue?: string;
+}
 
-const TextField = ({ name, placeholder, required, label }: Props) => {
+const TextField = (props: Props) => {
   return (
     <div>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={props.name}>{props.label}</label>
       <textarea
-        id={name}
+        id={props.name}
         rows={5}
         className="form-textarea"
-        placeholder={placeholder}
-        required={required}
+        placeholder={props.placeholder}
+        required={props.required}
+        defaultValue={props.defaultValue}
       ></textarea>
     </div>
   );

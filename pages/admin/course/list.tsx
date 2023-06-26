@@ -168,7 +168,7 @@ const AdminCourseList = () => {
                 title: "Action",
                 render: ({ id }) => (
                   <div className="flex items-center gap-3 text-lg">
-                    <Link href={""} className="">
+                    <Link href={"/admin/course/edit?id=" + id} className="">
                       <HiOutlinePencilAlt />
                     </Link>
                     <button onClick={() => deleteData(id)} className="">

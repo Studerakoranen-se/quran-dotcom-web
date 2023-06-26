@@ -1,25 +1,23 @@
-import { UseControllerProps, useController } from "react-hook-form";
-
-interface Props extends UseControllerProps<any> {
+interface Props {
   type?: string;
   placeholder?: string;
   required?: boolean;
   label?: string;
+  name?: string;
+  defaultValue?: string;
 }
 
 const InputField = (props: Props) => {
-  const { field, fieldState } = useController(props);
-
   return (
     <div>
       <label htmlFor={props.name}>{props.label}</label>
       <input
-        {...field}
         id={props.name}
         type={props.type ?? "text"}
         placeholder={props.placeholder}
         className="form-input"
         required={props.required}
+        defaultValue={props.defaultValue}
       />
     </div>
   );

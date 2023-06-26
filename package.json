@@ -52,7 +52,8 @@
     "react-responsive-carousel": "^3.2.23",
     "react-svg": "^16.1.7",
     "react-youtube": "^10.1.0",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "sweetalert2": "^11.7.12"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
