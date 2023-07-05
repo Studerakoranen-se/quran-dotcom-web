@@ -37,6 +37,10 @@ class QuizeController {
     await db("quizes").where("id", id).delete();
     return true;
   };
+
+  static details = async (id: string | number): Promise<any> => {
+    return await db("quizes").where("id", id).first();
+  };
 }
 
 export { QuizeController };

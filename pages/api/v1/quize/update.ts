@@ -13,7 +13,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const data: any = await formData(req);
-
+  data.fields.answer = JSON.stringify(
+    data.fields.answer.split(",").map(Number)
+  );
   const lesson = await QuizeController.update(req.query.id, data.fields);
   res.status(200).send({
     success: true,

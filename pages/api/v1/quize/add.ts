@@ -14,6 +14,10 @@ export default async function handler(
 ) {
   const data: any = await formData(req);
 
+  data.fields.answer = JSON.stringify(
+    data.fields.answer.split(",").map(Number)
+  );
+
   const quize = await QuizeController.create(data.fields);
   res.status(200).send({
     success: true,

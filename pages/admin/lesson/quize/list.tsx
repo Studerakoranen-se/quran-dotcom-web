@@ -177,7 +177,10 @@ const AdminLessonQuizeList = () => {
                 title: "Action",
                 render: ({ id }) => (
                   <div className="flex items-center gap-3 text-lg">
-                    <Link href={""} className="">
+                    <Link
+                      href={"/admin/lesson/quize/edit?id=" + id}
+                      className=""
+                    >
                       <HiOutlinePencilAlt />
                     </Link>
                     <button onClick={() => deleteData(id)} className="">

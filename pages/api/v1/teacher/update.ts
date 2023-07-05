@@ -15,7 +15,7 @@ export default async function handler(
 ) {
   const data: any = await formData(req);
   if (data.files.image) {
-    const fileName = await uploadImage(data.files.image);
+    const fileName = await uploadImage(data.files.image, "tutors");
     data.fields.image = fileName;
   }
 
