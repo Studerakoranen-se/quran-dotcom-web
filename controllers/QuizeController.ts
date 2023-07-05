@@ -19,7 +19,8 @@ class QuizeController {
     }
     return await query
       .join("lessons as l", "quizes.lesson_id", "=", "l.id")
-      .select("quizes.*", "l.name as lesson_name");
+      .join("courses as c", "l.course_id", "=", "c.id")
+      .select("quizes.*", "l.name as lesson_name", "c.name as course_name");
   };
 
   static create = async (data: QuizeInterface): Promise<any> => {

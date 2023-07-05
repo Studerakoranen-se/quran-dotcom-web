@@ -30,6 +30,10 @@ class TeacherController {
     await db("teachers").where("id", id).delete();
     return true;
   };
+
+  static view = async (id: string | number): Promise<any> => {
+    return await db("teachers").where("id", id).first();
+  };
 }
 
 export { TeacherController };

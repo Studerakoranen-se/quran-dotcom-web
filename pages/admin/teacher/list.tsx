@@ -118,6 +118,14 @@ const AdminTeacherList = () => {
   return (
     <DefaultLayout>
       <div className="panel">
+        <div className="flex justify-end pb-5">
+          <Link
+            href={"/admin/teacher/add"}
+            className="btn btn-outline-primary rounded-full"
+          >
+            Add Teacher
+          </Link>
+        </div>
         <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
           <h5 className="text-lg font-semibold dark:text-white-light">
             Teachers
@@ -192,7 +200,7 @@ const AdminTeacherList = () => {
                 title: "Action",
                 render: ({ id }) => (
                   <div className="flex items-center gap-3 text-lg">
-                    <Link href={""} className="">
+                    <Link href={"/admin/teacher/edit?id=" + id} className="">
                       <HiOutlinePencilAlt />
                     </Link>
                     <button onClick={() => deleteData(id)} className="">

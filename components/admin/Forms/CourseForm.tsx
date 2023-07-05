@@ -21,7 +21,7 @@ const CourseForm = ({ course }: Props) => {
     }
     formdata.append("description", e.target.description.value);
     if (course) {
-      fetch("/api/v1/course/update?id=1", {
+      fetch("/api/v1/course/update?id=" + course.id, {
         method: "POST",
         body: formdata,
         redirect: "follow",

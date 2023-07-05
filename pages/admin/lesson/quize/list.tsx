@@ -113,6 +113,14 @@ const AdminLessonQuizeList = () => {
   return (
     <DefaultLayout>
       <div className="panel">
+        <div className="flex justify-end pb-5">
+          <Link
+            href={"/admin/lesson/quize/add"}
+            className="btn btn-outline-primary rounded-full"
+          >
+            Add quize
+          </Link>
+        </div>
         <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
           <h5 className="text-lg font-semibold dark:text-white-light">
             Quizes
@@ -146,6 +154,7 @@ const AdminLessonQuizeList = () => {
                 ),
               },
               { accessor: "question", title: "Question", sortable: true },
+              { accessor: "course_name", title: "Course", sortable: true },
               { accessor: "lesson_name", title: "Lesson", sortable: true },
               {
                 accessor: "created_at",
