@@ -16,6 +16,13 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
   const [animation, setAnimation] = useState(themeConfig.animation);
   const dispatch = useDispatch();
 
+  const user = useSelector((state: any) => state.user?.user);
+  useEffect(() => {
+    if (!user || user.length == 0) {
+      router.push("/admin/login");
+    }
+  }, [router, user]);
+
   const goToTop = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;

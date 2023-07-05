@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import themeConfigSlice from "./themeConfigSlice";
+import userSlice from "./userSlice";
 
 const persistConfig = {
   key: "root",
@@ -12,6 +13,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   history: historySlice.reducer,
+  user: userSlice.reducer,
   themeConfig: themeConfigSlice,
 });
 

@@ -4,7 +4,6 @@ import RecentCard from "./RecentCard";
 
 const RecentSection = () => {
   const histories = useSelector((state: any) => state.history?.recentSurahs);
-  console.log("h", histories);
 
   return (
     <div className="container text-white py-5 px-5">
