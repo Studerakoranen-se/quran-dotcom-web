@@ -19,6 +19,8 @@ import { useDispatch } from "react-redux";
 
 import ReactAudioPlayer from "react-audio-player";
 import { addToHistory } from "../../store/historySlice";
+import Footer from "@/components/Footer";
+import CopyrightSection from "@/components/CopyrightSection";
 
 const SurahViewPage = (props: any) => {
   const router = useRouter();
@@ -26,10 +28,8 @@ const SurahViewPage = (props: any) => {
   const chpID = router.query.chapterID;
   const dispatch = useDispatch();
 
-  const [chapter, setChapter] = useState<any>([]);
   const [verses, setVerses] = useState<any>([]);
   const [chapterInfo, setChapterInfo] = useState<any>([]);
-  const [showSidebar, setShowSidebar] = useState(true);
 
   const [currentVerse, setCurrentVerse] = useState<number>(0);
 
@@ -49,6 +49,15 @@ const SurahViewPage = (props: any) => {
       setCurrentAudio("https://audio.qurancdn.com/" + audios[currentVerse].url);
       higLightText("v" + (currentVerse + 1), audios[currentVerse].segments);
       setCurrentVerse(currentVerse + 1);
+    }
+  };
+  const goToBeginning = (e: any) => {
+    e.preventDefault();
+    const element = document.getElementById("verse1");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth", // Optional, smooth scrolling animation
+      });
     }
   };
 
@@ -106,7 +115,7 @@ const SurahViewPage = (props: any) => {
       //     // setChapterInfo(data.chapter);
       //   });
 
-        axios
+      axios
         .get("https://api.quran.com/api/v3/chapters/" + chpID + "?language=sv")
         .then(({ data }) => {
           setChapterInfo(data.chapter);
@@ -137,7 +146,7 @@ const SurahViewPage = (props: any) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="relative font-inter bg-color1 flex flex-col min-h-screen scroll-smooth overflow-x-hidden">
+      <main className="relative font-inter bg-color1 flex flex-col min-h-screen scroll-smooth ">
         <TopBar />
         <NavBar />
         <div className="flex relative">
@@ -171,7 +180,7 @@ const SurahViewPage = (props: any) => {
               onClick={() => toggleSideBar()}
             />
 
-            <div className="space-y-6 pt-10 h-screen overflow-auto scrollbar-hide">
+            <div className="space-y-6 pt-10">
               <div className="">
                 {chapterInfo.bismillah_pre ? (
                   <svg
@@ -223,6 +232,7 @@ const SurahViewPage = (props: any) => {
               {verses?.map((verse: any, i: number) => (
                 <div
                   key={i}
+                  id={"verse" + (i + 1)}
                   className="border-b border-green-800 pb-12 pt-12 flex justify-between gap-5"
                 >
                   <div className="w-10 text-white flex flex-col items-center gap-4">
@@ -295,12 +305,19 @@ const SurahViewPage = (props: any) => {
                         </button>
                       ))}
                     </div>
-                    <p className="text-white">
-                      {verse.translations[0].text}
-                    </p>
+                    <p className="text-white">{verse.translations[0].text}</p>
                   </div>
                 </div>
               ))}
+              <div className="pb-10 text-center">
+                <button
+                  type="button"
+                  onClick={goToBeginning}
+                  className="text-white border border-green-800 rounded bg-green-900 px-5 py-1"
+                >
+                  Början av Surah
+                </button>
+              </div>
             </div>
           </div>
         </div>
