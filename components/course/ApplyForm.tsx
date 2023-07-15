@@ -203,9 +203,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                 options={genderOptions}
                 rules={{ required: true }}
               />
-              <div className="flex flex-col pt-5 gap-10">
 
-                <div className="pt-2">
                   <MessageField
                     p="*"
                     type="message"
@@ -216,7 +214,6 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                     name="Vad vill du studera?"
                     rules={{ required: true }}
                   />
-                </div>
 
                 <MessageField
                   p="*"
@@ -229,6 +226,8 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                   rules={{ required: true }}
                 />
 
+                <div className="pt-[45px]">
+
                 <MessageField
                   type="message"
                   label="Övriga önskemål"
@@ -236,7 +235,8 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
                   name="Övriga önskemål"
                   rules={{ required: false }}
                 />
-              </div>
+                </div>
+
 
             </div>
             <button

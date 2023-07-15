@@ -13,8 +13,8 @@ const MessageField = (props: Props) => {
 
   return (
     <>
-      <div className="">
-        <label htmlFor="" className="font-semibold">
+      <div className="flex flex-col justify-center align-middle gap-2">
+        <label htmlFor="" className="font-semibold pt-5">
           <div className="flex gap-2">
             <p>{props.p}</p>
           {props.label}
@@ -22,13 +22,13 @@ const MessageField = (props: Props) => {
           </div>
 
         </label>
-          <span className="pt-4">{props.span}</span>
+          <span className="pt-2">{props.span}</span>
 
-        <div className="flex justify-start align-top pt-2">
+          <div className="flex justify-start pt-2 items-center ">
           <textarea
             {...field}
             placeholder={props.placeholder}
-            className="border to-color1 h-[200px] w-full"
+            className="border to-color1 h-[200px] w-full "
           ></textarea>
         </div>
       </div>
