@@ -3,12 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
-  const [scrollTop, setScrollTop] = useState(false);
-
   const handleScrollTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 
@@ -18,11 +16,9 @@ const Footer = () => {
         <Link href="/">
           <Image width={180} height={42} src="/assets/logo-lg.png" alt="Logo" />
         </Link>
-
       </div>
       <div className="flex justify-between font-medium w-[825px]">
         <div className="flex flex-col gap-4.5">
-
           {/* <Link href={"#!"}>Ordkunskap</Link> */}
         </div>
         <div className="flex flex-col gap-4.5">
@@ -37,7 +33,6 @@ const Footer = () => {
           <Link href={"/about-us"}>Om oss</Link>
           <Link href={"#!"}>Kontakt</Link>
           {/* <Link href={"#!"}>Artiklar</Link> */}
-
         </div>
         <div className="flex flex-col">
           <h1 className="">Ta kontakt med oss</h1>
@@ -108,8 +103,8 @@ const Footer = () => {
           viewBox="0 0 44 44"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          onClick={handleScrollTop}
-          style={{ cursor: 'pointer' }}
+          onClick={() => handleScrollTop()}
+          style={{ cursor: "pointer" }}
         >
           <circle
             cx="21.6523"

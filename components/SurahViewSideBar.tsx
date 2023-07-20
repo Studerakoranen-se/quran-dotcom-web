@@ -67,7 +67,7 @@ const SurahViewSideBar = (props: any) => {
   };
 
   return (
-    <div className="bg-[#012424] px-5 py-3 w-max sticky top-0 z-10 h-[calc(100vh-9.5rem)] overflow-hidden flex flex-col">
+    <div className="bg-[#012424] px-5 py-3 w-max sticky top-0 z-10 h-[calc(100vh)] overflow-hidden flex flex-col">
       <div className="flex items-center gap-5">
         <div className="bg-[#001D1D] w-64 grid grid-cols-3 gap-2 divide-x divide-slate-700 rounded-full text-gray-300">
           <button
@@ -127,71 +127,12 @@ const SurahViewSideBar = (props: any) => {
                     " rounded-lg px-2 py-1"
                   }
                 >
-                  {chapter.id} {chapter.name_simple} ({chapter.translated_name.name})                
-                  </Link>
+                  {chapter.id} {chapter.name_simple} (
+                  {chapter.translated_name.name})
+                </Link>
               ))}
             </div>
           </div>
-          {/* <div className="w-32">
-          <input
-            type="search"
-            className="w-full bg-[#1E3535] rounded-md px-2 py-1 my-3"
-            placeholder="Sök surah"
-          />
-          <div className="overflow-auto h-[calc(100vh-10rem)]">
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-            <p>Surah 1</p>
-          </div>
-        </div> */}
         </div>
       )}
       {selectedTab == "juz" && (

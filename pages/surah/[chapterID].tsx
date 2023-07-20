@@ -1,9 +1,9 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import NavBar from "../../components/NavBar";
 import TopBar from "../../components/TopBar";
 import SurahViewSideBar from "../../components/SurahViewSideBar";
-import { useRouter } from "next/router";
+
 import axios from "axios";
 import { IoMdPlay } from "react-icons/io";
 import { IoChatbubble } from "react-icons/io5";
@@ -13,23 +13,23 @@ import {
   BsPlayFill,
   BsFillPauseFill,
 } from "react-icons/bs";
-import { RxCross2 } from "react-icons/rx";
 import { RiMenuUnfoldFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 
 import ReactAudioPlayer from "react-audio-player";
-import { addToHistory } from "../../store/historySlice";
+import { addToHistory, updateVerseCount } from "../../store/historySlice";
+import Footer from "@/components/Footer";
+import CopyrightSection from "@/components/CopyrightSection";
+import { GetServerSideProps } from "next";
 
 const SurahViewPage = (props: any) => {
-  const router = useRouter();
+  const { start_at, chapterID } = props;
 
-  const chpID = router.query.chapterID;
   const dispatch = useDispatch();
 
-  const [chapter, setChapter] = useState<any>([]);
   const [verses, setVerses] = useState<any>([]);
   const [chapterInfo, setChapterInfo] = useState<any>([]);
-  const [showSidebar, setShowSidebar] = useState(true);
+  const [visibleId, setVisibleId] = useState<string | null>(null);
 
   const [currentVerse, setCurrentVerse] = useState<number>(0);
 
@@ -37,6 +37,8 @@ const SurahViewPage = (props: any) => {
   const [currentAudio, setCurrentAudio] = useState("");
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [showControl, setShowControl] = useState(false);
+
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleAudioEnded = (id: any) => {
     const audios = verses.map((verse: any) => verse.audio);
@@ -49,6 +51,15 @@ const SurahViewPage = (props: any) => {
       setCurrentAudio("https://audio.qurancdn.com/" + audios[currentVerse].url);
       higLightText("v" + (currentVerse + 1), audios[currentVerse].segments);
       setCurrentVerse(currentVerse + 1);
+    }
+  };
+  const goToBeginning = (e: any) => {
+    e.preventDefault();
+    const element = document.getElementById("verse1");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth", // Optional, smooth scrolling animation
+      });
     }
   };
 
@@ -91,29 +102,86 @@ const SurahViewPage = (props: any) => {
   };
 
   useEffect(() => {
-    if (chpID) {
+    if (chapterID) {
       axios
         .get(
           "https://api.quran.com/api/v3/chapters/" +
-            chpID +
+            chapterID +
             "/verses?recitation=1&translations=21&language=sv&text_type=words&per_page=1000"
         )
         .then(({ data }) => setVerses(data.verses));
 
       // axios
-      //   .get("https://api.quran.com/api/v3/chapters/" + chpID)
+      //   .get("https://api.quran.com/api/v3/chapters/" + chapterID)
       //   .then(({ data }) => {
       //     // setChapterInfo(data.chapter);
       //   });
 
-        axios
-        .get("https://api.quran.com/api/v3/chapters/" + chpID + "?language=sv")
+      axios
+        .get(
+          "https://api.quran.com/api/v3/chapters/" + chapterID + "?language=sv"
+        )
         .then(({ data }) => {
           setChapterInfo(data.chapter);
+          data.chapter.verses_count = 1;
           dispatch(addToHistory(data.chapter));
         });
     }
-  }, [chpID]);
+  }, [chapterID]);
+
+  useEffect(() => {
+    // Get the element by its ID
+    const targetElement = document.getElementById("verse" + start_at);
+    if (targetElement) {
+      const offsetTop = targetElement.offsetTop;
+      const windowHeight = window.innerHeight;
+      const targetHeight = targetElement.offsetHeight;
+      const scrollToPosition = offsetTop - windowHeight / 2 + targetHeight / 2;
+
+      window.scrollTo({ top: scrollToPosition, behavior: "smooth" });
+    }
+  }, [verses]);
+
+  useEffect(() => {
+    if (!containerRef.current || !verses) {
+      // If the container or verses are not available yet, return early
+      return;
+    }
+
+    const options = {
+      root: null,
+      rootMargin: "50px",
+      threshold: 0.25,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const matches = entry.target.id.match(/\d+/);
+
+          dispatch(
+            updateVerseCount({
+              id: chapterID,
+              verse_count: matches ? matches[0]! : 1,
+            })
+          );
+
+          setVisibleId(entry.target.id);
+        }
+      });
+    }, options);
+
+    const elements = containerRef.current.querySelectorAll("[id^='verse']");
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
+
+    return () => {
+      elements.forEach((element) => {
+        observer.unobserve(element);
+      });
+    };
+  }, [verses]);
 
   const toggleSideBar = () => {
     const s = document.getElementById("sidebar");
@@ -137,7 +205,7 @@ const SurahViewPage = (props: any) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="relative font-inter bg-color1 flex flex-col min-h-screen scroll-smooth overflow-x-hidden">
+      <main className="relative font-inter bg-color1 flex flex-col min-h-screen scroll-smooth ">
         <TopBar />
         <NavBar />
         <div className="flex relative">
@@ -147,7 +215,10 @@ const SurahViewPage = (props: any) => {
               " hidden md:block absolute md:static top-0 left-0 bg-[#012424]"
             }
           >
-            <SurahViewSideBar chpID={chpID} setShowSidebar={toggleSideBar} />
+            <SurahViewSideBar
+              chapterID={chapterID}
+              setShowSidebar={toggleSideBar}
+            />
           </div>
           <div className="flex-grow container px-5">
             <ReactAudioPlayer
@@ -171,7 +242,7 @@ const SurahViewPage = (props: any) => {
               onClick={() => toggleSideBar()}
             />
 
-            <div className="space-y-6 pt-10 h-screen overflow-auto scrollbar-hide">
+            <div className="space-y-6 pt-10">
               <div className="">
                 {chapterInfo.bismillah_pre ? (
                   <svg
@@ -220,87 +291,99 @@ const SurahViewPage = (props: any) => {
                 )}
               </div>
               {/* verse */}
-              {verses?.map((verse: any, i: number) => (
-                <div
-                  key={i}
-                  className="border-b border-green-800 pb-12 pt-12 flex justify-between gap-5"
-                >
-                  <div className="w-10 text-white flex flex-col items-center gap-4">
-                    <div className="">{verse.verse_key}</div>
-                    {audioPlaying &&
-                    currentAudio ==
-                      "https://audio.qurancdn.com/" + verse.audio.url ? (
-                      <BsFillPauseFill
-                        className="cursor-pointer"
-                        onClick={() => {
-                          pauseAudio();
-                        }}
-                      />
-                    ) : (
-                      <IoMdPlay
-                        className="cursor-pointer"
-                        onClick={() => {
-                          setCurrentVerse(verse.verse_number);
-                          setCurrentAudio(
-                            "https://audio.qurancdn.com/" + verse.audio.url
-                          );
-                          audio.audioEl.current.play();
-                          setShowControl(true);
-                          setAudioPlaying(true);
-                          higLightText(
-                            "v" + verse.verse_number,
-                            verse.audio.segments
-                          );
-                        }}
-                      />
-                    )}
 
-                    <IoChatbubble />
-                    <BsBookHalf />
-                    <BsThreeDots />
-                  </div>
-                  <div className="flex-grow flex flex-col gap-5 justify-center px-10">
-                    <div
-                      id={"v" + verse.verse_number}
-                      className={
-                        // (audioPlaying &&
-                        // currentAudio ==
-                        //   "https://audio.qurancdn.com/" + verse.audio.url
-                        //   ? "currentPlaying"
-                        //   : "") +
-                        " flex flex-wrap text-white font-scheherazade text-3xl gap-2"
-                      }
-                      dir="rtl"
-                    >
-                      {verse.words.map((word: any, i: number) => (
-                        <button
+              <div ref={containerRef}>
+                {verses?.map((verse: any, i: number) => (
+                  <div
+                    key={i}
+                    id={"verse" + (i + 1)}
+                    className="border-b border-green-800 pb-12 pt-12 flex justify-between gap-5"
+                  >
+                    <div className="w-10 text-white flex flex-col items-center gap-4">
+                      <div className="">{verse.verse_key}</div>
+                      {audioPlaying &&
+                      currentAudio ==
+                        "https://audio.qurancdn.com/" + verse.audio.url ? (
+                        <BsFillPauseFill
+                          className="cursor-pointer"
                           onClick={() => {
-                            setCurrentVerse(0);
+                            pauseAudio();
+                          }}
+                        />
+                      ) : (
+                        <IoMdPlay
+                          className="cursor-pointer"
+                          onClick={() => {
+                            setCurrentVerse(verse.verse_number);
                             setCurrentAudio(
-                              "https://audio.qurancdn.com/" + word.audio.url
+                              "https://audio.qurancdn.com/" + verse.audio.url
                             );
                             audio.audioEl.current.play();
+                            setShowControl(true);
+                            setAudioPlaying(true);
+                            higLightText(
+                              "v" + verse.verse_number,
+                              verse.audio.segments
+                            );
                           }}
-                          key={i}
-                          className={
-                            word.char_type == "end"
-                              ? "hidden"
-                              : "" + " hover:!text-green-400 relative group"
-                          }
-                        >
-                          {word.text_madani}
-                          <span className="hidden group-hover:block text-white text-lg w-max absolute -top-10 right-0 bg-green-700 rounded-lg px-2 font-inter">
-                            {word.translation.text}
-                          </span>
-                        </button>
-                      ))}
+                        />
+                      )}
+
+                      <IoChatbubble />
+                      <BsBookHalf />
+                      <BsThreeDots />
                     </div>
-                    <p className="text-white">
-                      {verse.translations[0].text}
-                    </p>
+                    <div className="flex-grow flex flex-col gap-5 justify-center px-10">
+                      <div
+                        id={"v" + verse.verse_number}
+                        className={
+                          // (audioPlaying &&
+                          // currentAudio ==
+                          //   "https://audio.qurancdn.com/" + verse.audio.url
+                          //   ? "currentPlaying"
+                          //   : "") +
+                          " flex flex-wrap text-white font-scheherazade text-3xl gap-2"
+                        }
+                        dir="rtl"
+                      >
+                        {verse.words.map((word: any, i: number) => (
+                          <button
+                            onClick={() => {
+                              setCurrentVerse(0);
+                              setCurrentAudio(
+                                "https://audio.qurancdn.com/" + word.audio.url
+                              );
+                              audio.audioEl.current.play();
+                            }}
+                            key={i}
+                            className={
+                              word.char_type == "end"
+                                ? "hidden"
+                                : "" + " hover:!text-green-400 relative group"
+                            }
+                          >
+                            {word.text_madani}
+                            <span className="hidden group-hover:block text-white text-lg w-max absolute -top-10 right-0 bg-green-700 rounded-lg px-2 font-inter">
+                              {word.translation.text}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-white">{verse.translations[0].text}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              <div className="pb-10 text-center">
+                <button
+                  type="button"
+                  onClick={goToBeginning}
+                  className="text-white border border-green-800 rounded bg-green-900 px-5 py-1"
+                >
+                  Början av Surah
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -309,6 +392,12 @@ const SurahViewPage = (props: any) => {
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { start_at, chapterID } = ctx.query;
+
+  return { props: { start_at, chapterID } };
 };
 
 export default SurahViewPage;

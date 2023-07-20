@@ -6,11 +6,13 @@ const RecentCard = (props: any) => {
 
   return (
     <Link
-      href={"/surah/" + data.chapter_number}
+      href={`/surah/${data.chapter_number}?start_at=${data.verses_count}`}
       className="flex flex-col border border-[#E0D2B4] w-44 h-52 rounded p-3 shadow-xl shadow-gray-900"
     >
       <div className="flex justify-between gap-5 font-inter">
-        <p className="text-sm text-gray-200 font-inter">{data.translated_name.name}</p>
+        <p className="text-sm text-gray-200 font-inter">
+          {data.translated_name.name}
+        </p>
         <p>{data.chapter_number}</p>
       </div>
       <h1 className="py-1 font-inter">Surah {data.name_simple}</h1>
