@@ -23,10 +23,21 @@ export const historySlice = createSlice({
         state.recentSurahs.shift();
       }
     },
+    updateVerseCount: (state, action) => {
+      const { id, verse_count } = action.payload;
+      // Find the surah with the specified id
+      const surahToUpdate = state.recentSurahs.find(
+        (surah: any) => surah.id == id
+      );
+      if (surahToUpdate) {
+        // Update the verse_count for the surah
+        surahToUpdate.verses_count = verse_count;
+      }
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToHistory } = historySlice.actions;
+export const { addToHistory, updateVerseCount } = historySlice.actions;
 
 export default historySlice;
