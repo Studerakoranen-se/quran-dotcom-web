@@ -5,7 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useRouter } from "next/router";
 
 const SurahViewSideBar = (props: any) => {
-  const { chpID, juzID, pID } = props;
+  const { chapterID, juzID, pID } = props;
   const [search, setSearch] = useState("");
   const [chapters, setChapters] = useState([]);
   const [selectedTab, setSelectedTab] = useState("");
@@ -18,16 +18,6 @@ const SurahViewSideBar = (props: any) => {
       .then(({ data }) => setChapters(data.chapters));
 
     setSelectedTab(router.pathname.split("/")[1]);
-
-    // if (chpID) {
-    //   setSelectedTab("surah");
-    // } else if (juzID) {
-    //   setSelectedTab("juz");
-    // } else if (juzID) {
-    //   setSelectedTab("page");
-    // } else {
-    //   setSelectedTab("surah");
-    // }
   }, [router]);
 
   const juzs = () => {
@@ -67,8 +57,11 @@ const SurahViewSideBar = (props: any) => {
   };
 
   return (
-    <div className="bg-[#012424] px-5 py-3 w-max sticky top-0 z-10 h-[calc(100vh)] overflow-hidden flex flex-col">
-      <div className="flex items-center gap-5">
+    <div
+      id="sidebar"
+      className="bg-[#012424] py-3 w-full top-0 h-[calc(100vh)] overflow-hidden flex flex-col z-50 transition-all duration-300 sticky left-0"
+    >
+      <div className="flex items-center gap-5 px-5">
         <div className="bg-[#001D1D] w-64 grid grid-cols-3 gap-2 divide-x divide-slate-700 rounded-full text-gray-300">
           <button
             className={
@@ -104,7 +97,7 @@ const SurahViewSideBar = (props: any) => {
         />
       </div>
       {selectedTab == "surah" && (
-        <div className="flex gap-3 flex-grow h-full overflow-scroll">
+        <div className="flex gap-3 flex-grow h-full overflow-scroll px-5">
           <div className="w-44a w-full">
             <div className="pr-2">
               <input
@@ -120,7 +113,7 @@ const SurahViewSideBar = (props: any) => {
                   href={"/surah/" + chapter.id}
                   key={i}
                   className={
-                    (chpID == chapter.id ? "bg-black " : "") +
+                    (chapterID == chapter.id ? " bg-black " : "") +
                     (chapter.name_simple
                       .toLowerCase()
                       .match(search.toLowerCase()) ?? "hidden") +
@@ -136,7 +129,7 @@ const SurahViewSideBar = (props: any) => {
         </div>
       )}
       {selectedTab == "juz" && (
-        <div className="flex gap-3 flex-grow h-full overflow-scroll">
+        <div className="flex gap-3 flex-grow h-full overflow-scroll px-5">
           <div className="w-44a w-full">
             <div className="overflow-y-auto text-white flex flex-col gap-1 pr-2 py-2">
               {juzs()}
@@ -145,7 +138,7 @@ const SurahViewSideBar = (props: any) => {
         </div>
       )}
       {selectedTab == "page" && (
-        <div className="flex gap-3 flex-grow h-full overflow-scroll">
+        <div className="flex gap-3 flex-grow h-full overflow-scroll px-5">
           <div className="w-44a w-full">
             <div className="overflow-y-auto text-white flex flex-col gap-1 pr-2 py-2">
               {pages()}

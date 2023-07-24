@@ -2,15 +2,13 @@ import React from "react";
 
 const AlQuran = () => {
   return (
-    <div className="flex justify-center items-center relative pb-[250px] ">
+    <div className="flex justify-center items-center relative pb-[50px] ">
       <div className="text-white w-full bg-cover bg-top bg-no-repeat">
         <svg
-          width="1446"
-          height="350"
           viewBox="0 0 1446 386"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className=""
+          className="w-[40rem] md:w-[60rem] h-[20rem] mx-auto"
         >
           <g filter="url(#filter0_d_1746_19549)">
             <path
@@ -62,15 +60,12 @@ const AlQuran = () => {
           </defs>
         </svg>
       </div>
-
-
+      <div className="absolute w-full flex justify-center items-center">
         <svg
-          width="650"
-          height="300"
           viewBox="0 0 607 211"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="absolute "
+          className=" w-[30rem] md:w-[40rem] mx-auto"
         >
           <g filter="url(#filter0_d_1746_19550)">
             <mask id="path-1-inside-1_1746_19550" fill="white">
@@ -136,7 +131,7 @@ const AlQuran = () => {
             </filter>
           </defs>
         </svg>
-
+      </div>
     </div>
   );
 };

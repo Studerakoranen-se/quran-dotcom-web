@@ -15,9 +15,9 @@ module.exports = {
         lateef: ["Lateef", "serif"],
         nunito: ["Nunito", "sans-serif"],
         scheherazade: ["Scheherazade New", "serif"],
-        sans: ["Noto Sans SC", 'sans-serif'],
+        sans: ["Noto Sans SC", "sans-serif"],
       },
-    
+
       colors: {
         color1: "#043B3B",
         color2: "#001D1D",
@@ -85,22 +85,25 @@ module.exports = {
             h4: { fontSize: "24px", marginBottom: "0.5rem", marginTop: 0 },
             h5: { fontSize: "20px", marginBottom: "0.5rem", marginTop: 0 },
             h6: { fontSize: "16px", marginBottom: "0.5rem", marginTop: 0 },
-            p: { marginBottom: "0.5rem", fontFamily:["Inter", "sans-serif"]},
+            p: { marginBottom: "0.5rem", fontFamily: ["Inter", "sans-serif"] },
             li: { margin: 0 },
             img: { margin: 0 },
           },
         },
       }),
       backgroundImage: {
-        'hero-pattern':
+        "hero-pattern":
           "linear-gradient(180deg, #043B3B 0%, rgba(4, 59, 59, 0.5) 53.47%, #043B3B 100%), url('/assets/bg-2.png')",
-          // 'hero-patternFirstP':
-          // "linear-gradient(180deg, #043B3B 30%, rgba(4, 59, 59, 0.2) 63.47%, #043B3B 95%), url('/assets/bg-2.png')",
+        // 'hero-patternFirstP':
+        // "linear-gradient(180deg, #043B3B 30%, rgba(4, 59, 59, 0.2) 63.47%, #043B3B 95%), url('/assets/bg-2.png')",
       },
       container: {
         center: true,
         padding: {
-          DEFAULT: "4.375rem",
+          DEFAULT: "4rem",
+          sm: "12rem",
+          lg: "5rem",
+          xl: "10rem",
         },
         screens: {
           lg: "90.375rem",

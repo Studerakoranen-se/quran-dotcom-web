@@ -70,7 +70,7 @@ const TabSection = () => {
   const JuzsChs = getChaptersByJuz(juzs, chapters);
 
   return (
-    <div className="text-white container py-5 px-5 bg-[url('/assets/bg-arbic.png')] bg-repeat-y bg-center bg-contain">
+    <div className="text-white container py-5 bg-[url('/assets/bg-arbic.png')] bg-repeat-y bg-center bg-contain">
       <div className="flex gap-10 border-b border-white">
         <button
           onClick={() => setSelectedTab("surah")}
@@ -91,22 +91,16 @@ const TabSection = () => {
           Juz
         </button>
       </div>
-      <div className="flex items-center justify-end text-xs mt-2">
+      <button
+        type="button"
+        onClick={() => setSort(sort == "asc" ? "desc" : "asc")}
+        className="flex items-center justify-end text-xs mt-2 gap-1 ml-auto"
+      >
         <p className="text-gray-300 pt-[.6px]">SORTERA EFTER:</p>
-        <select
-          onChange={(e) => setSort(e.target.value)}
-          className="bg-transparent text-white focus:outline-none"
-        >
-          <option className="text-black" value="asc">
-            Stigande
-          </option>
-          <option className="text-black" value="desc">
-            Nedåtgående
-          </option>
-        </select>
-      </div>
+        <p>{sort == "asc" ? "Stigande" : "Nedåtgående"}</p>
+      </button>
       {selectedTab == "surah" && (
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-10">
           {sort == "asc"
             ? chapters.map((chapter: any, i: number) => (
                 <SurahCard key={i} chapter={chapter} />

@@ -186,14 +186,17 @@ const SurahViewPage = (props: any) => {
   const toggleSideBar = () => {
     const s = document.getElementById("sidebar");
     const os = document.getElementById("openSidebar");
-    if (s?.classList.contains("hidden")) {
-      s?.classList.remove("hidden");
-      s?.classList.add("md:block");
-      os?.classList.add("md:hidden");
-    } else {
-      s?.classList.add("hidden");
-      s?.classList.remove("md:block");
-      os?.classList.remove("md:hidden");
+    if (s) {
+      // Check if the sidebar element is found
+      if (s.classList.contains("hidden")) {
+        // If the sidebar is hidden, show it
+        s.classList.remove("hidden");
+        s.classList.add("md:static", "w-0", "lg:w-96");
+      } else {
+        // If the sidebar is visible, hide it
+        s.classList.add("hidden");
+        s.classList.remove("md:static", "w-0", "lg:w-96");
+      }
     }
   };
 
@@ -212,7 +215,7 @@ const SurahViewPage = (props: any) => {
           <div
             id="sidebar"
             className={
-              " hidden md:block absolute md:static top-0 left-0 bg-[#012424]"
+              " absolute md:static top-0 left-0 bg-[#012424] w-0 lg:w-96 transition-all duration-300"
             }
           >
             <SurahViewSideBar
@@ -397,7 +400,7 @@ const SurahViewPage = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { start_at, chapterID } = ctx.query;
 
-  return { props: { start_at, chapterID } };
+  return { props: { start_at: start_at || 1, chapterID } };
 };
 
 export default SurahViewPage;

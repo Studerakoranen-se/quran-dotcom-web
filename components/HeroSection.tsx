@@ -4,17 +4,18 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <section className="flex justify-between gap-5 pr-[130px] container items-center bg-[url('/assets/bg-arbic.png')] bg-cover bg-opacity-20 bg-center bg-no-repeat">
-      <div className="text-white">
+    <section className="flex justify-between gap-5 container items-center bg-[url('/assets/bg-arbic.png')] bg-cover bg-opacity-10 bg-center bg-no-repeat py-20 relative">
+      <div className="text-white text-center md:text-start">
         <h1 className="font-elMessiri font-bold text-5xl">
           Välkommen till <br /> StuderaKoranen!
         </h1>
         <p className="text-xl">-Studera Koranen online</p>
-        <p className="w-[505px]  font-medium py-6 text-gray-300">
-          StuderaKoranen är en unik satsning vars syfte är att främja koranundervisning i Sverige.
-          Vi erbjuder privatundervisning, kursmaterial, rådgivning, Koran-online och mycket mer!
+        <p className="md:w-[505px]  font-medium py-6 text-gray-300 text-justify md:text-start">
+          StuderaKoranen är en unik satsning vars syfte är att främja
+          koranundervisning i Sverige. Vi erbjuder privatundervisning,
+          kursmaterial, rådgivning, Koran-online och mycket mer!
         </p>
-        <div className="text-black flex justify-start gap-8 mt-5">
+        <div className="text-black flex justify-center md:justify-start gap-8 mt-5">
           <Link
             href={"/surah/1"}
             className="font-sans flex items-center justify-center py-2 shadow-lg shadow-gray-900 gap-3 bg-white rounded-full w-32"
@@ -54,13 +55,11 @@ const HeroSection = () => {
           </Link>
         </div>
       </div>
-      <Image
-        width={435}
-        height={486}
-        src="/assets/logo-lg.png"
-        alt=""
-        className="absolute md:static opacity-30 md:opacity-100 px-26 py-10 "
-      />
+      <div className="absolute md:static opacity-10 md:opacity-100 md:px-26 py-10 w-full left-0 top-0">
+        <div className="w-[25rem] md:w-[30rem] aspect-square mx-auto relative">
+          <Image fill src="/assets/logo-lg.png" alt="" className="" />
+        </div>
+      </div>
     </section>
   );
 };

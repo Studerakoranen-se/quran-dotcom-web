@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const NavBar = (props: any) => {
   const { overlay } = props;
-
+  const [isScrolled, setScrolled] = useState(false);
   const router = useRouter();
   useEffect(() => {
     const devmode = localStorage.getItem("devmode");
@@ -14,11 +14,28 @@ const NavBar = (props: any) => {
     }
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const handleScroll = () => {
+    if (window.pageYOffset > 250) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
+  console.log(isScrolled);
+
   return (
     <nav
       className={
+        (isScrolled ? " !h-[5rem] " : "h-[8.5rem]") +
         (overlay ? " bg-opacity-50 absolute top-10 " : " sticky top-0 ") +
-        " w-full z-50 bg-color1 text-white px-5 h-[8.5rem] left-0"
+        " w-full z-50 bg-color1 text-white px-5 h-[8.5rem] left-0 transition-all duration-300 hidden md:block"
       }
       style={
         overlay
@@ -29,7 +46,7 @@ const NavBar = (props: any) => {
           : {}
       }
     >
-      <div className="container flex items-center justify-between">
+      <div className="container flex items-center justify-between h-full">
         <Link href={"/"} className="">
           <Image width={103} height={117} src="/assets/logo.png" alt="" />
         </Link>
