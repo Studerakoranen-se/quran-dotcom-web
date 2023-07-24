@@ -22,7 +22,7 @@ const NavBar = (props: any) => {
     };
   }, []);
   const handleScroll = () => {
-    if (window.pageYOffset > 250) {
+    if (window.pageYOffset > 100) {
       setScrolled(true);
     } else {
       setScrolled(false);
@@ -47,7 +47,7 @@ const NavBar = (props: any) => {
       }
     >
       <div className="container flex items-center justify-between h-full">
-        <Link href={"/"} className="">
+        <Link href={"/"} className={isScrolled ? " opacity-0 " : ""}>
           <Image width={103} height={117} src="/assets/logo.png" alt="" />
         </Link>
 
