@@ -31,6 +31,8 @@ const SurahViewPage = (props: any) => {
   const [chapterInfo, setChapterInfo] = useState<any>([]);
   const [visibleId, setVisibleId] = useState<string | null>(null);
 
+  const [tafsir, setTafsir] = useState();
+
   const [currentVerse, setCurrentVerse] = useState<number>(0);
 
   const [audio, setAudio] = useState<any>();
@@ -107,7 +109,7 @@ const SurahViewPage = (props: any) => {
         .get(
           "https://api.quran.com/api/v3/chapters/" +
             chapterID +
-            "/verses?recitation=1&translations=21&language=sv&text_type=words&per_page=1000"
+            "/verses?recitation=1&translations=21&language=sv&text_type=words&per_page=1000&tafsirs=169,381,165,164"
         )
         .then(({ data }) => setVerses(data.verses));
 
@@ -197,6 +199,18 @@ const SurahViewPage = (props: any) => {
       os?.classList.remove("md:hidden");
     }
   };
+
+  const getTafsir = (verseID: number) => {
+    axios
+      .get(
+        `https://api.quran.com/api/v3/chapters/${chapterID}/verses/${verseID}/tafsirs?language=sv`
+      )
+      .then(({ data }) => {
+        // setChapterInfo(data.chapter);
+        console.log(data);
+      });
+  };
+  console.log(verses);
 
   return (
     <>
@@ -331,7 +345,9 @@ const SurahViewPage = (props: any) => {
                       )}
 
                       <IoChatbubble />
-                      <BsBookHalf />
+                      <BsBookHalf
+                        onClick={() => getTafsir(verse.verse_number)}
+                      />
                       <BsThreeDots />
                     </div>
                     <div className="flex-grow flex flex-col gap-5 justify-center px-10">
@@ -360,12 +376,17 @@ const SurahViewPage = (props: any) => {
                             className={
                               word.char_type == "end"
                                 ? "hidden"
-                                : "" + " hover:!text-green-400 relative group"
+                                : "" +
+                                  " hover:!text-green-400 relative group flex flex-col gap-4 items-center leading-loose"
                             }
                           >
-                            {word.text_madani}
-                            <span className="hidden group-hover:block text-white text-lg w-max absolute -top-10 right-0 bg-green-700 rounded-lg px-2 font-inter">
-                              {word.translation.text}
+                            <p>{word.text_madani}</p>
+
+                            <span className="hidden group-hover:block text-black text-lg w-max absolute -top-20 right-0 bg-green-100 rounded-lg px-2 font-inter">
+                              <p>{word.translation.text}</p>
+                              <p className="text-lg">
+                                {word.transliteration.text}
+                              </p>
                             </span>
                           </button>
                         ))}
