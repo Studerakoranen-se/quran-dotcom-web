@@ -151,7 +151,7 @@ const SurahViewPage = (props: any) => {
           <div
             id="sidebar"
             className={
-              " hidden md:block absolute md:static top-0 left-0 bg-[#012424]"
+              " absolute md:static top-0 left-0 bg-[#012424] w-0 lg:w-96 transition-all duration-300"
             }
           >
             <SurahViewSideBar juzID={juzID} setShowSidebar={toggleSideBar} />

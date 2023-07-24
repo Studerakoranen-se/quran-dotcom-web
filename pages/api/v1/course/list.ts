@@ -16,6 +16,6 @@ export default async function handler(
 ) {
   let courses = await CourseController.index();
 
-  courses.forEach((course: any) => (course.image = "/uploads/" + course.image));
+  // courses.forEach((course: any) => (course.image = "/uploads/" + course.image));
   res.status(200).json(courses);
 }

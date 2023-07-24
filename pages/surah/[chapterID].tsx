@@ -186,17 +186,15 @@ const SurahViewPage = (props: any) => {
   const toggleSideBar = () => {
     const s = document.getElementById("sidebar");
     const os = document.getElementById("openSidebar");
-    if (s) {
-      // Check if the sidebar element is found
-      if (s.classList.contains("hidden")) {
-        // If the sidebar is hidden, show it
-        s.classList.remove("hidden");
-        s.classList.add("md:static", "w-0", "lg:w-96");
-      } else {
-        // If the sidebar is visible, hide it
-        s.classList.add("hidden");
-        s.classList.remove("md:static", "w-0", "lg:w-96");
-      }
+
+    if (s?.classList.contains("hidden")) {
+      s?.classList.remove("hidden");
+      s?.classList.add("md:block");
+      os?.classList.add("md:hidden");
+    } else {
+      s?.classList.add("hidden");
+      s?.classList.remove("md:block");
+      os?.classList.remove("md:hidden");
     }
   };
 

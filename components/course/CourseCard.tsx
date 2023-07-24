@@ -7,7 +7,11 @@ const CourseCard = (props: any) => {
   return (
     <div className="grid md:grid-cols-3 md:gap-5 items-center shadow-2xl shadow-black bg-white overflow-hidden rounded-2xl md:h-56">
       <div className="relative w-full h-48 md:h-full overflow-hidden ">
-        <Image fill src={course.image} alt="" />
+        <img
+          src={`/api/image?name=${course.image}`}
+          alt=""
+          className=" h-full w-full"
+        />
       </div>
       <div className="h-full flex flex-col md:col-span-2 text-xl text-[#043B3B] p-6 z-50">
         <h1 className="font-bold pb-2">{course.name}</h1>
