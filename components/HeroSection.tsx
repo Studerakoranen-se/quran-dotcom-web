@@ -1,16 +1,24 @@
+import { right } from "@popperjs/core";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const HeroSection = () => {
   return (
-    <section className="flex justify-between gap-5 container items-center bg-[url('/assets/bg-arbic.png')] bg-cover bg-opacity-10 bg-center bg-no-repeat py-20 relative">
-      <div className="text-white text-center md:text-start">
+    <section
+      className="flex justify-between container items-center bg-bgarabic py-[190px] relative]"
+      style={{
+        backgroundPosition: "top right",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover", // Make the background image cover the container width
+      }}
+    >
+      <div className="text-white text-center md:text-start pt-[10px] pl-[20px] ">
         <h1 className="font-elMessiri font-bold text-5xl">
           Välkommen till <br /> StuderaKoranen!
         </h1>
         <p className="text-xl">-Studera Koranen online</p>
-        <p className="md:w-[505px]  font-medium py-6 text-gray-300 text-justify md:text-start">
+        <p className="md:w-[505px] font-inter font-[400] py-6  text-justify md:text-start">
           StuderaKoranen är en unik satsning vars syfte är att främja
           koranundervisning i Sverige. Vi erbjuder privatundervisning,
           kursmaterial, rådgivning, Koran-online och mycket mer!
@@ -55,8 +63,8 @@ const HeroSection = () => {
           </Link>
         </div>
       </div>
-      <div className="absolute md:static opacity-10 md:opacity-100 md:px-26 py-10 pt-16 w-full left-0 top-0">
-        <div className="w-[25rem] aspect-square mx-auto relative">
+      <div className="absolute md:static opacity-10 md:opacity-100 md:px-26 pb-5 w-full flex justify-end pr-[60px]">
+        <div className="w-[25rem] aspect-square">
           <svg
             id="Logo"
             xmlns="http://www.w3.org/2000/svg"

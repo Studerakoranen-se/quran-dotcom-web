@@ -52,7 +52,7 @@ const NavBar = (props: any) => {
         </Link>
 
         <div className="flex items-center justify-end">
-          <div className="hidden md:flex gap-[3rem] text-sm mr-[70px] text-[18px] font-inter">
+          <div className="hidden md:flex gap-[3rem] text-sm mr-[100px] text-[18px] font-inter">
             <Link href={"/"}>HEM</Link>
             <Link href={"/course"}>KURSER</Link>
             <Link href={"/about-us"}>OM OSS</Link>

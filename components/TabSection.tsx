@@ -70,7 +70,7 @@ const TabSection = () => {
   const JuzsChs = getChaptersByJuz(juzs, chapters);
 
   return (
-    <div className="text-white container py-5 bg-[url('/assets/bg-arbic.png')] bg-repeat-y bg-center bg-contain">
+    <div className="text-white container py-5  bg-repeat-y bg-center bg-contain">
       <div className="flex gap-10 border-b border-white">
         <button
           onClick={() => setSelectedTab("surah")}
