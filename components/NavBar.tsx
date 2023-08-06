@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { FaDonate } from "react-icons/fa";
 
 const NavBar = (props: any) => {
   const { overlay } = props;
@@ -51,12 +52,30 @@ const NavBar = (props: any) => {
           <Image width={103} height={117} src="/assets/logo.png" alt="" />
         </Link>
 
-        <div className="flex items-center justify-end">
-          <div className="hidden md:flex gap-[3rem] text-sm mr-[100px] text-[18px] font-inter">
-            <Link href={"/"}>HEM</Link>
-            <Link href={"/course"}>KURSER</Link>
-            <Link href={"/about-us"}>OM OSS</Link>
-            <Link href={"/"}>KONTAKTA OSS</Link>
+        <div className="flex items-center justify-end mr-[100px] gap-10">
+          <div className="hidden md:flex gap-[3rem] text-sm text-[18px] font-inter">
+            <Link className="w-max text-base md:text-lg" href={"/"}>
+              HEM
+            </Link>
+            <Link className="w-max text-base md:text-lg" href={"/course"}>
+              KURSER
+            </Link>
+            <Link className="w-max text-base md:text-lg" href={"/about-us"}>
+              OM OSS
+            </Link>
+            <Link className="w-max text-base md:text-lg" href={"/"}>
+              KONTAKTA OSS
+            </Link>
+          </div>
+          <div className="">
+            <Link
+              href={"/donate"}
+              target="_blank"
+              className="flex items-center gap-2 bg-white text-black rounded-full px-5 py-1.5 font-medium"
+            >
+              <FaDonate />
+              <p className="w-max">Stötta oss</p>
+            </Link>
           </div>
         </div>
       </div>

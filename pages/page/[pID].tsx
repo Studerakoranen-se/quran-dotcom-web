@@ -12,6 +12,7 @@ import {
   BsThreeDots,
   BsPlayFill,
   BsFillPauseFill,
+  BsFillArrowUpCircleFill,
 } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { RiMenuUnfoldFill } from "react-icons/ri";
@@ -49,6 +50,15 @@ const PageViewPage = (props: any) => {
       setCurrentAudio("https://audio.qurancdn.com/" + audios[currentVerse].url);
       higLightText("v" + (currentVerse + 1), audios[currentVerse].segments);
       setCurrentVerse(currentVerse + 1);
+    }
+  };
+  const goToBeginning = (e: any) => {
+    e.preventDefault();
+    const element = document.getElementById("verse1");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth", // Optional, smooth scrolling animation
+      });
     }
   };
 
@@ -313,6 +323,12 @@ const PageViewPage = (props: any) => {
               ))}
             </div>
           </div>
+        </div>
+        <div className="fixed right-5 bottom-10">
+          <BsFillArrowUpCircleFill
+            className="text-white text-5xl cursor-pointer"
+            onClick={goToBeginning}
+          />
         </div>
         {/* <Footer />
         <CopyrightSection /> */}

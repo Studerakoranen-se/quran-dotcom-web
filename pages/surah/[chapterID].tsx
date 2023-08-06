@@ -12,6 +12,7 @@ import {
   BsThreeDots,
   BsPlayFill,
   BsFillPauseFill,
+  BsFillArrowUpCircleFill,
 } from "react-icons/bs";
 import { RiMenuUnfoldFill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
@@ -374,15 +375,125 @@ const SurahViewPage = (props: any) => {
                             }}
                             key={i}
                             className={
-                              word.char_type == "end"
-                                ? "hidden"
-                                : "" +
-                                  " hover:!text-green-400 relative group flex flex-col gap-4 items-center leading-loose"
+                              (word.char_type == "end" ? "" : "") +
+                              " hover:!text-green-400 relative group flex flex-col gap-4 items-center leading-loose"
                             }
                           >
-                            <p>{word.text_madani}</p>
+                            {word.char_type == "end" ? (
+                              <div className="relative">
+                                <p className="font-irishGrove w-5 text-center absolute top-[1rem] left-[.6rem] group-hover:text-[#E0D2B4] text-2xl">
+                                  {word.text_madani}
+                                </p>
+                                <svg
+                                  width="40"
+                                  height="60"
+                                  viewBox="0 0 49 60"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  className=""
+                                >
+                                  <path
+                                    d="M24.0179 52.6523C36.8485 52.6523 47.2499 42.651 47.2499 30.3138C47.2499 17.9767 36.8485 7.97538 24.0179 7.97538C11.1872 7.97538 0.785858 17.9767 0.785858 30.3138C0.785858 42.651 11.1872 52.6523 24.0179 52.6523Z"
+                                    fill="#fff"
+                                    className="group-hover:fill-[#fff]"
+                                    stroke="black"
+                                  />
+                                  <path
+                                    d="M24.0178 49.1446C34.8338 49.1446 43.6018 40.7138 43.6018 30.3138C43.6018 19.9139 34.8338 11.4831 24.0178 11.4831C13.2019 11.4831 4.43384 19.9139 4.43384 30.3138C4.43384 40.7138 13.2019 49.1446 24.0178 49.1446Z"
+                                    fill="#04332A"
+                                    stroke="black"
+                                  />
+                                  <path
+                                    d="M38.6559 16.501C42.3452 18.1994 44.8283 17.3861 46.3997 15.3892C43.2009 14.894 40.3593 11.8389 37.5842 9.92385C31.5469 5.75856 27.9969 7.7897 24.0094 1.19819C20.0223 7.78859 16.4722 5.75745 10.435 9.92274C7.65906 11.8377 4.81861 14.8926 1.62219 15.3881C3.19383 17.385 5.67685 18.1983 9.36594 16.4999C13.4878 20.7892 14.8468 9.40841 24.0094 16.8825C33.1724 9.40966 34.5314 20.7905 38.6544 16.5011L38.6559 16.501Z"
+                                    fill="url(#paint0_linear_629_2354)"
+                                    className="group-hover:fill-[#fff]"
+                                    stroke="black"
+                                  />
+                                  <path
+                                    d="M24.0178 12.6277C25.4812 12.6277 26.6674 11.4871 26.6674 10.08C26.6674 8.67295 25.4812 7.53231 24.0178 7.53231C22.5545 7.53231 21.3682 8.67295 21.3682 10.08C21.3682 11.4871 22.5545 12.6277 24.0178 12.6277Z"
+                                    fill="black"
+                                  />
+                                  <path
+                                    d="M17.9476 10.6944C15.0495 11.7074 13.57 12.4273 11.5954 13.7785L17.9476 10.6944Z"
+                                    fill="black"
+                                  />
+                                  <path
+                                    d="M17.9476 10.6944C15.0495 11.7074 13.57 12.4273 11.5954 13.7785"
+                                    stroke="black"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                  />
+                                  <path
+                                    d="M30.0113 10.6944C32.9094 11.7074 34.3889 12.4273 36.3634 13.7785L30.0113 10.6944Z"
+                                    fill="black"
+                                  />
+                                  <path
+                                    d="M30.0113 10.6944C32.9094 11.7074 34.3889 12.4273 36.3634 13.7785"
+                                    stroke="black"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                  />
+                                  <path
+                                    d="M38.6559 43.499C42.3452 41.8006 44.8283 42.6139 46.3997 44.6108C43.201 45.106 40.3594 48.1611 37.5842 50.0762C31.5469 54.2414 27.9969 52.2103 24.0094 58.8018C20.0223 52.2114 16.4722 54.2426 10.435 50.0773C7.65906 48.1623 4.81861 45.1074 1.62219 44.6119C3.19383 42.615 5.67685 41.8017 9.36594 43.5002C13.4878 39.2108 14.8468 50.5916 24.0094 43.1175C33.1724 50.5903 34.5314 39.2095 38.6544 43.4989L38.6559 43.499Z"
+                                    fill="url(#paint1_linear_629_2354)"
+                                    stroke="black"
+                                    className="group-hover:fill-[#fff]"
+                                  />
+                                  <path
+                                    d="M24.0178 47.3723C25.4812 47.3723 26.6674 48.5129 26.6674 49.92C26.6674 51.3271 25.4812 52.4677 24.0178 52.4677C22.5545 52.4677 21.3682 51.3271 21.3682 49.92C21.3682 48.5129 22.5545 47.3723 24.0178 47.3723Z"
+                                    fill="black"
+                                  />
+                                  <path
+                                    d="M17.9476 49.3056C15.0495 48.2926 13.57 47.5727 11.5954 46.2215L17.9476 49.3056Z"
+                                    fill="black"
+                                  />
+                                  <path
+                                    d="M17.9476 49.3056C15.0495 48.2926 13.57 47.5727 11.5954 46.2215"
+                                    stroke="black"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                  />
+                                  <path
+                                    d="M30.0113 49.3056C32.9094 48.2926 34.3889 47.5727 36.3634 46.2215L30.0113 49.3056Z"
+                                    fill="black"
+                                  />
+                                  <path
+                                    d="M30.0113 49.3056C32.9094 48.2926 34.3889 47.5727 36.3634 46.2215"
+                                    stroke="black"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                  />
+                                  <defs>
+                                    <linearGradient
+                                      id="paint0_linear_629_2354"
+                                      x1="1.62219"
+                                      y1="3.64343"
+                                      x2="1.62219"
+                                      y2="15.8697"
+                                      gradientUnits="userSpaceOnUse"
+                                    >
+                                      <stop stopColor="#fff" />
+                                      <stop offset="1" stopColor="#fff" />
+                                    </linearGradient>
+                                    <linearGradient
+                                      id="paint1_linear_629_2354"
+                                      x1="1.62219"
+                                      y1="56.3566"
+                                      x2="1.62219"
+                                      y2="44.1304"
+                                      gradientUnits="userSpaceOnUse"
+                                    >
+                                      <stop stopColor="#fff" />
+                                      <stop offset="1" stopColor="#fff" />
+                                    </linearGradient>
+                                  </defs>
+                                </svg>
+                              </div>
+                            ) : (
+                              <p>{word.text_madani}</p>
+                            )}
 
-                            <span className="hidden group-hover:block text-black text-lg w-max absolute -top-20 right-0 bg-green-100 rounded-lg px-2 font-inter">
+                            <span className="hidden group-hover:block text-black text-lg w-max absolute -top-[4rem] right-0 bg-green-100 rounded-lg px-2 font-inter">
                               <p>{word.translation.text}</p>
                               <p className="text-lg">
                                 {word.transliteration.text}
@@ -396,18 +507,14 @@ const SurahViewPage = (props: any) => {
                   </div>
                 ))}
               </div>
-
-              <div className="pb-10 text-center">
-                <button
-                  type="button"
-                  onClick={goToBeginning}
-                  className="text-white border border-green-800 rounded bg-green-900 px-5 py-1"
-                >
-                  Början av Surah
-                </button>
-              </div>
             </div>
           </div>
+        </div>
+        <div className="fixed right-5 bottom-10">
+          <BsFillArrowUpCircleFill
+            className="text-white text-5xl cursor-pointer"
+            onClick={goToBeginning}
+          />
         </div>
         {/* <Footer />
         <CopyrightSection /> */}
