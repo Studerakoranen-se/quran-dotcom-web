@@ -3,7 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
-  const handleScrollTop = () => {
+  const handleScrollTop = (e: any) => {
+    e.preventDefault();
+    e.currentTarget.disabled = true;
+
     window.scrollTo({
       top: 0,
       behavior: "smooth",
@@ -25,23 +28,23 @@ const Footer = () => {
               <g id="Text_i_cirkel" data-name="Text i cirkel">
                 <text
                   transform="translate(158.46 315.57)"
-                  font-size="86"
+                  fontSize="86"
                   stroke="#231f20"
-                  stroke-miterlimit="10"
-                  stroke-width="0.75"
-                  font-family="TrajanPro-Bold, TrajanPro Bold"
-                  font-weight="700"
+                  strokeMiterlimit="10"
+                  strokeWidth="0.75"
+                  fontFamily="TrajanPro-Bold, TrajanPro Bold"
+                  fontWeight="700"
                 >
                   Studera
                 </text>
                 <text
                   transform="translate(145.64 394)"
-                  font-size="66"
+                  fontSize="66"
                   stroke="#231f20"
-                  stroke-miterlimit="10"
-                  stroke-width="0.75"
-                  font-family="TrajanPro-Bold, TrajanPro Bold"
-                  font-weight="700"
+                  strokeMiterlimit="10"
+                  strokeWidth="0.75"
+                  fontFamily="TrajanPro-Bold, TrajanPro Bold"
+                  fontWeight="700"
                 >
                   KORANEN
                 </text>
@@ -123,15 +126,15 @@ const Footer = () => {
                   d="M487.66,186a1.72,1.72,0,0,0,1,.51q.31,0,.39-.15c0-.09.14-.14.3-.14s.64.9,1.27,2.69a14.28,14.28,0,0,1,.93,3.3c0,.28.06.43.17.43s.29-.16.48-.47a9.09,9.09,0,0,0,.71-2.36q1-5.28,1.81-5.28a1,1,0,0,1,.75.44c.25.29.41.44.48.44s.32-.19.45-.57a2.26,2.26,0,0,0,.15-.7,1.58,1.58,0,0,0-.43-.89,1.34,1.34,0,0,0-1-.63c-.65,0-1.24.61-1.79,1.85a48.68,48.68,0,0,0-1.16,5.32L492,190s0,0,0,0l0,0a1.6,1.6,0,0,0,0-.26,13.28,13.28,0,0,0-1.45-4.24c-.76-1.39-1.52-2.08-2.28-2.08-.09,0-.29.27-.63.79a3.48,3.48,0,0,0-.49.92C487.07,185.35,487.27,185.62,487.66,186Z"
                   transform="translate(-200.12 -123.81)"
                   stroke="#231f20"
-                  stroke-miterlimit="10"
-                  stroke-width="0.5"
+                  strokeMiterlimit="10"
+                  strokeWidth="0.5"
                 />
                 <path
                   d="M479.06,182.68h.05c.52,0,1-.37,1.46-1.12a6.53,6.53,0,0,0,.85-2.53.86.86,0,0,0,0-.15.28.28,0,0,0,0-.1s0-.05,0-.05l0,0a.53.53,0,0,0-.16.22c-.52.94-1,1.46-1.55,1.56h-.1a.82.82,0,0,1-.61-.4,2.85,2.85,0,0,1-.44-1.72,8.54,8.54,0,0,1,.23-1.83,35,35,0,0,1,2.55-6.71,2.84,2.84,0,0,0,.24-.64v0c-.09,0-.26.22-.53.6a23.31,23.31,0,0,0-2.1,4.37,17.94,17.94,0,0,0-1.47,5.31c0,.1,0,.2,0,.3a4.49,4.49,0,0,0,.4,2A1.37,1.37,0,0,0,479.06,182.68Z"
                   transform="translate(-200.12 -123.81)"
                   stroke="#231f20"
-                  stroke-miterlimit="10"
-                  stroke-width="0.5"
+                  strokeMiterlimit="10"
+                  strokeWidth="0.5"
                 />
                 <path
                   d="M500.93,169.91l.38-.12,2.2-.75q5.82-1.68,6.06-.95a.24.24,0,0,1,0,.21,30.15,30.15,0,0,1-3.15,3.22,40,40,0,0,0-3.44,3.45,7.16,7.16,0,0,0-.54.78h.06a7,7,0,0,0,.92-.48q5.4-3.17,6.22-4.15a15.38,15.38,0,0,0,2.29-4.45c.62-1.71.86-2.77.73-3.17-.32-1-2.72-.82-7.2.48a25.22,25.22,0,0,0-2.66.87A3,3,0,0,0,501,166.7l-.67,2.61a1.67,1.67,0,0,0-.08.65C500.23,170.06,500.48,170,500.93,169.91Z"
@@ -148,16 +151,16 @@ const Footer = () => {
                   transform="translate(-200.12 -123.81)"
                   fill="none"
                   stroke="#fff"
-                  stroke-miterlimit="10"
-                  stroke-width="4.98"
+                  strokeMiterlimit="10"
+                  strokeWidth="4.98"
                 />
                 <path
                   d="M559.94,208.65C695.45,236.38,797.4,356.28,797.4,500c0,120.16-71.27,223.68-173.84,270.59"
                   transform="translate(-200.12 -123.81)"
                   fill="none"
                   stroke="#fff"
-                  stroke-miterlimit="10"
-                  stroke-width="4.98"
+                  strokeMiterlimit="10"
+                  strokeWidth="4.98"
                 />
               </g>
             </svg>
@@ -239,28 +242,31 @@ const Footer = () => {
         {/* <Link href={"#!"}>Artiklar</Link> */}
       </div>
       <div className="flex items-end h-40 absolute right-5 bottom-5">
-        <svg
-          width="44"
-          height="44"
-          viewBox="0 0 44 44"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          onClick={() => handleScrollTop()}
-          style={{ cursor: "pointer" }}
+        <button
+          onClick={() => console.log("on click")}
+          onDoubleClick={() => console.log("on double click")}
         >
-          <circle
-            cx="21.6523"
-            cy="21.7345"
-            r="20.6524"
-            transform="rotate(180 21.6523 21.7345)"
-            stroke="#E0D2B4"
-            strokeWidth="2"
-          />
-          <path
-            d="M20.5 34.0823V15.8198L12.1 24.2198L10 22.0823L22 10.0823L34 22.0823L31.9 24.2198L23.5 15.8198V34.0823H20.5Z"
-            fill="#E0D2B4"
-          />
-        </svg>
+          <svg
+            width="44"
+            height="44"
+            viewBox="0 0 44 44"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="21.6523"
+              cy="21.7345"
+              r="20.6524"
+              transform="rotate(180 21.6523 21.7345)"
+              stroke="#E0D2B4"
+              strokeWidth="2"
+            />
+            <path
+              d="M20.5 34.0823V15.8198L12.1 24.2198L10 22.0823L22 10.0823L34 22.0823L31.9 24.2198L23.5 15.8198V34.0823H20.5Z"
+              fill="#E0D2B4"
+            />
+          </svg>
+        </button>
       </div>
     </div>
   );

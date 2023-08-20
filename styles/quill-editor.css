@@ -28,7 +28,7 @@
   border-width: 1px;
   border-color: #e0e6ed !important;
   padding: 8px;
-  font-family: Nunito, sans-serif;
+  fontfamily: Nunito, sans-serif;
 }
 
 .dark .ql-toolbar.ql-snow,
@@ -75,12 +75,12 @@
   color: #888ea8;
 }
 
-.ql-snow .ql-tooltip input[type='text'] {
+.ql-snow .ql-tooltip input[type="text"] {
   outline: none !important;
   box-shadow: none !important;
 }
 
-.dark .ql-snow .ql-tooltip input[type='text'] {
+.dark .ql-snow .ql-tooltip input[type="text"] {
   background-color: #121e32;
   border-color: #17263c;
   color: #888ea8;

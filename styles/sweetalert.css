@@ -18,14 +18,14 @@
   margin: 0px !important;
   width: 100%;
   color: #3b3f5c;
-  font-size: 24px;
+  fontsize: 24px;
   @apply ltr:!pr-10 rtl:!pl-10;
 }
 
 .swal2-popup .swal2-styled {
   box-shadow: 0px 5px 20px 0 rgba(0, 0, 0, 0.1) !important;
   letter-spacing: 1px;
-  font-size: 14px !important;
+  fontsize: 14px !important;
   line-height: 20px !important;
   transition: all 0.3s ease-out;
   -webkit-transition: all 0.3s ease-out;
@@ -59,7 +59,7 @@
 .swal2-popup .swal2-html-container {
   margin: 0 !important;
   color: #e95f2b;
-  font-weight: 300;
+  fontweight: 300;
   @apply ltr:!pr-10 rtl:!pl-10;
 }
 
@@ -67,7 +67,7 @@
   position: absolute;
   top: 16px;
   transition: color 0.1s ease-out;
-  font-family: serif;
+  fontfamily: serif;
   @apply ltr:right-4 rtl:left-4;
 }
 
@@ -104,7 +104,7 @@
   border: 0.25em solid transparent;
   border-radius: 50%;
   border-color: #000;
-  font-family: inherit;
+  fontfamily: inherit;
   line-height: 5em;
   cursor: default;
   -webkit-user-select: none;
@@ -130,7 +130,7 @@
   color: #fb4 !important;
   border: 5px solid #f1f2f3 !important;
   box-shadow: 0px 3px 25px 0px rgba(113, 106, 202, 0.2);
-  font-size: 60px;
+  fontsize: 60px;
   line-height: 80px;
   text-align: center;
 }
@@ -139,7 +139,7 @@
   color: #4361ee !important;
   border: 5px solid #f1f2f3 !important;
   box-shadow: 0px 3px 25px 0px rgba(113, 106, 202, 0.2);
-  font-size: 60px;
+  fontsize: 60px;
   line-height: 80px;
   text-align: center;
 }
@@ -150,7 +150,7 @@
   border-color: none !important;
   text-align: center;
   box-shadow: 0px 3px 25px 0px rgba(113, 106, 202, 0.2);
-  font-size: 60px;
+  fontsize: 60px;
   line-height: 80px;
   text-align: center;
 }
@@ -238,7 +238,7 @@
 }
 
 .swal2-icon-content {
-  font-size: 5.75rem !important;
+  fontsize: 5.75rem !important;
 }
 
 .swal2-show {
@@ -265,9 +265,9 @@
 }
 
 .sweet-alerts.swal2-popup .swal2-html-container {
-    @apply !px-0 !mt-4;
+  @apply !px-0 !mt-4;
 }
 
 .sweet-alerts.swal2-popup .swal2-title {
-    @apply ltr:!pr-6 rtl:!pl-6;
+  @apply ltr:!pr-6 rtl:!pl-6;
 }

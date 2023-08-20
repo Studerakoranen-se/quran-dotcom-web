@@ -60,7 +60,7 @@
 
 .calendar-wrapper .fc-button {
   text-transform: capitalize !important;
-  font-weight: 500 !important;
+  fontweight: 500 !important;
   border-radius: 6px !important;
   padding: 8px 15px !important;
 }
@@ -87,7 +87,7 @@
   border-color: #4361ee !important;
   background: transparent !important;
   box-shadow: none !important;
-  font-weight: 600 !important;
+  fontweight: 600 !important;
   line-height: 20px !important;
 }
 
@@ -203,7 +203,7 @@
 }
 
 .calendar-wrapper .fc-toolbar-title {
-  font-size: 20px;
+  fontsize: 20px;
 }
 
 .calendar-wrapper .fc .fc-popover {
@@ -221,7 +221,7 @@
 }
 
 .calendar-wrapper .fc-event-title.fc-sticky {
-  font-weight: 700;
+  fontweight: 700;
 }
 
 .calendar-wrapper .fc-daygrid-event-dot {
@@ -234,7 +234,7 @@
 
 .calendar-wrapper .fc-event-time {
   padding: 1px !important;
-  font-weight: 700;
+  fontweight: 700;
   flex-shrink: 0;
 }
 .rtl .calendar-wrapper .fc-event-time {
