@@ -1,0 +1,20 @@
+module.exports = {
+  defaultLocale: 'sv',
+  locales: [
+    'da',
+    'de',
+    'el',
+    'en',
+    'es',
+    'fr',
+    'hu',
+    'it',
+    'ja',
+    'pl',
+    'pt',
+    'ru',
+    'sv',
+    'tr',
+    'zh',
+  ],
+}
