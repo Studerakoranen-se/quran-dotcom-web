@@ -16,10 +16,10 @@ const config: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: `${__dirname}/database/migrations`,
+      directory: `${__dirname}/src/database/migrations`,
     },
     seeds: {
-      directory: `${__dirname}/database/seeds`,
+      directory: `${__dirname}/src/database/seeds`,
     },
   },
 
@@ -33,10 +33,10 @@ const config: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: `${__dirname}/database/migrations`,
+      directory: `${__dirname}/src/database/migrations`,
     },
     seeds: {
-      directory: `${__dirname}/database/seeds`,
+      directory: `${__dirname}/src/database/seeds`,
     },
   },
 
@@ -50,10 +50,10 @@ const config: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: `${__dirname}/database/migrations`,
+      directory: `${__dirname}/src/database/migrations`,
     },
     seeds: {
-      directory: `${__dirname}/database/seeds`,
+      directory: `${__dirname}/src/database/seeds`,
     },
   },
 }
