@@ -7,29 +7,45 @@ function composeLinks(length) {
 
 const menuPrimary = [
   {
-    label: 'Brands',
-    url: '/brands',
-    links: composeLinks(5),
+    label: 'Hem',
+    url: '/',
+    menuItems: composeLinks(5),
   },
   {
-    label: 'New arrivals',
-    url: '/new-arrivals',
-    links: composeLinks(5),
+    label: 'Kurser',
+    url: '/kurser',
+    menuItems: composeLinks(5),
+  },
+  {
+    label: 'Artiklar',
+    url: '/artiklar',
+  },
+  {
+    label: 'Ordkunskap',
+    url: '/ordkunskap',
+  },
+  {
+    label: 'FAQ',
+    url: '/faq',
+  },
+  {
+    label: 'Om Oss',
+    url: '/om-oss',
   },
 ]
 
 const menuFooter = [
   {
     label: 'About Maya Delorez',
-    links: composeLinks(3),
+    menuItems: composeLinks(3),
   },
   {
     label: 'Delivery info',
-    links: composeLinks(3),
+    menuItems: composeLinks(3),
   },
   {
     label: 'Company info',
-    links: composeLinks(6),
+    menuItems: composeLinks(6),
   },
 ]
 

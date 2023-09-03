@@ -2,177 +2,166 @@ import * as React from 'react'
 import { useRouter } from 'next/router'
 import { unstable_generateUtilityClasses as generateUtilityClasses } from '@mui/utils'
 import { styled } from '@mui/system'
-import { useI18n, useRemoteConfig } from '~/contexts'
-import RouterLink from '~/containers/RouterLink'
+import { ButtonBase, Typography } from '@mui/material'
+import { SITE_MAIN_ID } from '~/utils/constants'
+import { RouterLink } from '~/containers'
 
-export const classes = generateUtilityClasses('CiaAppNavDropDown', [
-  'list',
-  'listItem',
-  'listItemLink',
-  'submenuDefault',
-  'submenuMedia',
+const BREAKPOINT_KEY_1 = 'lg'
+
+const classes = generateUtilityClasses('CiaAppNavDropDownRoot', [
+  'hasSubmenuOpenWithin',
+  'hadSubmenuOpenWithin',
+  'hasSubmenu',
 ])
 
-const AppNavDropDownRoot = styled('nav', {
-  name: 'AppNavDropDown',
-  slot: 'Root',
-})({
-  display: 'flex',
-  alignItems: 'stretch',
-  alignSelf: 'stretch',
-})
-
-const AppNavDropDownList = styled('ul', {
-  name: 'AppNavDropDown',
-  slot: 'List',
-})({
-  display: 'flex',
-  margin: 0,
-})
-
-const AppNavDropDownListItem = styled('li', {
-  name: 'AppNavDropDown',
-  slot: 'ListItem',
-})(({ theme }) => ({
+const AppNavDropDownRoot = styled('li')(({ theme }) => ({
   position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  transition: theme.transitions.create(['background-color'], {
+    duration: theme.transitions.duration.shortest,
+  }),
+  [`&.${classes.hasSubmenu}`]: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+  '&:hover, &:focus-within, &.Cia-selected': {
+    backgroundColor: theme.palette.green[100],
+    color: theme.palette.green[100],
+  },
+}))
+
+const AppNavDropDownLink = styled('a')(({ theme }) => ({
+  transition: theme.transitions.create(['padding', 'background-color', 'color'], {
+    duration: theme.transitions.duration.short, // Match MuiButton duration.
+  }),
+  color: theme.palette.common.white,
+  textDecoration: 'none',
+  whiteSpace: 'nowrap',
+}))
+
+const AppNavDropDownPrimary = styled(AppNavDropDownLink)(({ theme }) => ({
+  ...theme.typography.body1,
   display: 'flex',
   alignItems: 'center',
-  '&:after': {
-    ...theme.mixins.absolute(undefined, 'var(--cia-theme-spacing)', 0),
-    content: '""',
-    height: 2,
-    backgroundColor: 'currentColor',
-    transform: 'scaleX(0)',
-    transformOrigin: 'left',
-    transition: theme.transitions.create(['transform'], {
-      duration: theme.transitions.duration.shorter,
-      easing: theme.transitions.easing.easeOut,
-    }),
-  },
-  '&:hover:after, &:focus-within:after, &.Cia-selected:after': {
-    transform: 'scaleX(1)',
-  },
+  justifyContent: 'space-between',
+  padding: theme.spacing(1, 2),
+  minHeight: 'var(--cia-header-toolbar-primary-height, 0px)',
 }))
 
-const AppNavDropDownListItemLink = styled(RouterLink, {
-  name: 'AppNavDropDown',
-  slot: 'ListItemLink',
-})(({ theme }) => ({
-  ...theme.typography.body1,
-  padding: '0 var(--cia-theme-spacing)',
-  color: 'inherit',
-  textDecoration: 'none',
-}))
-
-const AppNavDropDownSubmenu = styled('div', {
-  name: 'AppNavDropDown',
-  slot: 'Submenu',
-})(({ theme }) => ({
-  ...theme.mixins.fixed('var(--cia-header-height)', 0, undefined),
+const AppNavDropDownPaper = styled('div')(({ theme }) => ({
+  ...theme.mixins.fixed('var(--cia-header-height, 0px)', 0, undefined),
+  zIndex: theme.zIndex.appBar,
+  display: 'grid',
+  gridGap: 'var(--cia-container-spacing)',
+  opacity: 0,
+  visibility: 'hidden',
   overflow: 'hidden',
-  maxHeight: 0,
-  transition: theme.transitions.create(['max-height'], {
-    duration: 0,
-    easing: theme.transitions.easing.easeOut,
+  padding: 'var(--cia-section-spacing) var(--cia-container-spacing)',
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.text.primary,
+  transition: theme.transitions.create(['opacity', 'visibility'], {
+    duration: theme.transitions.duration.shortest,
   }),
-  [`.${classes.listItem}:hover &, .${classes.listItem}:focus-within &, .${classes.listItemLink}:focus + &`]:
-    {
-      transitionDuration: `${theme.transitions.duration.shorter}ms`,
-      maxHeight: 'var(--submenu-expanded-size)', // Hardcoded value matching submenu template with images.
-    },
-  [`&.${classes.submenuDefault}`]: {
-    '--submenu-expanded-size': '60px',
+  // Remove transitions when moving between menu items that have submenus.
+  [`.${classes.hasSubmenuOpenWithin}.${classes.hadSubmenuOpenWithin} &`]: {
+    transition: 'none',
   },
-  [`&.${classes.submenuMedia}`]: {
-    '--submenu-expanded-size': '450px',
+  [`${AppNavDropDownRoot}:hover &, ${AppNavDropDownRoot}:focus-within &`]: {
+    opacity: 1,
+    visibility: 'visible',
   },
+  [theme.breakpoints.up(BREAKPOINT_KEY_1)]: {
+    gridTemplateColumns: '1fr clamp(350px, 33vw, 700px)',
+  },
+  // Debug code which forces first menuItem to be open.
+  // [`${AppNavDropDownRoot}:first-child &`]: {
+  //   opacity: 1,
+  //   visibility: 'visible',
+  // },
 }))
 
-const AppNavDropDownSubmenuInner = styled('div', {
-  name: 'AppNavDropDown',
-  slot: 'SubmenuInner',
-})(({ theme }) => ({
-  padding: theme.spacing(2, 'var(--cia-container-spacing)'),
-  backgroundColor: theme.palette.background.paper,
-}))
-
-const AppNavDropDownLinkSlideshow = styled('div', {
-  name: 'AppNavDropDown',
-  slot: 'LinkSlideshow',
-})({
-  display: 'flex',
-  gap: 1,
-  padding: '0 var(--cia-toolbar-spacing)',
-  margin: '0 calc(var(--cia-toolbar-spacing) * -1)',
-  overflowX: 'auto',
-  scrollSnapType: 'x mandatory',
-  scrollPadding: 'var(--cia-toolbar-spacing)',
+const AppNavDropDownList = styled('ul')({
+  display: 'grid',
+  gridGap: 'var(--cia-container-spacing)',
+  gridTemplateColumns: 'repeat(auto-fit, 290px)',
 })
 
-const AppNavDropDownLinkSlideshowItem = styled(RouterLink, {
-  name: 'AppNavDropDown',
-  slot: 'LinkSlideshowItem',
-})({
-  flexShrink: 0,
-  display: 'block',
-  width: 256,
-  scrollSnapAlign: 'start',
-  color: 'inherit',
-  textDecoration: 'none',
-})
-
-const AppNavDropDown = React.memo(function AppNavDropDown(props) {
+function AppNavDropDown(props) {
+  const { menuItem } = props
   const router = useRouter()
-  const { t } = useI18n()
-  const { menus } = useRemoteConfig()
-  console.log({ menus })
+
+  const rootRef = React.useRef(null)
+
+  const handleMouseEnter = () => {
+    const [target, parent] = [rootRef.current, rootRef.current.parentNode]
+
+    // Handle menu state for if curent item has submenu.
+    const hasSubmenu = target.classList.contains(classes.hasSubmenu)
+    parent.classList[hasSubmenu ? 'add' : 'remove'](classes.hasSubmenuOpenWithin)
+  }
+
+  const handleMouseLeave = () => {
+    const [target, parent] = [rootRef.current, rootRef.current.parentNode]
+
+    // Handle menu state for if previous item has submenu.
+    const hasSubmenu = target.classList.contains(classes.hasSubmenu)
+    parent.classList.remove(classes.hasSubmenuOpenWithin)
+    parent.classList[hasSubmenu ? 'add' : 'remove'](classes.hadSubmenuOpenWithin)
+
+    // Ensures no element within the menu remains focused upon mouse leave.
+    if (rootRef.current?.contains(document.activeElement)) {
+      document.getElementById(SITE_MAIN_ID)?.focus()
+    }
+  }
+
+  const handleSubmenuTransitionEnd = () => {
+    // Reset ramaining menu state when transition completes.
+    rootRef.current.parentNode.classList.remove(classes.hadSubmenuOpenWithin)
+  }
+
+  const hasSubMenu = menuItem.menuItems?.length > 0
+  // const hasSubSubMenu = menuItem.menuItems?.some((x) => x.menuItems?.length > 0)
 
   return (
     <AppNavDropDownRoot
-      key={router?.asPath} // Re-render on route change to close nav despite hovered.
-      aria-label={t(__translationGroup)`Main navigation`}
-      {...props}
+      key={router?.asPath}
+      className={hasSubMenu ? classes.hasSubmenu : ''}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      ref={rootRef}
     >
-      {menus?.primary?.length > 0 && (
-        <AppNavDropDownList className={classes.list}>
-          {menus.primary.map((menuLink, idx) => (
-            <AppNavDropDownListItem key={idx} className={classes.listItem}>
-              <AppNavDropDownListItemLink className={classes.listItemLink} href={menuLink.url}>
-                {menuLink.label}
-              </AppNavDropDownListItemLink>
+      <AppNavDropDownPrimary
+        as={RouterLink}
+        href={menuItem.url}
+        {...(hasSubMenu && {
+          as: ButtonBase,
+          href: undefined,
+        })}
+      >
+        {menuItem.label}
+      </AppNavDropDownPrimary>
 
-              {menuLink?.links && (
-                <AppNavDropDownSubmenu className={classes.submenuDefault}>
-                  <AppNavDropDownSubmenuInner>
-                    <AppNavDropDownList className={classes.list}>
-                      {menuLink.links?.map((subLink, idx2) => (
-                        <AppNavDropDownListItem key={idx2} className={classes.listItem}>
-                          <AppNavDropDownListItemLink
-                            className={classes.listItemLink}
-                            href={subLink.url}
-                          >
-                            {subLink.label}
-                          </AppNavDropDownListItemLink>
-                        </AppNavDropDownListItem>
-                      ))}
-                    </AppNavDropDownList>
-                  </AppNavDropDownSubmenuInner>
-                </AppNavDropDownSubmenu>
-              )}
-            </AppNavDropDownListItem>
-          ))}
-
-          {menus?.secondary?.map((menuLink, idx) => (
-            <AppNavDropDownListItem key={idx} className={classes.listItem}>
-              <AppNavDropDownListItemLink href={menuLink.url} className={classes.listItemLink}>
-                {menuLink.label}
-              </AppNavDropDownListItemLink>
-            </AppNavDropDownListItem>
-          ))}
-        </AppNavDropDownList>
+      {hasSubMenu && (
+        <AppNavDropDownPaper onTransitionEnd={handleSubmenuTransitionEnd}>
+          <AppNavDropDownList>
+            {(hasSubMenu ? menuItem.menuItems : [false])?.map((item, idx) => (
+              <li key={idx}>
+                {item && (
+                  <Typography variant="h5" paragraph>
+                    {item.label}
+                  </Typography>
+                )}
+              </li>
+            ))}
+          </AppNavDropDownList>
+        </AppNavDropDownPaper>
       )}
     </AppNavDropDownRoot>
   )
-})
+}
+
+// AppNavDropDown.propTypes = {
+//   menuItem: menuItemType.isRequired,
+// }
 
 export default AppNavDropDown

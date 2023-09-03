@@ -1,28 +1,25 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
 import { unstable_generateUtilityClasses as generateUtilityClasses } from '@mui/utils'
-import { AppBar, Badge, IconButton, styled } from '@mui/material'
-import { useGlobalHandlers, useGlobalState, useI18n } from '~/contexts'
+import { styled } from '@mui/system'
+import { AppBar, IconButton, Button } from '@mui/material'
+import { SITE_HEADER_ID } from '~/utils/constants'
+import { useGlobalState, useGlobalHandlers, useI18n, useRemoteConfig } from '~/contexts'
 import { RouterLink } from '~/containers'
-import { BrandIcon, CartIcon, SearchIcon, CloseIcon, MenuIcon } from '~/components'
-import AppStoreMessage from './AppStoreMessage'
+import { BrandIcon, CloseIcon, MenuIcon, OnlineIcon } from '~/components'
 import AppNavDropDown from './AppNavDropDown'
+import AppStoreMessage from './AppStoreMessage'
 
 const BREAKPOINT_KEY = 'md'
 
-export const classes = generateUtilityClasses('CiaAppHeader', [
-  'toolbarPushMobile',
-  'toolbarPushDesktop',
+const classes = generateUtilityClasses('CiaAppHeader', [
+  'toolbarPushStart',
+  'toolbarEdgeEnd',
   'hiddenOnMobile',
   'hiddenOnDesktop',
 ])
 
 const AppHeaderRoot = styled(AppBar)(({ theme, ownerState }) => ({
-  ...(ownerState.mounted && {
-    transition: theme.transitions.create(['background-color'], {
-      duration: theme.transitions.duration.shortest, // Match value of `IconButton`
-    }),
-  }),
   ...(ownerState.headerMode === 'transparent' && {
     '&:not(:hover):not(:focus-within)': {
       backgroundColor: 'transparent',
@@ -30,12 +27,8 @@ const AppHeaderRoot = styled(AppBar)(({ theme, ownerState }) => ({
     },
   }),
   // Util classes
-  [`& .${classes.toolbarPushMobile}`]: {
-    [theme.breakpoints.down(BREAKPOINT_KEY)]: { marginLeft: 'auto' },
-  },
-  [`& .${classes.toolbarPushDesktop}`]: {
-    [theme.breakpoints.up(BREAKPOINT_KEY)]: { marginLeft: 'auto' },
-  },
+  [`& .${classes.toolbarPushStart}`]: { marginLeft: 'auto' },
+  [`& .${classes.toolbarEdgeEnd}`]: { marginRight: -3 },
   [`& .${classes.hiddenOnMobile}`]: {
     [theme.breakpoints.down(BREAKPOINT_KEY)]: { display: 'none' },
   },
@@ -48,38 +41,52 @@ const AppHeaderToolbar = styled('div')({
   display: 'flex',
   alignItems: 'center',
   height: 'var(--cia-header-toolbar-primary-height)',
-  paddingInline: 'var(--cia-container-spacing)',
+  padding: '0 var(--cia-container-spacing)',
 })
 
 const AppHeaderBrandLink = styled(RouterLink)(({ theme, ownerState }) => ({
-  position: 'absolute',
-  left: '50%',
-  top: '50%',
-  transform: 'translate3d(-50%, calc(-50% + 2px), 0) scale(1)',
-  transformOrigin: 'center top',
-  transition: theme.transitions.create(['transform'], {
-    duration: theme.transitions.duration.complex,
-    easing: theme.transitions.easing.easeOut,
-  }),
   color: 'white',
-  ...(ownerState.expandedLogo && {
-    transform: 'translate3d(-50%, calc(-50% + 8px), 0) scale(1.2)',
-  }),
+  marginTop: 132,
   '& > svg': {
     display: 'block',
-    // fontSize: 'calc(var(--cia-toolbar-min-height) * 4)',
+    // width: 33.4,
+    transformOrigin: 'center top',
+    transform: 'translate3d(0, calc(-50% + 2px), 0) scale(0.5)',
+    transition: theme.transitions.create(['transform'], {
+      duration: theme.transitions.duration.complex,
+      easing: theme.transitions.easing.easeOut,
+    }),
+    color: 'white',
+    ...(ownerState.expandedLogo && {
+      transform: 'translate3d(0, calc(-50% + 8px), 0) scale(1.2)',
+    }),
+    '& > svg': {
+      display: 'block',
+      // fontSize: 'calc(var(--cia-toolbar-min-height) * 4)',
+    },
+    [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+      // width: 45,
+    },
   },
 }))
 
-const StyledBrandIcon = styled('div')(({ theme }) => ({
-  position: 'absolute',
-  left: 0,
-  display: 'block',
-  zIndex: theme.zIndex.appBar + 1,
-  width: 33.4,
-  height: 'auto',
-  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-    width: 45,
+const AppHeaderNav = styled('nav')(({ theme }) => ({
+  margin: theme.spacing(0, 2),
+}))
+
+const AppHeaderList = styled('ul')({
+  display: 'flex',
+})
+
+const AppHeaderCtaButton = styled(Button)(({ theme }) => ({
+  ...theme.typography.subtitle2,
+}))
+
+const AppHeaderSupportButton = styled(Button)(({ theme }) => ({
+  marginInline: theme.spacing(1),
+  '& span': {
+    margin: 0,
+    marginLeft: -5,
   },
 }))
 
@@ -88,30 +95,28 @@ const AppHeader = React.memo(function AppHeader(props) {
     headerColor = 'inherit',
     headerMode: headerModeProp = 'opaque',
     isNavMenuOpen,
-    isSearchMenuOpen,
     isSomeMenuOpen,
     isStoreMessageOpen,
-    productsCount,
+    isSupportChatOnline,
     ...other
   } = props
 
-  const { onNavMenuToggle, onSearchMenuToggle } = useGlobalHandlers()
   const { t } = useI18n()
+  const { menus, menuCtaLabel, menuCtaUrl } = useRemoteConfig()
+  const { onNavMenuToggle, onSupportDialogOpen } = useGlobalHandlers()
 
-  const [disableTransparency, setDisableTransparency] = React.useState(false)
-  const [mounted, setMounted] = React.useState(false)
   const [expandedLogo, setExpandedLogo] = React.useState(true)
-
-  const syncDisableTransparency = React.useCallback(() => {
-    setDisableTransparency(window.pageYOffset > 100)
-  }, [])
+  const [disableTransparency, setDisableTransparency] = React.useState(false)
 
   const syncExpandLogo = React.useCallback(() => {
     setExpandedLogo(window.pageYOffset < 5)
   }, [])
 
+  const syncDisableTransparency = React.useCallback(() => {
+    setDisableTransparency(window.pageYOffset > 100)
+  }, [])
+
   React.useEffect(() => {
-    setMounted(true)
     syncDisableTransparency()
 
     const handleScroll = () => {
@@ -145,54 +150,30 @@ const AppHeader = React.memo(function AppHeader(props) {
   const ownerState = {
     headerColor,
     headerMode: computedHeaderMode,
-    mounted,
   }
 
   return (
     <AppHeaderRoot
       ownerState={ownerState}
       position={headerModeProp === 'opaque' ? 'sticky' : 'fixed'}
+      id={SITE_HEADER_ID}
       {...other}
     >
-      {isStoreMessageOpen && <AppStoreMessage />}
-
       <style
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
           __html: `
-          :root {
-            --cia-header-height: ${headerHeight};
-            --cia-initial-sticky-top: ${
-              headerModeProp === 'opaque' ? 'var(--cia-header-height)' : 0
-            };
-            --cia-sticky-top: ${headerModeProp !== 'transparent' ? 'var(--cia-header-height)' : 0};
-          }
-        `,
+            :root {
+              --cia-header-height: ${headerHeight};
+              --cia-sticky-top: var(--cia-header-height);
+            }
+          `,
         }}
       />
 
+      {isStoreMessageOpen && <AppStoreMessage />}
+
       <AppHeaderToolbar>
-        <IconButton
-          className={classes.hiddenOnDesktop}
-          onClick={onNavMenuToggle}
-          color="inherit" // Inherit color from `headerColor`.
-          edge="start"
-          size="small"
-          aria-haspopup="true"
-          aria-expanded={isNavMenuOpen}
-          aria-label={t(__translationGroup)`Toggle main menu`}
-        >
-          {isNavMenuOpen ? <CloseIcon /> : <MenuIcon />}
-        </IconButton>
-
-        <AppNavDropDown
-          className={classes.hiddenOnMobile}
-          // sx={{ ml: -1 }}
-        />
-
-        <div className={classes.toolbarPushMobile} />
-        <div className={classes.toolbarPushDesktop} />
-
         <AppHeaderBrandLink
           ownerState={{ expandedLogo }}
           href="/"
@@ -201,16 +182,55 @@ const AppHeader = React.memo(function AppHeader(props) {
           <BrandIcon sx={{ fontSize: '90px' }} />
         </AppHeaderBrandLink>
 
+        <div className={classes.toolbarPushStart} />
+
+        <AppHeaderNav
+          className={classes.hiddenOnMobile}
+          aria-label={t(__translationGroup)`Main navigation`}
+        >
+          <AppHeaderList>
+            {menus?.primary?.map((menuItem, idx) => (
+              <AppNavDropDown key={idx} menuItem={menuItem} />
+            ))}
+          </AppHeaderList>
+        </AppHeaderNav>
+
+        {menuCtaLabel && menuCtaUrl && (
+          <AppHeaderCtaButton
+            className={classes.hiddenOnMobile}
+            component={RouterLink}
+            href={menuCtaUrl}
+            size="small"
+          >
+            {menuCtaLabel}
+          </AppHeaderCtaButton>
+        )}
+
+        <AppHeaderSupportButton
+          onClick={onSupportDialogOpen}
+          size="small"
+          startIcon={
+            isSupportChatOnline && (
+              <OnlineIcon style={{ width: 20, height: 20, margin: '-10px 0' }} />
+            )
+          }
+          variant="contained"
+        >
+          {t(__translationGroup)`Let's talk!`}
+        </AppHeaderSupportButton>
+
         <IconButton
-          onClick={onSearchMenuToggle}
-          color="inherit" // Inherit color from `headerColor`.
+          className={classes.hiddenOnDesktop}
+          onClick={onNavMenuToggle}
           size="small"
           aria-haspopup="true"
-          aria-expanded={isSearchMenuOpen}
-          aria-label={t(__translationGroup)`Toggle search`}
+          aria-expanded={isNavMenuOpen}
+          aria-label={t(__translationGroup)`Toggle main menu`}
         >
-          {isSearchMenuOpen ? <CloseIcon /> : <SearchIcon />}
+          {isNavMenuOpen ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
+
+        <div className={classes.toolbarEdgeEnd} />
       </AppHeaderToolbar>
     </AppHeaderRoot>
   )
@@ -220,20 +240,21 @@ AppHeader.propTypes = {
   headerColor: PropTypes.string,
   headerMode: PropTypes.oneOf(['opaque', 'transparent', 'auto']),
   isNavMenuOpen: PropTypes.bool,
-  isSearchMenuOpen: PropTypes.bool,
   isSomeMenuOpen: PropTypes.bool,
   isStoreMessageOpen: PropTypes.bool,
+  isSupportChatOnline: PropTypes.bool,
 }
 
 function AppHeaderContainer(props) {
-  const { isNavMenuOpen, isSearchMenuOpen, isSomeMenuOpen, isStoreMessageOpen } = useGlobalState()
+  const { isNavMenuOpen, isStoreMessageOpen, isSomeMenuOpen, isSupportChatOnline } =
+    useGlobalState()
 
   return (
     <AppHeader
       isNavMenuOpen={isNavMenuOpen}
-      isSearchMenuOpen={isSearchMenuOpen}
-      isSomeMenuOpen={isSomeMenuOpen}
       isStoreMessageOpen={isStoreMessageOpen}
+      isSupportChatOnline={isSupportChatOnline}
+      isSomeMenuOpen={isSomeMenuOpen}
       {...props}
     />
   )
