@@ -56,7 +56,7 @@ export default {
     mediaProps: {
       component: 'picture',
       breakpoints: {
-        xs: { src: '/media/quran-text.png', width: 1280, height: 720 },
+        xs: { src: '/assets/quran-text.png', width: 1280, height: 720 },
       },
     },
   },

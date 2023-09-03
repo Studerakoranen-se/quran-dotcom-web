@@ -13,7 +13,7 @@ const HeroRoot = styled('section')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     minHeight: 650,
   },
-  background: "url('/media/quran-transparent-bg.png')",
+  background: "url('/assets/quran-transparent-bg.png')",
   backgroundSize: 'contain',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
