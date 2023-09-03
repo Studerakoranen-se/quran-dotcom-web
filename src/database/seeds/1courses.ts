@@ -10,7 +10,7 @@ export async function seed(knex: Knex): Promise<void> {
   const uploadDir = path.join(process.cwd(), 'public', 'uploads')
   const filePath = path.join(uploadDir, 'sample.png')
 
-  const copyDir = path.join(process.cwd(), 'sample-data')
+  const copyDir = path.join(process.cwd(), 'src/sample-data')
   const oldPath = path.join(copyDir, 'sample.png')
 
   fs.mkdirSync('./public/uploads', { recursive: true })
