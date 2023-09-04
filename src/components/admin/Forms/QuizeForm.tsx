@@ -1,11 +1,7 @@
-import { GetServerSideProps } from 'next'
-import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 import React from 'react'
-import FileInput from '../Fields/FileInput'
 import InputField from '../Fields/InputField'
-import TextField from '../Fields/TextField'
 import PanelSelectField from '../Fields/PanelSelectField'
 
 type Props = {

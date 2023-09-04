@@ -1,11 +1,11 @@
 import * as React from 'react'
-import PerfectScrollbar from 'react-perfect-scrollbar'
-import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { toggleSidebar } from '~/store/themeConfigSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import { useI18n } from '~/contexts'
 import { IRootState } from '~/store'
+import { toggleSidebar } from '~/store/themeConfigSlice'
 
 const Sidebar = () => {
   const router = useRouter()
@@ -54,7 +54,7 @@ const Sidebar = () => {
   }
 
   const dispatch = useDispatch()
-  const { t } = useTranslation()
+  const { t } = useI18n()
 
   return (
     <div className={(semidark ? 'dark' : '') + (themeConfig.sidebar ? ' hidden' : '')}>
@@ -144,7 +144,7 @@ const Sidebar = () => {
                 >
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
-                <span>{t('Course')}</span>
+                <span>{t(__translationGroup)`Layout/Header/Course`}</span>
               </h2>
 
               <li className="nav-item">
@@ -173,7 +173,7 @@ const Sidebar = () => {
                           />
                         </svg>
                         <span className="text-black ltr:pl-3 rtl:pr-3 dark:text-[#506690] dark:group-hover:text-white-dark">
-                          {t('Course')}
+                          {t(__translationGroup)`Layout/Header/Course`}
                         </span>
                       </div>
                     </Link>

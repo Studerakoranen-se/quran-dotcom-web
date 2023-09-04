@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
+import { useI18n } from '~/contexts'
 import { IRootState } from '~/store'
 import { toggleTheme, toggleSidebar } from '~/store/themeConfigSlice'
 
@@ -121,7 +121,7 @@ const Header = () => {
 
   const [search, setSearch] = React.useState(false)
 
-  const { t, i18n } = useTranslation()
+  const { t } = useI18n()
 
   return (
     <header className={themeConfig.semidark && themeConfig.menu === 'horizontal' ? 'dark' : ''}>
