@@ -4,7 +4,6 @@ import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import CopyrightSection from '~/components/CopyrightSection'
-import Footer from '~/components/Footer'
 import NavBar from '~/components/NavBar'
 import SearchSection from '~/components/SearchSection'
 import TopBar from '~/components/TopBar'
@@ -70,7 +69,6 @@ const SearchPage = () => {
             </div>
           )}
         </div>
-        <Footer />
         <CopyrightSection />
       </main>
     </React.Fragment>

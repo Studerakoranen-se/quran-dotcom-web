@@ -1,17 +1,15 @@
 import * as React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import Footer from '~/components/Footer'
 import NavBar from '~/components/NavBar'
 import TopBar from '~/components/TopBar'
 import PrivateHero from '~/components/course/PrivateHero'
-import PrivateGuideSection from '~/components/course/PrivateGuideSection'
 import TutorsSection from '~/components/course/TutorsSection'
 import ApplyForm from '~/components/course/ApplyForm'
-
 const PrivateCoursePage = () => {
   const [tutors, setTutors] = React.useState([])
   const [selectedTutor, setSelectedTutor] = React.useState('')
+  console.log('tutors', tutors)
 
   React.useEffect(() => {
     fetch('/api/v1/teacher/list', {
@@ -38,10 +36,8 @@ const PrivateCoursePage = () => {
         <div className="hidden md:block relative h-1 w-[80vw] mx-auto mb-10">
           <Image fill src={'/assets/borderh.png'} alt="" />
         </div>
-        <PrivateGuideSection />
         <TutorsSection tutors={tutors} setSelectedTutor={setSelectedTutor} />
         <ApplyForm tutors={tutors} selectedTutor={selectedTutor} />
-        <Footer />
       </main>
     </React.Fragment>
   )

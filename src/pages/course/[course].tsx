@@ -4,7 +4,6 @@ import YouTube from 'react-youtube'
 import { useRouter } from 'next/router'
 import TopBar from '~/components/TopBar'
 import NavBar from '~/components/NavBar'
-import Footer from '~/components/Footer'
 import CopyrightSection from '~/components/CopyrightSection'
 import LessonsSidebar from '~/components/course/LessonsSidebar'
 import CourseTab from '~/components/course/CourseTab'
@@ -93,7 +92,6 @@ const SingleCoursePage = () => {
             <LessonsSidebar lessons={lessons} lessonID={lesson?.id} setLesson={setLesson} />
           </div>
         </div>
-        <Footer />
         <CopyrightSection />
       </main>
     </React.Fragment>

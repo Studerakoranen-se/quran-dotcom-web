@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import NavBar from '~/components/NavBar'
 import TopBar from '~/components/TopBar'
-import Footer from '~/components/Footer'
 import CopyrightSection from '~/components/CopyrightSection'
 import CourseHeroSection from '~/components/course/HeroSection'
 import UspSection from '~/components/course/UspSection'
@@ -37,7 +36,6 @@ const PublicCoursePage = () => {
           <Reasons />
           {/* <Testemonial /> */}
         </div>
-        <Footer />
         <CopyrightSection />
       </main>
     </React.Fragment>

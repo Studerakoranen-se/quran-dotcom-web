@@ -12,6 +12,7 @@ export const config = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const data: any = await formData(req)
   const user = await AuthController.login(data.fields)
+
   if (user) {
     res.status(200).send({
       success: true,

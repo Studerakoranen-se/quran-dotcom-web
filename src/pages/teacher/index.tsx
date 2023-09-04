@@ -2,7 +2,6 @@ import * as React from 'react'
 import Head from 'next/head'
 import NavBar from '~/components/NavBar'
 import TopBar from '~/components/TopBar'
-import Footer from '~/components/Footer'
 import CopyrightSection from '~/components/CopyrightSection'
 
 const TeacherListPage = () => {
@@ -18,7 +17,6 @@ const TeacherListPage = () => {
         <TopBar />
         <NavBar />
         <div className="flex-grow">List of teachers</div>
-        <Footer />
         <CopyrightSection />
       </main>
     </React.Fragment>
