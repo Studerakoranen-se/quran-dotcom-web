@@ -1,6 +1,7 @@
 import { Typography, styled } from '@mui/material'
 import { RouterLink } from '~/containers'
-import { ChapterIcon } from '~/components'
+import { ChapterNumberIcon } from '~/components'
+import ChapterIconContainer from '~/components/ChapterIcon/partials/ChapterIconContainer'
 
 const SurahPreviewRoot = styled(RouterLink)(({ theme }) => ({
   display: 'flex',
@@ -71,7 +72,7 @@ const SurahPreview = (props: any) => {
           >
             {chapter?.id}
           </Typography>
-          <ChapterIcon
+          <ChapterNumberIcon
             sx={{
               width: 49,
               height: 60,
@@ -95,6 +96,7 @@ const SurahPreview = (props: any) => {
         >
           {chapter?.versesCount} Ayahs
         </Typography>
+        <ChapterIconContainer chapterId={chapter?.id.toString()} hasSurahPrefix={false} />
       </SurahPreviewContentLeft>
       {/* </SurahPreviewContainer> */}
     </SurahPreviewRoot>

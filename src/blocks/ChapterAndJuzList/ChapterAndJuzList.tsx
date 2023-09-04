@@ -174,7 +174,7 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={view} onChange={onTabSelected} aria-label="Quran Tabs">
             {tabs?.map((tab, idx) => (
-              <Tab label={tab.title} id={`quran-tab-${idx}`} value={tab.value} />
+              <Tab key={idx} label={tab.title} id={`quran-tab-${idx}`} value={tab.value} />
             ))}
           </Tabs>
         </Box>
