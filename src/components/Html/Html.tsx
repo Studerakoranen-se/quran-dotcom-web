@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { styled } from '@mui/system'
+import { styled, Theme } from '@mui/material/styles'
+import { SxProps } from '@mui/material'
 
 export const HtmlRoot = styled('div')(({ theme }) => ({
   ...theme.typography.body1,
@@ -34,7 +35,10 @@ export const HtmlRoot = styled('div')(({ theme }) => ({
   },
   figcaption: theme.typography.caption,
   '& :is(ol, ul)': {
-    paddingLeft: '1.25em',
+    // paddingLeft: '1.25em',
+    '& li': {
+      marginBottom: theme.spacing(1.2),
+    },
   },
   hr: {
     height: 1,
@@ -48,7 +52,15 @@ export const HtmlRoot = styled('div')(({ theme }) => ({
   },
 }))
 
-const Html = React.forwardRef(function Html(props, ref) {
+interface HtmlProps {
+  component?: any
+  sx?: SxProps<Theme>
+  dangerouslySetInnerHTML: {
+    __html: string
+  }
+}
+
+const Html = React.forwardRef(function Html(props: HtmlProps, ref: any) {
   return <HtmlRoot ref={ref} {...props} />
 })
 
