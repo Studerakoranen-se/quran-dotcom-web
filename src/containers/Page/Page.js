@@ -5,7 +5,6 @@ import { SITE_NAME } from '~/utils/constants'
 import * as blockVariants from '~/blocks'
 import { createRenderBlock } from '~/utils'
 import SearchSection from '~/components/SearchSection'
-import RecentSection from '~/components/RecentSection'
 
 const renderBlock = createRenderBlock(blockVariants)
 
