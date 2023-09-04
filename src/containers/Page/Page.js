@@ -21,7 +21,6 @@ function Page(props) {
       {children}
       {blocks.map(renderBlock)}
       <SearchSection />
-      <RecentSection />
     </React.Fragment>
   )
 }
