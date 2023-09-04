@@ -73,6 +73,7 @@ export default {
       },
     },
   },
+  Surah: {},
   ErrorBlock: {
     subheading: '404',
     heading: 'Page not found',

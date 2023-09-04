@@ -26,6 +26,14 @@ export default {
       },
     ],
   },
+  Surah: {
+    blocks: [
+      {
+        name: 'Surah',
+        props: blocks.Surah,
+      },
+    ],
+  },
   Article: {
     blocks: [
       {
