@@ -36,16 +36,19 @@ const menuPrimary = [
 
 const menuFooter = [
   {
-    label: 'About Maya Delorez',
+    label: 'Navigate',
+    url: '/hem',
     menuItems: composeLinks(3),
   },
   {
-    label: 'Delivery info',
-    menuItems: composeLinks(3),
+    label: 'Quick Links',
+    url: '/kurser',
+    menuItems: composeLinks(4),
   },
   {
-    label: 'Company info',
-    menuItems: composeLinks(6),
+    label: 'Popular Links',
+    url: '/ordkunskap',
+    menuItems: composeLinks(5),
   },
 ]
 
@@ -61,4 +64,5 @@ export default {
   storeMessage: 'lorem ipsum dolor sit amet',
   privacyPolicyPageUrl: '/privacy-policy',
   termsPageUrl: '/terms-and-conditions',
+  siteCopyRight: '© 2023 ALL RIGHTS RESERVED',
 }
