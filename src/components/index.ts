@@ -5,6 +5,9 @@ export * from './icons'
 export * from './styles'
 export * from './utils'
 
+export { default as ChapterIcon } from './ChapterIcon'
+export * from './ChapterIcon'
+
 export { default as FormControlBox } from './FormControlBox'
 export * from './FormControlBox'
 
