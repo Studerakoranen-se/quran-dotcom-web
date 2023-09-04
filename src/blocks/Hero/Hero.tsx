@@ -89,7 +89,7 @@ const ButtonContainer = styled('div')(({ theme }) => ({
   // flexDirection: 'column',
   width: 'fit-content',
   gap: theme.spacing(2),
-  marginTop: theme.spacing(3),
+  marginTop: theme.spacing(8),
 }))
 
 type HeroProps = {
