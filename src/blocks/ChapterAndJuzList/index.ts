@@ -15,7 +15,7 @@ export async function getBlockProps(
 
     const { locale } = context
 
-    const apiClient = new ApiClient(process.env.QURAN_API)
+    const apiClient = new ApiClient(process.env.QURAN_API_V4)
 
 
 
@@ -31,8 +31,12 @@ export async function getBlockProps(
     if (result[0].chapters?.length > 0 && result[1].juzs?.length > 0) {
         return {
             ...block.props,
-            // @ts-ignore
-            chapters: formatChapters(result[0].chapters, locale),
+            chapters: result[0].chapters?.map((chapter) => {
+                return formatChapters(
+                    // @ts-ignore
+                    chapter, locale
+                )
+            }),
             juzs: formatJuzs(result[1]?.juzs)
         }
     }
