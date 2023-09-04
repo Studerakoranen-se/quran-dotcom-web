@@ -36,3 +36,58 @@ interface Chapter {
     locale: string;
   }[];
 }
+
+interface Media {
+  _type: 'media'
+  auto?: boolean
+  alt?: string
+  mediaType?: 'image' | 'video'
+  breakpoints?: {
+    xs?: {
+      image?: {
+        asset: Sanity.Asset
+        crop?: Sanity.ImageCrop
+        hotspot?: Sanity.ImageHotspot
+      }
+      video?: string
+    }
+    sm?: {
+      image?: {
+        asset: Sanity.Asset
+        crop?: Sanity.ImageCrop
+        hotspot?: Sanity.ImageHotspot
+      }
+      video?: string
+    }
+    md?: {
+      image?: {
+        asset: Sanity.Asset
+        crop?: Sanity.ImageCrop
+        hotspot?: Sanity.ImageHotspot
+      }
+      video?: string
+    }
+    lg?: {
+      image?: {
+        asset: Sanity.Asset
+        crop?: Sanity.ImageCrop
+        hotspot?: Sanity.ImageHotspot
+      }
+      video?: string
+    }
+    xl?: {
+      image?: {
+        asset: Sanity.Asset
+        crop?: Sanity.ImageCrop
+        hotspot?: Sanity.ImageHotspot
+      }
+      video?: string
+    }
+  }
+  image?: {
+    asset: Sanity.Asset
+    crop?: Sanity.ImageCrop
+    hotspot?: Sanity.ImageHotspot
+  }
+  video?: string
+}

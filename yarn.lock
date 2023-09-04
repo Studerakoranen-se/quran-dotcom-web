@@ -821,6 +821,17 @@
     eslint-plugin-react-hooks "^4.3.0"
     eslint-plugin-testing-library "^5.0.6"
 
+"@noaignite/formit@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@noaignite/formit/-/formit-3.1.0.tgz#f07b0c166ba61238362889ad219c5c9b29b165ca"
+  integrity sha512-Uxw0PjWxMgQ2zuw2I+J/qJEP4wCsvAMgzzvDPM9jeRcbw4Mt7wx1Ui0abK9RSDNZLPM3LBh/lTdl8sgV4Ossuw==
+  dependencies:
+    "@babel/runtime" "^7.16.0"
+    lodash.clone "^4.5.0"
+    lodash.topath "^4.5.2"
+    prop-types "^15.7.2"
+    react-fast-compare "^3.2.0"
+
 "@noaignite/oui@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@noaignite/oui/-/oui-4.0.1.tgz#36a8337d3b8dccf342689612e1c92ea1302d5fdd"
@@ -3286,6 +3297,11 @@ lodash.castarray@^4.4.0:
   resolved "https://registry.yarnpkg.com/lodash.castarray/-/lodash.castarray-4.4.0.tgz#c02513515e309daddd4c24c60cfddcf5976d9115"
   integrity sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==
 
+lodash.clone@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clone/-/lodash.clone-4.5.0.tgz#195870450f5a13192478df4bc3d23d2dea1907b6"
+  integrity sha512-GhrVeweiTD6uTmmn5hV/lzgCQhccwReIVRLHp7LT4SopOjqEZ5BbX8b5WWEtAKasjmy8hR7ZPwsYlxRCku5odg==
+
 lodash.isplainobject@^4.0.6:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
@@ -3295,6 +3311,11 @@ lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
+
+lodash.topath@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
+  integrity sha512-1/W4dM+35DwvE/iEd1M9ekewOSTlpFekhw9mhAtrwjVqUr83/ilQiyAvmg4tVX7Unkcfl1KC+i9WdaT4B6aQcg==
 
 lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4:
   version "4.17.21"
@@ -3945,7 +3966,7 @@ react-easy-swipe@^0.0.21:
   dependencies:
     prop-types "^15.5.8"
 
-react-fast-compare@^3.0.1:
+react-fast-compare@^3.0.1, react-fast-compare@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.2.tgz#929a97a532304ce9fee4bcae44234f1ce2c21d49"
   integrity sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==
