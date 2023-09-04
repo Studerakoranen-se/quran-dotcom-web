@@ -19,9 +19,10 @@ import SurahViewSideBar from '~/components/SurahViewSideBar'
 import TopBar from '~/components/TopBar'
 import NavBar from '~/components/NavBar'
 import Bismillah from '~/components/quran/surah/Bismillah'
+import { formatChapters } from '~/utils'
 
 const SurahViewPage = (props: any) => {
-  const { startAt, chapterID } = props
+  const { startAt, chapterID, locale } = props
 
   const dispatch = useDispatch()
 
@@ -103,7 +104,7 @@ const SurahViewPage = (props: any) => {
     if (chapterID) {
       axios
         .get(
-          `https://api.quran.com/api/v3/chapters/${chapterID}/verses?recitation=1&translations=21&language=sv&text_type=words&per_page=1000&tafsirs=169,381,165,164`,
+          `https://api.quran.com/api/v3/chapters/${chapterID}/verses?recitation=1&translations=21&language=${locale}&text_type=words&per_page=1000&tafsirs=169,381,165,164`,
         )
         .then(({ data }) => setVerses(data.verses))
 
@@ -114,11 +115,11 @@ const SurahViewPage = (props: any) => {
       //   });
 
       axios
-        .get(`https://api.quran.com/api/v3/chapters/${chapterID}?language=sv`)
+        .get(`https://api.quran.com/api/v3/chapters/${chapterID}?language=${locale}`)
         .then(({ data }) => {
           setChapterInfo(data.chapter)
           data.chapter.verses_count = 1
-          dispatch(addToHistory(data.chapter))
+          dispatch(addToHistory(formatChapters(data.chapter, locale)))
         })
     }
   }, [chapterID])
@@ -195,7 +196,7 @@ const SurahViewPage = (props: any) => {
   const getTafsir = (verseID: number) => {
     axios
       .get(
-        `https://api.quran.com/api/v3/chapters/${chapterID}/verses/${verseID}/tafsirs?language=sv`,
+        `https://api.quran.com/api/v3/chapters/${chapterID}/verses/${verseID}/tafsirs?language=${locale}`,
       )
       .then(({ data }) => {
         // setChapterInfo(data.chapter);
@@ -476,9 +477,10 @@ const SurahViewPage = (props: any) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { locale } = ctx
   const { start_at, chapterID } = ctx.query
 
-  return { props: { startAt: start_at || 1, chapterID } }
+  return { props: { startAt: start_at || 1, chapterID, locale } }
 }
 
 export default SurahViewPage

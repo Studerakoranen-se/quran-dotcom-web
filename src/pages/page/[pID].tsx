@@ -18,6 +18,7 @@ import SurahViewSideBar from '~/components/SurahViewSideBar'
 import TopBar from '~/components/TopBar'
 import NavBar from '~/components/NavBar'
 import { addToHistory } from '~/store/historySlice'
+import { formatChapters } from '~/utils'
 
 const PageViewPage = (props: any) => {
   const router = useRouter()
@@ -119,7 +120,7 @@ const PageViewPage = (props: any) => {
 
       axios.get(`https://api.quran.com/api/v3/chapters/${pID}`).then(({ data }) => {
         setChapterInfo(data.chapter)
-        dispatch(addToHistory(data.chapter))
+        dispatch(addToHistory(formatChapters(data.chapter, 'sv')))
       })
     }
   }, [pID])
