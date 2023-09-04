@@ -9,3 +9,5 @@ export const Surah = dynamic(() => import(/* webpackChunkName: "blocks/Surah" */
 export const Courses = dynamic(() => import(/* webpackChunkName: "blocks/Courses" */ './Courses')) // prettier-ignore
 export const CourseHero = dynamic(() => import(/* webpackChunkName: "blocks/CourseHero" */ './CourseHero')) // prettier-ignore
 export const Steps = dynamic(() => import(/* webpackChunkName: "blocks/Steps" */ './Steps')) // prettier-ignore
+export const Tutors = dynamic(() => import(/* webpackChunkName: "blocks/Tutors" */ './Tutors')) // prettier-ignore
+export const Form = dynamic(() => import(/* webpackChunkName: "blocks/Form" */ './Form')) // prettier-ignore

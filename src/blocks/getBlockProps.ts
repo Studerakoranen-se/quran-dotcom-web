@@ -13,3 +13,4 @@ export type GetBlockPropsFunctions<T extends Block, U extends Page> = Record<
 
 // export your "getBlockProps" functions from each block here
 export { getBlockProps as ChapterAndJuzList } from './ChapterAndJuzList'
+export { getBlockProps as Tutors } from './Tutors'

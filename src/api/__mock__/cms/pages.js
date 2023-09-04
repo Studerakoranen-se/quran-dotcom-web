@@ -115,6 +115,14 @@ export default {
           enablePattern: true,
         },
       },
+      {
+        name: 'Tutors',
+        props: blocks.Tutors,
+      },
+      {
+        name: 'Form',
+        props: blocks.Form,
+      },
     ],
   },
   Article: {
