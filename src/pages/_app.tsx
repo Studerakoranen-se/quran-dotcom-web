@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../../scripts/globals'
 // Perfect Scrollbar
 import 'react-perfect-scrollbar/dist/css/styles.css'
 import '../styles/tailwind.css'
