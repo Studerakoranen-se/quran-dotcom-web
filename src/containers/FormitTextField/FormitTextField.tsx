@@ -1,9 +1,11 @@
 import * as React from 'react'
-import { TextField } from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import { TextField, SxProps } from '@mui/material'
 import { Field } from '@noaignite/formit'
 
 type FormitTextFieldPorps = {
   name: string
+  sx?: SxProps<Theme>
 }
 const FormitTextField = React.forwardRef(function FormitTextField(
   props: FormitTextFieldPorps,

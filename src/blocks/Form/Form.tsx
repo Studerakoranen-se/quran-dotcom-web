@@ -12,9 +12,8 @@ import {
 import { Formit, Form as FormitForm, Field as FormitField } from '@noaignite/formit'
 import { useI18n, useRemoteConfig } from '~/contexts'
 import { FormitButton, FormitTextField } from '~/containers'
+import { getAge } from '~/utils'
 // import { gtmEvent } from '~/utils'
-
-const BREAKPOINT_KEY = 'md'
 
 const FormRoot = styled('section')({
   padding: 'var(--cia-section-spacing) var(--cia-container-spacing)',
@@ -25,10 +24,11 @@ const FormGrid = styled('div')(({ theme }) => ({
   gridGap: theme.spacing(2, 'var(--cia-container-spacing)'),
   padding: 'calc(var(--cia-section-spacing) * 2) calc(var(--cia-container-spacing) * 2)',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.background.paper,
-  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-    gridTemplateColumns: 'repeat(2, 1fr)',
-  },
+  backgroundColor: theme.palette.common.white,
+  boxShadow: '0px 4px 430px rgba(0, 0, 0, 0.1)',
+  // [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+  //   gridTemplateColumns: 'repeat(2, 1fr)',
+  // },
 }))
 
 const FormHeading = styled('h1')(({ theme }) => ({
@@ -145,9 +145,25 @@ function Form(props: FormProps) {
       }
       /* [End] If one of the fake fields are filled then the form will not be submitted */
 
+      const subject = 'Subject: Application for Tutor'
+      const txt = `Dear ${
+        //  tutor?.fullname
+        values?.fullname
+      },\r\n\r\nI hope this email finds you well. My name is ${`${values.firstName} ${values.lastName}`} and I am a student seeking a tutor to help me with my studies.\r\n\r\nAfter careful consideration and research, I came across your profile and I was impressed with your qualifications and experience in the field of teaching. I am interested in working with you as my tutor.\r\n\r\nA little about myself, I am a ${getAge(
+        values.age,
+      )} years old ${values.gender} student currently pursuing ${
+        values.studyLevel
+      }. I am passionate about learning and I am seeking a tutor who can guide me in my academic journey and help me reach my full potential.\r\n\r\nI believe that your expertise and teaching style will be a perfect fit for my learning needs. I am confident that with your guidance, I will be able to achieve my academic goals.\r\n\r\nPlease let me know if you are available to take me on as a student and what your availability and rates are. I am looking forward to hearing from you soon.\r\n\r\nThank you for considering my application.\r\n\r\nSincerely,\r\n\r\n${`${values.firstName} ${values.lastName}`}\r\n${
+        values.email
+      }\r\n${values.phone}`
+
       const urlSearchParams = new URLSearchParams({
         id,
         ...values,
+        ...(endpointProp.includes('/api/v1/mail/send') && {
+          subject,
+          txt,
+        }),
       })
 
       const method = fetchOptionsProp?.method || 'POST'
@@ -216,12 +232,13 @@ function Form(props: FormProps) {
                 <FormFields>
                   {fields?.map((field, idx) => {
                     // @ts-ignore
-                    const { label, name, options, pattern, required, type } = field
+                    const { label, name, options, pattern, required, type, helperText } = field
 
                     const sharedProps = {
                       key: idx,
                       id: `form-field-${renderIndex}-${idx}`, // Makes `label` and `helperText` accessible for screen readers.
                       name,
+                      helperText,
                     }
 
                     if (type === 'checkbox') {
@@ -242,7 +259,9 @@ function Form(props: FormProps) {
                     if (type === 'radio') {
                       return (
                         <div key={idx}>
-                          <Typography sx={{ mb: 1 }}>{label}</Typography>
+                          <Typography variant="body2" sx={{ mb: 1 }}>
+                            {label}
+                          </Typography>
 
                           <FormitField component={RadioGroup} {...sharedProps}>
                             {options?.map((option, idx2) => (
@@ -251,6 +270,11 @@ function Form(props: FormProps) {
                                 control={<Radio required={required} />}
                                 label={option.label}
                                 value={option.value}
+                                sx={(theme) => ({
+                                  '.MuiFormControlLabel-label': {
+                                    ...theme.typography.caption,
+                                  },
+                                })}
                               />
                             ))}
                           </FormitField>
@@ -259,7 +283,7 @@ function Form(props: FormProps) {
                     }
 
                     if (type === 'select') {
-                      options.sort((a, b) => {
+                      options?.sort((a, b) => {
                         return a.label?.localeCompare(b.label)
                       })
                       return (
@@ -294,6 +318,14 @@ function Form(props: FormProps) {
                             }
                           : { type })}
                         {...sharedProps}
+                        sx={{
+                          '.MuiFormHelperText-root': {
+                            color: 'text.main',
+                            mx: 0,
+                            mt: 1,
+                            mb: 2,
+                          },
+                        }}
                       />
                     )
                   })}
