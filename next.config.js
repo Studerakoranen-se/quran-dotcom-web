@@ -26,14 +26,19 @@ const nextConfig = {
     DATADOG_SITE: process.env.DATADOG_SITE,
   },
   poweredByHeader: false,
-  webpack: async (config) =>
-    merge(config, webpackBaseConfig, {
+  webpack: async (config) => {
+    return merge(config, webpackBaseConfig, {
       resolve: {
         fallback: {
-          fs: false,
+          // net: false,
+          // fs: false,
+          // dns: false,
+          // child_process: false,
+          // tls: false,
         },
       },
-    }),
+    })
+  },
   headers: async () => [
     ...(process.env.DISABLE_INDEXING
       ? [
