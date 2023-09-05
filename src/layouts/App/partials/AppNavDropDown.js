@@ -18,6 +18,7 @@ const classes = generateUtilityClasses('CiaAppNavDropDownRoot', [
 const AppNavDropDownRoot = styled('li')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
+  color: theme.palette.common.white,
   transition: theme.transitions.create(['background-color'], {
     duration: theme.transitions.duration.shortest,
   }),
@@ -26,8 +27,8 @@ const AppNavDropDownRoot = styled('li')(({ theme }) => ({
     borderBottomRightRadius: 0,
   },
   '&:hover, &:focus-within, &.Cia-selected': {
-    backgroundColor: theme.palette.green[100],
-    color: theme.palette.green[100],
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.primary.main,
   },
 }))
 
@@ -35,7 +36,7 @@ const AppNavDropDownLink = styled('a')(({ theme }) => ({
   transition: theme.transitions.create(['padding', 'background-color', 'color'], {
     duration: theme.transitions.duration.short, // Match MuiButton duration.
   }),
-  color: theme.palette.common.white,
+  color: 'inherit',
   textDecoration: 'none',
   whiteSpace: 'nowrap',
 }))

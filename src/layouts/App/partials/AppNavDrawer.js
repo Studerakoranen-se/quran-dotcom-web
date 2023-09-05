@@ -1,16 +1,24 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
-import { Drawer, IconButton, styled, Toolbar } from '@mui/material'
+import { Drawer, styled } from '@mui/material'
 import { useGlobalHandlers, useGlobalState, useI18n, useRemoteConfig } from '~/contexts'
-import { CloseIcon } from '~/components'
 import AppNavDrawerListItem from './AppNavDrawerListItem'
 
-const AppNavDrawerRoot = styled(Drawer)({
-  '& .MuiDrawer-paper': {
-    maxWidth: '100%',
-    width: 414, // iPhone 6/7/8 Plus
+const AppNavDrawerRoot = styled(Drawer)(({ theme }) => ({
+  '--drawer-top': 'var(--cia-header-height, 0px)',
+  top: 'var(--drawer-top)',
+  '& .MuiBackdrop-root': {
+    top: 'var(--drawer-top)',
   },
-})
+  '& .MuiDrawer-paper': {
+    ...theme.mixins.scrollbars,
+    top: 'var(--drawer-top)',
+    maxWidth: '100%',
+    width: 500, // By design.
+    height: 'calc(100% - var(--drawer-top))',
+    padding: 'var(--cia-section-spacing) 0',
+  },
+}))
 
 const AppNavDrawerScrollContainer = styled('div')(({ theme }) => ({
   ...theme.mixins.scrollable,
@@ -37,17 +45,6 @@ const AppNavDrawer = React.memo(function AppNavDrawer(props) {
 
   return (
     <AppNavDrawerRoot onClose={onNavMenuClose} open={isNavMenuOpen} anchor="left" {...other}>
-      <Toolbar>
-        <IconButton
-          onClick={onNavMenuClose}
-          edge="start"
-          size="small"
-          aria-label={t(__translationGroup)`Close main menu`}
-        >
-          <CloseIcon />
-        </IconButton>
-      </Toolbar>
-
       <AppNavDrawerScrollContainer>
         <nav aria-label={t(__translationGroup)`Main navigation`}>
           {menus?.primary?.length > 0 && (

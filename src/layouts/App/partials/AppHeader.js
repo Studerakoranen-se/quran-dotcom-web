@@ -37,12 +37,15 @@ const AppHeaderRoot = styled(AppBar)(({ theme, ownerState }) => ({
   },
 }))
 
-const AppHeaderToolbar = styled('div')({
+const AppHeaderToolbar = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   height: 'var(--cia-header-toolbar-primary-height)',
   padding: '0 var(--cia-container-spacing)',
-})
+  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+    height: 'calc(30px + var(--cia-header-toolbar-primary-height))',
+  },
+}))
 
 const AppHeaderBrandLink = styled(RouterLink)(({ theme, ownerState }) => ({
   color: 'white',
@@ -65,7 +68,7 @@ const AppHeaderBrandLink = styled(RouterLink)(({ theme, ownerState }) => ({
       // fontSize: 'calc(var(--cia-toolbar-min-height) * 4)',
     },
     [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-      // width: 45,
+      transform: 'translate3d(0, -65%, 0) scale(0.8)',
     },
   },
 }))
@@ -208,13 +211,14 @@ const AppHeader = React.memo(function AppHeader(props) {
 
         <AppHeaderSupportButton
           onClick={onSupportDialogOpen}
-          size="small"
+          size="medium"
           startIcon={
             isSupportChatOnline && (
               <OnlineIcon style={{ width: 20, height: 20, margin: '-10px 0' }} />
             )
           }
           variant="contained"
+          color="textInverted"
         >
           {t(__translationGroup)`Let's talk!`}
         </AppHeaderSupportButton>
@@ -226,6 +230,7 @@ const AppHeader = React.memo(function AppHeader(props) {
           aria-haspopup="true"
           aria-expanded={isNavMenuOpen}
           aria-label={t(__translationGroup)`Toggle main menu`}
+          color="textInverted"
         >
           {isNavMenuOpen ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
