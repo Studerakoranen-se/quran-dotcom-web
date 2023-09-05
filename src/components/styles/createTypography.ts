@@ -66,7 +66,7 @@ export default function createTypography(typography: TypographyOptions) {
     caption2: buildVariant(fontFamilySecondary, fontWeightRegular, 11, 1, 0, caseNoCaps), // Custom variant
     preamble: buildVariant(fontFamilyPrimary, fontWeightLight, 22, 1, 0, caseNoCaps),
     preamble2: buildVariant(fontFamilyPrimary, fontWeightRegular, 18, 1, 0),
-    inputText: buildVariant(fontFamilyPrimary, fontWeightRegular, 13, 1, 0), // Should at least be 16px fontSize for iOS Safari not to zoom in on focus.
+    inputText: buildVariant(fontFamilySecondary, fontWeightRegular, 13, 1, 0), // Should at least be 16px fontSize for iOS Safari not to zoom in on focus.
   }
 
   const typographyOutput = deepmerge(
