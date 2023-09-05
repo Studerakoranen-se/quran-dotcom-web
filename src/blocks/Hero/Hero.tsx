@@ -13,12 +13,12 @@ const HeroRoot = styled('section')(({ theme }) => ({
   minHeight: 550,
   color: theme.vars.palette.common.white, // Use `common.white` as color is based on image not theme mode.
   textAlign: 'center',
-  padding: theme.spacing(40, 2, 5),
+  padding: theme.spacing(30, 2, 20),
 
   [theme.breakpoints.up('md')]: {
     minHeight: 650,
-    padding: theme.spacing(30, 2, 5),
   },
+
   background:
     "linear-gradient(180deg, #043B3B 50%, #043B3B 80%, #043B3B 100%), url('/assets/bg-arbic.png')",
   backgroundPosition: 'top right',
@@ -29,6 +29,7 @@ const HeroRoot = styled('section')(({ theme }) => ({
 const HeroMain = styled('div')(({ theme }) => ({
   textAlign: 'center',
   paddingInline: 'var(--cia-container-spacing)',
+  zIndex: 111,
   [theme.breakpoints.up('md')]: {
     textAlign: 'left',
   },
@@ -52,6 +53,7 @@ const HeroMedia = styled('div')(({ theme }) => ({
     opacity: 0.2,
     padding: 0,
     width: 'unset',
+    zIndex: 0,
     // paddingRight: 26,
     // paddingLeft: 26,
   },

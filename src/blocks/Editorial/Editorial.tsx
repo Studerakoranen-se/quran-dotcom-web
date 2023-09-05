@@ -2,22 +2,12 @@ import { Media, MediaReveal } from '@noaignite/oui'
 import { Container, styled } from '@mui/material'
 import { Html } from '~/components'
 
-const EditorialRoot = styled('section')<{
-  ownerState: { enablePattern?: boolean }
-}>(({ theme }) => ({
+const EditorialRoot = styled('section')(({ theme }) => ({
   position: 'relative',
   background: theme.palette.primary.main,
   boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
   color: theme.palette.common.white,
   padding: theme.spacing(3.5),
-  // ...(ownerState?.enablePattern && {
-  //   background: `linear-gradient(
-  //   180.03deg,
-  //   #043b3b 31.97%,
-  //   rgba(4, 59, 59, 0.85) 61.39%,
-  //   #043b3b 104.17%
-  // )`,
-  // }),
 }))
 
 const EditorialBackground = styled('div')(({ theme }) => ({
@@ -62,18 +52,15 @@ type EditorialProps = {
   children: React.ReactNode
   text: string
   mediaProps: any
-  layoutReverse: boolean
-  enablePattern: boolean
+  layoutReverse?: boolean
+  enablePattern?: boolean
 }
 
 function Editorial(props: EditorialProps) {
   const { text, mediaProps, layoutReverse, enablePattern } = props
 
-  const ownerState = {
-    enablePattern,
-  }
   return (
-    <EditorialRoot ownerState={ownerState}>
+    <EditorialRoot>
       {enablePattern && <EditorialBackground />}
       <Container maxWidth="xl">
         <EditorialContainer>

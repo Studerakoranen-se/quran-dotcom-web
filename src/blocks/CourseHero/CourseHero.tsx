@@ -9,7 +9,13 @@ const CourseHeroRoot = styled('section')(({ theme }) => ({
   background: theme.palette.primary.main,
   boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
   color: theme.palette.common.white,
-  padding: theme.spacing(3.5),
+  padding: theme.spacing(20, 2, 5),
+  minHeight: 550,
+
+  [theme.breakpoints.up('md')]: {
+    minHeight: 650,
+    padding: theme.spacing(20, 2, 20),
+  },
 }))
 
 const CourseHeroContainer = styled('div')(({ theme }) => ({
@@ -19,17 +25,16 @@ const CourseHeroContainer = styled('div')(({ theme }) => ({
   justifyItems: 'center',
   alignItems: 'center',
   zIndex: 1,
-  padding: 'calc(var(--cia-section-spacing) * 4) 0 calc(var(--cia-section-spacing) * 2)',
+  padding: 'calc(var(--cia-section-spacing) * 2) 0 calc(var(--cia-section-spacing) * 3)',
   [theme.breakpoints.up('md')]: {
     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
     gap: theme.spacing(12),
-    padding: 'calc(var(--cia-section-spacing) * 2) 0',
+    padding: 'var(--cia-section-spacing) 0',
   },
 }))
 
 const CourseHeroContent = styled('div')(({ theme }) => ({
   ...theme.mixins.verticalRhythm(3),
-  padding: '0 var(--cia-container-spacing)',
   [theme.breakpoints.up('md')]: {
     maxWidth: '100%',
     width: 'max(340px, 41.55vw)',
@@ -51,20 +56,35 @@ const CourseHeroMediaReveal = styled(MediaReveal)<{ ownerState: { layoutReverse?
   }),
 )
 
+const CourseHeroBackground = styled('div')(({ theme }) => ({
+  ...theme.mixins.absolute(0),
+  zIndex: 0,
+  '& *:not(style)': {
+    height: '100%',
+  },
+  background: `url('/assets/quran-bkg.png')`,
+  backgroundSize: 'contain',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+}))
+
 type CourseHeroProps = {
   children: React.ReactNode
   text: string
   ctaLabel: string
   ctaUrl: string
   mediaProps: any
-  layoutReverse: boolean
+  layoutReverse?: boolean
+  enablePattern?: boolean
 }
 
 function CourseHero(props: CourseHeroProps) {
-  const { text, mediaProps, layoutReverse, ctaLabel, ctaUrl } = props
+  const { text, mediaProps, layoutReverse, enablePattern, ctaLabel, ctaUrl } = props
   const { t } = useI18n()
+
   return (
     <CourseHeroRoot>
+      {enablePattern && <CourseHeroBackground />}
       <CourseHeroContainer>
         <CourseHeroContent>
           <Html dangerouslySetInnerHTML={{ __html: text }} />

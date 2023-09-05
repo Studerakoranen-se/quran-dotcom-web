@@ -102,7 +102,7 @@ export default {
       },
     ],
   },
-  PrivateCourse: {
+  PrivateCourses: {
     blocks: [
       {
         name: 'CourseHero',
@@ -122,6 +122,44 @@ export default {
       {
         name: 'Form',
         props: blocks.Form,
+      },
+    ],
+  },
+  PublicCourses: {
+    blocks: [
+      {
+        name: 'CourseHero',
+        props: {
+          enablePattern: true,
+          text: `
+        <h1>Välkommen till Självstudier!</h1>
+        <p>-Unika kurser och material</p>
+        <p>Här hittar du alla våra kurser och material. StuderaKoranen producerar kurser och spelar in nya lektioner löpande. Följ oss på våra sociala medier för mer info.</p>
+
+        Elever som vill fördjupa sig i det arabiska språket rekommenderas att besöka <a href="https://www.arabiskacentret.se">Arabiska centret</a>.
+`,
+          mediaProps: {
+            component: 'picture',
+            breakpoints: {
+              xs: { src: '/assets/quran.png', width: 703, height: 410 },
+            },
+          },
+        },
+      },
+      {
+        name: 'FeatureList',
+        props: {
+          ...blocks.FeatureList,
+          verticalLayout: true,
+        },
+      },
+      {
+        name: 'CourseList',
+        props: blocks.CourseList,
+      },
+      {
+        name: 'FeatureList',
+        props: blocks.FeatureList,
       },
     ],
   },

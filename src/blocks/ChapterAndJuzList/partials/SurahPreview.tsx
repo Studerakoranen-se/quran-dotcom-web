@@ -12,6 +12,7 @@ const SurahPreviewRoot = styled(RouterLink)(({ theme }) => ({
   '&:hover': {
     borderColor: '#efe8db',
   },
+  textDecoration: 'none',
 }))
 
 const SurahPreviewContent = styled('div')(({ theme }) => ({
@@ -68,10 +69,8 @@ const SurahPreview = (props: any) => {
           />
         </SurahPreviewIconContainer>
         <div className="">
-          <h1 className="font-semibold">{chapter?.translatedName}</h1>
-          <p className="text-[#C6C6C6] group-hover:text-[#E0D2B4] text-sm">
-            {chapter?.translatedName}
-          </p>
+          <Typography variant="subtitle1">{chapter?.translatedName}</Typography>
+          <Typography sx={{ my: 1.2 }}>{chapter?.translatedName}</Typography>
         </div>
       </SurahPreviewContent>
       <SurahPreviewContentLeft>

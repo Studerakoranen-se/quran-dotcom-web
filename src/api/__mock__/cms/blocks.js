@@ -125,6 +125,52 @@ export default {
     ctaLabel: 'Skicka förfrågan',
     ctaUrl: '/#private',
   },
+  CourseList: {
+    heading: `Våra Kurser`,
+    text: `Våra kurser är specialanpassade för att erbjuda högkvalitativ undervisning, precisionell pedagogik och unikt material. Välj den nivån som passar dig!`,
+    entries: Array.from(new Array(6), (_, idx) => ({
+      id: idx + 1,
+      name: `Course ${idx + 1}`,
+      image: 'sample.png',
+      description: `Nesciunt ab in consequatur alias perspiciatis officiis unde. Ipsa possimus eum blanditiis beatae fuga. Deserunt veniam ea illo suscipit ratione exercitationem.`,
+    })),
+  },
+  FeatureList: {
+    heading: `Varför lära sig Koranen?`,
+    text: `Våra kurser är specialanpassade för att erbjuda högkvalitativ undervisning, precisionell pedagogik och unikt material. Välj den nivån som passar dig!`,
+    entries: [
+      {
+        icon: 'brain',
+        title: 'INGA FÖRKUNSKAPER KRÄVS',
+        txt: 'Du behöver ingen förkunskap. Arabiska center ger dig grunderna och utbildar dig oavsett din nivå!',
+      },
+      {
+        icon: 'computer',
+        title: 'LÄR DIG LÄSA KORANEN',
+        txt: 'StuderaKoranen hjälper dig att lära dig läsa Koranen med korrekt tajweed.',
+      },
+      {
+        icon: 'computer',
+        title: 'VI UTVECKLAR DIN HÖRFÖRSTÅELSE FÖR ATT SKILJA PÅ RÄTT OCH FEL',
+        txt: 'Du kommer att kunna öva din hörförståelse genom att lyssna och skilja på rätt och fel.',
+      },
+      {
+        icon: 'computer',
+        title: 'UNDERVISNING AV HÖG KVALITET',
+        txt: 'Undervisningen präglas av professionalitet, pedagogik och tydlighet.',
+      },
+      {
+        icon: 'certificate',
+        title: 'VI HAR ERFARENHET',
+        txt: 'StuderaKoranen är slutresultatet av flera års studier och erfarenhet från tidigare kurser, genomförda med hundratals studenter.',
+      },
+      {
+        icon: 'currency',
+        title: 'BÖRJA IDAG GRATIS',
+        txt: 'Alla kurser, material och tjänster som vi erbjuder är kostnadsfria.',
+      },
+    ],
+  },
   Surah: {},
   Editorial: {
     text: `
@@ -303,7 +349,7 @@ export default {
     ctaUrl: '/',
   },
   Form: {
-    endpoint: 'https://dog.ceo/api/breeds/image/random',
+    endpoint: 'http://localhost:3000/api/v1/mail/send',
     fields: formFields,
     heading: 'Have any questions? Don’t hesitate to reach out.',
     submitLabel: 'Send',

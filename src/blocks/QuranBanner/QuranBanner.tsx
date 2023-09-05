@@ -9,6 +9,7 @@ const QuranBannerRoot = styled('section')(({ theme }) => ({
   justifyContent: 'center',
   minHeight: 550,
   color: theme.vars.palette.common.white, // Use `common.white` as color is based on image not theme mode.
+  boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
   textAlign: 'center',
   [theme.breakpoints.up('md')]: {
     minHeight: 650,
