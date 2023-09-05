@@ -5,7 +5,7 @@ const overrides = {
   },
   styleOverrides: {
     colorDefault: ({ theme }) => ({
-      backgroundColor: theme.vars.palette.background.default,
+      backgroundColor: theme.vars.palette.primary.main,
       color: theme.vars.palette.text.primary,
     }),
   },
