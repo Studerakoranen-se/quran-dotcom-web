@@ -1,6 +1,6 @@
 import { styled } from '@mui/material'
 
-const SurahRoot = styled('section')(({ theme }) => ({
+const SurahRoot = styled('section')(() => ({
   position: 'relative',
 }))
 
@@ -10,10 +10,9 @@ const SurahRootMain = styled('div')(({ theme }) => ({
   marginBlockEnd: theme.spacing(3),
 }))
 
-type SurahProps = {}
+// type SurahProps = {}
 
-function Surah(props: SurahProps) {
-  console.log({ props })
+function Surah() {
   return (
     <SurahRoot>
       <SurahRootMain>SurahRootMain</SurahRootMain>

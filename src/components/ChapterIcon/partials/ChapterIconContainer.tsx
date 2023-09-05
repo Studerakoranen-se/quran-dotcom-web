@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { styled } from '@mui/material'
-
 import ChapterIcon from '../ChapterIcon'
 
 export enum ChapterIconsSize {

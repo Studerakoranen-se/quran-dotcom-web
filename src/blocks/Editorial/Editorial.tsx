@@ -4,7 +4,7 @@ import { Html } from '~/components'
 
 const EditorialRoot = styled('section')<{
   ownerState: { enablePattern?: boolean }
-}>(({ theme, ownerState }) => ({
+}>(({ theme }) => ({
   position: 'relative',
   background: theme.palette.primary.main,
   boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
@@ -51,7 +51,7 @@ const EditorialContainer = styled('div')(({ theme }) => ({
 }))
 
 const EditorialMediaReveal = styled(MediaReveal)<{ ownerState: { layoutReverse?: boolean } }>(
-  ({ theme, ownerState }) => ({
+  ({ ownerState }) => ({
     ...(ownerState?.layoutReverse && {
       order: -1,
     }),

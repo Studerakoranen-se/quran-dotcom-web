@@ -14,13 +14,13 @@ class LessonFileController {
     if (lessonID) {
       query = query.where('lesson_id', lessonID)
     }
-    return await query
+    return query
       .join('lessons as l', 'lesson_files.lesson_id', '=', 'l.id')
       .select('lesson_files.*', 'l.name as lesson_name')
   }
 
   static view = async (id: any) => {
-    return await db('lesson_files').where('id', id).first()
+    return db('lesson_files').where('id', id).first()
   }
 
   static create = async (data: LessonFileInterface): Promise<any> => {
@@ -48,5 +48,5 @@ class LessonFileController {
     return false
   }
 }
-
+// eslint-disable-next-line import/prefer-default-export
 export { LessonFileController }

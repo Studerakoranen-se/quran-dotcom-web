@@ -8,7 +8,10 @@ interface Props extends UseControllerProps<any> {
 }
 
 const InputField = (props: Props) => {
-  const { field, fieldState } = useController(props)
+  const {
+    field,
+    // fieldState
+  } = useController(props)
 
   return (
     <div className="w-full">

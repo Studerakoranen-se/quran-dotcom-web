@@ -1,7 +1,7 @@
 import { styled } from '@mui/material'
 import { Media, MediaReveal } from '@noaignite/oui'
 
-const HeroRoot = styled('section')(({ theme }) => ({
+const QuranBannerRoot = styled('section')(({ theme }) => ({
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
@@ -19,7 +19,7 @@ const HeroRoot = styled('section')(({ theme }) => ({
   backgroundPosition: 'center',
 }))
 
-const HeroMediaReveal = styled(MediaReveal)(({ theme }) => ({
+const QuranBannerMediaReveal = styled(MediaReveal)(({ theme }) => ({
   position: 'absolute',
   zIndex: -1,
   inset: 0,
@@ -27,19 +27,29 @@ const HeroMediaReveal = styled(MediaReveal)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
 }))
 
-function QuranBanner(props) {
+const QuranBannerMedia = styled(Media)(({ theme }) => ({
+  width: 880,
+  height: 300,
+  margin: 'auto',
+  [theme.breakpoints.up('md')]: {
+    width: 880,
+    height: 300,
+  },
+}))
+
+type QuranBannerProps = {
+  mediaProps: any
+  renderIndex: number
+}
+
+function QuranBanner(props: QuranBannerProps) {
   const { mediaProps, renderIndex } = props
 
   return (
-    <HeroRoot>
+    <QuranBannerRoot>
       {mediaProps && (
-        <HeroMediaReveal>
-          <Media
-            sx={{
-              width: 880,
-              height: 300,
-              margin: 'auto',
-            }}
+        <QuranBannerMediaReveal>
+          <QuranBannerMedia
             {...(mediaProps?.component === 'video'
               ? {
                   autoPlay: true,
@@ -51,9 +61,9 @@ function QuranBanner(props) {
             {...mediaProps}
             priority={renderIndex === 0}
           />
-        </HeroMediaReveal>
+        </QuranBannerMediaReveal>
       )}
-    </HeroRoot>
+    </QuranBannerRoot>
   )
 }
 

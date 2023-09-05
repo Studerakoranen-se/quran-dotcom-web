@@ -1,6 +1,6 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
-import { Drawer, IconButton, Link, styled, Toolbar, Typography } from '@mui/material'
+import { Drawer, IconButton, styled, Toolbar } from '@mui/material'
 import { useGlobalHandlers, useGlobalState, useI18n, useRemoteConfig } from '~/contexts'
 import { CloseIcon } from '~/components'
 import AppNavDrawerListItem from './AppNavDrawerListItem'
@@ -32,7 +32,7 @@ const AppNavDrawer = React.memo(function AppNavDrawer(props) {
   const { isNavMenuOpen, ...other } = props
 
   const { menus } = useRemoteConfig()
-  const { onLanguageMenuToggle, onNavMenuClose } = useGlobalHandlers()
+  const { onNavMenuClose } = useGlobalHandlers()
   const { t } = useI18n()
 
   return (

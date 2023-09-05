@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 import TextField from '../Fields/TextField'
@@ -30,15 +31,21 @@ const LessonFileForm = ({ lessonFile, lessons }: Props) => {
         redirect: 'follow',
       })
         .then((response) => response.json())
-        .then(({ success, msg, result }) => {
-          Swal.fire({
-            icon: success ? 'success' : 'error',
-            title: success ? 'Success' : 'Error',
-            text: msg,
-            padding: '2em',
-            customClass: 'sweet-alerts',
-          })
-        })
+        .then(
+          ({
+            success,
+            msg,
+            // result
+          }) => {
+            Swal.fire({
+              icon: success ? 'success' : 'error',
+              title: success ? 'Success' : 'Error',
+              text: msg,
+              padding: '2em',
+              customClass: 'sweet-alerts',
+            })
+          },
+        )
         .catch((error) => console.log('error', error))
     } else {
       fetch('/api/v1/file/add', {
@@ -47,11 +54,16 @@ const LessonFileForm = ({ lessonFile, lessons }: Props) => {
         redirect: 'follow',
       })
         .then((response) => response.json())
-        .then(({ success, msg, result }) => {
-          if (success) {
-            router.push('/admin/lesson/file/list')
-          }
-        })
+        .then(
+          ({
+            success,
+            // msg, result
+          }) => {
+            if (success) {
+              router.push('/admin/lesson/file/list')
+            }
+          },
+        )
         .catch((error) => console.log('error', error))
     }
   }
@@ -80,7 +92,7 @@ const LessonFileForm = ({ lessonFile, lessons }: Props) => {
         defaultValue={lessonFile?.description}
       />
 
-      <button type="submit" className="btn btn-primary w-max px-10">
+      <button type="submit" className="px-10 btn btn-primary w-max">
         Submit
       </button>
     </form>

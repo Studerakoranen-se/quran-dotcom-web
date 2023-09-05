@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import * as React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import { IRootState } from '~/store'
+// import { IRootState } from '~/store'
 import { setPageTitle } from '~/store/themeConfigSlice'
 import BlankLayout from '~/components/Layout/BlankLayout'
 import { createUser } from '~/store/userSlice'
@@ -13,7 +14,7 @@ const LoginBoxed = () => {
     dispatch(setPageTitle('Login Boxed'))
   })
   const router = useRouter()
-  const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark'
+  // const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark'
 
   const [error, setError] = React.useState()
 
@@ -38,7 +39,7 @@ const LoginBoxed = () => {
         }
         console.log(msg)
       })
-      .catch((error) => console.log('error', error))
+      .catch((errors) => console.log('error', errors))
   }
 
   return (
@@ -46,7 +47,7 @@ const LoginBoxed = () => {
       <div className="panel m-6 w-full max-w-lg sm:w-[480px]">
         <h2 className="mb-3 text-2xl font-bold">Sign In</h2>
         <p className="mb-2">Enter your email and password to login</p>
-        <p className="text-red-500 my-3">{error}</p>
+        <p className="my-3 text-red-500">{error}</p>
         <form className="space-y-5" onSubmit={submitForm}>
           <div>
             <label htmlFor="email">Email</label>
@@ -69,7 +70,7 @@ const LoginBoxed = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary w-full">
+          <button type="submit" className="w-full btn btn-primary">
             SIGN IN
           </button>
         </form>

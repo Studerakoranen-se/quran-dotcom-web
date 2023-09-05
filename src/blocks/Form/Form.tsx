@@ -128,6 +128,7 @@ function Form(props: FormProps) {
   } = props
 
   const { t } = useI18n()
+  // @ts-ignore
   const { privacyPolicyPageUrl } = useRemoteConfig()
 
   const [status, setStatus] = React.useState('')
@@ -137,6 +138,7 @@ function Form(props: FormProps) {
       setSubmitting(true)
 
       /* [Start] If one of the fake fields are filled then the form will not be submitted */
+      // @ts-ignore
       if (document.getElementById(`name-${renderIndex}`)?.value) {
         setStatus('success')
         return
@@ -179,11 +181,12 @@ function Form(props: FormProps) {
 
       setSubmitting(false)
     },
-    [endpointProp, fetchOptionsProp, heading, id, renderIndex],
+    [endpointProp, fetchOptionsProp, id, renderIndex],
   )
 
   // Compose Formit initialValues
   const initialValues = fields.reduce((acc, field) => {
+    // @ts-ignore
     const { checked, name, type, value = '' } = field
 
     acc[name] = type === 'checkbox' ? !!checked : value
@@ -212,6 +215,7 @@ function Form(props: FormProps) {
               <React.Fragment>
                 <FormFields>
                   {fields?.map((field, idx) => {
+                    // @ts-ignore
                     const { label, name, options, pattern, required, type } = field
 
                     const sharedProps = {
@@ -259,6 +263,7 @@ function Form(props: FormProps) {
                         return a.label?.localeCompare(b.label)
                       })
                       return (
+                        // @ts-ignore
                         <FormitTextField
                           label={label}
                           required={required}
@@ -277,6 +282,7 @@ function Form(props: FormProps) {
 
                     return (
                       <FormitTextField
+                        // @ts-ignore
                         inputProps={{ pattern }}
                         label={label}
                         required={required}
@@ -305,7 +311,7 @@ function Form(props: FormProps) {
                   </LastFields>
                   {/* [End] Fake fields so bots fills them and the form will not be submitted */}
                 </FormFields>
-
+                {/* @ts-ignore */}
                 <FormitButton variant="contained" type="submit" fullWidth>
                   {submitLabel || t(__translationGroup)`Send`}
                 </FormitButton>

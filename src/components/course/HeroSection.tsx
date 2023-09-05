@@ -1,6 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
-import React from 'react'
 
 const CourseHeroSection = () => {
   return (
@@ -18,7 +16,7 @@ const CourseHeroSection = () => {
             Elever som vill fördjupa sig i det arabiska språket rekommenderas att besöka
             <a
               href="https://arabiskacentret.se"
-              className="underline underline-offset-4 decoration-sky-400 
+              className="underline underline-offset-4 decoration-sky-400
             decoration-1 text-semibold text-[#50d71e]
             font-semibold px-1"
             >

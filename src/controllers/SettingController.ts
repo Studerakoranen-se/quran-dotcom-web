@@ -1,6 +1,8 @@
 import { db } from '~/database'
 
 // Define the site settings model
+
+// eslint-disable-next-line import/prefer-default-export
 export class SiteSettings {
   // Function to retrieve all site settings
   static getAllSettings = async () => {

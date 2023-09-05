@@ -14,13 +14,13 @@ class LessonController {
     if (courseID) {
       query = query.where('course_id', courseID)
     }
-    return await query
+    return query
       .join('courses as c', 'lessons.course_id', '=', 'c.id')
       .select('lessons.*', 'c.name as course_name')
   }
 
   static view = async (id: any) => {
-    return await db('lessons').where('id', id).first()
+    return db('lessons').where('id', id).first()
   }
 
   static create = async (data: LessonInterface): Promise<any> => {
@@ -39,4 +39,5 @@ class LessonController {
   }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { LessonController }

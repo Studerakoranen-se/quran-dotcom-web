@@ -11,6 +11,7 @@ import Sidebar from './Sidebar'
 const DefaultLayout = ({ children }: React.PropsWithChildren) => {
   const router = useRouter()
   const [showLoader, setShowLoader] = React.useState(true)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [showTopButton, setShowTopButton] = React.useState(false)
   const themeConfig = useSelector((state: IRootState) => state.themeConfig)
   const [animation, setAnimation] = React.useState(themeConfig.animation)
@@ -24,10 +25,10 @@ const DefaultLayout = ({ children }: React.PropsWithChildren) => {
     }
   }, [router, user])
 
-  const goToTop = () => {
-    document.body.scrollTop = 0
-    document.documentElement.scrollTop = 0
-  }
+  // const goToTop = () => {
+  //   document.body.scrollTop = 0
+  //   document.documentElement.scrollTop = 0
+  // }
 
   const onScrollHandler = () => {
     if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
@@ -103,6 +104,7 @@ const DefaultLayout = ({ children }: React.PropsWithChildren) => {
           </div>
         )}
         {/* sidebar menu overlay */}
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div
           className={`${
             (!themeConfig.sidebar && 'hidden') || ''

@@ -40,6 +40,7 @@ function App({ children }: React.PropsWithChildren) {
     themeConfig.navbar,
     themeConfig.locale,
     themeConfig.semidark,
+    i18n,
   ])
 
   return (

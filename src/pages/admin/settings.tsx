@@ -23,6 +23,7 @@ const Settings = () => {
       <div>
         <ul className="flex space-x-2 rtl:space-x-reverse">
           <li>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <Link href="#" className="text-primary hover:underline">
               Settings
             </Link>
@@ -32,13 +33,14 @@ const Settings = () => {
           </li>
         </ul>
         <div className="pt-5">
-          <div className="mb-5 flex items-center justify-between">
+          <div className="flex items-center justify-between mb-5">
             <h5 className="text-lg font-semibold dark:text-white-light">Settings</h5>
           </div>
           <div>
             <ul className="mb-5 overflow-y-auto whitespace-nowrap border-b border-[#ebedf2] font-semibold dark:border-[#191e3a] sm:flex">
               <li className="inline-block">
                 <button
+                  type="button"
                   onClick={() => toggleTabs('general')}
                   className={`flex gap-2 border-b border-transparent p-4 hover:border-primary hover:text-primary ${
                     tabs === 'general' ? '!border-primary text-primary' : ''
@@ -50,7 +52,7 @@ const Settings = () => {
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
+                    className="w-5 h-5"
                   >
                     <path
                       opacity="0.5"
@@ -70,6 +72,7 @@ const Settings = () => {
               </li>
               <li className="inline-block">
                 <button
+                  type="button"
                   onClick={() => toggleTabs('payment-details')}
                   className={`flex gap-2 border-b border-transparent p-4 hover:border-primary hover:text-primary ${
                     tabs === 'payment-details' ? '!border-primary text-primary' : ''
@@ -81,7 +84,7 @@ const Settings = () => {
                     viewBox="0 0 24 24"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
+                    className="w-5 h-5"
                   >
                     <circle
                       opacity="0.5"
@@ -109,6 +112,7 @@ const Settings = () => {
               </li>
               <li className="inline-block">
                 <button
+                  type="button"
                   onClick={() => toggleTabs('account')}
                   className={`flex gap-2 border-b border-transparent p-4 hover:border-primary hover:text-primary ${
                     tabs === 'account' ? '!border-primary text-primary' : ''
@@ -137,6 +141,7 @@ const Settings = () => {
               </li>
               <li className="inline-block">
                 <button
+                  type="button"
                   onClick={() => toggleTabs('social')}
                   className={`flex gap-2 border-b border-transparent p-4 hover:border-primary hover:text-primary ${
                     tabs === 'social' ? '!border-primary text-primary' : ''
@@ -169,7 +174,7 @@ const Settings = () => {
           {tabs === 'general' ? <GeneralSetting /> : ''}
           {tabs === 'payment-details' ? (
             <div>
-              <div className="mb-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 mb-5 lg:grid-cols-2">
                 <div className="panel">
                   <div className="mb-5">
                     <h5 className="mb-4 text-lg font-semibold">Billing Address</h5>
@@ -184,12 +189,14 @@ const Settings = () => {
                       <div className="flex items-start justify-between py-3">
                         <h6 className="text-[15px] font-bold text-[#515365] dark:text-white-dark">
                           Address #1
-                          <span className="mt-1 block text-xs font-normal text-white-dark dark:text-white-light">
+                          <span className="block mt-1 text-xs font-normal text-white-dark dark:text-white-light">
                             2249 Caynor Circle, New Brunswick, New Jersey
                           </span>
                         </h6>
                         <div className="flex items-start justify-between ltr:ml-auto rtl:mr-auto">
-                          <button className="btn btn-dark">Edit</button>
+                          <button type="button" className="btn btn-dark">
+                            Edit
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -197,12 +204,14 @@ const Settings = () => {
                       <div className="flex items-start justify-between py-3">
                         <h6 className="text-[15px] font-bold text-[#515365] dark:text-white-dark">
                           Address #2
-                          <span className="mt-1 block text-xs font-normal text-white-dark dark:text-white-light">
+                          <span className="block mt-1 text-xs font-normal text-white-dark dark:text-white-light">
                             4262 Leverton Cove Road, Springfield, Massachusetts
                           </span>
                         </h6>
                         <div className="flex items-start justify-between ltr:ml-auto rtl:mr-auto">
-                          <button className="btn btn-dark">Edit</button>
+                          <button type="button" className="btn btn-dark">
+                            Edit
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -210,17 +219,21 @@ const Settings = () => {
                       <div className="flex items-start justify-between py-3">
                         <h6 className="text-[15px] font-bold text-[#515365] dark:text-white-dark">
                           Address #3
-                          <span className="mt-1 block text-xs font-normal text-white-dark dark:text-white-light">
+                          <span className="block mt-1 text-xs font-normal text-white-dark dark:text-white-light">
                             2692 Berkshire Circle, Knoxville, Tennessee
                           </span>
                         </h6>
                         <div className="flex items-start justify-between ltr:ml-auto rtl:mr-auto">
-                          <button className="btn btn-dark">Edit</button>
+                          <button type="button" className="btn btn-dark">
+                            Edit
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <button className="btn btn-primary">Add Address</button>
+                  <button type="button" className="btn btn-primary">
+                    Add Address
+                  </button>
                 </div>
                 <div className="panel">
                   <div className="mb-5">
@@ -239,12 +252,14 @@ const Settings = () => {
                         </div>
                         <h6 className="text-[15px] font-bold text-[#515365] dark:text-white-dark">
                           Mastercard
-                          <span className="mt-1 block text-xs font-normal text-white-dark dark:text-white-light">
+                          <span className="block mt-1 text-xs font-normal text-white-dark dark:text-white-light">
                             XXXX XXXX XXXX 9704
                           </span>
                         </h6>
                         <div className="flex items-start justify-between ltr:ml-auto rtl:mr-auto">
-                          <button className="btn btn-dark">Edit</button>
+                          <button type="button" className="btn btn-dark">
+                            Edit
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -255,12 +270,14 @@ const Settings = () => {
                         </div>
                         <h6 className="text-[15px] font-bold text-[#515365] dark:text-white-dark">
                           American Express
-                          <span className="mt-1 block text-xs font-normal text-white-dark dark:text-white-light">
+                          <span className="block mt-1 text-xs font-normal text-white-dark dark:text-white-light">
                             XXXX XXXX XXXX 310
                           </span>
                         </h6>
                         <div className="flex items-start justify-between ltr:ml-auto rtl:mr-auto">
-                          <button className="btn btn-dark">Edit</button>
+                          <button type="button" className="btn btn-dark">
+                            Edit
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -271,17 +288,21 @@ const Settings = () => {
                         </div>
                         <h6 className="text-[15px] font-bold text-[#515365] dark:text-white-dark">
                           Visa
-                          <span className="mt-1 block text-xs font-normal text-white-dark dark:text-white-light">
+                          <span className="block mt-1 text-xs font-normal text-white-dark dark:text-white-light">
                             XXXX XXXX XXXX 5264
                           </span>
                         </h6>
                         <div className="flex items-start justify-between ltr:ml-auto rtl:mr-auto">
-                          <button className="btn btn-dark">Edit</button>
+                          <button type="button" className="btn btn-dark">
+                            Edit
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <button className="btn btn-primary">Add Payment Method</button>
+                  <button type="button" className="btn btn-primary">
+                    Add Payment Method
+                  </button>
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
@@ -294,7 +315,7 @@ const Settings = () => {
                   </div>
                   <div className="mb-5">
                     <form>
-                      <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div className="grid grid-cols-1 gap-4 mb-5 sm:grid-cols-2">
                         <div>
                           <label htmlFor="billingName">Name</label>
                           <input
@@ -323,7 +344,7 @@ const Settings = () => {
                           className="form-input"
                         />
                       </div>
-                      <div className="mb-5 grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
+                      <div className="grid grid-cols-1 gap-4 mb-5 md:grid-cols-3 lg:grid-cols-4">
                         <div className="md:col-span-2">
                           <label htmlFor="billingCity">City</label>
                           <input
@@ -366,7 +387,7 @@ const Settings = () => {
                   </div>
                   <div className="mb-5">
                     <form>
-                      <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div className="grid grid-cols-1 gap-4 mb-5 sm:grid-cols-2">
                         <div>
                           <label htmlFor="payBrand">Card Brand</label>
                           <select id="payBrand" className="form-select text-white-dark">
@@ -386,7 +407,7 @@ const Settings = () => {
                           />
                         </div>
                       </div>
-                      <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div className="grid grid-cols-1 gap-4 mb-5 sm:grid-cols-2">
                         <div>
                           <label htmlFor="payHolder">Holder Name</label>
                           <input
@@ -401,7 +422,7 @@ const Settings = () => {
                           <input id="payCvv" type="text" placeholder="CVV" className="form-input" />
                         </div>
                       </div>
-                      <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div className="grid grid-cols-1 gap-4 mb-5 sm:grid-cols-2">
                         <div>
                           <label htmlFor="payExp">Card Expiry</label>
                           <input

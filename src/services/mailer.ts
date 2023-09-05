@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/order
 import nodemailer from 'nodemailer'
 
 const dotenv = require('dotenv')
@@ -13,6 +14,7 @@ const transporter = nodemailer.createTransport({
   },
 })
 
+// eslint-disable-next-line import/prefer-default-export
 export async function sendMail(to: string, subject: string, body: string) {
   const mailOptions = {
     from: process.env.MAILTRAP_FROM_EMAIL,
@@ -22,5 +24,7 @@ export async function sendMail(to: string, subject: string, body: string) {
   }
 
   const info = await transporter.sendMail(mailOptions)
+
+  // eslint-disable-next-line no-console
   console.log(`Message sent: ${info.messageId}`)
 }

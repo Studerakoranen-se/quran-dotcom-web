@@ -18,6 +18,7 @@ const sendMail = async (to: string, subject: string, text: string) => {
       text,
     })
 
+    // eslint-disable-next-line no-console
     console.log('Message sent: %s', info.messageId)
   } catch (error) {
     console.error(error)

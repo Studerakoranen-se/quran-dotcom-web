@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as React from 'react'
 import Head from 'next/head'
 import YouTube from 'react-youtube'
@@ -10,6 +11,23 @@ import CourseTab from '~/components/course/CourseTab'
 import AboutSection from '~/components/course/AboutSection'
 import ResourcesTab from '~/components/course/ResourcesTab'
 import QuizeTab from '~/components/course/QuizeTab'
+
+const renderTabContent = (tab, lesson, lessons) => {
+  switch (tab) {
+    case 'about':
+      return <AboutSection lesson={lesson} />
+      break
+    case 'resources':
+      return <ResourcesTab lesson={lesson} lessonCount={lessons.length} />
+      break
+    case 'quiz':
+      return <QuizeTab lessonID={lesson?.id} />
+      break
+    default:
+      return <AboutSection lesson={lesson} />
+      break
+  }
+}
 
 const SingleCoursePage = () => {
   const router = useRouter()
@@ -37,23 +55,6 @@ const SingleCoursePage = () => {
       .catch((error) => console.log('error', error))
   }, [router])
 
-  const TabContent = () => {
-    switch (tab) {
-      case 'about':
-        return <AboutSection lesson={lesson} />
-        break
-      case 'resources':
-        return <ResourcesTab lesson={lesson} lessonCount={lessons.length} />
-        break
-      case 'quiz':
-        return <QuizeTab lessonID={lesson?.id} />
-        break
-      default:
-        return <AboutSection lesson={lesson} />
-        break
-    }
-  }
-
   return (
     <React.Fragment>
       <Head>
@@ -62,14 +63,14 @@ const SingleCoursePage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-col min-h-screen font-inter bg-color1 overflow-x-hidden">
+      <main className="flex flex-col min-h-screen overflow-x-hidden font-inter bg-color1">
         <TopBar />
         <NavBar />
-        <div className="flex-grow max-w-5xls container px-5 mx-auto grid grid-cols-12 gap-5 mt-10">
-          <div className="order-last lg:order-first text-white col-span-12 lg:col-span-8 py-10">
-            <h1 className="text-2xl font-elMessiri py-2">{course?.name}</h1>
+        <div className="container grid flex-grow grid-cols-12 gap-5 px-5 mx-auto mt-10 max-w-5xls">
+          <div className="order-last col-span-12 py-10 text-white lg:order-first lg:col-span-8">
+            <h1 className="py-2 text-2xl font-elMessiri">{course?.name}</h1>
             <p className="">{course?.description}</p>
-            <div className="mt-5 w-full h-auto ">
+            <div className="w-full h-auto mt-5 ">
               {lesson?.youtube_video && (
                 <YouTube
                   opts={{
@@ -84,9 +85,7 @@ const SingleCoursePage = () => {
             <div className="mt-10">
               <CourseTab tab={tab} setTab={setTab} />
             </div>
-            <div className="mt-5">
-              <TabContent />
-            </div>
+            <div className="mt-5">{renderTabContent(tab, lesson, lessons)}</div>
           </div>
           <div className="col-span-12 lg:col-span-4">
             <LessonsSidebar lessons={lessons} lessonID={lesson?.id} setLesson={setLesson} />

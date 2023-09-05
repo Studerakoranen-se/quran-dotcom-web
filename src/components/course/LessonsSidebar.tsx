@@ -1,27 +1,32 @@
+/* eslint-disable no-console */
 import * as React from 'react'
 
 const LessonsSidebar = (props: any) => {
   const { lessons, lessonID, setLesson } = props
 
-  const getlesson = (id: number) => {
-    fetch(`/api/v1/lesson/details?id=${id}`, {
-      method: 'GET',
-      redirect: 'follow',
-    })
-      .then((response) => response.json())
-      .then((result) => setLesson(result))
-      .catch((error) => console.log('error', error))
-  }
+  const getlesson = React.useCallback(
+    (id: number) => {
+      fetch(`/api/v1/lesson/details?id=${id}`, {
+        method: 'GET',
+        redirect: 'follow',
+      })
+        .then((response) => response.json())
+        .then((result) => setLesson(result))
+        .catch((error) => console.log('error', error))
+    },
+    [setLesson],
+  )
 
   React.useEffect(() => {
     if (!lessonID) {
       getlesson(lessons[0]?.id)
     }
-  }, [lessons])
+  }, [getlesson, lessonID, lessons])
   return (
-    <div className="text-white text-sm w-full space-y-3">
+    <div className="w-full space-y-3 text-sm text-white">
       {lessons.map((lesson: any, i: number) => (
         <button
+          type="button"
           onClick={() => getlesson(lesson.id)}
           key={i}
           className={`${

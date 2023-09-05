@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-restricted-syntax */
 import Swal from 'sweetalert2'
 import * as React from 'react'
 
@@ -56,7 +58,7 @@ const GeneralSetting = () => {
       >
         <h6 className="mb-5 text-lg font-bold">General Information</h6>
         <div className="flex flex-col sm:flex-row">
-          <div className="flex flex-col gap-5 w-full">
+          <div className="flex flex-col w-full gap-5">
             <div>
               <label htmlFor="site_title">Site Title</label>
               <input
@@ -78,7 +80,9 @@ const GeneralSetting = () => {
               />
             </div>
             <div className="mt-3 sm:col-span-2">
-              <button className="btn btn-primary">Save</button>
+              <button type="button" className="btn btn-primary">
+                Save
+              </button>
             </div>
           </div>
         </div>

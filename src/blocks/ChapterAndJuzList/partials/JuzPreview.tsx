@@ -3,7 +3,7 @@ import { RouterLink } from '~/containers'
 import { getChapterData } from '~/utils'
 import SurahPreview from './SurahPreview'
 
-const JuzPreviewRoot = styled('div')(({ theme }) => ({
+const JuzPreviewRoot = styled('div')(() => ({
   borderRadius: 4,
   paddingBlockStart: 13,
   paddingBlockEnd: 13,
@@ -13,20 +13,20 @@ const JuzPreviewRoot = styled('div')(({ theme }) => ({
   breakInside: 'avoid-column',
 }))
 
-const JuzPreviewItem = styled('div')(({ theme }) => ({
+const JuzPreviewItem = styled('div')(() => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'flex-end',
   paddingBottom: 5,
 }))
 
-const JuzPreviewSurah = styled('div')(({ theme }) => ({
+const JuzPreviewSurah = styled('div')(() => ({
   '& > * + *': {
     marginTop: 20,
   },
 }))
 
-const SurahPreviewContainer = styled('div')(({ theme }) => ({
+const SurahPreviewContainer = styled('div')(() => ({
   backgroundColor: '#f1f1f1',
 }))
 
@@ -35,13 +35,13 @@ const JuzRouterLink = styled(RouterLink)({
 })
 
 const JuzPreview = (props: any) => {
-  const { chapters, id, verseMapping, juzNumber } = props
+  const { chapters, verseMapping, juzNumber } = props
 
   const chapterIds = Object.keys(verseMapping)
 
   return (
     <JuzPreviewRoot>
-      <JuzPreviewItem className="flex justify-between items-end pb-5">
+      <JuzPreviewItem className="flex items-end justify-between pb-5">
         <RouterLink href={`/juz/${juzNumber}`}>Juz {juzNumber}</RouterLink>
         <JuzRouterLink href={`/juz/${juzNumber}`}>Read Juz</JuzRouterLink>
       </JuzPreviewItem>
@@ -49,6 +49,8 @@ const JuzPreview = (props: any) => {
         {chapterIds.map((chapterId) => {
           // @ts-ignore
           const chapter = getChapterData(chapters, chapterId - 1)
+
+          // eslint-disable-next-line no-console
           console.log('chapterId', chapterId)
           return (
             <SurahPreviewContainer>

@@ -2,7 +2,7 @@ import * as React from 'react'
 import createSvgIcon from '../utils/createSvgIcon'
 
 export default createSvgIcon(
-  <>
+  <React.Fragment>
     <g id="Text_i_cirkel" data-name="Text i cirkel">
       <text
         transform="translate(158.46 315.57)"
@@ -141,7 +141,7 @@ export default createSvgIcon(
         strokeWidth="4.98"
       />
     </g>
-  </>,
+  </React.Fragment>,
   'Brand',
   '0 0 599.77 676.31',
 )

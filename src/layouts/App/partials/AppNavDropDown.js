@@ -1,4 +1,5 @@
 import * as React from 'react'
+import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { unstable_generateUtilityClasses as generateUtilityClasses } from '@mui/utils'
 import { styled } from '@mui/system'
@@ -160,8 +161,8 @@ function AppNavDropDown(props) {
   )
 }
 
-// AppNavDropDown.propTypes = {
-//   menuItem: menuItemType.isRequired,
-// }
+AppNavDropDown.propTypes = {
+  menuItem: PropTypes.object,
+}
 
 export default AppNavDropDown

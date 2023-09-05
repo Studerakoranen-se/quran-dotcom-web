@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 // @ts-nocheck
 import * as React from 'react'
 import { DataTable } from 'mantine-datatable'
 import sortBy from 'lodash/sortBy'
 import { useDispatch, useSelector } from 'react-redux'
-import { HiOutlineTrash, HiOutlinePencilAlt } from 'react-icons/hi'
+import { HiOutlinePencilAlt } from 'react-icons/hi'
 import Link from 'next/link'
 import { IRootState } from '~/store'
 import { setPageTitle } from '~/store/themeConfigSlice'
@@ -88,40 +89,40 @@ const AdminTeacherList = () => {
 
     setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data)
     setPage(1)
-  }, [sortStatus])
+  }, [initialRecords, sortStatus])
 
-  const deleteData = (id: number) => {
-    const confirmation = confirm('Do you want to delete?')
-    if (confirmation) {
-      const formdata = new FormData()
+  // const deleteData = (id: number) => {
+  //   const confirmation = confirm('Do you want to delete?')
+  //   if (confirmation) {
+  //     const formdata = new FormData()
 
-      fetch(`/api/v1/teacher/delete?id=${id}`, {
-        method: 'DELETE',
-        body: formdata,
-        redirect: 'follow',
-      })
-        .then((response) => response.json())
-        .then(({ success, msg }) => {
-          getData()
-        })
-        .catch((error) => console.log('error', error))
-    }
-  }
+  //     fetch(`/api/v1/teacher/delete?id=${id}`, {
+  //       method: 'DELETE',
+  //       body: formdata,
+  //       redirect: 'follow',
+  //     })
+  //       .then((response) => response.json())
+  //       .then(({ success, msg }) => {
+  //         getData()
+  //       })
+  //       .catch((error) => console.log('error', error))
+  //   }
+  // }
 
   return (
     <DefaultLayout>
       <div className="panel">
         <div className="flex justify-end pb-5">
-          <Link href={'/admin/teacher/add'} className="btn btn-outline-primary rounded-full">
+          <Link href={'/admin/teacher/add'} className="rounded-full btn btn-outline-primary">
             Add Teacher
           </Link>
         </div>
-        <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
+        <div className="flex flex-col gap-5 mb-5 md:flex-row md:items-center">
           <h5 className="text-lg font-semibold dark:text-white-light">Teachers</h5>
           <div className="ltr:ml-auto rtl:mr-auto">
             <input
               type="text"
-              className="form-input w-auto"
+              className="w-auto form-input"
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -168,7 +169,7 @@ const AdminTeacherList = () => {
                 title: 'Contact',
                 sortable: true,
                 render: ({ mail, phone }) => (
-                  <div className="text-xs flex flex-col gap-1">
+                  <div className="flex flex-col gap-1 text-xs">
                     <a href={`mailto:${mail}`} className="hover:underline">
                       {mail}
                     </a>
@@ -186,9 +187,9 @@ const AdminTeacherList = () => {
                     <Link href={`/admin/teacher/edit?id=${id}`} className="">
                       <HiOutlinePencilAlt />
                     </Link>
-                    <button onClick={() => deleteData(id)} className="">
+                    {/* <button onClick={() => deleteData(id)} className="">
                       <HiOutlineTrash />
-                    </button>
+                    </button> */}
                   </div>
                 ),
               },

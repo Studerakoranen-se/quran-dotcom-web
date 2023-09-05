@@ -13,7 +13,7 @@ interface TeacherInterface {
 
 class TeacherController {
   static index = async () => {
-    return await db('teachers')
+    return db('teachers')
   }
 
   static create = async (data: TeacherInterface): Promise<any> => {
@@ -32,8 +32,8 @@ class TeacherController {
   }
 
   static view = async (id: string | number): Promise<any> => {
-    return await db('teachers').where('id', id).first()
+    return db('teachers').where('id', id).first()
   }
 }
-
+// eslint-disable-next-line import/prefer-default-export
 export { TeacherController }

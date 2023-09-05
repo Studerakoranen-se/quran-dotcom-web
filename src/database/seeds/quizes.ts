@@ -1,6 +1,6 @@
 import { Knex } from 'knex'
-import { faker } from '@faker-js/faker'
 
+// eslint-disable-next-line import/prefer-default-export
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex('quizes').del()
@@ -56,12 +56,14 @@ export async function seed(knex: Knex): Promise<void> {
       answer: [1],
     },
   ]
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const quizes: Array<Object> = []
 
   const lessons = await knex('lessons')
 
   lessons.forEach((lesson: any) => {
-    quizeData.forEach((q, i) => {
+    quizeData.forEach((q) => {
       const quize = {
         lesson_id: lesson.id,
         question: q.question,

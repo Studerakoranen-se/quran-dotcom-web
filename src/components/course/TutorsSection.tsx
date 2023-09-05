@@ -7,7 +7,7 @@ type Props = {
 
 const TutorsSection = ({ setSelectedTutor, tutors }: Props) => {
   return (
-    <div className="container text-white py-10">
+    <div className="container py-10 text-white">
       <div className="text-center">
         <h1 className=" font-elMessiri text-[48px] font-bold">Våra handledare</h1>
         <p className="py-3 text-[16px]">
@@ -15,11 +15,11 @@ const TutorsSection = ({ setSelectedTutor, tutors }: Props) => {
           bäst.
         </p>
       </div>
-      <div className="py-10 grid gap-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-5 py-10 md:grid-cols-3 lg:grid-cols-4">
         {tutors.map((tutor: any, i: number) => (
           <div
             key={i}
-            className="group cursor-pointer bg-white rounded-lg overflow-hidden relative"
+            className="relative overflow-hidden bg-white rounded-lg cursor-pointer group"
           >
             <div className="relative w-full h-40">
               <Image fill src={`/uploads/tutors/${tutor.image}`} alt="" />
@@ -30,12 +30,13 @@ const TutorsSection = ({ setSelectedTutor, tutors }: Props) => {
             </div>
             <div className="opacity-0 group-hover:opacity-100 transition-all duration-1000 absolute top-0 left-0 w-full h-full bg-[#064B4B] bg-opacity-80">
               <div className="p-5">
-                <h1 className="font-semibold py-3">{tutor.fullname}</h1>
+                <h1 className="py-3 font-semibold">{tutor.fullname}</h1>
                 <p className="text-sm font-light">{tutor.description}</p>
               </div>
               <button
+                type="button"
                 onClick={() => setSelectedTutor(tutor.mail)}
-                className="absolute bottom-0 right-0 text-sm bg-color1 px-5 rounded-full py-1 mb-1 mr-1"
+                className="absolute bottom-0 right-0 px-5 py-1 mb-1 mr-1 text-sm rounded-full bg-color1"
               >
                 Välj din handledare
               </button>

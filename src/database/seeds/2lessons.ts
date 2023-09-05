@@ -1,10 +1,13 @@
 import { Knex } from 'knex'
 import { faker } from '@faker-js/faker'
 
+// eslint-disable-next-line import/prefer-default-export
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex('lessons').del()
 
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const lessons: Array<Object> = []
 
   const courses = await knex('courses')

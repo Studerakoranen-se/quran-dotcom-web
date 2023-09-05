@@ -45,7 +45,7 @@ const TeamList = styled('div')(({ theme }) => ({
     gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
   },
 }))
-const TeamItemCard = styled('div')(({ theme }) => ({
+const TeamItemCard = styled('div')(() => ({
   overflow: 'hidden',
   position: 'relative',
   borderRadius: '0.5rem',
@@ -83,7 +83,7 @@ export default function Tutors(props: TeamProps) {
           {entries
             ?.filter((item) => !item.isHidden)
             .map((item, idx) => (
-              <TeamItemCard>
+              <TeamItemCard key={idx}>
                 {item?.image && (
                   <MediaReveal>
                     <Media src={item.image} alt="" />

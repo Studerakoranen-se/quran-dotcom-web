@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Head from 'next/head'
 import * as React from 'react'
 import axios from 'axios'
@@ -28,23 +29,39 @@ const SurahViewPage = (props: any) => {
 
   const [verses, setVerses] = React.useState<any>([])
   const [chapterInfo, setChapterInfo] = React.useState<any>([])
-  const [visibleId, setVisibleId] = React.useState<string | null>(null)
+  // const [visibleId, setVisibleId] = React.useState<string | null>(null)
 
-  const [tafsir, setTafsir] = React.useState()
+  // const [tafsir, setTafsir] = React.useState()
 
   const [currentVerse, setCurrentVerse] = React.useState<number>(0)
 
   const [audio, setAudio] = React.useState<any>()
   const [currentAudio, setCurrentAudio] = React.useState('')
   const [audioPlaying, setAudioPlaying] = React.useState(false)
-  const [showControl, setShowControl] = React.useState(false)
+  // const [showControl, setShowControl] = React.useState(false)
 
   const containerRef = React.useRef<HTMLDivElement>(null)
 
-  const handleAudioEnded = (id: any) => {
+  const higLightText = (id: any, segment: any) => {
+    const childs: any = document?.querySelector<HTMLElement>(`#${id}`)?.children
+    segment.forEach((seg: any, i: any) => {
+      setTimeout(() => {
+        if (childs) {
+          childs[i].style.color = '#10de5d'
+        }
+      }, segment[i][2])
+      setTimeout(() => {
+        if (childs) {
+          childs[i].style.color = '#fff'
+        }
+      }, segment[i][3])
+    })
+  }
+
+  const handleAudioEnded = () => {
     const audios = verses.map((verse: any) => verse.audio)
 
-    const currentIndex = audios.indexOf(currentAudio)
+    // const currentIndex = audios.indexOf(currentAudio)
     if (currentVerse === audios.length - 1) {
       setCurrentAudio('')
       setCurrentVerse(0)
@@ -64,40 +81,24 @@ const SurahViewPage = (props: any) => {
     }
   }
 
-  const playWholeSurah = () => {
-    const audios = verses.map((verse: any) => verse.audio)
-    setCurrentAudio(`https://audio.qurancdn.com/${audios[0].url}`)
-    audio.audioEl.current.play()
+  // const playWholeSurah = () => {
+  //   const audios = verses.map((verse: any) => verse.audio)
+  //   setCurrentAudio(`https://audio.qurancdn.com/${audios[0].url}`)
+  //   audio.audioEl.current.play()
 
-    return audios
-  }
+  //   return audios
+  // }
 
-  const playAudio = () => {
-    audio.audioEl.current.play()
-    setAudioPlaying(true)
-  }
+  // const playAudio = () => {
+  //   audio.audioEl.current.play()
+  //   setAudioPlaying(true)
+  // }
 
   const pauseAudio = () => {
     audio.audioEl.current.pause()
     audio.audioEl.current.currentTime = 0
     setCurrentAudio('')
     setAudioPlaying(false)
-  }
-
-  const higLightText = (id: any, segment: any) => {
-    const childs: any = document?.querySelector<HTMLElement>(`#${id}`)?.children
-    segment.forEach((seg: any, i: any) => {
-      setTimeout(() => {
-        if (childs) {
-          childs[i].style.color = '#10de5d'
-        }
-      }, segment[i][2])
-      setTimeout(() => {
-        if (childs) {
-          childs[i].style.color = '#fff'
-        }
-      }, segment[i][3])
-    })
   }
 
   React.useEffect(() => {
@@ -122,7 +123,7 @@ const SurahViewPage = (props: any) => {
           dispatch(addToHistory(formatChapters(data.chapter, locale)))
         })
     }
-  }, [chapterID])
+  }, [chapterID, dispatch, locale])
 
   React.useEffect(() => {
     // Get the element by its ID
@@ -135,7 +136,7 @@ const SurahViewPage = (props: any) => {
 
       window.scrollTo({ top: scrollToPosition, behavior: 'smooth' })
     }
-  }, [verses])
+  }, [startAt, verses])
 
   React.useEffect(() => {
     if (!containerRef.current || !verses) {
@@ -157,11 +158,12 @@ const SurahViewPage = (props: any) => {
           dispatch(
             updateVerseCount({
               id: chapterID,
-              verse_count: matches ? matches[0]! : 1,
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              verseCount: matches ? matches[0]! : 1,
             }),
           )
 
-          setVisibleId(entry.target.id)
+          // setVisibleId(entry.target.id)
         }
       })
     }, options)
@@ -171,12 +173,13 @@ const SurahViewPage = (props: any) => {
       observer.observe(element)
     })
 
+    // eslint-disable-next-line consistent-return
     return () => {
       elements.forEach((element) => {
         observer.unobserve(element)
       })
     }
-  }, [verses])
+  }, [chapterID, dispatch, verses])
 
   const toggleSideBar = () => {
     const s = document.getElementById('sidebar')
@@ -200,6 +203,7 @@ const SurahViewPage = (props: any) => {
       )
       .then(({ data }) => {
         // setChapterInfo(data.chapter);
+
         console.log(data)
       })
   }
@@ -213,10 +217,10 @@ const SurahViewPage = (props: any) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="relative font-inter bg-color1 flex flex-col min-h-screen scroll-smooth ">
+      <main className="relative flex flex-col min-h-screen font-inter bg-color1 scroll-smooth ">
         <TopBar />
         <NavBar />
-        <div className="flex relative">
+        <div className="relative flex">
           <div
             id="sidebar"
             className={
@@ -225,7 +229,7 @@ const SurahViewPage = (props: any) => {
           >
             <SurahViewSideBar chapterID={chapterID} setShowSidebar={toggleSideBar} />
           </div>
-          <div className="flex-grow container px-5">
+          <div className="container flex-grow px-5">
             <ReactAudioPlayer
               src={currentAudio}
               autoPlay
@@ -238,20 +242,22 @@ const SurahViewPage = (props: any) => {
               }}
               onEnded={() => {
                 setAudioPlaying(false)
-                currentVerse === 0 || handleAudioEnded(currentVerse)
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                currentVerse === 0 || handleAudioEnded()
               }}
             />
             <RiMenuUnfoldFill
               id="openSidebar"
-              className="md:hidden text-white text-xl mt-5 cursor-pointer"
+              className="mt-5 text-xl text-white cursor-pointer md:hidden"
               onClick={() => toggleSideBar()}
             />
 
-            <div className="space-y-6 pt-10">
+            <div className="pt-10 space-y-6">
               <Bismillah bismillah_pre={chapterInfo?.bismillah_pre} />
               <div className="py-5">
                 {audioPlaying ? (
                   <button
+                    type="button"
                     onClick={() => {
                       pauseAudio()
                     }}
@@ -261,6 +267,7 @@ const SurahViewPage = (props: any) => {
                   </button>
                 ) : (
                   <button
+                    type="button"
                     onClick={() => {
                       setCurrentAudio(`https://audio.qurancdn.com/${verses[0].audio.url}`)
                       setCurrentVerse(1)
@@ -279,9 +286,9 @@ const SurahViewPage = (props: any) => {
                   <div
                     key={i}
                     id={`verse${i + 1}`}
-                    className="border-b border-green-800 pb-12 pt-12 flex justify-between gap-5"
+                    className="flex justify-between gap-5 pt-12 pb-12 border-b border-green-800"
                   >
-                    <div className="w-10 text-white flex flex-col items-center gap-4">
+                    <div className="flex flex-col items-center w-10 gap-4 text-white">
                       <div className="">{verse.verse_key}</div>
                       {audioPlaying &&
                       currentAudio === `https://audio.qurancdn.com/${verse.audio.url}` ? (
@@ -298,7 +305,7 @@ const SurahViewPage = (props: any) => {
                             setCurrentVerse(verse.verse_number)
                             setCurrentAudio(`https://audio.qurancdn.com/${verse.audio.url}`)
                             audio.audioEl.current.play()
-                            setShowControl(true)
+                            // setShowControl(true)
                             setAudioPlaying(true)
                             higLightText(`v${verse.verse_number}`, verse.audio.segments)
                           }}
@@ -309,7 +316,7 @@ const SurahViewPage = (props: any) => {
                       <BsBookHalf onClick={() => getTafsir(verse.verse_number)} />
                       <BsThreeDots />
                     </div>
-                    <div className="flex-grow flex flex-col gap-5 justify-center px-10">
+                    <div className="flex flex-col justify-center flex-grow gap-5 px-10">
                       <div
                         id={`v${verse.verse_number}`}
                         className={
@@ -322,14 +329,15 @@ const SurahViewPage = (props: any) => {
                         }
                         dir="rtl"
                       >
-                        {verse.words.map((word: any, i: number) => (
+                        {verse.words.map((word: any, idx: number) => (
                           <button
+                            type="button"
                             onClick={() => {
                               setCurrentVerse(0)
                               setCurrentAudio(`https://audio.qurancdn.com/${word.audio.url}`)
                               audio.audioEl.current.play()
                             }}
-                            key={i}
+                            key={idx}
                             className={`${
                               word.char_type === 'end' ? '' : ''
                             } hover:!text-green-400 relative group flex flex-col gap-4 items-center leading-loose`}
@@ -465,7 +473,7 @@ const SurahViewPage = (props: any) => {
         </div>
         <div className="fixed right-5 bottom-10">
           <BsFillArrowUpCircleFill
-            className="text-white text-5xl cursor-pointer"
+            className="text-5xl text-white cursor-pointer"
             onClick={goToBeginning}
           />
         </div>
@@ -478,6 +486,7 @@ const SurahViewPage = (props: any) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale } = ctx
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { start_at, chapterID } = ctx.query
 
   return { props: { startAt: start_at || 1, chapterID, locale } }

@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 export { default as GlobalProvider } from './Global'
 export * from './Global'
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
@@ -39,87 +40,88 @@ const Header = () => {
     }
   }, [router.pathname])
 
-  const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl'
+  // const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl'
 
   const themeConfig = useSelector((state: IRootState) => state.themeConfig)
-  const [flag, setFlag] = React.useState('')
+  // const [flag, setFlag] = React.useState('')
 
-  React.useEffect(() => {
-    setFlag(localStorage.getItem('i18nextLng') || themeConfig.locale)
-  })
+  // React.useEffect(() => {
+  //   setFlag(localStorage.getItem('i18nextLng') || themeConfig.locale)
+  // })
+
   const dispatch = useDispatch()
 
-  function createMarkup(messages: any) {
-    return { __html: messages }
-  }
+  // function createMarkup(messages: any) {
+  //   return { __html: messages }
+  // }
 
-  const [messages, setMessages] = React.useState([
-    {
-      id: 1,
-      image:
-        '<span class="grid place-content-center w-9 h-9 rounded-full bg-success-light dark:bg-success text-success dark:text-success-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>',
-      title: 'Congratulations!',
-      message: 'Your OS has been updated.',
-      time: '1hr',
-    },
-    {
-      id: 2,
-      image:
-        '<span class="grid place-content-center w-9 h-9 rounded-full bg-info-light dark:bg-info text-info dark:text-info-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>',
-      title: 'Did you know?',
-      message: 'You can switch between artboards.',
-      time: '2hr',
-    },
-    {
-      id: 3,
-      image:
-        '<span class="grid place-content-center w-9 h-9 rounded-full bg-danger-light dark:bg-danger text-danger dark:text-danger-light"> <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>',
-      title: 'Something went wrong!',
-      message: 'Send Reposrt',
-      time: '2days',
-    },
-    {
-      id: 4,
-      image:
-        '<span class="grid place-content-center w-9 h-9 rounded-full bg-warning-light dark:bg-warning text-warning dark:text-warning-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round">    <circle cx="12" cy="12" r="10"></circle>    <line x1="12" y1="8" x2="12" y2="12"></line>    <line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span>',
-      title: 'Warning',
-      message: 'Your password strength is low.',
-      time: '5days',
-    },
-  ])
+  // const [messages, setMessages] = React.useState([
+  //   {
+  //     id: 1,
+  //     image:
+  //       '<span class="grid place-content-center w-9 h-9 rounded-full bg-success-light dark:bg-success text-success dark:text-success-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>',
+  //     title: 'Congratulations!',
+  //     message: 'Your OS has been updated.',
+  //     time: '1hr',
+  //   },
+  //   {
+  //     id: 2,
+  //     image:
+  //       '<span class="grid place-content-center w-9 h-9 rounded-full bg-info-light dark:bg-info text-info dark:text-info-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>',
+  //     title: 'Did you know?',
+  //     message: 'You can switch between artboards.',
+  //     time: '2hr',
+  //   },
+  //   {
+  //     id: 3,
+  //     image:
+  //       '<span class="grid place-content-center w-9 h-9 rounded-full bg-danger-light dark:bg-danger text-danger dark:text-danger-light"> <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>',
+  //     title: 'Something went wrong!',
+  //     message: 'Send Reposrt',
+  //     time: '2days',
+  //   },
+  //   {
+  //     id: 4,
+  //     image:
+  //       '<span class="grid place-content-center w-9 h-9 rounded-full bg-warning-light dark:bg-warning text-warning dark:text-warning-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round">    <circle cx="12" cy="12" r="10"></circle>    <line x1="12" y1="8" x2="12" y2="12"></line>    <line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span>',
+  //     title: 'Warning',
+  //     message: 'Your password strength is low.',
+  //     time: '5days',
+  //   },
+  // ])
 
-  const removeMessage = (value: number) => {
-    setMessages(messages.filter((user) => user.id !== value))
-  }
+  // const removeMessage = (value: number) => {
+  //   setMessages(messages.filter((user) => user.id !== value))
+  // }
 
-  const [notifications, setNotifications] = React.useState([
-    {
-      id: 1,
-      profile: 'user-profile.jpeg',
-      message:
-        '<strong class="text-sm mr-1">John Doe</strong>invite you to <strong>Prototyping</strong>',
-      time: '45 min ago',
-    },
-    {
-      id: 2,
-      profile: 'profile-34.jpeg',
-      message:
-        '<strong class="text-sm mr-1">Adam Nolan</strong>mentioned you to <strong>UX Basics</strong>',
-      time: '9h Ago',
-    },
-    {
-      id: 3,
-      profile: 'profile-16.jpeg',
-      message: '<strong class="text-sm mr-1">Anna Morgan</strong>Upload a file',
-      time: '9h Ago',
-    },
-  ])
+  // const [notifications, setNotifications] = React.useState([
+  //   {
+  //     id: 1,
+  //     profile: 'user-profile.jpeg',
+  //     message:
+  //       '<strong class="text-sm mr-1">John Doe</strong>invite you to <strong>Prototyping</strong>',
+  //     time: '45 min ago',
+  //   },
+  //   {
+  //     id: 2,
+  //     profile: 'profile-34.jpeg',
+  //     message:
+  //       '<strong class="text-sm mr-1">Adam Nolan</strong>mentioned you to <strong>UX Basics</strong>',
+  //     time: '9h Ago',
+  //   },
+  //   {
+  //     id: 3,
+  //     profile: 'profile-16.jpeg',
+  //     message: '<strong class="text-sm mr-1">Anna Morgan</strong>Upload a file',
+  //     time: '9h Ago',
+  //   },
+  // ])
 
-  const removeNotification = (value: number) => {
-    setNotifications(notifications.filter((user) => user.id !== value))
-  }
+  // const removeNotification = (value: number) => {
+  //   setNotifications(notifications.filter((user) => user.id !== value))
+  // }
 
-  const [search, setSearch] = React.useState(false)
+  // const [search, setSearch] = React.useState(false)
 
   const { t } = useI18n()
 
@@ -132,7 +134,7 @@ const Header = () => {
               !themeConfig.sidebar ? 'lg:hidden' : ''
             } horizontal-logo flex items-center justify-between ltr:mr-2 rtl:ml-2 mr-2`}
           >
-            <Link href="/admin" className="main-logo flex shrink-0 items-center">
+            <Link href="/admin" className="flex items-center main-logo shrink-0">
               <span className="hidden align-middle text-2xl  font-semibold  transition-all duration-300 ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light md:inline">
                 Studera Koranen
               </span>
@@ -172,6 +174,7 @@ const Header = () => {
             <div>
               {themeConfig.theme === 'light' ? (
                 <button
+                  type="button"
                   className={`${
                     themeConfig.theme === 'light' &&
                     'flex items-center rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60'
@@ -245,6 +248,7 @@ const Header = () => {
               )}
               {themeConfig.theme === 'dark' && (
                 <button
+                  type="button"
                   className={`${
                     themeConfig.theme === 'dark' &&
                     'flex items-center rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60'
@@ -267,6 +271,7 @@ const Header = () => {
               )}
               {themeConfig.theme === 'system' && (
                 <button
+                  type="button"
                   className={`${
                     themeConfig.theme === 'system' &&
                     'flex items-center rounded-full bg-white-light/40 p-2 hover:bg-white-light/90 hover:text-primary dark:bg-dark/40 dark:hover:bg-dark/60'
@@ -308,7 +313,7 @@ const Header = () => {
 
         {/* horizontal menu */}
         <ul className="horizontal-menu hidden border-t border-[#ebedf2] bg-white py-1.5 px-6 font-semibold text-black rtl:space-x-reverse dark:border-[#191e3a] dark:bg-black dark:text-white-dark lg:space-x-1.5 xl:space-x-8">
-          <li className="menu nav-item relative">
+          <li className="relative menu nav-item">
             <button type="button" className="nav-link">
               <div className="flex items-center">
                 <svg
@@ -364,7 +369,7 @@ const Header = () => {
               </li>
             </ul>
           </li>
-          <li className="menu nav-item relative">
+          <li className="relative menu nav-item">
             <button type="button" className="nav-link">
               <div className="flex items-center">
                 <svg
@@ -490,7 +495,7 @@ const Header = () => {
               </li>
             </ul>
           </li>
-          <li className="menu nav-item relative">
+          <li className="relative menu nav-item">
             <button type="button" className="nav-link">
               <div className="flex items-center">
                 <svg
@@ -581,7 +586,7 @@ const Header = () => {
               </li>
             </ul>
           </li>
-          <li className="menu nav-item relative">
+          <li className="relative menu nav-item">
             <button type="button" className="nav-link">
               <div className="flex items-center">
                 <svg
@@ -681,7 +686,7 @@ const Header = () => {
               </li>
             </ul>
           </li>
-          <li className="menu nav-item relative">
+          <li className="relative menu nav-item">
             <button type="button" className="nav-link">
               <div className="flex items-center">
                 <svg
@@ -796,7 +801,7 @@ const Header = () => {
               </li>
             </ul>
           </li>
-          <li className="menu nav-item relative">
+          <li className="relative menu nav-item">
             <button type="button" className="nav-link">
               <div className="flex items-center">
                 <svg
@@ -895,7 +900,7 @@ const Header = () => {
               </li>
             </ul>
           </li>
-          <li className="menu nav-item relative">
+          <li className="relative menu nav-item">
             <button type="button" className="nav-link">
               <div className="flex items-center">
                 <svg
@@ -1175,7 +1180,7 @@ const Header = () => {
               </li>
             </ul>
           </li>
-          <li className="menu nav-item relative">
+          <li className="relative menu nav-item">
             <button type="button" className="nav-link">
               <div className="flex items-center">
                 <svg

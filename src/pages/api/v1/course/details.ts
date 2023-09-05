@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+// eslint-disable-next-line import/order
 import { CourseController } from '~/controllers/CourseController'
-import { db } from '~/database'
 
 const dotenv = require('dotenv')
 

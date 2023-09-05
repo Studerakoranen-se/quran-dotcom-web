@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as React from 'react'
 
 const QuizeTab = (props: any) => {
@@ -22,7 +23,7 @@ const QuizeTab = (props: any) => {
             <h1 className="pb-2">{`${i + 1}. ${quize.question}`}</h1>
             <label
               htmlFor={`o1q${quize.id}`}
-              className="cursor-pointer flex items-center gap-2 font-light"
+              className="flex items-center gap-2 font-light cursor-pointer"
             >
               <input
                 id={`o1q${quize.id}`}
@@ -34,7 +35,7 @@ const QuizeTab = (props: any) => {
             </label>
             <label
               htmlFor={`o2q${quize.id}`}
-              className="cursor-pointer flex items-center gap-2 font-light"
+              className="flex items-center gap-2 font-light cursor-pointer"
             >
               <input
                 id={`o2q${quize.id}`}
@@ -46,7 +47,7 @@ const QuizeTab = (props: any) => {
             </label>
             <label
               htmlFor={`o3q${quize.id}`}
-              className="cursor-pointer flex items-center gap-2 font-light"
+              className="flex items-center gap-2 font-light cursor-pointer"
             >
               <input
                 id={`o3q${quize.id}`}
@@ -58,7 +59,7 @@ const QuizeTab = (props: any) => {
             </label>
             <label
               htmlFor={`o4q${quize.id}`}
-              className="cursor-pointer flex items-center gap-2 font-light"
+              className="flex items-center gap-2 font-light cursor-pointer"
             >
               <input
                 id={`o4q${quize.id}`}

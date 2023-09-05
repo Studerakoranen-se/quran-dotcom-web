@@ -8,11 +8,11 @@ interface CourseInterface {
 
 class CourseController {
   static index = async () => {
-    return await db('courses')
+    return db('courses')
   }
 
   static view = async (id: any) => {
-    return await db('courses').where('id', id).first()
+    return db('courses').where('id', id).first()
   }
 
   static create = async (data: CourseInterface): Promise<any> => {
@@ -31,4 +31,5 @@ class CourseController {
   }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { CourseController }

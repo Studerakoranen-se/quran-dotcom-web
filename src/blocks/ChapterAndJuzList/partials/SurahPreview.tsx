@@ -14,18 +14,6 @@ const SurahPreviewRoot = styled(RouterLink)(({ theme }) => ({
   },
 }))
 
-const SurahPreviewContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  border: '1px solid var(--color-borders-hairline)',
-  paddingBlockStart: 16,
-  paddingBlockEnd: 16,
-  paddingInlineStart: 19,
-  paddingInlineEnd: 19,
-  borderRadius: 4,
-}))
-
 const SurahPreviewContent = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-start',
@@ -41,7 +29,7 @@ const SurahPreviewContentLeft = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }))
 
-const SurahPreviewIconContainer = styled('div')(({ theme }) => ({
+const SurahPreviewIconContainer = styled('div')(() => ({
   position: 'relative',
   p: {
     color: 'white',

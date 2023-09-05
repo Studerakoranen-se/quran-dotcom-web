@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 import React from 'react'
@@ -10,8 +11,6 @@ type Props = {
 }
 
 const QuizeForm = ({ quize, lessons }: Props) => {
-  console.log(quize)
-
   const router = useRouter()
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -40,15 +39,21 @@ const QuizeForm = ({ quize, lessons }: Props) => {
         redirect: 'follow',
       })
         .then((response) => response.json())
-        .then(({ success, msg, result }) => {
-          Swal.fire({
-            icon: success ? 'success' : 'error',
-            title: success ? 'Success' : 'Error',
-            text: msg,
-            padding: '2em',
-            customClass: 'sweet-alerts',
-          })
-        })
+        .then(
+          ({
+            success,
+            msg,
+            // result
+          }) => {
+            Swal.fire({
+              icon: success ? 'success' : 'error',
+              title: success ? 'Success' : 'Error',
+              text: msg,
+              padding: '2em',
+              customClass: 'sweet-alerts',
+            })
+          },
+        )
         .catch((error) => console.log('error', error))
     } else {
       fetch('/api/v1/quize/add', {
@@ -57,11 +62,16 @@ const QuizeForm = ({ quize, lessons }: Props) => {
         redirect: 'follow',
       })
         .then((response) => response.json())
-        .then(({ success, msg, result }) => {
-          if (success) {
-            router.push('/admin/lesson/quize/list')
-          }
-        })
+        .then(
+          ({
+            success,
+            // msg, result
+          }) => {
+            if (success) {
+              router.push('/admin/lesson/quize/list')
+            }
+          },
+        )
         .catch((error) => console.log('error', error))
     }
   }
@@ -74,7 +84,7 @@ const QuizeForm = ({ quize, lessons }: Props) => {
         defaultValue={quize?.lesson_id}
       />
       <InputField name="question" label="Question" required defaultValue={quize?.question} />
-      <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
         <div className="">
           <InputField name="o1" label="Option 1" required defaultValue={quize?.o1} />
           <label htmlFor="a1" className="flex gap-1.5 pt-2">
@@ -104,7 +114,7 @@ const QuizeForm = ({ quize, lessons }: Props) => {
           </label>
         </div>
       </div>
-      <button type="submit" className="btn btn-primary w-max px-10 mt-5">
+      <button type="submit" className="px-10 mt-5 btn btn-primary w-max">
         Submit
       </button>
     </form>

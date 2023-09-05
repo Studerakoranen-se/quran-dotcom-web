@@ -1,6 +1,8 @@
+import * as React from 'react'
 import { Media } from '@noaignite/oui'
 import { Typography, styled } from '@mui/material'
 import { Html } from '~/components'
+
 const BREAKPOINT_KEY = 'md'
 
 const StepsRoot = styled('section')(({ theme }) => ({
@@ -162,8 +164,6 @@ const StepsItemContent = styled('div')(({ theme }) => ({
 }))
 
 type StepsProps = {
-  children: React.ReactNode
-  text: string
   heading: string
   subheading: string
   enablePattern: boolean
@@ -171,7 +171,7 @@ type StepsProps = {
 }
 
 function Steps(props: StepsProps) {
-  const { text, enablePattern, heading, subheading, entries } = props
+  const { enablePattern, heading, subheading, entries } = props
 
   return (
     <StepsRoot>
@@ -194,7 +194,7 @@ function Steps(props: StepsProps) {
           </StepsContent>
 
           {entries?.map((entry, idx) => (
-            <>
+            <React.Fragment>
               <StepsItem
                 key={idx}
                 ownerState={{
@@ -240,7 +240,7 @@ function Steps(props: StepsProps) {
                   />
                 </svg>
               </StepsItemArrowIcon>
-            </>
+            </React.Fragment>
           ))}
         </StepsEntries>
         {/* <Html dangerouslySetInnerHTML={{ __html: text }} /> */}

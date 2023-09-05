@@ -2,7 +2,7 @@ import * as React from 'react'
 import createSvgIcon from '../utils/createSvgIcon'
 
 export default createSvgIcon(
-  <>
+  <React.Fragment>
     <path
       fill="#D3D29E"
       stroke="#000"
@@ -61,7 +61,7 @@ export default createSvgIcon(
         <stop offset="1" />
       </linearGradient>
     </defs>
-  </>,
+  </React.Fragment>,
   'ChapterIcon',
   '0 0 49 60',
 )

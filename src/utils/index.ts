@@ -1,6 +1,6 @@
 export * from './fileUpload'
-// export { default as sendMail } from './sendMail'
-// export { default as formData } from './formData'
+export { default as sendMail } from './sendMail'
+export { default as formData } from './formData'
 export { default as createEmotionCache } from './createEmotionCache'
 export { default as createGetBlocksProps } from './createGetBlocksProps'
 export { default as createRenderBlock } from './createRenderBlock'

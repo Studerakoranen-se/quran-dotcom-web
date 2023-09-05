@@ -1,10 +1,10 @@
-import * as React from 'react'
 import { Box, Typography, styled } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { RouterLink } from '~/containers'
 
 const RecentReadingRoot = styled('section')(({ theme }) => ({
   position: 'relative',
+  padding: theme.spacing(2, 3.5),
 }))
 
 const RecentReadingMain = styled('div')(({ theme }) => ({
@@ -14,6 +14,8 @@ const RecentReadingMain = styled('div')(({ theme }) => ({
 }))
 
 const RecentSectionContainer = styled('div')(({ theme }) => ({
+  ...theme.mixins.contain('lg'),
+  position: 'relative',
   display: 'flex',
   flexWrap: 'wrap',
   gap: 10,
@@ -65,35 +67,33 @@ function RecentReading(props: RecentReactProps) {
           </Typography>
         )}
         {histories.length > 0 && (
-          <React.Fragment>
-            <RecentSectionContainer>
-              {histories.map((history: any, idx: number) => (
-                <RecentSectionItemLink
-                  key={idx}
-                  href={`/surah/${history.chapter_number}?start_at=${history.versesCount}`}
-                >
-                  <RecentSectionItem>
-                    <Box display="flex" justifyContent="space-between">
-                      <Typography color="text">{history.translatedName}</Typography>
-                      <Typography>{history.chapter_number}</Typography>
-                    </Box>
-                    <Typography variant="subtitle1">Surah {history.nameSimple}</Typography>
-                    <div className="flex-grow" />
-                    <RecentSectionItemAyah>
-                      <Typography
-                        sx={{
-                          fontFamily: '"SurahNames", "Arial", sans-serif',
-                        }}
-                      >
-                        {history.nameArabic}
-                      </Typography>
-                      <Typography>Ayah {history.versesCount}</Typography>
-                    </RecentSectionItemAyah>
-                  </RecentSectionItem>
-                </RecentSectionItemLink>
-              ))}
-            </RecentSectionContainer>
-          </React.Fragment>
+          <RecentSectionContainer>
+            {histories.map((history: any, idx: number) => (
+              <RecentSectionItemLink
+                key={idx}
+                href={`/surah/${history.chapter_number}?start_at=${history.versesCount}`}
+              >
+                <RecentSectionItem>
+                  <Box display="flex" justifyContent="space-between">
+                    <Typography color="text">{history.translatedName}</Typography>
+                    <Typography>{history.chapter_number}</Typography>
+                  </Box>
+                  <Typography variant="subtitle1">Surah {history.nameSimple}</Typography>
+                  <div className="flex-grow" />
+                  <RecentSectionItemAyah>
+                    <Typography
+                      sx={{
+                        fontFamily: '"SurahNames", "Arial", sans-serif',
+                      }}
+                    >
+                      {history.nameArabic}
+                    </Typography>
+                    <Typography>Ayah {history.versesCount}</Typography>
+                  </RecentSectionItemAyah>
+                </RecentSectionItem>
+              </RecentSectionItemLink>
+            ))}
+          </RecentSectionContainer>
         )}
       </RecentReadingMain>
     </RecentReadingRoot>

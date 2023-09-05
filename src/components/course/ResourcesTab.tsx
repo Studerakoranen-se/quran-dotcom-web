@@ -13,13 +13,14 @@ const ResourcesTab = (props: any) => {
     })
       .then((response) => response.json())
       .then((result) => setFiles(result))
+      // eslint-disable-next-line no-console
       .catch((error) => console.log('error', error))
   }, [lesson])
   return (
     <div className="font-light">
       <h1 className="font-medium">Course Summary</h1>
       <div
-        className="space-y-3 py-3"
+        className="py-3 space-y-3"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{
           __html: lesson?.description,
@@ -38,7 +39,7 @@ const ResourcesTab = (props: any) => {
       </div>
       {/* Files */}
       <div className="mt-10">
-        <h1 className="font-medium mb-5">Download Resources</h1>
+        <h1 className="mb-5 font-medium">Download Resources</h1>
         <div className="space-y-3">
           {files.map((file: any, i: number) => (
             <a

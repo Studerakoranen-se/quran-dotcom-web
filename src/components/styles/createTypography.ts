@@ -1,5 +1,4 @@
 import { TypographyOptions } from '@mui/material/styles/createTypography'
-
 import { deepmerge } from '@mui/utils'
 
 const caseAllCaps = {

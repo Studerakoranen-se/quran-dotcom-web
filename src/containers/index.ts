@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 export { default as RouterLink } from './RouterLink'
 export * from './RouterLink'
 

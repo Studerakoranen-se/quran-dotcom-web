@@ -10,13 +10,12 @@ const DevPage = () => {
       localStorage.setItem('devmode', 'truefornovatech')
       router.push('/')
     } else {
+      // eslint-disable-next-line no-console
       console.log('error')
     }
-  }, [pass])
+  }, [pass, router])
 
-  console.log('c')
-
-  return <div className="flex justify-center items-center min-h-screen" />
+  return <div className="flex items-center justify-center min-h-screen" />
 }
 
 export default DevPage

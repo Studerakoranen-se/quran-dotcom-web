@@ -3,6 +3,7 @@ import fs from 'fs'
 import { Knex } from 'knex'
 import { faker } from '@faker-js/faker'
 
+// eslint-disable-next-line import/prefer-default-export
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex('teachers').del()
@@ -16,6 +17,7 @@ export async function seed(knex: Knex): Promise<void> {
   fs.mkdirSync('./public/uploads/tutors', { recursive: true })
   fs.copyFileSync(oldPath, filePath)
 
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const teachers: Array<Object> = []
 
   for (let i = 0; i < 8; i++) {

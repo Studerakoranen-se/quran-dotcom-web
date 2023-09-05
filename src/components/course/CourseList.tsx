@@ -11,17 +11,18 @@ const CourseList = () => {
     })
       .then((response) => response.json())
       .then((result) => setCourses(result))
+      // eslint-disable-next-line no-console
       .catch((error) => console.log('error', error))
   }, [])
 
   return (
-    <div className="container text-white pt-16">
-      <h1 className="font-elMessiri text-4xl text-center">Våra Kurser</h1>
-      <p className="text-sm text-center text-gray-300 py-5 max-w-2xl mx-auto">
+    <div className="container pt-16 text-white">
+      <h1 className="text-4xl text-center font-elMessiri">Våra Kurser</h1>
+      <p className="max-w-2xl py-5 mx-auto text-sm text-center text-gray-300">
         Våra kurser är specialanpassade för att erbjuda högkvalitativ undervisning, precisionell
         pedagogik och unikt material. Välj den nivån som passar dig!
       </p>
-      <div className="space-y-10 py-10 mx-auto">
+      <div className="py-10 mx-auto space-y-10">
         {courses.map((course: any, i: number) => (
           <CourseCard key={i} course={course} />
         ))}

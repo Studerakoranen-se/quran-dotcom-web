@@ -3,10 +3,12 @@ import fs from 'fs'
 import { Knex } from 'knex'
 import { faker } from '@faker-js/faker'
 
+// eslint-disable-next-line import/prefer-default-export
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex('lesson_files').del()
 
+  // eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/naming-convention
   const lesson_files: Array<Object> = []
 
   const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'files')

@@ -60,6 +60,7 @@ const SurahViewSideBar = (props: any) => {
       <div className="flex items-center gap-5 px-5">
         <div className="bg-[#001D1D] w-64 grid grid-cols-3 gap-2 divide-x divide-slate-700 rounded-full text-gray-300">
           <button
+            type="button"
             className={`${
               selectedTab === 'surah' ? 'bg-green-900 rounded-full' : ''
             } text-white py-1 shadow-lg`}
@@ -68,6 +69,7 @@ const SurahViewSideBar = (props: any) => {
             Surah
           </button>
           <button
+            type="button"
             className={`${
               selectedTab === 'juz' ? 'bg-green-900 rounded-full' : ''
             } text-white py-1 shadow-lg`}
@@ -76,6 +78,7 @@ const SurahViewSideBar = (props: any) => {
             Juz
           </button>
           <button
+            type="button"
             className={`${
               selectedTab === 'page' ? 'bg-green-900 rounded-full' : ''
             } text-white py-1 shadow-lg`}
@@ -85,13 +88,13 @@ const SurahViewSideBar = (props: any) => {
           </button>
         </div>
         <RxCross2
-          className="ml-auto text-white text-xl cursor-pointer"
+          className="ml-auto text-xl text-white cursor-pointer"
           onClick={() => props.setShowSidebar(false)}
         />
       </div>
       {selectedTab === 'surah' && (
-        <div className="flex gap-3 flex-grow h-full overflow-scroll px-5">
-          <div className="w-44a w-full">
+        <div className="flex flex-grow h-full gap-3 px-5 overflow-scroll">
+          <div className="w-full w-44a">
             <div className="pr-2">
               <input
                 onChange={(e) => setSearch(e.target.value)}
@@ -100,7 +103,7 @@ const SurahViewSideBar = (props: any) => {
                 placeholder="Sök surah"
               />
             </div>
-            <div className="overflow-y-auto text-white flex flex-col gap-1 pr-2">
+            <div className="flex flex-col gap-1 pr-2 overflow-y-auto text-white">
               {chapters.map((chapter: any, i: number) => (
                 <Link
                   href={`/surah/${chapter.id}`}
@@ -118,16 +121,16 @@ const SurahViewSideBar = (props: any) => {
         </div>
       )}
       {selectedTab === 'juz' && (
-        <div className="flex gap-3 flex-grow h-full overflow-scroll px-5">
-          <div className="w-44a w-full">
-            <div className="overflow-y-auto text-white flex flex-col gap-1 pr-2 py-2">{juzs()}</div>
+        <div className="flex flex-grow h-full gap-3 px-5 overflow-scroll">
+          <div className="w-full w-44a">
+            <div className="flex flex-col gap-1 py-2 pr-2 overflow-y-auto text-white">{juzs()}</div>
           </div>
         </div>
       )}
       {selectedTab === 'page' && (
-        <div className="flex gap-3 flex-grow h-full overflow-scroll px-5">
-          <div className="w-44a w-full">
-            <div className="overflow-y-auto text-white flex flex-col gap-1 pr-2 py-2">
+        <div className="flex flex-grow h-full gap-3 px-5 overflow-scroll">
+          <div className="w-full w-44a">
+            <div className="flex flex-col gap-1 py-2 pr-2 overflow-y-auto text-white">
               {pages()}
             </div>
           </div>

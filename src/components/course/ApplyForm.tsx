@@ -70,7 +70,9 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
       redirect: 'follow',
     })
       .then((response) => response.json())
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .then((result) => setSuccess(true))
+      // eslint-disable-next-line no-console
       .catch((error) => console.log('error', error))
   }
 
@@ -108,28 +110,29 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
       label: 'Kvinna',
     },
   ]
-  const teacherAssessment = [
-    {
-      value: 'Läraren bedömer',
-      label: 'Läraren bedömer',
-    },
-  ]
+
+  // const teacherAssessment = [
+  //   {
+  //     value: 'Läraren bedömer',
+  //     label: 'Läraren bedömer',
+  //   },
+  // ]
 
   return (
     <div className="container" id="applyform">
       <div className="bg-white rounded-lg p-10 border-[5px] shadow-inner border-[#E0D2B4]">
         <p className="font-semibold">* = Obligatorisk att fylla i.</p>
         <div className="text-[#064B4B] text-center pb-5">
-          <h1 className=" text-xl font-semibold">Registrering</h1>
+          <h1 className="text-xl font-semibold ">Registrering</h1>
         </div>
         {success ? (
           <div className="text-[#064B4B] text-center py-10">
-            <h1 className="font-semibold text-xl pb-3">Ansökan har skickats!</h1>
+            <h1 className="pb-3 text-xl font-semibold">Ansökan har skickats!</h1>
             <p>Handledaren kommer att kontakta dig via mejl.</p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)} className=" py-5">
-            <div className="grid md:grid-cols-3 gap-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="py-5 ">
+            <div className="grid gap-5 md:grid-cols-3">
               <InputField
                 p="*"
                 label="Förnamn"

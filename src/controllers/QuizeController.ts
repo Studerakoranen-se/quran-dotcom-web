@@ -17,7 +17,7 @@ class QuizeController {
     if (lessonID) {
       query = query.where('lesson_id', lessonID)
     }
-    return await query
+    return query
       .join('lessons as l', 'quizes.lesson_id', '=', 'l.id')
       .join('courses as c', 'l.course_id', '=', 'c.id')
       .select('quizes.*', 'l.name as lesson_name', 'c.name as course_name')
@@ -39,8 +39,9 @@ class QuizeController {
   }
 
   static details = async (id: string | number): Promise<any> => {
-    return await db('quizes').where('id', id).first()
+    return db('quizes').where('id', id).first()
   }
 }
 
+// eslint-disable-next-line import/prefer-default-export
 export { QuizeController }

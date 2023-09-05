@@ -6,10 +6,10 @@ import TopBar from '~/components/TopBar'
 import PrivateHero from '~/components/course/PrivateHero'
 import TutorsSection from '~/components/course/TutorsSection'
 import ApplyForm from '~/components/course/ApplyForm'
+
 const PrivateCoursePage = () => {
   const [tutors, setTutors] = React.useState([])
   const [selectedTutor, setSelectedTutor] = React.useState('')
-  console.log('tutors', tutors)
 
   React.useEffect(() => {
     fetch('/api/v1/teacher/list', {
@@ -18,6 +18,7 @@ const PrivateCoursePage = () => {
     })
       .then((response) => response.json())
       .then((result) => setTutors(result))
+      // eslint-disable-next-line no-console
       .catch((error) => console.log('error', error))
   }, [])
 
@@ -29,7 +30,7 @@ const PrivateCoursePage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="font-inter bg-color1 overflow-x-hidden">
+      <main className="overflow-x-hidden font-inter bg-color1">
         <TopBar />
         <NavBar />
         <PrivateHero />

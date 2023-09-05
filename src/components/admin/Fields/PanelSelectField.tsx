@@ -1,5 +1,3 @@
-import { IoOptions } from 'react-icons/io5'
-
 interface Option {
   label: string
   value: string

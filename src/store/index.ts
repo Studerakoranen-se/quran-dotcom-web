@@ -2,9 +2,9 @@ import { configureStore } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
 import { combineReducers } from 'redux'
 import { persistReducer } from 'redux-persist'
-import historySlice from './historySlice'
+import { historySlice } from './historySlice'
 import themeConfigSlice from './themeConfigSlice'
-import userSlice from './userSlice'
+import { userSlice } from './userSlice'
 
 const persistConfig = {
   key: 'root',

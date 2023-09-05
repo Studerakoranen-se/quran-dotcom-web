@@ -2,7 +2,6 @@ import { experimental_extendTheme, SupportedColorScheme } from '@mui/material'
 import { ThemeOptions as SystemThemeOptions } from '@mui/system'
 import { ColorSystemOptions } from '@mui/material/styles/experimental_extendTheme'
 import { MixinsOptions } from '@mui/material/styles/createMixins'
-
 import * as components from '../internal'
 import breakpoints from './breakpoints'
 import createMixins from './createMixins'

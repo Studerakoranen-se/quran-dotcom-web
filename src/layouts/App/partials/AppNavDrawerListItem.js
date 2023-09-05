@@ -69,7 +69,7 @@ function AppNavDrawerListItem(props) {
 
 AppNavDrawerListItem.propTypes = {
   level: PropTypes.number,
-  // menuLink: menuItemType.isRequired,
+  menuLink: PropTypes.object,
 }
 
 export default AppNavDrawerListItem

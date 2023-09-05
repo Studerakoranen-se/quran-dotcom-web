@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import type { Theme as MuiTheme } from '@mui/material'
 
 // mui
@@ -71,7 +72,7 @@ declare module '@mui/material/styles/createTypography' {
  * Adding on extra theme properties
  */
 declare module '@mui/material/styles' {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+     
     export interface Theme extends MuiTheme { }
     //   // This controls what appears when you use the theme variable inside sx, styled, etc.
     //   interface Theme extends ExtraTheme {}

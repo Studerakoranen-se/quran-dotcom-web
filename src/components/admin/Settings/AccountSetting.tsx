@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Swal from 'sweetalert2'
 import * as React from 'react'
 
@@ -48,7 +49,7 @@ const AccountSetting = () => {
     >
       <h6 className="mb-5 text-lg font-bold">Account Information</h6>
       <div className="flex flex-col sm:flex-row">
-        <div className="flex flex-col gap-5 w-full">
+        <div className="flex flex-col w-full gap-5">
           <div>
             <label htmlFor="fullname">Full Name</label>
             <input
@@ -80,7 +81,9 @@ const AccountSetting = () => {
             />
           </div>
           <div className="mt-3 sm:col-span-2">
-            <button className="btn btn-primary">Save</button>
+            <button type="button" className="btn btn-primary">
+              Save
+            </button>
           </div>
         </div>
       </div>

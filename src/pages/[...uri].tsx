@@ -1,6 +1,8 @@
 import { GetStaticProps } from 'next'
 import * as blockPropGetters from '~/blocks/getBlockProps'
-import { createGetBlocksProps, nextUriToString } from '~/utils'
+import { createGetBlocksProps,
+  // nextUriToString
+} from '~/utils'
 import { pages, settings } from '~/api/__mock__'
 
 export { default } from '~/containers/Page'
@@ -8,10 +10,12 @@ export { default } from '~/containers/Page'
 const getBlocksProps = createGetBlocksProps<Block, Page>(blockPropGetters)
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { params = {}, locale, preview = false, defaultLocale } = context
-  const { uri } = params
+  const {
+    // params = {},
+    locale, preview = false, defaultLocale } = context
+  // const { uri } = params
 
-  const uriString = nextUriToString(uri)
+  // const uriString = nextUriToString(uri)
 
   const page = pages.PrivateCourse
 

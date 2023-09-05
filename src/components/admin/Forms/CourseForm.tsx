@@ -1,5 +1,4 @@
-import { GetServerSideProps } from 'next'
-import { useForm } from 'react-hook-form'
+/* eslint-disable no-console */
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 import FileInput from '../Fields/FileInput'
@@ -27,15 +26,21 @@ const CourseForm = ({ course }: Props) => {
         redirect: 'follow',
       })
         .then((response) => response.json())
-        .then(({ success, msg, result }) => {
-          Swal.fire({
-            icon: success ? 'success' : 'error',
-            title: success ? 'Success' : 'Error',
-            text: msg,
-            padding: '2em',
-            customClass: 'sweet-alerts',
-          })
-        })
+        .then(
+          ({
+            success,
+            msg,
+            // result
+          }) => {
+            Swal.fire({
+              icon: success ? 'success' : 'error',
+              title: success ? 'Success' : 'Error',
+              text: msg,
+              padding: '2em',
+              customClass: 'sweet-alerts',
+            })
+          },
+        )
         .catch((error) => console.log('error', error))
     } else {
       fetch('/api/v1/course/add', {
@@ -44,11 +49,16 @@ const CourseForm = ({ course }: Props) => {
         redirect: 'follow',
       })
         .then((response) => response.json())
-        .then(({ success, msg, result }) => {
-          if (success) {
-            router.push('/admin/course/list')
-          }
-        })
+        .then(
+          ({
+            success,
+            // msg, result
+          }) => {
+            if (success) {
+              router.push('/admin/course/list')
+            }
+          },
+        )
         .catch((error) => console.log('error', error))
     }
   }
@@ -69,7 +79,7 @@ const CourseForm = ({ course }: Props) => {
         placeholder="Write description.."
         defaultValue={course?.description}
       />
-      <button type="submit" className="btn btn-primary w-max px-10">
+      <button type="submit" className="px-10 btn btn-primary w-max">
         Submit
       </button>
     </form>

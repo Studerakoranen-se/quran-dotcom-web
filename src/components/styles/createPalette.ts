@@ -158,6 +158,8 @@ export default function createPalette(palette: PaletteOptions) {
       mode,
       // The colors used to represent primary interface elements for a user.
       primary,
+      // The colors used to represent secondary interface elements for a user.
+      secondary,
       // The colors used to represent interface elements that the user should be made aware of.
       error,
       // The colors used to represent potentially dangerous actions or important messages.

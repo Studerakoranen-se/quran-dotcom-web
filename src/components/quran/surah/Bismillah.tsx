@@ -1,4 +1,4 @@
-const Bismillah = ({ bismillah_pre }) => {
+const Bismillah = ({ bismillah_pre }: { bismillah_pre: string }) => {
   return (
     <div className="">
       {bismillah_pre ? (
@@ -9,7 +9,7 @@ const Bismillah = ({ bismillah_pre }) => {
           height="45"
           viewBox="0 0 176 36"
           overflow="inherit"
-          className="mx-auto text-white py-10"
+          className="py-10 mx-auto text-white"
         >
           <g>
             <path

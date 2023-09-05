@@ -5,9 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
-  MenuItem,
   Slide,
-  TextField,
   Typography,
   useMediaQuery,
 } from '@mui/material'
@@ -26,13 +24,13 @@ const AppBaseLanguageDialog = React.memo(function AppBaseLanguageDialog(props) {
 
   const isBreakpointUp = useMediaQuery((theme) => theme.breakpoints.up('sm'))
 
-  const handleCountryChange = React.useCallback((event) => {
-    // updateCountry(event.target.value)
-  }, [])
+  // const handleCountryChange = React.useCallback((event) => {
+  //   updateCountry(event.target.value)
+  // }, [])
 
-  const handleLanguageChange = React.useCallback((event) => {
-    // updateLanguage(event.target.value)
-  }, [])
+  // const handleLanguageChange = React.useCallback((event) => {
+  //   updateLanguage(event.target.value)
+  // }, [])
 
   return (
     <Dialog

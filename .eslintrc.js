@@ -17,5 +17,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'react/react-in-jsx-scope': 'off',
     'no-plusplus': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    'import/no-cycle': 'off',
   },
 }

@@ -10,8 +10,6 @@ export const config = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { fields }: any = await formData(req)
 
-  console.log(fields)
-
   sendMail(fields.to, fields.subject, fields.text)
 
   res.status(200).send({

@@ -1,3 +1,5 @@
+/* eslint-disable no-return-await */
+/* eslint-disable consistent-return */
 import { NextApiRequest } from 'next'
 import Error from 'next/error'
 import formidable from 'formidable'

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { FiFacebook, FiInstagram, FiPhone, FiMail } from 'react-icons/fi'
 import Swal from 'sweetalert2'
 import * as React from 'react'
@@ -14,6 +15,7 @@ const SocialSetting = () => {
       .then((result) => {
         const r = {}
 
+        // eslint-disable-next-line no-restricted-syntax
         for (const obj of result) {
           // @ts-ignore
           r[obj.key] = obj.value
@@ -107,7 +109,9 @@ const SocialSetting = () => {
           />
         </div>
         <div className="mt-3 sm:col-span-2">
-          <button className="btn btn-primary">Save</button>
+          <button type="button" className="btn btn-primary">
+            Save
+          </button>
         </div>
       </div>
     </form>

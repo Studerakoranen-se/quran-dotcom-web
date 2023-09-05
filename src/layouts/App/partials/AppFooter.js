@@ -1,6 +1,5 @@
 import * as React from 'react'
-import clsx from 'clsx'
-import { Container, IconButton, Link, Toolbar, Typography, styled } from '@mui/material'
+import { IconButton, Typography, styled } from '@mui/material'
 import { useRemoteConfig, useI18n } from '~/contexts'
 import { RouterLink } from '~/containers'
 import { SITE_FOOTER_ID } from '~/utils/constants'
@@ -71,13 +70,7 @@ const AppFooterGroupBody = styled('div')(({ theme }) => ({
   },
 }))
 
-const AppFooterNav = styled('nav')(({ theme }) => ({
-  display: 'grid',
-  gridGap: theme.spacing(0.5),
-  width: '100%',
-}))
-
-const AppFooterNavList = styled('ul')(({ theme }) => ({
+const AppFooterNavList = styled('ul')(() => ({
   margin: 0,
   padding: 0,
   listStyleType: 'none',
@@ -103,7 +96,7 @@ const AppFooterNavListItemText = styled(RouterLink)(({ theme }) => ({
   },
 }))
 
-const AppFooterBrandLink = styled(RouterLink)(({ theme, ownerState }) => ({
+const AppFooterBrandLink = styled(RouterLink)(({ theme }) => ({
   color: 'white',
   '& > svg': {
     display: 'block',
@@ -170,7 +163,7 @@ function AppFooter(props) {
 
             <AppFooterGroupBody>
               {socials?.length > 0 && (
-                <>
+                <React.Fragment>
                   {socials.map((social, idx) => {
                     const Icon = iconVariants[social.id]
                     if (!Icon || !social.url) {
@@ -188,7 +181,7 @@ function AppFooter(props) {
                       </IconButton>
                     )
                   })}
-                </>
+                </React.Fragment>
               )}
             </AppFooterGroupBody>
           </AppFooterGroup>

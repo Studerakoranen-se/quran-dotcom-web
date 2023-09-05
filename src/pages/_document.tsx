@@ -10,8 +10,8 @@ import Document, {
 } from 'next/document'
 import { AppType } from 'next/dist/shared/lib/utils'
 import createEmotionServer from '@emotion/server/create-instance'
-import { createEmotionCache } from '~/utils'
 import { EmotionCache } from '@emotion/cache'
+import { createEmotionCache } from '~/utils'
 
 interface DocumentProps extends DocumentInitialProps {
   emotionStyleTags: React.ReactNode[]

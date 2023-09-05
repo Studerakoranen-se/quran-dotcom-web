@@ -1,19 +1,19 @@
 import * as React from 'react'
 import { Box, ButtonBase, styled, Tab, Tabs, Typography } from '@mui/material'
-import { useI18n } from '~/contexts'
+import { ArrowDropDownIcon } from '~/components'
 import SurahPreview from './partials/SurahPreview'
 import JuzPreview from './partials/JuzPreview'
-import { ArrowDropDownIcon } from '~/components'
 
 const ChapterAndJuzListRoot = styled('section')(({ theme }) => ({
   position: 'relative',
+  padding: theme.spacing(3.5),
 }))
 
 const ChapterAndJuzListMain = styled('div')(({ theme }) => ({
   ...theme.mixins.contain('lg'),
 }))
 
-const ChapterSorter = styled('div')(({ theme }) => ({
+const ChapterSorter = styled('div')(() => ({
   display: 'flex',
   marginBlockStart: 'var(--spacing-xsmall)',
   justifyContent: 'flex-end',
@@ -46,7 +46,7 @@ const PreviewContainer2 = styled('div')(({ theme }) => ({
   },
 }))
 
-const ChapterSortByValue = styled(ButtonBase)(({ theme }) => ({
+const ChapterSortByValue = styled(ButtonBase)(() => ({
   display: 'flex',
   alignItems: 'center',
   textTransform: 'uppercase',
@@ -109,7 +109,6 @@ function CustomTabPanel(props: TabPanelProps) {
 function ChapterAndJuzList(props: ChapterAndJuzListProps) {
   const { chapters = [], juzs = [] } = props
 
-  const { t } = useI18n()
   const [sortBy, setSortBy] = React.useState(Sort.ASC)
   const [view, setView] = React.useState(0)
 
@@ -125,7 +124,7 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
       { title: 'Surah', value: 0 },
       { title: 'Juz', value: 1 },
     ],
-    [t],
+    [],
   )
 
   const sortedChapters = React.useMemo(
@@ -145,28 +144,28 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
     setView(newView)
   }
 
-  const getChaptersByJuz = (juzs: any, chapters: any) => {
-    const juzsWithChapters: any = []
+  // const getChaptersByJuz = (juzs: any, chapters: any) => {
+  //   const juzsWithChapters: any = []
 
-    juzs.forEach((juz: any) => {
-      const chapterIDs = Object.keys(juz.verseMapping)
-      const chapterD: any = []
+  //   juzs.forEach((juz: any) => {
+  //     const chapterIDs = Object.keys(juz.verseMapping)
+  //     const chapterD: any = []
 
-      chapters.forEach((chapter: any) => {
-        if (chapterIDs.includes(chapter.id.toString())) {
-          chapterD.push(chapter)
-        }
-      })
-      juzsWithChapters.push({
-        juz,
-        chapters: chapterD,
-      })
-    })
+  //     chapters.forEach((chapter: any) => {
+  //       if (chapterIDs.includes(chapter.id.toString())) {
+  //         chapterD.push(chapter)
+  //       }
+  //     })
+  //     juzsWithChapters.push({
+  //       juz,
+  //       chapters: chapterD,
+  //     })
+  //   })
 
-    return juzsWithChapters
-  }
+  //   return juzsWithChapters
+  // }
 
-  const juzsChs = getChaptersByJuz(juzs, sortedChapters)
+  // const juzsChs = getChaptersByJuz(juzs, sortedChapters)
 
   return (
     <ChapterAndJuzListRoot>

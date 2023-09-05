@@ -18,14 +18,14 @@ const AdminDashboard = () => {
     dispatch(setPageTitle('Dashboard'))
   })
 
-  const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark'
+  // const isDark = useSelector((state: IRootState) => state.themeConfig.theme) === 'dark'
   const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl'
 
   const [isMounted, setIsMounted] = React.useState(false)
 
   React.useEffect(() => {
     setIsMounted(true)
-  })
+  }, [])
 
   // totalVisitOptions
   const totalVisit: any = {
@@ -84,10 +84,10 @@ const AdminDashboard = () => {
           </li>
         </ul>
         <div className="pt-5">
-          <div className="mb-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="panel h-full sm:col-span-2 lg:col-span-1">
+          <div className="grid gap-6 mb-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="h-full panel sm:col-span-2 lg:col-span-1">
               {/* statistics */}
-              <div className="mb-5 flex justify-between dark:text-white-light">
+              <div className="flex justify-between mb-5 dark:text-white-light">
                 <h5 className="text-lg font-semibold ">Statistics</h5>
                 <div className="dropdown">
                   <Dropdown
@@ -150,16 +150,16 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <div className="panel h-full">
-              <div className="mb-5 flex justify-between dark:text-white-light">
+            <div className="h-full panel">
+              <div className="flex justify-between mb-5 dark:text-white-light">
                 <h5 className="text-lg font-semibold ">Total Courses</h5>
               </div>
               <div className=" my-10 text-5xl font-bold text-[#e95f2b]">
                 <span>100 </span>
               </div>
             </div>
-            <div className="panel h-full">
-              <div className="mb-5 flex justify-between dark:text-white-light">
+            <div className="h-full panel">
+              <div className="flex justify-between mb-5 dark:text-white-light">
                 <h5 className="text-lg font-semibold ">Total Students</h5>
               </div>
               <div className=" my-10 text-5xl font-bold text-[#e95f2b]">

@@ -7,7 +7,7 @@ export const historySlice = createSlice({
   },
   reducers: {
     addToHistory: (state, action) => {
-      if (state.recentSurahs.length == 0) {
+      if (state.recentSurahs.length === 0) {
         state.recentSurahs.push(action.payload)
       }
       let exist = false
@@ -24,12 +24,12 @@ export const historySlice = createSlice({
       }
     },
     updateVerseCount: (state, action) => {
-      const { id, verse_count } = action.payload
+      const { id, verseCount } = action.payload
       // Find the surah with the specified id
       const surahToUpdate = state.recentSurahs.find((surah: any) => surah.id === id)
       if (surahToUpdate) {
         // Update the verse_count for the surah
-        surahToUpdate.verses_count = verse_count
+        surahToUpdate.verses_count = verseCount
       }
     },
   },

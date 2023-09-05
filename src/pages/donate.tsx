@@ -22,7 +22,7 @@ const DonatePage = () => {
     setCopied(true)
   }
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
+    <div className="flex items-center justify-center w-screen h-screen">
       <div className="relative w-[30rem] h-[35rem]">
         <Image
           fill
@@ -31,7 +31,6 @@ const DonatePage = () => {
           onClick={() => {
             const number = '+46762621036'
             copyToClipboard(number)
-            console.log(number)
           }}
           className="cursor-pointer"
         />

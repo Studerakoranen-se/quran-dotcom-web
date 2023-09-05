@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as React from 'react'
 import DefaultLayout from '~/components/Layout/DefaultLayout'
 import LessonFileForm from '~/components/admin/Forms/LessonFileForm'
@@ -23,7 +24,7 @@ const AddLessonFilePage = () => {
   return (
     <DefaultLayout>
       <div className="panel">
-        <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
+        <div className="flex flex-col gap-5 mb-5 md:flex-row md:items-center">
           <h5 className="text-lg font-semibold dark:text-white-light">Add Lesson File</h5>
         </div>
         <LessonFileForm lessons={lessons} />

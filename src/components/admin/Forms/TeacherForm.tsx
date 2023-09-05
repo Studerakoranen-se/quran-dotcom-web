@@ -1,5 +1,4 @@
-import { GetServerSideProps } from 'next'
-import { useForm } from 'react-hook-form'
+/* eslint-disable no-console */
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 import FileInput from '../Fields/FileInput'
@@ -35,15 +34,21 @@ const TeacherForm = ({ teacher }: Props) => {
         redirect: 'follow',
       })
         .then((response) => response.json())
-        .then(({ success, msg, result }) => {
-          Swal.fire({
-            icon: success ? 'success' : 'error',
-            title: success ? 'Success' : 'Error',
-            text: msg,
-            padding: '2em',
-            customClass: 'sweet-alerts',
-          })
-        })
+        .then(
+          ({
+            success,
+            msg,
+            // result
+          }) => {
+            Swal.fire({
+              icon: success ? 'success' : 'error',
+              title: success ? 'Success' : 'Error',
+              text: msg,
+              padding: '2em',
+              customClass: 'sweet-alerts',
+            })
+          },
+        )
         .catch((error) => console.log('error', error))
     } else {
       fetch('/api/v1/teacher/add', {
@@ -52,11 +57,16 @@ const TeacherForm = ({ teacher }: Props) => {
         redirect: 'follow',
       })
         .then((response) => response.json())
-        .then(({ success, msg, result }) => {
-          if (success) {
-            router.push('/admin/teacher/list')
-          }
-        })
+        .then(
+          ({
+            success,
+            // msg, result
+          }) => {
+            if (success) {
+              router.push('/admin/teacher/list')
+            }
+          },
+        )
         .catch((error) => console.log('error', error))
     }
   }
@@ -81,11 +91,11 @@ const TeacherForm = ({ teacher }: Props) => {
         placeholder="teacher name ..."
         defaultValue={teacher?.fullname}
       />
-      <div className="grid md:grid-cols-2 gap-5">
+      <div className="grid gap-5 md:grid-cols-2">
         <PanelSelectField label="Gender" name="sex" options={genders} />
         <InputField name="age" label="Age" required type="number" defaultValue={teacher?.age} />
       </div>
-      <div className="grid md:grid-cols-2 gap-5">
+      <div className="grid gap-5 md:grid-cols-2">
         <InputField
           name="mail"
           label="Email"
@@ -105,7 +115,7 @@ const TeacherForm = ({ teacher }: Props) => {
         placeholder="Write description.."
         defaultValue={teacher?.description}
       />
-      <button type="submit" className="btn btn-primary w-max px-10">
+      <button type="submit" className="px-10 btn btn-primary w-max">
         Submit
       </button>
     </form>

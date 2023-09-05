@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -9,15 +10,19 @@ import { toggleSidebar } from '~/store/themeConfigSlice'
 
 const Sidebar = () => {
   const router = useRouter()
-  const [currentMenu, setCurrentMenu] = React.useState<string>('')
-  const [errorSubMenu, setErrorSubMenu] = React.useState(false)
+  const dispatch = useDispatch()
+  const { t } = useI18n()
+
+  // const [currentMenu, setCurrentMenu] = React.useState<string>('')
+  // const [errorSubMenu, setErrorSubMenu] = React.useState(false)
   const themeConfig = useSelector((state: IRootState) => state.themeConfig)
   const semidark = useSelector((state: IRootState) => state.themeConfig.semidark)
-  const toggleMenu = (value: string) => {
-    setCurrentMenu((oldValue) => {
-      return oldValue === value ? '' : value
-    })
-  }
+
+  // const toggleMenu = (value: string) => {
+  //   setCurrentMenu((oldValue) => {
+  //     return oldValue === value ? '' : value
+  //   })
+  // }
 
   React.useEffect(() => {
     const selector = document.querySelector(`.sidebar ul a[href="${window.location.pathname}"]`)
@@ -36,13 +41,6 @@ const Sidebar = () => {
     }
   }, [])
 
-  React.useEffect(() => {
-    setActiveRoute()
-    if (window.innerWidth < 1024 && themeConfig.sidebar) {
-      dispatch(toggleSidebar())
-    }
-  }, [router.pathname])
-
   const setActiveRoute = () => {
     const allLinks = document.querySelectorAll('.sidebar ul a.active')
     for (let i = 0; i < allLinks.length; i++) {
@@ -53,8 +51,12 @@ const Sidebar = () => {
     selector?.classList.add('active')
   }
 
-  const dispatch = useDispatch()
-  const { t } = useI18n()
+  React.useEffect(() => {
+    setActiveRoute()
+    if (window.innerWidth < 1024 && themeConfig.sidebar) {
+      dispatch(toggleSidebar())
+    }
+  }, [dispatch, router.pathname, themeConfig.sidebar])
 
   return (
     <div className={(semidark ? 'dark' : '') + (themeConfig.sidebar ? ' hidden' : '')}>
@@ -65,7 +67,7 @@ const Sidebar = () => {
       >
         <div className="h-full bg-white dark:bg-black">
           <div className="flex items-center justify-between px-4 py-3">
-            <Link href="/admin" className="main-logo flex shrink-0 items-center">
+            <Link href="/admin" className="flex items-center main-logo shrink-0">
               <span className="align-middle text-2xl font-semibold ltr:ml-1.5 rtl:mr-1.5 dark:text-white-light lg:inline">
                 {t('Studera Koranen')}
               </span>
@@ -73,7 +75,7 @@ const Sidebar = () => {
 
             <button
               type="button"
-              className="collapse-icon flex h-8 w-8 items-center rounded-full transition duration-300 hover:bg-gray-500/10 rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"
+              className="flex items-center w-8 h-8 transition duration-300 rounded-full collapse-icon hover:bg-gray-500/10 rtl:rotate-180 dark:text-white-light dark:hover:bg-dark-light/10"
               onClick={() => dispatch(toggleSidebar())}
             >
               <svg
@@ -82,7 +84,7 @@ const Sidebar = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="m-auto h-5 w-5"
+                className="w-5 h-5 m-auto"
               >
                 <path
                   d="M13 19L7 12L13 5"
@@ -134,7 +136,7 @@ const Sidebar = () => {
 
               <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 py-3 px-7 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
                 <svg
-                  className="hidden h-5 w-4 flex-none"
+                  className="flex-none hidden w-4 h-5"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   strokeWidth="1.5"
@@ -182,7 +184,7 @@ const Sidebar = () => {
               </li>
               <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 py-3 px-7 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
                 <svg
-                  className="hidden h-5 w-4 flex-none"
+                  className="flex-none hidden w-4 h-5"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   strokeWidth="1.5"
@@ -289,7 +291,7 @@ const Sidebar = () => {
 
               <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 py-3 px-7 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
                 <svg
-                  className="hidden h-5 w-4 flex-none"
+                  className="flex-none hidden w-4 h-5"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   strokeWidth="1.5"
@@ -336,7 +338,7 @@ const Sidebar = () => {
               </li>
               <h2 className="-mx-4 mb-1 flex items-center bg-white-light/30 py-3 px-7 font-extrabold uppercase dark:bg-dark dark:bg-opacity-[0.08]">
                 <svg
-                  className="hidden h-5 w-4 flex-none"
+                  className="flex-none hidden w-4 h-5"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                   strokeWidth="1.5"

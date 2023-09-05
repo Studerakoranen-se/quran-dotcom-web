@@ -1,6 +1,6 @@
 import { Knex } from 'knex'
-import { faker } from '@faker-js/faker'
 
+// eslint-disable-next-line import/prefer-default-export
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex('users').del()

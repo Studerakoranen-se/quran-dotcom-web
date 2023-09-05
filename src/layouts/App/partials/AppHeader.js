@@ -132,7 +132,7 @@ const AppHeader = React.memo(function AppHeader(props) {
     }
 
     return undefined
-  }, [headerModeProp, syncDisableTransparency])
+  }, [headerModeProp, syncDisableTransparency, syncExpandLogo])
 
   let computedHeaderMode = 'opaque'
   if (

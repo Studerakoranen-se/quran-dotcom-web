@@ -1,10 +1,9 @@
-import Image from 'next/image'
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link'
-import React from 'react'
 
 const TopBar = () => {
   return (
-    <div className="sm:px-14 bg-color2 px-5">
+    <div className="px-5 sm:px-14 bg-color2">
       <div className="container flex justify-between h-[2.5rem]">
         {/* Socials  */}
         <div className="flex items-center gap-3.5">

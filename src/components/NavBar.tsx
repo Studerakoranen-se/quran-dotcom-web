@@ -1,19 +1,26 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import * as React from 'react'
 import { FaDonate } from 'react-icons/fa'
 
 const NavBar = (props: any) => {
   const { overlay } = props
   const [isScrolled, setScrolled] = React.useState(false)
-  const router = useRouter()
+
   React.useEffect(() => {
     const devmode = localStorage.getItem('devmode')
     if (!devmode || devmode !== 'truefornovatech') {
       // router.push('/maintenance')
     }
   }, [])
+
+  const handleScroll = () => {
+    if (window.pageYOffset > 100) {
+      setScrolled(true)
+    } else {
+      setScrolled(false)
+    }
+  }
 
   React.useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -22,14 +29,6 @@ const NavBar = (props: any) => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
-  const handleScroll = () => {
-    if (window.pageYOffset > 100) {
-      setScrolled(true)
-    } else {
-      setScrolled(false)
-    }
-  }
-  console.log(isScrolled)
 
   return (
     <nav
@@ -53,16 +52,16 @@ const NavBar = (props: any) => {
 
         <div className="flex items-center justify-end mr-[100px] gap-10">
           <div className="hidden md:flex gap-[3rem] text-sm text-[18px] font-inter">
-            <Link className="w-max text-base md:text-lg" href={'/'}>
+            <Link className="text-base w-max md:text-lg" href={'/'}>
               HEM
             </Link>
-            <Link className="w-max text-base md:text-lg" href={'/course'}>
+            <Link className="text-base w-max md:text-lg" href={'/course'}>
               KURSER
             </Link>
-            <Link className="w-max text-base md:text-lg" href={'/about-us'}>
+            <Link className="text-base w-max md:text-lg" href={'/about-us'}>
               OM OSS
             </Link>
-            <Link className="w-max text-base md:text-lg" href={'/'}>
+            <Link className="text-base w-max md:text-lg" href={'/'}>
               KONTAKTA OSS
             </Link>
           </div>

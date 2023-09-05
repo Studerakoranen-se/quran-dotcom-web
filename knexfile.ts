@@ -1,4 +1,7 @@
+/* eslint-disable import/order */
+// eslint-disable-next-line import/no-import-module-exports
 import type { Knex } from 'knex'
+
 const dotenv = require('dotenv')
 
 dotenv.config()

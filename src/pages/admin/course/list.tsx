@@ -1,10 +1,11 @@
 // @ts-nocheck
+/* eslint-disable no-console */
 import * as React from 'react'
 import { DataTable } from 'mantine-datatable'
 import sortBy from 'lodash/sortBy'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
-import { HiOutlineTrash, HiOutlinePencilAlt } from 'react-icons/hi'
+import { HiOutlinePencilAlt } from 'react-icons/hi'
 import Link from 'next/link'
 import { IRootState } from '~/store'
 import { setPageTitle } from '~/store/themeConfigSlice'
@@ -76,41 +77,41 @@ const AdminCourseList = () => {
 
     setInitialRecords(sortStatus.direction === 'desc' ? data.reverse() : data)
     setPage(1)
-  }, [sortStatus])
+  }, [initialRecords, sortStatus])
 
-  const deleteData = (id: number) => {
-    const confirmation = confirm(
-      'Do you want to delete?\n\nWarning: All lessons, files and quizes of this course will also be deleted.!!!',
-    )
-    if (confirmation) {
-      const formdata = new FormData()
+  // const deleteData = (id: number) => {
+  //   const confirmation = confirm(
+  //     'Do you want to delete?\n\nWarning: All lessons, files and quizes of this course will also be deleted.!!!',
+  //   )
+  //   if (confirmation) {
+  //     const formdata = new FormData()
 
-      fetch(`/api/v1/course/delete?id=${id}`, {
-        method: 'DELETE',
-        body: formdata,
-        redirect: 'follow',
-      })
-        .then((response) => response.json())
-        .then(({ success, msg }) => {
-          getData()
-        })
-        .catch((error) => console.log('error', error))
-    }
-  }
+  //     fetch(`/api/v1/course/delete?id=${id}`, {
+  //       method: 'DELETE',
+  //       body: formdata,
+  //       redirect: 'follow',
+  //     })
+  //       .then((response) => response.json())
+  //       .then(({ success, msg }) => {
+  //         getData()
+  //       })
+  //       .catch((error) => console.log('error', error))
+  //   }
+  // }
   return (
     <DefaultLayout>
       <div className="panel">
         <div className="flex justify-end pb-5">
-          <Link href={'/admin/course/add'} className="btn btn-outline-primary rounded-full">
+          <Link href={'/admin/course/add'} className="rounded-full btn btn-outline-primary">
             Add course
           </Link>
         </div>
-        <div className="mb-5 flex flex-col gap-5 md:flex-row md:items-center">
+        <div className="flex flex-col gap-5 mb-5 md:flex-row md:items-center">
           <h5 className="text-lg font-semibold dark:text-white-light">Courses</h5>
           <div className="ltr:ml-auto rtl:mr-auto">
             <input
               type="text"
-              className="form-input w-auto"
+              className="w-auto form-input"
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -152,9 +153,9 @@ const AdminCourseList = () => {
                     <Link href={`/admin/course/edit?id=${id}`} className="">
                       <HiOutlinePencilAlt />
                     </Link>
-                    <button onClick={() => deleteData(id)} className="">
+                    {/* <button onClick={() => deleteData(id)} className="">
                       <HiOutlineTrash />
-                    </button>
+                    </button> */}
                   </div>
                 ),
               },

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Button, styled, Typography } from '@mui/material'
 import { useI18n } from '~/contexts'
 import { RouterLink } from '~/containers'
@@ -14,11 +13,11 @@ const HeroRoot = styled('section')(({ theme }) => ({
   minHeight: 550,
   color: theme.vars.palette.common.white, // Use `common.white` as color is based on image not theme mode.
   textAlign: 'center',
-  paddingTop: 190,
-  paddingBottom: 190,
+  padding: theme.spacing(40, 2, 5),
 
   [theme.breakpoints.up('md')]: {
     minHeight: 650,
+    padding: theme.spacing(30, 2, 5),
   },
   background:
     "linear-gradient(180deg, #043B3B 50%, #043B3B 80%, #043B3B 100%), url('/assets/bg-arbic.png')",
@@ -38,16 +37,21 @@ const HeroMain = styled('div')(({ theme }) => ({
 const HeroMedia = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
-  position: 'absolute',
-  opacity: 0.5,
+  position: 'static',
+  opacity: 1,
   paddingInline: 'var(--cia-container-spacing)',
   width: '100%',
   paddingRight: 60,
   paddingBottom: '1.25rem',
 
-  [theme.breakpoints.up('md')]: {
-    position: 'static',
-    opacity: 1,
+  [theme.breakpoints.down('md')]: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    opacity: 0.2,
+    padding: 0,
+    width: 'unset',
     // paddingRight: 26,
     // paddingLeft: 26,
   },
@@ -86,10 +90,12 @@ const SubHeadingHtmlText = styled(Html)<{
 
 const ButtonContainer = styled('div')(({ theme }) => ({
   display: 'flex',
-  // flexDirection: 'column',
-  width: 'fit-content',
+  justifyContent: 'center',
   gap: theme.spacing(2),
   marginTop: theme.spacing(8),
+  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+    width: 'fit-content',
+  },
 }))
 
 type HeroProps = {
@@ -108,60 +114,58 @@ function Hero(props: HeroProps) {
   const { t } = useI18n()
 
   return (
-    <React.Fragment>
-      <HeroRoot>
-        <HeroMain>
-          {heading && (
-            <HeroHeading>
-              <HeadingHtmlText dangerouslySetInnerHTML={{ __html: heading }} />
-            </HeroHeading>
-          )}
+    <HeroRoot>
+      <HeroMain>
+        {heading && (
+          <HeroHeading>
+            <HeadingHtmlText dangerouslySetInnerHTML={{ __html: heading }} />
+          </HeroHeading>
+        )}
 
-          {subheading && (
-            <HeroSubheading>
-              <SubHeadingHtmlText dangerouslySetInnerHTML={{ __html: subheading }} />
-            </HeroSubheading>
-          )}
-          {text && <Typography dangerouslySetInnerHTML={{ __html: text }} />}
+        {subheading && (
+          <HeroSubheading>
+            <SubHeadingHtmlText dangerouslySetInnerHTML={{ __html: subheading }} />
+          </HeroSubheading>
+        )}
+        {text && <Typography dangerouslySetInnerHTML={{ __html: text }} />}
 
-          {ctaLabel && ctaUrl && (
-            <ButtonContainer>
+        {ctaLabel && ctaUrl && (
+          <ButtonContainer>
+            <Button
+              component={RouterLink}
+              href={ctaUrl}
+              variant="contained"
+              size="medium"
+              // @ts-ignore
+              color="textInverted"
+              aria-label={t(__translationGroup)`Read more about "${heading}"`}
+              startIcon={<QuranIcon color="primary" />}
+            >
+              {ctaLabel}
+            </Button>
+            {ctaLabel2 && ctaUrl2 && (
               <Button
                 component={RouterLink}
-                href={ctaUrl}
+                href={ctaUrl2}
                 variant="contained"
-                size="medium"
                 // @ts-ignore
                 color="textInverted"
-                aria-label={t(__translationGroup)`Read more about "${heading}"`}
-                startIcon={<QuranIcon color="primary" />}
+                size="medium"
+                aria-label={t(__translationGroup)`Read more about "${subheading}"`}
+                startIcon={<BookIcon color="primary" />}
               >
-                {ctaLabel}
+                {ctaLabel2}
               </Button>
-              {ctaLabel2 && ctaUrl2 && (
-                <Button
-                  component={RouterLink}
-                  href={ctaUrl2}
-                  variant="contained"
-                  // @ts-ignore
-                  color="textInverted"
-                  size="medium"
-                  aria-label={t(__translationGroup)`Read more about "${subheading}"`}
-                  startIcon={<BookIcon color="primary" />}
-                >
-                  {ctaLabel2}
-                </Button>
-              )}
-            </ButtonContainer>
-          )}
-        </HeroMain>
-        <HeroMedia>
-          <HeroBrandIcon>
-            <BrandIcon sx={{ width: '100%', height: '100%' }} />
-          </HeroBrandIcon>
-        </HeroMedia>
-      </HeroRoot>
-    </React.Fragment>
+            )}
+          </ButtonContainer>
+        )}
+      </HeroMain>
+      <HeroMedia>
+        <HeroBrandIcon>
+          <BrandIcon sx={{ width: '100%', height: '100%' }} />
+        </HeroBrandIcon>
+      </HeroMedia>
+    </HeroRoot>
   )
 }
 

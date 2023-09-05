@@ -1,4 +1,4 @@
-import { useForm, useController, UseControllerProps } from 'react-hook-form'
+import { useController, UseControllerProps } from 'react-hook-form'
 
 interface RadioOption {
   label: string
@@ -12,17 +12,20 @@ interface Props extends UseControllerProps<any> {
 }
 
 const RadioField = (props: Props) => {
-  const { field, fieldState } = useController(props)
+  const {
+    field,
+    // fieldState
+  } = useController(props)
 
   return (
     <div className="w-full">
-      <label className="font-normal block py-3">
+      <label className="block py-3 font-normal">
         <div className="flex gap-2">
           <p>{props.p}</p>
           {props.label}
         </div>
       </label>
-      <div className="flex gap-5 items-center ">
+      <div className="flex items-center gap-5 ">
         {props.options.map((option, index) => (
           <label key={index} className="flex items-center font-normal">
             <input
