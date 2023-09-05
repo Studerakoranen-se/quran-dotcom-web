@@ -35,7 +35,7 @@ export const HtmlRoot = styled('div')(({ theme }) => ({
   },
   figcaption: theme.typography.caption,
   '& :is(ol, ul)': {
-    // paddingLeft: '1.25em',
+    paddingLeft: '1.25em',
     '& li': {
       marginBottom: theme.spacing(1.2),
     },
