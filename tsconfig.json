@@ -16,7 +16,8 @@
     "jsx": "preserve",
     "noImplicitAny": false,
     "paths": {
-      "~/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "@/*": ["./*"]
     }
   },
   "include": ["node_modules/@types/**/*.ts", "next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],

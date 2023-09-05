@@ -2,7 +2,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { QuizeController } from '~/controllers/QuizeController'
-import { formData } from '~/utils'
+import formData from "@/helpers/formData";
 
 export const config = {
   api: {

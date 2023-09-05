@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { sendMail, formData } from '~/utils'
+import formData from "@/helpers/formData";
+import sendMail from "@/helpers/sendMail";
 
 export const config = {
   api: {

@@ -2,7 +2,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { UserController } from '~/controllers/UserController'
-import { formData } from '~/utils'
+import formData from "@/helpers/formData";
 
 export const config = {
   api: {

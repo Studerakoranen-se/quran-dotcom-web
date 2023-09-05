@@ -1,8 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { formData, uploadFile } from '~/utils'
 import { LessonFileController } from '~/controllers/LessonFileController'
+import formData from "@/helpers/formData";
+import { uploadFile } from "@/helpers/fileUpload";
 
 export const config = {
   api: {

@@ -2,8 +2,8 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { CourseController } from '~/controllers/CourseController'
-import { formData } from '~/utils'
-import { uploadImage } from '~/utils/fileUpload'
+import formData from "@/helpers/formData";
+import { uploadImage } from "@/helpers/fileUpload";
 
 export const config = {
   api: {

@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { formData } from '~/utils'
 import { LessonController } from '~/controllers/LessonController'
+import formData from "@/helpers/formData";
 
 export const config = {
   api: {
