@@ -42,7 +42,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
 
   const onSubmit = (data: FormValues) => {
     let tutor: any = null
-    tutors.forEach((t: any) => {
+    tutors?.forEach((t: any) => {
       if (t.mail === data.tutor) {
         tutor = t
       }
@@ -77,7 +77,7 @@ const ApplyForm = ({ tutors, selectedTutor }: Props) => {
   }
 
   const tutorOptions = () => {
-    return tutors.map((tutor: any) => {
+    return tutors?.map((tutor: any) => {
       return {
         value: tutor.mail,
         label: tutor.fullname,

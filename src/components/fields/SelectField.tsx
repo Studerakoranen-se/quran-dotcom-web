@@ -32,7 +32,7 @@ const SelectField = (props: Props) => {
         {...field}
         className="w-full border border-[#D1D5DB] rounded-lg px-3 py-2"
       >
-        {props.options.map((option: Option, i: number) => (
+        {props.options?.map((option: Option, i: number) => (
           <option key={i} value={option.value} selected={option.value === props.selectedOption}>
             {option.label}
           </option>
