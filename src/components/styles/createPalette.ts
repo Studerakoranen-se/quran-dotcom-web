@@ -32,25 +32,18 @@ export const lightText = {
   contrastText: common.black,
 }
 
-// Dynamic colors meant to alternate between light/dark theme modes are added here.
 export const light = {
-  // The colors used to represent default interface elements for a user.
-  default: {
-    light: common.black,
-    main: common.black,
-    dark: common.black,
-    contrastText: common.white,
-  },
   // The colors used to style the text.
   text: darkText,
+  // The colors used to style inverted text.
   textInverted: lightText,
   // The color used to divide different elements.
   divider: alpha(common.black, 0.1),
   // The background colors used to style the surfaces.
   // Consistency between these values is important.
   background: {
-    default: '#043B3B',
-    paper: grey[50],
+    default: '#E4E7EB',
+    paper: '#EFF0F2',
   },
   // The colors used to style the action elements.
   action: {
@@ -74,18 +67,12 @@ export const light = {
 }
 
 export const dark = {
-  default: {
-    light: common.white,
-    main: common.white,
-    dark: common.white,
-    contrastText: common.black,
-  },
   text: lightText,
   textInverted: darkText,
   divider: alpha(common.white, 0.25),
   background: {
-    default: common.black,
-    paper: grey[900],
+    default: '#6A7883',
+    paper: '#61717D',
   },
   action: {
     active: common.white,
@@ -103,10 +90,8 @@ export const dark = {
 }
 
 export default function createPalette(palette: PaletteOptions) {
-  // Static colors that do not alternate between light/dark theme modes are added here.
   const {
     primary = {
-      // `light`, `dark` & `contrastText` are automatically calculated if not defined.
       light: green[300],
       main: green[500],
       dark: green[700],
@@ -119,32 +104,28 @@ export default function createPalette(palette: PaletteOptions) {
       contrastText: common.white,
     },
     error = {
-      // `light`, `dark` & `contrastText` are automatically calculated if not defined.
       light: red[300],
       main: red[500],
       dark: red[700],
     },
     warning = {
-      // `light`, `dark` & `contrastText` are automatically calculated if not defined.
       light: orange[300],
       main: orange[500],
       dark: orange[700],
     },
     info = {
-      // `light`, `dark` & `contrastText` are automatically calculated if not defined.
       light: blue[300],
       main: blue[500],
       dark: blue[700],
     },
     success = {
-      // `light`, `dark` & `contrastText` are automatically calculated if not defined.
       light: green[300],
       main: green[500],
       dark: green[700],
       contrastText: common.white,
     },
     modes = { dark, light },
-    mode = 'light',
+    mode = 'dark',
     contrastThreshold = 3,
     tonalOffset = 0.2,
     ...other
@@ -181,6 +162,9 @@ export default function createPalette(palette: PaletteOptions) {
       tonalOffset,
       // The light and dark type object.
       ...modes[mode],
+      // Give access to the entire inverted object for styling simplicity as both are theme modes
+      // are used within the Cake design.
+      inverted: modes[mode === 'dark' ? 'light' : 'dark'],
     },
     other,
   )
