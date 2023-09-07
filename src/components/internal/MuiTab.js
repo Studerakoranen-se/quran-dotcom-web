@@ -9,10 +9,6 @@ const overrides = {
       opacity: 0.5,
       textTransform: 'none',
 
-      [theme.breakpoints.down('sm')]: {
-        ...theme.typography.h4,
-      },
-
       '&:hover': {
         color: theme.palette.inverted.text.primary,
         opacity: 1,
