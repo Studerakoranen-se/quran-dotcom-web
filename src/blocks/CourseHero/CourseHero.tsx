@@ -4,17 +4,22 @@ import { useI18n } from '~/contexts'
 import { RouterLink } from '~/containers'
 import { Html } from '~/components'
 
-const CourseHeroRoot = styled('section')(({ theme }) => ({
+const CourseHeroRoot = styled('section')<{
+  ownerState: { largeMedia?: boolean }
+}>(({ theme, ownerState }) => ({
   position: 'relative',
   background: theme.palette.primary.main,
-  boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
   color: theme.palette.common.white,
   padding: theme.spacing(20, 2, 5),
   minHeight: 550,
 
   [theme.breakpoints.up('md')]: {
     minHeight: 650,
-    padding: theme.spacing(20, 2, 20),
+    padding: theme.spacing(20, 2, 1),
+
+    ...(ownerState?.largeMedia && {
+      padding: theme.spacing(20, 2, 5),
+    }),
   },
 }))
 
@@ -63,9 +68,13 @@ const CourseHeroBackground = styled('div')(({ theme }) => ({
     height: '100%',
   },
   background: `url('/assets/quran-bkg.png')`,
-  backgroundSize: 'contain',
+  backgroundSize: '500px',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
+
+  [theme.breakpoints.up('md')]: {
+    backgroundSize: '800px',
+  },
 }))
 
 type CourseHeroProps = {
@@ -76,14 +85,29 @@ type CourseHeroProps = {
   mediaProps: any
   layoutReverse?: boolean
   enablePattern?: boolean
+  enableHorizontalLine?: boolean
+  largeMedia?: boolean
 }
 
 function CourseHero(props: CourseHeroProps) {
-  const { text, mediaProps, layoutReverse, enablePattern, ctaLabel, ctaUrl } = props
+  const {
+    text,
+    mediaProps,
+    layoutReverse,
+    enablePattern,
+    ctaLabel,
+    ctaUrl,
+    enableHorizontalLine,
+    largeMedia,
+  } = props
   const { t } = useI18n()
 
   return (
-    <CourseHeroRoot>
+    <CourseHeroRoot
+      ownerState={{
+        largeMedia,
+      }}
+    >
       {enablePattern && <CourseHeroBackground />}
       <CourseHeroContainer>
         <CourseHeroContent>
@@ -121,10 +145,36 @@ function CourseHero(props: CourseHeroProps) {
                   }
                 : { alt: '' })}
               {...mediaProps}
+              sx={(theme) => ({
+                width: '80%',
+                mx: 'auto',
+                ...(largeMedia && {
+                  [theme.breakpoints.up('md')]: {
+                    width: '110%',
+                  },
+                }),
+              })}
             />
           </CourseHeroMediaReveal>
         )}
       </CourseHeroContainer>
+      {enableHorizontalLine && (
+        <MediaReveal>
+          <Media
+            src="assets/borderh.png"
+            sx={{
+              position: 'relative',
+              width: '50%',
+              height: '0.125rem',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              ...(largeMedia && {
+                marginTop: 8,
+              }),
+            }}
+          />
+        </MediaReveal>
+      )}
     </CourseHeroRoot>
   )
 }
