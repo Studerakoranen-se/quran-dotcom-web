@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker'
 import formFields from './formFields'
 
 export default {
@@ -75,6 +76,59 @@ export default {
       },
     },
   },
+  Course: {
+    title: `Course 1`,
+    uri: `course/1`,
+    summary: faker.lorem.paragraphs(2),
+    lessons: Array.from(new Array(5), (_, idx) => ({
+      id: idx + 1,
+      title: ['Introduction', 'Al-Fatihah', 'Al-Baqarah', 'Aali Imran', 'An-Nisa'][idx % 3],
+      uri: `${idx + 1}`,
+      youtubeVideo: idx % 2 === 0 ? 'wO2DRVC-g9w' : 'gY_BOUVMqxI',
+      duration: '2:05',
+      summary: faker.lorem.sentences(),
+      content: faker.lorem.sentences(),
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      resources: Array.from(new Array(7), (_, idx2) => ({
+        name: `PDF ${idx2 + 1}`,
+        file: 'sample.pdf',
+        description: faker.lorem.sentences(),
+      })),
+      quiz: [
+        {
+          id: 1,
+          question: "What is the Arabic word for 'hello'?",
+          answers: ['Marhaba', 'Shukran', 'Sabah al-khair', 'Maa al-salama'],
+          correctAnswers: [1],
+        },
+        {
+          id: 2,
+          question: "Which of the following means 'thank you' in Arabic?",
+          answers: ['Marhaba', 'Shukran', 'Sabah al-khair', 'Maa al-salama'],
+          correctAnswers: [2],
+        },
+        {
+          id: 3,
+          question: "What is the Arabic word for 'good morning'?",
+          answers: ['Marhaba', 'Shukran', 'Sabah al-khair', 'Maa al-salama'],
+          correctAnswers: [3],
+        },
+        {
+          id: 4,
+          question: "What is the Arabic word for 'book'?",
+          answers: ['Qalam', 'Kitaab', 'Burtuqal', 'Sayara'],
+
+          correctAnswers: [2],
+        },
+        {
+          id: 5,
+          question: "Which of the following means 'pen' in Arabic?",
+          answers: ['Qalam', 'Kitaab', 'Burtuqal', 'Sayara'],
+          correctAnswers: [1],
+        },
+      ],
+    })),
+  },
   Courses: {
     entries: [
       {
@@ -124,6 +178,7 @@ export default {
     },
     ctaLabel: 'Skicka förfrågan',
     ctaUrl: '/#private',
+    enableHorizontalLine: false,
   },
   CourseList: {
     heading: `Våra Kurser`,

@@ -97,6 +97,14 @@ export default {
   Course: {
     blocks: [
       {
+        name: 'Course',
+        props: blocks.Course,
+      },
+    ],
+  },
+  Courses: {
+    blocks: [
+      {
         name: 'Courses',
         props: blocks.Courses,
       },
@@ -106,7 +114,11 @@ export default {
     blocks: [
       {
         name: 'CourseHero',
-        props: blocks.CourseHero,
+        props: {
+          ...blocks.CourseHero,
+          enableHorizontalLine: true,
+          largeMedia: true,
+        },
       },
       {
         name: 'Steps',
@@ -131,6 +143,7 @@ export default {
         name: 'CourseHero',
         props: {
           enablePattern: true,
+          enableHorizontalLine: true,
           text: `
         <h1>Välkommen till Självstudier!</h1>
         <p>-Unika kurser och material</p>
@@ -150,6 +163,7 @@ export default {
         name: 'FeatureList',
         props: {
           ...blocks.FeatureList,
+          heading: 'Hur det funkar',
           verticalLayout: true,
         },
       },
