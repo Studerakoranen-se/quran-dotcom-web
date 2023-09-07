@@ -4,15 +4,17 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 const { merge } = require('webpack-merge')
 const webpackBaseConfig = require('./webpackBaseConfig')
-const { locales } = require('./locales')
+const { i18n } = require('./locales')
 
 const nextConfig = {
   // For more on internalization see:
   // https://nextjs.org/docs/advanced-features/i18n-routing
   i18n: {
-    defaultLocale: 'sv',
+    // we are using `default` as a default locale here simply as a hack to always route the user to a proper locale
+    // the "real" default locale is actually "en" and can be imported from '~/../locales'
+    locales: i18n.languages.map((item) => item.id),
+    defaultLocale: i18n.base,
     localeDetection: false,
-    locales,
   },
   env: {
     APP_URL: process.env.APP_URL,

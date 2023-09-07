@@ -1,16 +1,15 @@
 import type { GetServerSidePropsContext, GetStaticPropsContext } from 'next'
+import type { BlocksQueryResult } from '~/api/sanity/queries'
 import type { GetBlockPropsFunctions } from '~/blocks/getBlockProps'
 
-export default function createGetBlocksProps<B extends Block, P extends Page>(
-  blockPropGetters: GetBlockPropsFunctions<B, P>,
-) {
+export default function createGetBlocksProps<T>(blockPropGetters: GetBlockPropsFunctions<T>) {
   return async function getBlocksProps(
-    blocks: B[],
-    page: P,
+    blocks: BlocksQueryResult[],
+    page: T,
     context: GetServerSidePropsContext | GetStaticPropsContext,
   ) {
     const blocksPromises = blocks?.map((block) =>
-      transformBlock<B, P>(block, page, context, blockPropGetters),
+      transformBlock<T>(block, page, context, blockPropGetters),
     )
 
     let blocksWithData = blocks as Block[]
@@ -22,11 +21,11 @@ export default function createGetBlocksProps<B extends Block, P extends Page>(
   }
 }
 
-async function transformBlock<B extends Block, P extends Page>(
-  block: B,
-  page: P,
+async function transformBlock<T>(
+  block: BlocksQueryResult,
+  page: T,
   context: GetServerSidePropsContext | GetStaticPropsContext,
-  blockPropGetters: GetBlockPropsFunctions<B, P>,
+  blockPropGetters: GetBlockPropsFunctions<T>,
 ) {
   if (!block.name || !block.props) {
     return block
@@ -43,7 +42,7 @@ async function transformBlock<B extends Block, P extends Page>(
   if (block.props.children && block.props.children.length > 0) {
     blockProps.children = await Promise.all(
       block.props.children.map(async (childBlock) =>
-        transformBlock(childBlock as B, page, context, blockPropGetters),
+        transformBlock(childBlock, page, context, blockPropGetters),
       ),
     )
   }

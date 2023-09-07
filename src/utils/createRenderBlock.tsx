@@ -1,11 +1,12 @@
 import * as React from 'react'
+import type { BlocksQueryResult } from '~/api/sanity/queries'
 
 interface Variants {
   [key: string]: React.ElementType
 }
 
 export default function createRenderBlock(variants: Variants) {
-  function renderBlock({ name, props = {} }: Block, idx: number) {
+  function renderBlock({ name, props = {} }: BlocksQueryResult, idx: number) {
     const { children: childrenProp, ...other } = props
 
     if (!name) {
