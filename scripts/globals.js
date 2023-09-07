@@ -16,6 +16,6 @@ Tip: you can access the \`theme\` object directly in the console.
   `,
     `font-family:monospace;font-size:12px;color:${color}`,
   )
-  window.parent.window.theme = defaultTheme
-  window.theme = defaultTheme
+  // window?.parent?.window?.theme = defaultTheme
+  // window?.theme = defaultTheme
 }
