@@ -1,9 +1,11 @@
 import capitalize from '~/utils/capitalize'
 import * as blockComponents from '~/blocks'
 import {
-
   HeroBlockQueryResult,
-
+  ChapterAndJuzListBlockQueryResult,
+  RecentReadingBlockQueryResult,
+  LessonBlockQueryResult,
+  CoursesBlockQueryResult
 } from './blocks'
 import * as blocksImport from './blocks'
 
@@ -29,6 +31,10 @@ export interface CommonBlockProps<T> {
 
 export type BlocksQueryResult =
   | CommonBlockProps<HeroBlockQueryResult>
+  | CommonBlockProps<ChapterAndJuzListBlockQueryResult>
+  | CommonBlockProps<RecentReadingBlockQueryResult>
+  | CommonBlockProps<LessonBlockQueryResult>
+  | CommonBlockProps<CoursesBlockQueryResult>
 
 const blockNameQuery = `'name': select(
   ${blocks.map(({ blockType, blockName }) => `_type == '${blockType}' => '${blockName}'`).join(',')}

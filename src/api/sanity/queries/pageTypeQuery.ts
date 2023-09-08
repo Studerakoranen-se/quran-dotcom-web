@@ -33,7 +33,7 @@ export type PageTypeQueryResult<T extends keyof PageTypes> = PageTypes[T]
 
 const PAGE_TYPE_QUERIES = {
   page: pageQuery,
-  service: pageQuery,
+  course: pageQuery,
 }
 
 /* resolve published pages, drafts and localized pages in this order:
@@ -51,7 +51,7 @@ export default `
     // *[_type in $documentTypes && uri.current == $uri && __i18n_lang == $defaultLocale][0],
   ) {
     ${Object.entries(PAGE_TYPE_QUERIES)
-      .map(([documentType, documentQuery]) => `_type == '${documentType}' => {${documentQuery}}`)
-      .join(',')}
+    .map(([documentType, documentQuery]) => `_type == '${documentType}' => {${documentQuery}}`)
+    .join(',')}
   }
 `
