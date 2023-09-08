@@ -14,7 +14,7 @@ interface SingleChapter {
     pages: Array<number>;
 }
 
-export default function formatChapters(chapter: SingleChapter, locale: string) {
+export default function formatChapters(chapter: SingleChapter, locale = 'sv') {
     return {
         ...chapter,
         id: chapter.id,
