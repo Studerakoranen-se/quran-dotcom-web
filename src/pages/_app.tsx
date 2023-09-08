@@ -10,8 +10,10 @@ import type { EmotionCache } from '@emotion/cache'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
+import { Button } from '@mui/material'
 import { RootProvider } from '~/contexts'
 import * as layoutVariants from '~/layouts'
+import { RouterLink } from '~/containers'
 import store from '../store'
 
 export interface AppProps extends NextAppProps {
@@ -24,6 +26,7 @@ export interface AppProps extends NextAppProps {
     headerMode?: string
     layout?: keyof typeof layoutVariants
     page: Page
+    preview?: boolean
     settings: Record<string, unknown>
     theme?: string
   }
@@ -34,7 +37,8 @@ function App(props: AppProps) {
 
   const { Component, emotionCache, pageProps: nextPageProps } = props
 
-  const { defaultLocale, headerColor, headerMode, layout, locale, page, ...other } = nextPageProps
+  const { defaultLocale, headerColor, headerMode, layout, locale, page, preview, ...other } =
+    nextPageProps
   const LayoutComponent = layout ? layoutVariants[layout] : layoutVariants.App
 
   return (
@@ -63,6 +67,19 @@ function App(props: AppProps) {
           }}
         </PersistGate>
       </Provider>
+
+      {/* This button closes the Next.js preview mode by linking to the api/exit-preview route */}
+      {preview && (
+        <Button
+          sx={{ position: 'fixed', right: 8, bottom: 8 }}
+          component={RouterLink}
+          href="/api/exit-preview"
+          variant="contained"
+          color="error"
+        >
+          Close preview
+        </Button>
+      )}
     </React.Fragment>
   )
 }
