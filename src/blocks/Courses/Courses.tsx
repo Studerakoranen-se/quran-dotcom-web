@@ -86,8 +86,8 @@ function Courses(props: CoursesProps) {
               </MediaReveal>
             )}
 
-            {entry.heading && <CoursesEntryHeading>{entry.heading}</CoursesEntryHeading>}
-            {entry.text && <Typography variant="body2">{entry.text}</Typography>}
+            {entry?.heading && <CoursesEntryHeading>{entry.heading}</CoursesEntryHeading>}
+            {entry?.text && <Typography variant="body2">{entry.text}</Typography>}
             {entry?.ctaLabel && entry?.ctaUrl && (
               <Button
                 component={RouterLink}
