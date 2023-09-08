@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 
 export const ChapterAndJuzList = dynamic(() => import(/* webpackChunkName: "blocks/ChapterAndJuzList" */ './ChapterAndJuzList')) // prettier-ignore
-export const Course = dynamic(() => import(/* webpackChunkName: "blocks/Course" */ './Course')) // prettier-ignore
+export const Lesson = dynamic(() => import(/* webpackChunkName: "blocks/Lesson" */ './Lesson')) // prettier-ignore
 export const CourseHero = dynamic(() => import(/* webpackChunkName: "blocks/CourseHero" */ './CourseHero')) // prettier-ignore
 export const CourseList = dynamic(() => import(/* webpackChunkName: "blocks/CourseList" */ './CourseList')) // prettier-ignore
 export const Courses = dynamic(() => import(/* webpackChunkName: "blocks/Courses" */ './Courses')) // prettier-ignore
