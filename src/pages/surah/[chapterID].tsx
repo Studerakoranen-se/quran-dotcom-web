@@ -489,7 +489,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const { start_at, chapterID } = ctx.query
 
-  return { props: { startAt: start_at || 1, chapterID, locale } }
+  return { props: { page: { startAt: start_at || 1, chapterID, locale } } }
 }
 
 export default SurahViewPage
