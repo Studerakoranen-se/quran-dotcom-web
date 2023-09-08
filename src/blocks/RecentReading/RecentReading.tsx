@@ -29,6 +29,7 @@ const RecentSectionItemLink = styled(RouterLink)(({ theme }) => ({
   width: 200,
   borderRadius: theme.spacing(),
   boxShadow: theme.shadows[6],
+  textDecoration: 'none',
 }))
 const RecentSectionItem = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -62,7 +63,7 @@ function RecentReading(props: RecentReactProps) {
     <RecentReadingRoot>
       <RecentReadingMain>
         {heading && (
-          <Typography variant="h2" component="h4">
+          <Typography variant="h2" component="h4" sx={{ textAlign: 'center' }}>
             {heading}
           </Typography>
         )}
