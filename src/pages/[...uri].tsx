@@ -36,9 +36,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   // const page = pages.Course
   const page = (await sanityClient.fetch(pageTypeQuery, {
-    documentTypes: ['article', 'category', 'page'],
-    uri: uriString,
-    localeCountry: locale,
+    documentTypes: ['course', 'page'],
+    uri: locale !== 'sv' ? `${locale}/${uriString}` : uriString,
+    locale,
+    localeUnderscoreCountry: locale?.replace('-', '_'),
     preview,
     defaultLocale,
   })) as PageType | null
