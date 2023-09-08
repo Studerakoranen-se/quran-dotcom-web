@@ -17,14 +17,10 @@ export async function getBlockProps(
 
     const apiClient = new ApiClient(process.env.QURAN_API_V4)
 
-
-
     const promises = [
         apiClient?.request('GET', `chapters?language=${locale}`),
         apiClient?.request('GET', `juzs`),
     ]
-
-
 
     const result = await Promise.all(promises)
 
@@ -33,7 +29,6 @@ export async function getBlockProps(
             ...block.props,
             chapters: result[0].chapters?.map((chapter) => {
                 return formatChapters(
-                    // @ts-ignore
                     chapter, locale
                 )
             }),

@@ -13,11 +13,12 @@ const ChapterAndJuzListMain = styled('div')(({ theme }) => ({
   ...theme.mixins.contain('lg'),
 }))
 
-const ChapterSorter = styled('div')(() => ({
+const ChapterSorter = styled('div')(({ theme }) => ({
   display: 'flex',
   marginBlockStart: 'var(--spacing-xsmall)',
   justifyContent: 'flex-end',
   alignItems: 'baseline',
+  marginTop: theme.spacing(2),
 }))
 
 const PreviewContainer = styled('div')(({ theme }) => ({
@@ -46,7 +47,8 @@ const PreviewContainer2 = styled('div')(({ theme }) => ({
   },
 }))
 
-const ChapterSortByValue = styled(ButtonBase)(() => ({
+const ChapterSortByValue = styled(ButtonBase)(({ theme }) => ({
+  ...theme.typography.body2,
   display: 'flex',
   alignItems: 'center',
   textTransform: 'uppercase',
@@ -171,15 +173,36 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
     <ChapterAndJuzListRoot>
       <ChapterAndJuzListMain>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={view} onChange={onTabSelected} aria-label="Quran Tabs">
+          <Tabs
+            value={view}
+            onChange={onTabSelected}
+            aria-label="Quran Tabs"
+            sx={{
+              ' .MuiTabs-indicator': {
+                backgroundColor: 'primary.main',
+                height: '3px',
+              },
+            }}
+          >
             {tabs?.map((tab, idx) => (
-              <Tab key={idx} label={tab.title} id={`quran-tab-${idx}`} value={tab.value} />
+              <Tab
+                key={idx}
+                label={tab.title}
+                id={`quran-tab-${idx}`}
+                value={tab.value}
+                sx={{
+                  color: 'black !important',
+                  mr: 1,
+                }}
+              />
             ))}
           </Tabs>
         </Box>
 
         <ChapterSorter>
-          <Typography sx={{ textTransform: 'uppercase' }}>Sort:</Typography>
+          <Typography sx={{ textTransform: 'uppercase' }} variant="body2">
+            Sort:
+          </Typography>
           <ChapterSortByValue
             onClick={onSort}
             role="button"
