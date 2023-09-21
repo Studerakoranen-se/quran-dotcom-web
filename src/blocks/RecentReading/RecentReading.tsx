@@ -59,6 +59,8 @@ function RecentReading(props: RecentReactProps) {
 
   const histories = useSelector((state: any) => state.history?.recentSurahs)
 
+  if (histories.length === 0) return null
+
   return (
     <RecentReadingRoot>
       <RecentReadingMain>
@@ -72,7 +74,7 @@ function RecentReading(props: RecentReactProps) {
             {histories.map((history: any, idx: number) => (
               <RecentSectionItemLink
                 key={idx}
-                href={`/surah/${history.chapter_number}?start_at=${history.versesCount}`}
+                href={`/surah/${history.chapter_number}?startAt=${history.versesCount}`}
               >
                 <RecentSectionItem>
                   <Box display="flex" justifyContent="space-between">
