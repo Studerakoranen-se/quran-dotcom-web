@@ -5,10 +5,10 @@ import type { BlocksQueryResult } from '~/api/sanity/queries'
 export type GetBlockPropsFunctions<T> = Record<
   string,
   | ((
-    block: BlocksQueryResult,
-    page: T,
-    context: GetServerSidePropsContext | GetStaticPropsContext,
-  ) => Promise<Record<string, unknown>>)
+      block: BlocksQueryResult,
+      page: T,
+      context: GetServerSidePropsContext | GetStaticPropsContext,
+    ) => Promise<Record<string, unknown>>)
   | undefined
 >
 
@@ -16,4 +16,5 @@ export type GetBlockPropsFunctions<T> = Record<
 export { getBlockProps as ChapterAndJuzList } from './ChapterAndJuzList'
 export { getBlockProps as CourseList } from './CourseList'
 export { getBlockProps as Surah } from './Surah'
+export { getBlockProps as QuranReader } from './QuranReader'
 export { getBlockProps as Tutors } from './Tutors'
