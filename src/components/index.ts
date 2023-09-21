@@ -19,3 +19,6 @@ export * from './FormControlBoxSummary'
 
 export { default as Html } from './Html'
 export * from './Html'
+
+export { default as MetaData } from './MetaData'
+export * from './MetaData'
