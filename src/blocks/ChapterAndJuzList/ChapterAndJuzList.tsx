@@ -24,7 +24,8 @@ const ChapterSorter = styled('div')(({ theme }) => ({
 const PreviewContainer = styled('div')(({ theme }) => ({
   display: 'grid',
   gridGap: 20,
-  marginTop: 40,
+  marginTop: 12,
+  marginBottom: 24,
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
   },
