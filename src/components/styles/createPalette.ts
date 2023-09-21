@@ -42,7 +42,7 @@ export const light = {
   // The background colors used to style the surfaces.
   // Consistency between these values is important.
   background: {
-    default: '#E4E7EB',
+    default: common.white,
     paper: '#EFF0F2',
   },
   // The colors used to style the action elements.
