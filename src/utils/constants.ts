@@ -14,7 +14,7 @@ export const ASPECT_RATIOS = {
   },
 }
 
-export const SITE_NAME = 'Create Ignite App'
+export const SITE_NAME = 'Studera Koranen'
 export const SITE_ROOT_ID = 'site-root'
 export const SITE_HEADER_ID = 'site-header'
 export const SITE_MAIN_ID = 'main-content'
