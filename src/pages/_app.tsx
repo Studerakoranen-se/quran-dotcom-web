@@ -13,7 +13,7 @@ import { persistStore } from 'redux-persist'
 import { Button } from '@mui/material'
 import { RootProvider } from '~/contexts'
 import * as layoutVariants from '~/layouts'
-import { RouterLink } from '~/containers'
+import { ErrorBoundary, RouterLink } from '~/containers'
 import store from '../store'
 
 export interface AppProps extends NextAppProps {
@@ -60,7 +60,9 @@ function App(props: AppProps) {
                 {...other}
               >
                 <LayoutComponent headerColor={headerColor} headerMode={headerMode}>
-                  <Component {...page} />
+                  <ErrorBoundary>
+                    <Component {...page} />
+                  </ErrorBoundary>
                 </LayoutComponent>
               </RootProvider>
             )

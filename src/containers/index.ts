@@ -10,3 +10,6 @@ export * from './FormitButton'
 
 export { default as FormitTextField } from './FormitTextField'
 export * from './FormitTextField'
+
+export { default as ErrorBoundary } from './ErrorBoundary'
+export * from './ErrorBoundary'
