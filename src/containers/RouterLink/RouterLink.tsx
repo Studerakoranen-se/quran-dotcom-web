@@ -1,9 +1,26 @@
 import * as React from 'react'
 import Link, { LinkProps } from 'next/link'
 
-const RouterLink = React.forwardRef<HTMLAnchorElement, React.PropsWithChildren<LinkProps>>(
+interface RouterLinkProps extends LinkProps {
+  className?: string
+  shouldPrefetch?: boolean
+  shouldPassHref?: boolean
+}
+
+const RouterLink = React.forwardRef<HTMLAnchorElement, React.PropsWithChildren<RouterLinkProps>>(
   function RouterLink(props, ref) {
-    const { as, children, href = '', replace, scroll, shallow, ...other } = props
+    const {
+      as,
+      children,
+      href = '',
+      replace,
+      scroll,
+      shallow,
+      shouldPassHref,
+      shouldPrefetch,
+      className,
+      ...other
+    } = props
 
     // Render as a regular `a` tag if href contains a protocol.
     if (/^https?:\/\//.test(href as string)) {
@@ -23,7 +40,10 @@ const RouterLink = React.forwardRef<HTMLAnchorElement, React.PropsWithChildren<L
         scroll={scroll}
         shallow={shallow}
         passHref
-        {...other}
+        className={className}
+        // {...(shouldPassHref && { shouldPassHref })}
+        // {...(shouldPrefetch === false && { prefetch: false })}
+        // {...other}
       >
         {children}
       </Link>
