@@ -1,5 +1,7 @@
 import { Box, Typography, styled } from '@mui/material'
 import { Media, MediaReveal } from '@noaignite/oui'
+import { TutorsBlockQueryResult } from '~/api/sanity'
+import { transformSanityMedia } from '~/api/sanity/utils'
 import { Html } from '~/components'
 
 const TeamRoot = styled('section')(({ theme }) => ({
@@ -52,13 +54,7 @@ const TeamItemCard = styled('div')(() => ({
   backgroundColor: '#ffffff',
 }))
 
-type TeamProps = {
-  entries: any
-  heading: string
-  text: string
-}
-
-export default function Tutors(props: TeamProps) {
+export default function Tutors(props: TutorsBlockQueryResult) {
   const { heading, text, entries } = props
 
   return (
@@ -81,34 +77,41 @@ export default function Tutors(props: TeamProps) {
 
         <TeamList>
           {entries
-            ?.filter((item) => !item.isHidden)
-            .map((item, idx) => (
-              <TeamItemCard key={idx}>
-                {item?.image && (
-                  <MediaReveal>
-                    <Media src={item.image} alt="" />
-                  </MediaReveal>
-                )}
-                <Box p={2}>
-                  {item?.fullname && (
-                    <Typography variant="h6" color="primary" gutterBottom>
-                      {item.fullname}
-                    </Typography>
+            ?.filter((item) => !item?.isHidden)
+            .map((item, idx) => {
+              const { image: sanityMediaProps, fullname, description } = item
+
+              const image = transformSanityMedia(sanityMediaProps)
+
+              return (
+                <TeamItemCard key={idx}>
+                  {image && (
+                    <MediaReveal>
+                      {/* @ts-ignore */}
+                      <Media src={image.src} alt="" />
+                    </MediaReveal>
                   )}
-                  {item?.description && (
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: 'text.dark',
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      {item.description.slice(0, 100)}
-                    </Typography>
-                  )}
-                </Box>
-              </TeamItemCard>
-            ))}
+                  <Box p={2}>
+                    {fullname && (
+                      <Typography variant="h6" color="primary" gutterBottom>
+                        {fullname}
+                      </Typography>
+                    )}
+                    {description && (
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: 'text.dark',
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        {description.slice(0, 100)}
+                      </Typography>
+                    )}
+                  </Box>
+                </TeamItemCard>
+              )
+            })}
         </TeamList>
       </TeamGridContainer>
     </TeamRoot>

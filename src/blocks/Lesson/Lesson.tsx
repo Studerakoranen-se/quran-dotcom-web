@@ -15,7 +15,8 @@ import YouTubePlayer from 'react-youtube'
 import { Formit, Form as FormitForm, Field as FormitField } from '@noaignite/formit'
 import { useI18n } from '~/contexts'
 import { FilesIcon, Html, LessonsIcon, PlayIcon } from '~/components'
-import { FormitButton } from '~/containers'
+import { FormitButton, SanityHtml } from '~/containers'
+import { LessonBlockQueryResult } from '~/api/sanity'
 
 const BREAKPOINT_KEY = 'md'
 
@@ -82,6 +83,16 @@ const FormFormitForm = styled(FormitForm)(() => ({
   // gridGap: theme.spacing(4),
 }))
 
+const StyledYouTubePlayer = styled(YouTubePlayer)(() => ({
+  width: '100%',
+  height: 400,
+  iframe: {
+    height: '100%',
+  },
+  // display: 'grid',
+  // gridGap: theme.spacing(4),
+}))
+
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
@@ -104,16 +115,13 @@ function CustomTabPanel(props: TabPanelProps) {
   )
 }
 
-type CourseProps = {
-  title: string
-  summary: string
-  lessons: any
+interface LessonProps extends LessonBlockQueryResult {
   renderIndex: number
 }
 
-function Course(props: CourseProps) {
-  const { title, summary, lessons, renderIndex = 0 } = props
-
+function Lesson(props: LessonProps) {
+  const { title, description, lessons, renderIndex = 0 } = props
+  console.log(`props`, props)
   const { t } = useI18n()
 
   const [status, setStatus] = React.useState('')
@@ -195,24 +203,21 @@ function Course(props: CourseProps) {
             <Typography variant="h2" gutterBottom>
               {title}
             </Typography>
-            {summary && (
+            {description && (
               <Html
                 sx={{
                   mt: 2,
                   mb: 4,
                 }}
-                dangerouslySetInnerHTML={{ __html: summary }}
+                dangerouslySetInnerHTML={{ __html: description }}
               />
             )}
 
             {lessons?.[activeLesson].youtubeVideo && (
-              <YouTubePlayer
+              <StyledYouTubePlayer
                 opts={{
-                  height: '390',
+                  height: '100%',
                   width: '100%',
-                }}
-                style={{
-                  width: '100px',
                 }}
                 // className="w-full h-auto"
                 videoId={lessons?.[activeLesson].youtubeVideo}
@@ -239,133 +244,142 @@ function Course(props: CourseProps) {
               </Tabs>
             </Box>
 
-            <CustomTabPanel value={view} index={0}>
-              <Html
-                sx={{
-                  mt: 2,
-                }}
-                dangerouslySetInnerHTML={{ __html: lessons[activeLesson].summary }}
-              />
-            </CustomTabPanel>
+            {lessons?.length > 0 && (
+              <>
+                <CustomTabPanel value={view} index={0}>
+                  <Html
+                    sx={{
+                      mt: 2,
+                    }}
+                    dangerouslySetInnerHTML={{ __html: lessons[activeLesson].summary }}
+                  />
+                </CustomTabPanel>
 
-            <CustomTabPanel value={view} index={1}>
-              <Typography variant="subtitle1" sx={{ mt: 2.5, mb: 2 }}>
-                Course Summary
-              </Typography>
-              <Html
-                sx={{
-                  mt: 2,
-                }}
-                dangerouslySetInnerHTML={{ __html: lessons[activeLesson].summary }}
-              />
-              <Box sx={{ my: 5 }} display="flex">
-                {lessons && (
-                  <Box mr={10} display="flex" alignItems="center">
-                    <LessonsIcon sx={{ mr: 1 }} />
-                    <span> {lessons.length} Lessons</span>
+                <CustomTabPanel value={view} index={1}>
+                  <Typography variant="subtitle1" sx={{ mt: 2.5, mb: 2 }}>
+                    Course Summary
+                  </Typography>
+                  <Html
+                    sx={{
+                      mt: 2,
+                    }}
+                    dangerouslySetInnerHTML={{ __html: lessons[activeLesson].summary }}
+                  />
+                  <Box sx={{ my: 5 }} display="flex">
+                    {lessons && (
+                      <Box mr={10} display="flex" alignItems="center">
+                        <LessonsIcon sx={{ mr: 1 }} />
+                        <span> {lessons.length} Lessons</span>
+                      </Box>
+                    )}
+                    {lessons[activeLesson]?.resources && (
+                      <Box display="flex" alignItems="center">
+                        <FilesIcon sx={{ mr: 1 }} />
+                        <span>{lessons[activeLesson]?.resources.length} Files</span>
+                      </Box>
+                    )}
                   </Box>
-                )}
-                {lessons[activeLesson]?.resources && (
-                  <Box display="flex" alignItems="center">
-                    <FilesIcon sx={{ mr: 1 }} />
-                    <span>{lessons[activeLesson]?.resources.length} Files</span>
+
+                  <Box>
+                    <Typography variant="subtitle1" sx={{ mb: 2 }}>
+                      Download Summary
+                    </Typography>
+
+                    <Box display="flex" flexDirection="column" gap={2}>
+                      {lessons[activeLesson]?.resources?.map((file: any, i: number) => (
+                        <Button
+                          variant="contained"
+                          // @ts-ignore
+                          color="textInverted"
+                          sx={{ backgroundColor: 'rgb(255 255 255 / 22%)', color: 'white' }}
+                        >
+                          <span style={{ flex: 2, textAlign: 'left' }}>
+                            {`${i + 1} . ${file.title}`}
+                          </span>
+                        </Button>
+                      ))}
+                    </Box>
                   </Box>
-                )}
-              </Box>
+                </CustomTabPanel>
 
-              <Box>
-                <Typography variant="subtitle1" sx={{ mb: 2 }}>
-                  Download Summary
-                </Typography>
+                <CustomTabPanel value={view} index={2}>
+                  <Typography variant="subtitle1" sx={{ mt: 2.5, mb: 2 }}>
+                    Quiz
+                  </Typography>
 
-                <Box display="flex" flexDirection="column" gap={2}>
-                  {lessons[activeLesson]?.resources?.map((file: any, i: number) => (
-                    <Button
-                      variant="contained"
-                      // @ts-ignore
-                      color="textInverted"
-                      sx={{ backgroundColor: 'rgb(255 255 255 / 22%)', color: 'white' }}
-                    >
-                      <span style={{ flex: 2, textAlign: 'left' }}>
-                        {`${i + 1} . ${file.name}`}
-                      </span>
-                    </Button>
-                  ))}
-                </Box>
-              </Box>
-            </CustomTabPanel>
-
-            <CustomTabPanel value={view} index={2}>
-              <Typography variant="subtitle1" sx={{ mt: 2.5, mb: 2 }}>
-                Quiz
-              </Typography>
-
-              <Box sx={{ my: 5 }} display="flex">
-                {lessons[activeLesson]?.quiz && (
-                  <Formit
-                    // initialValues={}
-                    onSubmit={handleSubmit}
-                  >
-                    <FormFormitForm>
-                      {status === 'error' && (
-                        <Alert severity="error" sx={{ mb: 4 }}>
-                          {t(__translationGroup)`Oops, something went wrong!`}
-                        </Alert>
-                      )}
-
-                      {status === 'success' ? (
-                        <Alert severity="success">{t(__translationGroup)`Success`}</Alert>
-                      ) : (
-                        lessons[activeLesson]?.quiz?.map((quiz: any, idx: number) => (
-                          <Box key={idx} display="flex" flexDirection="column" mb={4}>
-                            <Typography variant="body2" sx={{ mb: 1 }}>
-                              {`${idx + 1}. ${quiz.question}`}
-                            </Typography>
-
-                            <FormitField
-                              component={RadioGroup}
-                              key={idx}
-                              id={`form-field-${quiz.question}`} // Makes `label` and `helperText` accessible for screen readers.
-                              name={quiz.question}
-                              // helperText={}
-                            >
-                              {quiz?.answers?.map((option, idx2) => (
-                                <FormControlLabel
-                                  key={idx2}
-                                  control={
-                                    <Radio
-                                      sx={{
-                                        color: 'white',
-                                      }}
-                                    />
-                                  }
-                                  label={option}
-                                  value={option}
-                                  sx={(theme) => ({
-                                    '.MuiFormControlLabel-label': {
-                                      ...theme.typography.caption,
-                                    },
-                                  })}
-                                />
-                              ))}
-                            </FormitField>
-                          </Box>
-                        ))
-                      )}
-                      {/* @ts-ignore */}
-                      <FormitButton
-                        variant="contained"
-                        type="submit"
-                        fullWidth
-                        color="textInverted"
+                  <Box sx={{ my: 5 }} display="flex">
+                    {lessons[activeLesson]?.questions && (
+                      <Formit
+                        // initialValues={}
+                        onSubmit={handleSubmit}
                       >
-                        {t(__translationGroup)`Send`}
-                      </FormitButton>
-                    </FormFormitForm>
-                  </Formit>
-                )}
-              </Box>
-            </CustomTabPanel>
+                        <FormFormitForm>
+                          {status === 'error' && (
+                            <Alert severity="error" sx={{ mb: 4 }}>
+                              {t(__translationGroup)`Oops, something went wrong!`}
+                            </Alert>
+                          )}
+
+                          {status === 'success' ? (
+                            <Alert severity="success">{t(__translationGroup)`Success`}</Alert>
+                          ) : (
+                            lessons[activeLesson]?.questions?.map((question: any, idx: number) => (
+                              <Box key={idx} display="flex" flexDirection="column" mb={4}>
+                                {question.question && <SanityHtml blocks={question.question} />}
+                                {/* <Typography variant="body2" sx={{ mb: 1 }}> */}
+                                {/* {`${idx + 1}. ${question.question}`} */}
+                                {/* </Typography> */}
+
+                                <FormitField
+                                  component={RadioGroup}
+                                  key={idx}
+                                  id={`form-field-${question.question[0]?.children[0]?.text}`} // Makes `label` and `helperText` accessible for screen readers.
+                                  name={question.question[0]?.children[0]?.text}
+                                  // helperText={}
+                                >
+                                  {question?.answers?.map((option, idx2) => (
+                                    <FormControlLabel
+                                      key={idx2}
+                                      control={
+                                        <Radio
+                                          sx={{
+                                            color: 'white',
+                                          }}
+                                        />
+                                      }
+                                      label={
+                                        <>
+                                          <SanityHtml blocks={option.answer} />
+                                        </>
+                                      }
+                                      value={option.answer[0]?.children[0]?.text}
+                                      sx={(theme) => ({
+                                        '.MuiFormControlLabel-label': {
+                                          ...theme.typography.caption,
+                                        },
+                                      })}
+                                    />
+                                  ))}
+                                </FormitField>
+                              </Box>
+                            ))
+                          )}
+                          {/* @ts-ignore */}
+                          <FormitButton
+                            variant="contained"
+                            type="submit"
+                            fullWidth
+                            color="textInverted"
+                          >
+                            {t(__translationGroup)`Send`}
+                          </FormitButton>
+                        </FormFormitForm>
+                      </Formit>
+                    )}
+                  </Box>
+                </CustomTabPanel>
+              </>
+            )}
           </CourseLeftItem>
 
           <CourseRightItem>
@@ -397,7 +411,7 @@ function Course(props: CourseProps) {
                       <span style={{ flex: 2, textAlign: 'left' }}>{`${idx + 1} . ${
                         tab.title
                       }`}</span>
-                      <span>{lessons[activeLesson].duration}</span>
+                      <span>{lessons[activeLesson]?.duration}</span>
                     </React.Fragment>
                   }
                   id={`active-lesson-tab-${idx}`}
@@ -426,4 +440,4 @@ function Course(props: CourseProps) {
   )
 }
 
-export default Course
+export default Lesson

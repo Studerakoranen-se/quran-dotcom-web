@@ -1,4 +1,5 @@
 import { IconButton, Typography, styled } from '@mui/material'
+import { FeatureListBlockQueryResult } from '~/api/sanity'
 // import { useI18n } from '~/contexts'
 import {
   BrainIcon,
@@ -166,19 +167,7 @@ const FeatureListIconButton = styled(IconButton)<{ ownerState: { verticalLayout?
   }),
 )
 
-type FeatureListProps = {
-  heading: string
-  text: string
-  entries: {
-    id: number
-    name: string
-    description: string
-    image: string
-  }[]
-  verticalLayout?: boolean
-}
-
-function FeatureList(props: FeatureListProps) {
+function FeatureList(props: FeatureListBlockQueryResult) {
   const { heading, text, entries, verticalLayout } = props
 
   //   const { t } = useI18n()
@@ -231,7 +220,7 @@ function FeatureList(props: FeatureListProps) {
                         lineHeight: '1.25rem',
                       }}
                     >
-                      {entry.txt}
+                      {entry.text}
                     </Typography>
                   </FeatureListItemContent>
                 </FeatureListItem>

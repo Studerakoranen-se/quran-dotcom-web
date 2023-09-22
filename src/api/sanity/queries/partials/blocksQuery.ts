@@ -5,7 +5,14 @@ import {
   ChapterAndJuzListBlockQueryResult,
   RecentReadingBlockQueryResult,
   LessonBlockQueryResult,
-  CoursesBlockQueryResult
+  CoursesBlockQueryResult,
+  EditorialBlockQueryResult,
+  CourseHeroBlockQueryResult,
+  StepsBlockQueryResult,
+  TutorsBlockQueryResult,
+  FormBlockQueryResult,
+  FeatureListBlockQueryResult,
+  CourseListBlockQueryResult,
 } from './blocks'
 import * as blocksImport from './blocks'
 
@@ -35,6 +42,13 @@ export type BlocksQueryResult =
   | CommonBlockProps<RecentReadingBlockQueryResult>
   | CommonBlockProps<LessonBlockQueryResult>
   | CommonBlockProps<CoursesBlockQueryResult>
+  | CommonBlockProps<EditorialBlockQueryResult>
+  | CommonBlockProps<CourseHeroBlockQueryResult>
+  | CommonBlockProps<StepsBlockQueryResult>
+  | CommonBlockProps<TutorsBlockQueryResult>
+  | CommonBlockProps<FormBlockQueryResult>
+  | CommonBlockProps<FeatureListBlockQueryResult>
+  | CommonBlockProps<CourseListBlockQueryResult>
 
 const blockNameQuery = `'name': select(
   ${blocks.map(({ blockType, blockName }) => `_type == '${blockType}' => '${blockName}'`).join(',')}
@@ -46,31 +60,32 @@ export default `
   'props': {
     id,
     ${blocks
-    .map(
-      ({ blockType, queryValue }) => `
+      .map(
+        ({ blockType, queryValue }) => `
           _type == '${blockType}' => {
             ${queryValue},
-            ${BLOCKS_WITH_CHILDREN.includes(blockType)
-          ? `
+            ${
+              BLOCKS_WITH_CHILDREN.includes(blockType)
+                ? `
               children[]{
                 ${blockNameQuery},
                 'props': {
                   id,
                   ${blocks.map(
-            ({ blockType: childBlockType, queryValue: childQueryValue }) => `
+                    ({ blockType: childBlockType, queryValue: childQueryValue }) => `
                     _type == '${childBlockType}' => {
                       ${childQueryValue}
                     }
                   `,
-          )}
+                  )}
                 }
               }
             `
-          : ''
-        }
+                : ''
+            }
           }
         `,
-    )
-    .join(',')}
+      )
+      .join(',')}
   }
 `

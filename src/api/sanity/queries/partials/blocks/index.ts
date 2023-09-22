@@ -12,3 +12,24 @@ export * from './coursesBlockQuery'
 
 export { default as recentReadingBlockQuery } from './recentReadingBlockQuery'
 export * from './recentReadingBlockQuery'
+
+export { default as editorialBlockQuery } from './editorialBlockQuery'
+export * from './editorialBlockQuery'
+
+export { default as courseHeroBlockQuery } from './courseHeroBlockQuery'
+export * from './courseHeroBlockQuery'
+
+export { default as stepsBlockQuery } from './stepsBlockQuery'
+export * from './stepsBlockQuery'
+
+export { default as tutorsBlockQuery } from './tutorsBlockQuery'
+export * from './tutorsBlockQuery'
+
+export { default as formBlockQuery } from './formBlockQuery'
+export * from './formBlockQuery'
+
+export { default as featureListBlockQuery } from './featureListBlockQuery'
+export * from './featureListBlockQuery'
+
+export { default as courseListBlockQuery } from './courseListBlockQuery'
+export * from './courseListBlockQuery'

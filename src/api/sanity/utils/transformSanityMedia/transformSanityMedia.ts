@@ -76,20 +76,20 @@ export default function transformSanityMedia(
       const breakpoints = {} as Breakpoints<SanityImageQueryResult>
       const autoImageBuilderOptions = {} as NonNullable<ImageBuilderOptions['picture']>
 
-        ; (
-          Object.entries(muiBreakpoints.values) as Array<[keyof typeof muiBreakpoints.values, number]>
-        ).forEach(([breakpointKey], i, array) => {
-          // generate breakpoints object with sanity video objects for each breakpoint
-          if (sanityMedia.src) {
-            breakpoints[breakpointKey] = sanityMedia.src
-          }
+      ;(
+        Object.entries(muiBreakpoints.values) as Array<[keyof typeof muiBreakpoints.values, number]>
+      ).forEach(([breakpointKey], i, array) => {
+        // generate breakpoints object with sanity video objects for each breakpoint
+        if (sanityMedia.src) {
+          breakpoints[breakpointKey] = sanityMedia.src
+        }
 
-          // generate default image builder options for each breakpoint
-          autoImageBuilderOptions[breakpointKey] = {
-            width: array[i + 1]?.[1] ?? MAX_IMAGE_WIDTH,
-            ...filledInImageBuilderOptions?.[breakpointKey],
-          }
-        })
+        // generate default image builder options for each breakpoint
+        autoImageBuilderOptions[breakpointKey] = {
+          width: array[i + 1]?.[1] ?? MAX_IMAGE_WIDTH,
+          ...filledInImageBuilderOptions?.[breakpointKey],
+        }
+      })
 
       return {
         ...mediaProps,
@@ -112,10 +112,11 @@ export default function transformSanityMedia(
       // into a responsive picture component with sources for all breakpoints
       const breakpoints = {} as Breakpoints<SanityVideoQueryResult>
 
-        ; (
-          Object.entries(muiBreakpoints.values) as Array<[keyof typeof muiBreakpoints.values, number]>
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ).forEach(([breakpointKey], _i, _array) => {
+      ;(
+        Object.entries(muiBreakpoints.values) as Array<[keyof typeof muiBreakpoints.values, number]>
+      )
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        .forEach(([breakpointKey], _i, _array) => {
           // generate breakpoints object with sanity image objects for each breakpoint
           if (sanityMedia.src) {
             breakpoints[breakpointKey] = sanityMedia.src
@@ -180,7 +181,9 @@ function transformImageBreakpoints(
       .reduce((acc, [key, value]) => {
         // add to final breakpoints object and remove duplicates
         if (!Object.values(acc).includes(value)) {
-          acc[key] = value
+          acc[key] = {
+            src: value,
+          }
         }
 
         return acc

@@ -21,6 +21,7 @@ const nextConfig = {
     SANITY_PROJECT_ID: process.env.SANITY_PROJECT_ID,
     SANITY_DATASET: process.env.SANITY_DATASET,
     SANITY_API_VERSION: process.env.SANITY_API_VERSION,
+    PREVIEW_SECRET: process.env.PREVIEW_SECRET,
     QURAN_API_V4: process.env.QURAN_API_V4,
     QURAN_API_V3: process.env.QURAN_API_V3,
     GTM_PARAMS: process.env.GTM_PARAMS,

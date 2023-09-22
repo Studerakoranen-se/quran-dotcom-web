@@ -1,8 +1,9 @@
 import { Media, MediaReveal } from '@noaignite/oui'
 import { Button, styled } from '@mui/material'
 import { useI18n } from '~/contexts'
-import { RouterLink } from '~/containers'
-import { Html } from '~/components'
+import { RouterLink, SanityHtml } from '~/containers'
+import { transformSanityMedia } from '~/api/sanity/utils'
+import { PortableTextBlock } from '@portabletext/types'
 
 const CourseHeroRoot = styled('section')<{
   ownerState: { largeMedia?: boolean }
@@ -78,8 +79,7 @@ const CourseHeroBackground = styled('div')(({ theme }) => ({
 }))
 
 type CourseHeroProps = {
-  children: React.ReactNode
-  text: string
+  text: PortableTextBlock[]
   ctaLabel: string
   ctaUrl: string
   mediaProps: any
@@ -92,7 +92,7 @@ type CourseHeroProps = {
 function CourseHero(props: CourseHeroProps) {
   const {
     text,
-    mediaProps,
+    mediaProps: sanityMediaProps,
     layoutReverse,
     enablePattern,
     ctaLabel,
@@ -101,6 +101,14 @@ function CourseHero(props: CourseHeroProps) {
     largeMedia,
   } = props
   const { t } = useI18n()
+
+  const mediaProps = transformSanityMedia(sanityMediaProps, {
+    img: {
+      dpr: 2,
+      width: 1280,
+      height: 720,
+    },
+  })
 
   return (
     <CourseHeroRoot
@@ -111,7 +119,7 @@ function CourseHero(props: CourseHeroProps) {
       {enablePattern && <CourseHeroBackground />}
       <CourseHeroContainer>
         <CourseHeroContent>
-          <Html dangerouslySetInnerHTML={{ __html: text }} />
+          {text && <SanityHtml blocks={text} />}
           {ctaLabel && ctaUrl && (
             <Button
               component={RouterLink}
@@ -131,8 +139,8 @@ function CourseHero(props: CourseHeroProps) {
         </CourseHeroContent>
         {mediaProps && (
           <CourseHeroMediaReveal
-            width={mediaProps.width}
-            height={mediaProps.height}
+            // width={mediaProps.width}
+            // height={mediaProps.height}
             ownerState={{ layoutReverse }}
           >
             <Media

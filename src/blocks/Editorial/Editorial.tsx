@@ -1,6 +1,9 @@
 import { Media, MediaReveal } from '@noaignite/oui'
 import { Container, styled } from '@mui/material'
 import { Html } from '~/components'
+import { transformSanityMedia } from '~/api/sanity/utils'
+import { SanityHtml } from '~/containers'
+import { PortableTextBlock } from '@portabletext/types'
 
 const EditorialRoot = styled('section')(({ theme }) => ({
   position: 'relative',
@@ -49,26 +52,33 @@ const EditorialMediaReveal = styled(MediaReveal)<{ ownerState: { layoutReverse?:
 )
 
 type EditorialProps = {
-  children: React.ReactNode
-  text: string
+  text: PortableTextBlock[]
   mediaProps: any
   layoutReverse?: boolean
   enablePattern?: boolean
 }
 
 function Editorial(props: EditorialProps) {
-  const { text, mediaProps, layoutReverse, enablePattern } = props
+  const { text, mediaProps: sanityMediaProps, layoutReverse, enablePattern } = props
+
+  const mediaProps = transformSanityMedia(sanityMediaProps, {
+    img: {
+      dpr: 2,
+      width: 1280,
+      height: 720,
+    },
+  })
 
   return (
     <EditorialRoot>
       {enablePattern && <EditorialBackground />}
       <Container maxWidth="xl">
         <EditorialContainer>
-          <Html dangerouslySetInnerHTML={{ __html: text }} />
+          {text && <SanityHtml blocks={text} />}
           {mediaProps && (
             <EditorialMediaReveal
-              width={mediaProps.width}
-              height={mediaProps.height}
+              // width={mediaProps?.width}
+              // height={mediaProps?.height}
               ownerState={{ layoutReverse }}
             >
               <Media

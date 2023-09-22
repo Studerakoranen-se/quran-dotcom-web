@@ -3,6 +3,8 @@ import { Media, MediaReveal } from '@noaignite/oui'
 import { useI18n } from '~/contexts'
 import { Html } from '~/components'
 import { RouterLink } from '~/containers'
+import { CourseListBlockQueryResult } from '~/api/sanity'
+import { transformSanityMedia } from '~/api/sanity/utils'
 
 const CourseListRoot = styled('section')(({ theme }) => ({
   position: 'relative',
@@ -85,18 +87,7 @@ const CourseListItemContent = styled('div')(({ theme }) => ({
   },
 }))
 
-type CourseListProps = {
-  heading: string
-  text: string
-  entries: {
-    id: number
-    name: string
-    description: string
-    image: string
-  }[]
-}
-
-function CourseList(props: CourseListProps) {
+function CourseList(props: CourseListBlockQueryResult) {
   const { heading, text, entries } = props
 
   const { t } = useI18n()
@@ -123,35 +114,42 @@ function CourseList(props: CourseListProps) {
 
         {entries && entries?.length > 0 && (
           <CourseListItems>
-            {entries.map((entry: any, idx: number) => (
-              <CourseListItem key={idx}>
-                {entry?.image && (
-                  <MediaReveal>
-                    <Media src={`/uploads/${entry.image}`} />
-                  </MediaReveal>
-                )}
-                <CourseListItemContent>
-                  <Typography variant="h4" gutterBottom>
-                    {entry.name}
-                  </Typography>
-                  <Html
-                    sx={{ mb: 2 }}
-                    dangerouslySetInnerHTML={{
-                      __html: entry.description,
-                    }}
-                  />
-                  <Button
-                    component={RouterLink}
-                    href={`/course/${entry.id}`}
-                    variant="contained"
-                    size="medium"
-                    aria-label={t(__translationGroup)`Read more about "${entry.name}"`}
-                  >
-                    {t(__translationGroup)`Click here`}
-                  </Button>
-                </CourseListItemContent>
-              </CourseListItem>
-            ))}
+            {entries.map((entry, idx: number) => {
+              const { image: sanityMediaProps, title, description, uri } = entry
+
+              const image = transformSanityMedia(sanityMediaProps)
+
+              return (
+                <CourseListItem key={idx}>
+                  {image && (
+                    <MediaReveal>
+                      {/* @ts-ignore */}
+                      <Media src={image.src} />
+                    </MediaReveal>
+                  )}
+                  <CourseListItemContent>
+                    <Typography variant="h4" gutterBottom>
+                      {title}
+                    </Typography>
+                    <Html
+                      sx={{ mb: 2 }}
+                      dangerouslySetInnerHTML={{
+                        __html: description,
+                      }}
+                    />
+                    <Button
+                      component={RouterLink}
+                      href={uri}
+                      variant="contained"
+                      size="medium"
+                      aria-label={t(__translationGroup)`Read more about "${title}"`}
+                    >
+                      {t(__translationGroup)`Click here`}
+                    </Button>
+                  </CourseListItemContent>
+                </CourseListItem>
+              )
+            })}
           </CourseListItems>
         )}
       </CourseListRootMain>

@@ -2,6 +2,8 @@ import * as React from 'react'
 import { Media } from '@noaignite/oui'
 import { Typography, styled } from '@mui/material'
 import { Html } from '~/components'
+import { transformSanityMedia } from '~/api/sanity/utils'
+import { StepsBlockQueryResult } from '~/api/sanity'
 
 const BREAKPOINT_KEY = 'md'
 
@@ -163,14 +165,7 @@ const StepsItemContent = styled('div')(({ theme }) => ({
   },
 }))
 
-type StepsProps = {
-  heading: string
-  subheading: string
-  enablePattern: boolean
-  entries: any
-}
-
-function Steps(props: StepsProps) {
+function Steps(props: StepsBlockQueryResult) {
   const { enablePattern, heading, subheading, entries } = props
 
   return (
@@ -193,55 +188,60 @@ function Steps(props: StepsProps) {
             )}
           </StepsContent>
 
-          {entries?.map((entry, idx) => (
-            <React.Fragment>
-              <StepsItem
-                key={idx}
-                ownerState={{
-                  reverseDirection: entry.reverseDirection,
-                }}
-              >
-                <StepsItemIcon>
-                  <Media src={entry.icon} alt="" />
-                </StepsItemIcon>
-                <StepsItemContent>
-                  {entry.heading && (
-                    <Typography variant="h2" gutterBottom>
-                      {entry.heading}
-                    </Typography>
-                  )}
-                  {entry.text && <Typography variant="body1">{entry.text}</Typography>}
-                </StepsItemContent>
-              </StepsItem>
-              <StepsItemArrowIcon
-                sx={{
-                  ...(idx % 2 === 0
-                    ? {
-                        top: (theme) => theme.spacing(28),
-                        right: (theme) => theme.spacing(-10),
-                      }
-                    : {
-                        top: (theme) => theme.spacing(58),
-                        left: (theme) => theme.spacing(-10),
-                        transform: 'scaleX(-1)',
-                      }),
-                }}
-              >
-                <svg
-                  width="67"
-                  height="222"
-                  viewBox="0 0 67 222"
-                  fill="cuurentColor"
-                  xmlns="http://www.w3.org/2000/svg"
+          {entries?.map((entry, idx: number) => {
+            const { icon: sanityMediaProps, heading, text, reverseDirection } = entry
+
+            const icon = transformSanityMedia(sanityMediaProps)
+
+            return (
+              <React.Fragment>
+                <StepsItem
+                  key={idx}
+                  ownerState={{
+                    reverseDirection: reverseDirection,
+                  }}
                 >
-                  <path
-                    d="M-7.62939e-06 222L55.8333 222L55.8333 205.35L33.2208 205.35C43.8292 192.4 52.1111 177.922 58.0667 161.916C64.0222 145.917 67 128.945 67 111C67 80.29 59.8831 55.13 45.6493 35.52C31.4081 15.91 16.1917 4.07001 2.07453e-06 -2.92866e-06L1.31035e-06 17.4825C11.1667 21.7375 22.3333 31.7719 33.5 47.5857C44.6667 63.4069 50.25 84.545 50.25 111C50.25 127.835 47.2722 143.697 41.3167 158.586C35.3611 173.482 27.1722 186.85 16.75 198.69L16.75 166.5L-5.20341e-06 166.5L-7.62939e-06 222Z"
-                    fill="#0A5757"
-                  />
-                </svg>
-              </StepsItemArrowIcon>
-            </React.Fragment>
-          ))}
+                  {/* @ts-ignore */}
+                  <StepsItemIcon>{icon && <Media src={icon.src} alt="" />}</StepsItemIcon>
+                  <StepsItemContent>
+                    {heading && (
+                      <Typography variant="h2" gutterBottom>
+                        {heading}
+                      </Typography>
+                    )}
+                    {text && <Typography variant="body1">{text}</Typography>}
+                  </StepsItemContent>
+                </StepsItem>
+                <StepsItemArrowIcon
+                  sx={{
+                    ...(idx % 2 === 0
+                      ? {
+                          top: (theme) => theme.spacing(28),
+                          right: (theme) => theme.spacing(-10),
+                        }
+                      : {
+                          top: (theme) => theme.spacing(58),
+                          left: (theme) => theme.spacing(-10),
+                          transform: 'scaleX(-1)',
+                        }),
+                  }}
+                >
+                  <svg
+                    width="67"
+                    height="222"
+                    viewBox="0 0 67 222"
+                    fill="cuurentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M-7.62939e-06 222L55.8333 222L55.8333 205.35L33.2208 205.35C43.8292 192.4 52.1111 177.922 58.0667 161.916C64.0222 145.917 67 128.945 67 111C67 80.29 59.8831 55.13 45.6493 35.52C31.4081 15.91 16.1917 4.07001 2.07453e-06 -2.92866e-06L1.31035e-06 17.4825C11.1667 21.7375 22.3333 31.7719 33.5 47.5857C44.6667 63.4069 50.25 84.545 50.25 111C50.25 127.835 47.2722 143.697 41.3167 158.586C35.3611 173.482 27.1722 186.85 16.75 198.69L16.75 166.5L-5.20341e-06 166.5L-7.62939e-06 222Z"
+                      fill="#0A5757"
+                    />
+                  </svg>
+                </StepsItemArrowIcon>
+              </React.Fragment>
+            )
+          })}
         </StepsEntries>
         {/* <Html dangerouslySetInnerHTML={{ __html: text }} /> */}
       </StepsContainer>

@@ -232,7 +232,8 @@ function Form(props: FormProps) {
                 <FormFields>
                   {fields?.map((field, idx) => {
                     // @ts-ignore
-                    const { label, name, options, pattern, required, type, helperText } = field
+                    const { label, name, options, pattern, required, type, helperText, rows } =
+                      field
 
                     const sharedProps = {
                       key: idx,
@@ -311,10 +312,10 @@ function Form(props: FormProps) {
                         label={label}
                         required={required}
                         fullWidth
-                        {...(type === 'textarea'
+                        {...(type === 'textArea'
                           ? {
                               multiline: true,
-                              minRows: 5,
+                              minRows: rows || 5,
                             }
                           : { type })}
                         {...sharedProps}
@@ -344,7 +345,7 @@ function Form(props: FormProps) {
                   {/* [End] Fake fields so bots fills them and the form will not be submitted */}
                 </FormFields>
                 {/* @ts-ignore */}
-                <FormitButton variant="contained" type="submit" fullWidth>
+                <FormitButton variant="contained" color="primary" type="submit" fullWidth>
                   {submitLabel || t(__translationGroup)`Send`}
                 </FormitButton>
                 {showPrivacyPolicyDisclaimer && (

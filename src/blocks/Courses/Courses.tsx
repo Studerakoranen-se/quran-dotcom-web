@@ -2,6 +2,7 @@ import { Button, Typography, styled } from '@mui/material'
 import { Media, MediaReveal } from '@noaignite/oui'
 import { useI18n } from '~/contexts'
 import { RouterLink } from '~/containers'
+import { transformSanityMedia } from '~/api/sanity/utils'
 
 const BREAKPOINT_KEY = 'md'
 
@@ -68,44 +69,51 @@ function Courses(props: CoursesProps) {
   return (
     <CoursesRoot>
       <CoursesRootMain>
-        {entries?.map((entry, idx) => (
-          <CourseItem key={idx}>
-            {entry?.mediaProps && (
-              <MediaReveal width={entry.mediaProps.width} height={entry.mediaProps.height}>
-                <CourseMedia
-                  {...(entry.mediaProps?.component === 'video'
-                    ? {
-                        autoPlay: true,
-                        muted: true,
-                        loop: true,
-                        playsInline: true,
-                      }
-                    : { alt: '' })}
-                  {...entry.mediaProps}
-                />
-              </MediaReveal>
-            )}
+        {entries?.map((entry, idx) => {
+          const { mediaProps: sanityMediaProps, heading, text, ctaLabel, ctaUrl } = entry
 
-            {entry?.heading && <CoursesEntryHeading>{entry.heading}</CoursesEntryHeading>}
-            {entry?.text && <Typography variant="body2">{entry.text}</Typography>}
-            {entry?.ctaLabel && entry?.ctaUrl && (
-              <Button
-                component={RouterLink}
-                href={entry?.ctaUrl}
-                variant="contained"
-                // @ts-ignore
-                color="textInverted"
-                size="medium"
-                aria-label={t(__translationGroup)`Read more about "${entry.heading}"`}
-                sx={{
-                  mt: 3,
-                }}
-              >
-                {entry?.ctaLabel}
-              </Button>
-            )}
-          </CourseItem>
-        ))}
+          const mediaProps = transformSanityMedia(sanityMediaProps)
+
+          return (
+            <CourseItem key={idx}>
+              {mediaProps && (
+                //  @ts-ignore
+                <MediaReveal width={mediaProps?.width} height={mediaProps?.height}>
+                  <CourseMedia
+                    {...(mediaProps?.component === 'video'
+                      ? {
+                          autoPlay: true,
+                          muted: true,
+                          loop: true,
+                          playsInline: true,
+                        }
+                      : { alt: '' })}
+                    {...mediaProps}
+                  />
+                </MediaReveal>
+              )}
+
+              {heading && <CoursesEntryHeading>{heading}</CoursesEntryHeading>}
+              {text && <Typography variant="body2">{text}</Typography>}
+              {ctaLabel && ctaUrl && (
+                <Button
+                  component={RouterLink}
+                  href={ctaUrl}
+                  variant="contained"
+                  // @ts-ignore
+                  color="textInverted"
+                  size="medium"
+                  aria-label={t(__translationGroup)`Read more about "${heading}"`}
+                  sx={{
+                    mt: 3,
+                  }}
+                >
+                  {ctaLabel}
+                </Button>
+              )}
+            </CourseItem>
+          )
+        })}
       </CoursesRootMain>
     </CoursesRoot>
   )

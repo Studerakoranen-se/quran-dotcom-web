@@ -1,28 +1,7 @@
 // import pageQuery from './partials/pageQuery'
 // import feedQuery from './partials/feedQuery'
-// import caseQuery from './partials/caseQuery'
-// import serviceQuery from './partials/serviceQuery'
 
-// const PAGE_TYPE_QUERIES = {
-//   page: pageQuery,
-//   case: caseQuery,
-//   feed: feedQuery,
-//   service: serviceQuery,
-// }
-
-// export default `
-//   coalesce(
-//     *[_type in $documentTypes && slug.current == $slug && _id in path("drafts.**") && $preview][0],
-//     *[_type in $documentTypes && slug.current == $slug ][0],
-//     *[_type in $documentTypes && slug.current == $slug && _id in path("drafts.**") && $preview ][0],
-//     *[_type in $documentTypes && slug.current == $slug ][0],
-//   ) {
-//     ${Object.entries(PAGE_TYPE_QUERIES)
-//       .map(([documentType, documentQuery]) => `_type == '${documentType}' => {${documentQuery}}`)
-//       .join(',')}
-//   }
-// `
-
+import courseQuery from './partials/courseQuery'
 import pageQuery, { PageQueryResult } from './partials/pageQuery'
 
 export interface PageTypes {
@@ -33,7 +12,7 @@ export type PageTypeQueryResult<T extends keyof PageTypes> = PageTypes[T]
 
 const PAGE_TYPE_QUERIES = {
   page: pageQuery,
-  course: pageQuery,
+  course: courseQuery,
 }
 
 /* resolve published pages, drafts and localized pages in this order:
@@ -47,11 +26,11 @@ export default `
   coalesce(
     *[_type in $documentTypes && uri.current == $uri && _id in path("drafts.**") && $preview && __i18n_lang == $locale][0],
     *[_type in $documentTypes && uri.current == $uri && __i18n_lang == $locale][0],
-    // *[_type in $documentTypes && uri.current == $uri && _id in path("drafts.**") && $preview && __i18n_lang == $defaultLocale][0],
-    // *[_type in $documentTypes && uri.current == $uri && __i18n_lang == $defaultLocale][0],
+    *[_type in $documentTypes && uri.current == $uri && _id in path("drafts.**") && $preview && __i18n_lang == $defaultLocale][0],
+    *[_type in $documentTypes && uri.current == $uri && __i18n_lang == $defaultLocale][0],
   ) {
     ${Object.entries(PAGE_TYPE_QUERIES)
-    .map(([documentType, documentQuery]) => `_type == '${documentType}' => {${documentQuery}}`)
-    .join(',')}
+      .map(([documentType, documentQuery]) => `_type == '${documentType}' => {${documentQuery}}`)
+      .join(',')}
   }
 `
