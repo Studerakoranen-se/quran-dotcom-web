@@ -13,3 +13,6 @@ export * from './FormitTextField'
 
 export { default as ErrorBoundary } from './ErrorBoundary'
 export * from './ErrorBoundary'
+
+export { default as SanityHtml } from './SanityHtml'
+export * from './SanityHtml'
