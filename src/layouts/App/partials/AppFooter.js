@@ -76,7 +76,7 @@ const AppFooterNavList = styled('ul')(() => ({
   listStyleType: 'none',
 }))
 const AppFooterNavListItem = styled('li')(({ theme }) => ({
-  '&:not(:first-child)': {
+  '&:not(:first-of-type)': {
     marginTop: theme.spacing(1.3),
   },
 }))

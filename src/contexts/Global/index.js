@@ -32,6 +32,7 @@ function GlobalProvider(props) {
   const [isNavMenuOpen, setNavMenuOpen] = React.useState(false)
   const [isSearchMenuOpen, setSearchMenuOpen] = React.useState(false)
   const [isStoreMessageOpen, setStoreMessageOpen] = React.useState(!!storeMessage)
+  const [isFilterMenuOpen, setFilterMenuOpen] = React.useState(true)
 
   // Helpers
 
@@ -96,6 +97,18 @@ function GlobalProvider(props) {
     setStoreMessageOpen(false)
   }, [])
 
+  const onFilterMenuClose = React.useCallback(() => {
+    setFilterMenuOpen(false)
+  }, [])
+
+  const onFilterMenuOpen = React.useCallback(() => {
+    setFilterMenuOpen(true)
+  }, [])
+
+  const onFilterMenuToggle = React.useCallback(() => {
+    setFilterMenuOpen((prev) => !prev)
+  }, [])
+
   const stateContextValue = React.useMemo(
     () => ({
       isCookieBarOpen,
@@ -105,8 +118,16 @@ function GlobalProvider(props) {
       isStoreMessageOpen,
       // Computed props
       isSomeMenuOpen: isNavMenuOpen || isSearchMenuOpen,
+      isFilterMenuOpen,
     }),
-    [isCookieBarOpen, isLanguageMenuOpen, isNavMenuOpen, isSearchMenuOpen, isStoreMessageOpen],
+    [
+      isCookieBarOpen,
+      isFilterMenuOpen,
+      isLanguageMenuOpen,
+      isNavMenuOpen,
+      isSearchMenuOpen,
+      isStoreMessageOpen,
+    ],
   )
 
   const handlersContextValue = React.useMemo(
@@ -119,6 +140,9 @@ function GlobalProvider(props) {
       onSearchMenuClose,
       onSearchMenuToggle,
       onStoreMessageClose,
+      onFilterMenuClose,
+      onFilterMenuOpen,
+      onFilterMenuToggle,
     }),
     [
       onCookieBarClose,
@@ -129,6 +153,9 @@ function GlobalProvider(props) {
       onSearchMenuClose,
       onSearchMenuToggle,
       onStoreMessageClose,
+      onFilterMenuClose,
+      onFilterMenuOpen,
+      onFilterMenuToggle,
     ],
   )
 
