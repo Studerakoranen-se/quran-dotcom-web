@@ -16,7 +16,7 @@ export const HtmlRoot = styled('div')(({ theme }) => ({
   '& :is(blockquote, figure, img)': {
     margin: '2.8em auto',
   },
-  '& *:not(style):first-child': {
+  '& *:not(style):first-of-type': {
     marginTop: 0,
   },
   '& *:not(style):last-child': {
@@ -53,15 +53,22 @@ export const HtmlRoot = styled('div')(({ theme }) => ({
 }))
 
 interface HtmlProps {
+  children?: React.ReactNode
   component?: any
   sx?: SxProps<Theme>
-  dangerouslySetInnerHTML: {
+  dangerouslySetInnerHTML?: {
     __html: string
   }
 }
 
 const Html = React.forwardRef(function Html(props: HtmlProps, ref: any) {
-  return <HtmlRoot ref={ref} {...props} />
+  const { children, component: Component = HtmlRoot, ...other } = props
+
+  return (
+    <Component ref={ref} {...other}>
+      {children}
+    </Component>
+  )
 })
 
 export default Html
