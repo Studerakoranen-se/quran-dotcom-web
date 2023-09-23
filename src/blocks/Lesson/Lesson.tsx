@@ -419,7 +419,16 @@ function Lesson(props: LessonProps) {
                   iconPosition="start"
                   icon={
                     <Box width={30} height={30}>
-                      {activeLesson === idx && <PlayIcon fontSize="large" />}
+                      <PlayIcon
+                        fontSize="large"
+                        sx={{
+                          transition: (theme) =>
+                            theme.transitions.create(['all'], {
+                              duration: theme.transitions.duration.short, // Same as MuiButton.
+                            }),
+                          opacity: activeLesson === idx ? 1 : 0,
+                        }}
+                      />
                     </Box>
                   }
                   sx={{
