@@ -55,7 +55,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lateef:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap');
 
-@tailwind base;
+/* @tailwind base; */
 @tailwind components;
 @tailwind utilities;
 
@@ -119,17 +119,9 @@
     @apply scroll-smooth;
   }
 
-  body {
-    @apply bg-[#fafafa] font-nunito;
-  }
-
-  body.dark {
-    @apply bg-[#060818];
-  }
-
   /* Panel */
   .panel {
-    @apply relative rounded-md bg-white p-5 shadow dark:bg-black;
+    @apply relative p-5 bg-white rounded-md shadow dark:bg-black;
   }
   /* Navbar */
   .navbar-sticky header,
@@ -140,7 +132,7 @@
     @apply bg-[#fafafa]/90 px-6 pt-4 dark:bg-[#060818]/90;
   }
   .navbar-floating header > div .horizontal-menu {
-    @apply rounded-b-md shadow;
+    @apply shadow rounded-b-md;
   }
 
   /* Sidebar */
@@ -174,7 +166,7 @@
 
   .sidebar .nav-item a div:first-child svg,
   .sidebar .nav-item button div:first-child svg {
-    @apply h-5 w-5 text-black/50 dark:text-white/50;
+    @apply w-5 h-5 text-black/50 dark:text-white/50;
   }
 
   .main-container .main-content {
@@ -200,7 +192,7 @@
 
   .horizontal .nav-item a div:first-child svg,
   .horizontal .nav-item button div:first-child svg {
-    @apply h-5 w-5 text-black/50 dark:text-white/50;
+    @apply w-5 h-5 text-black/50 dark:text-white/50;
   }
 
   .horizontal .dark .nav-item a div:first-child svg,
@@ -224,7 +216,7 @@
 
   .horizontal-menu ul.sub-menu a,
   .horizontal-menu ul.sub-menu button {
-    @apply flex w-full items-center justify-between px-4 py-2 hover:bg-gray-100 hover:text-primary dark:hover:bg-primary/10;
+    @apply flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 hover:text-primary dark:hover:bg-primary/10;
   }
 
   .horizontal-menu ul.sub-menu a.active,
@@ -340,53 +332,53 @@
   }
 
   .btn-primary {
-    @apply border-primary bg-primary text-white shadow-primary/60;
+    @apply text-white border-primary bg-primary shadow-primary/60;
   }
   .btn-outline-primary {
-    @apply border-primary text-primary shadow-none hover:bg-primary hover:text-white;
+    @apply shadow-none border-primary text-primary hover:bg-primary hover:text-white;
   }
 
   .btn-secondary {
-    @apply border-secondary bg-secondary text-white shadow-secondary/60;
+    @apply text-white border-secondary bg-secondary shadow-secondary/60;
   }
   .btn-outline-secondary {
-    @apply border-secondary text-secondary shadow-none hover:bg-secondary hover:text-white;
+    @apply shadow-none border-secondary text-secondary hover:bg-secondary hover:text-white;
   }
 
   .btn-success {
-    @apply border-success bg-success text-white shadow-success/60;
+    @apply text-white border-success bg-success shadow-success/60;
   }
   .btn-outline-success {
-    @apply border-success text-success shadow-none hover:bg-success hover:text-white;
+    @apply shadow-none border-success text-success hover:bg-success hover:text-white;
   }
 
   .btn-danger {
-    @apply border-danger bg-danger text-white shadow-danger/60;
+    @apply text-white border-danger bg-danger shadow-danger/60;
   }
   .btn-outline-danger {
-    @apply border-danger text-danger shadow-none hover:bg-danger hover:text-white;
+    @apply shadow-none border-danger text-danger hover:bg-danger hover:text-white;
   }
 
   .btn-warning {
-    @apply border-warning bg-warning text-white shadow-warning/60;
+    @apply text-white border-warning bg-warning shadow-warning/60;
   }
   .btn-outline-warning {
-    @apply border-warning text-warning shadow-none hover:bg-warning hover:text-white;
+    @apply shadow-none border-warning text-warning hover:bg-warning hover:text-white;
   }
 
   .btn-info {
-    @apply border-info bg-info text-white shadow-info/60;
+    @apply text-white border-info bg-info shadow-info/60;
   }
   .btn-outline-info {
-    @apply border-info text-info shadow-none hover:bg-info hover:text-white;
+    @apply shadow-none border-info text-info hover:bg-info hover:text-white;
   }
 
   .btn-dark {
-    @apply border-dark bg-dark text-white shadow-dark/60;
+    @apply text-white border-dark bg-dark shadow-dark/60;
   }
 
   .btn-outline-dark {
-    @apply border-dark text-dark shadow-none hover:bg-dark hover:text-white;
+    @apply shadow-none border-dark text-dark hover:bg-dark hover:text-white;
   }
 
   /* Badge */
@@ -491,31 +483,31 @@
   }
 
   .form-checkbox.outline-primary:checked {
-    @apply border-primary bg-transparent;
+    @apply bg-transparent border-primary;
     background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%234361ee' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
   }
   .form-checkbox.outline-secondary:checked {
-    @apply border-secondary bg-transparent;
+    @apply bg-transparent border-secondary;
     background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23805dca' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
   }
   .form-checkbox.outline-success:checked {
-    @apply border-success bg-transparent;
+    @apply bg-transparent border-success;
     background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%2300ab55' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
   }
   .form-checkbox.outline-danger:checked {
-    @apply border-danger bg-transparent;
+    @apply bg-transparent border-danger;
     background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23e7515a' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
   }
   .form-checkbox.outline-warning:checked {
-    @apply border-warning bg-transparent;
+    @apply bg-transparent border-warning;
     background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%23e2a03f' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
   }
   .form-checkbox.outline-info:checked {
-    @apply border-info bg-transparent;
+    @apply bg-transparent border-info;
     background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%232196f3' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
   }
   .form-checkbox.outline-dark:checked {
-    @apply border-dark bg-transparent;
+    @apply bg-transparent border-dark;
     background-image: url("data:image/svg+xml,<svg viewBox='0 0 16 16' fill='%233b3f5c' xmlns='http://www.w3.org/2000/svg'><path d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/></svg>");
   }
 
@@ -524,25 +516,25 @@
   }
 
   .form-radio.outline-primary:checked {
-    @apply border-primary bg-transparent bg-none;
+    @apply bg-transparent border-primary bg-none;
   }
   .form-radio.outline-secondary:checked {
-    @apply border-secondary bg-transparent bg-none;
+    @apply bg-transparent border-secondary bg-none;
   }
   .form-radio.outline-success:checked {
-    @apply border-success bg-transparent bg-none;
+    @apply bg-transparent border-success bg-none;
   }
   .form-radio.outline-danger:checked {
-    @apply border-danger bg-transparent bg-none;
+    @apply bg-transparent border-danger bg-none;
   }
   .form-radio.outline-warning:checked {
-    @apply border-warning bg-transparent bg-none;
+    @apply bg-transparent border-warning bg-none;
   }
   .form-radio.outline-info:checked {
-    @apply border-info bg-transparent bg-none;
+    @apply bg-transparent border-info bg-none;
   }
   .form-radio.outline-dark:checked {
-    @apply border-dark bg-transparent bg-none;
+    @apply bg-transparent border-dark bg-none;
   }
 
   /* dropdown */
@@ -577,7 +569,7 @@
   table thead tr th,
   table tfoot tr th,
   table tbody tr td {
-    @apply py-3 px-4 ltr:text-left rtl:text-right;
+    @apply px-4 py-3 ltr:text-left rtl:text-right;
   }
   table thead tr th,
   table tfoot tr th {
@@ -638,11 +630,11 @@
 }
 .slide-down-enter-from,
 .slide-down-leave-to {
-  @apply scale-95 transform opacity-0;
+  @apply transform scale-95 opacity-0;
 }
 .slide-down-enter-to,
 .slide-down-leave-from {
-  @apply scale-100 transform opacity-100;
+  @apply transform scale-100 opacity-100;
 }
 
 .modal-fade-enter-active {
@@ -653,11 +645,11 @@
 }
 .modal-fade-enter-from,
 .modal-fade-leave-to {
-  @apply scale-95 transform opacity-0;
+  @apply transform scale-95 opacity-0;
 }
 .modal-fade-enter-to,
 .modal-fade-leave-from {
-  @apply scale-100 transform opacity-100;
+  @apply transform scale-100 opacity-100;
 }
 
 /* Hightlight JS */
