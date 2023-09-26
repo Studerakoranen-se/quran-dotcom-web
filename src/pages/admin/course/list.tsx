@@ -25,6 +25,7 @@ const AdminCourseList = () => {
   React.useEffect(() => {
     dispatch(setPageTitle('Course List'))
   })
+
   const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl'
 
   const [page, setPage] = React.useState(1)
@@ -59,6 +60,7 @@ const AdminCourseList = () => {
       })
     })
   }, [search, rowData])
+
   function getData() {
     fetch('/api/v1/course/list', {
       method: 'GET',
@@ -68,9 +70,10 @@ const AdminCourseList = () => {
       .then((result) => setRowData(result))
       .catch((error) => console.log('error', error))
   }
+
   React.useEffect(() => {
     getData()
-  }, [])
+  }, [getData])
 
   React.useEffect(() => {
     const data: RowData[] = sortBy(initialRecords, sortStatus.columnAccessor) as RowData[]
