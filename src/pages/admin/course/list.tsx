@@ -71,9 +71,9 @@ const AdminCourseList = () => {
       .catch((error) => console.log('error', error))
   }
 
-  React.useEffect(() => {
-    getData()
-  }, [getData])
+  // React.useEffect(() => {
+  //   getData()
+  // }, [getData])
 
   React.useEffect(() => {
     const data: RowData[] = sortBy(initialRecords, sortStatus.columnAccessor) as RowData[]
