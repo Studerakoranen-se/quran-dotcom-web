@@ -189,7 +189,7 @@ function Steps(props: StepsBlockQueryResult) {
           </StepsContent>
 
           {entries?.map((entry, idx: number) => {
-            const { icon: sanityMediaProps, heading, text, reverseDirection } = entry
+            const { icon: sanityMediaProps, heading: entryHeading, text, reverseDirection } = entry
 
             const icon = transformSanityMedia(sanityMediaProps)
 
@@ -198,15 +198,15 @@ function Steps(props: StepsBlockQueryResult) {
                 <StepsItem
                   key={idx}
                   ownerState={{
-                    reverseDirection: reverseDirection,
+                    reverseDirection,
                   }}
                 >
                   {/* @ts-ignore */}
                   <StepsItemIcon>{icon && <Media src={icon.src} alt="" />}</StepsItemIcon>
                   <StepsItemContent>
-                    {heading && (
+                    {entryHeading && (
                       <Typography variant="h2" gutterBottom>
-                        {heading}
+                        {entryHeading}
                       </Typography>
                     )}
                     {text && <Typography variant="body1">{text}</Typography>}

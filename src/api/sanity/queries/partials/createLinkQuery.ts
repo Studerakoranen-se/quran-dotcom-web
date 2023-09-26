@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type LinkQueryResult =
   | NonNullable<Sanity.ProductionWorkspace.Schema.Link>['url']
   | NonNullable<NonNullable<Sanity.ProductionWorkspace.Schema.Page>['uri']>['current']

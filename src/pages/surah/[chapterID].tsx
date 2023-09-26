@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { NextPage, GetStaticProps, GetStaticPaths } from 'next'
+import { GetStaticProps, GetStaticPaths } from 'next'
 import { SiteSettingsQueryResult } from '~/api/sanity'
-import {
-  // pages,
-  settings,
-} from '~/api/__mock__'
+// import {
+//   // pages,
+//   settings,
+// } from '~/api/__mock__'
 import * as blockPropGetters from '~/blocks/getBlockProps'
 import type { GetBlockPropsFunctions } from '~/blocks/getBlockProps'
 import QuranReader from '~/blocks/QuranReader'
@@ -13,9 +13,9 @@ import { Page } from '~/containers'
 import {
   ApiClient,
   createGetBlocksProps,
-  isValidChapterId,
+  // isValidChapterId,
   formatChapters,
-  formatJuzs,
+  // formatJuzs,
 } from '~/utils'
 
 type PageType = PageTypeQueryResult<'page'>
@@ -32,9 +32,10 @@ const getBlocksProps = createGetBlocksProps<{
   }>,
 )
 
-type ChapterProps = {}
+// type ChapterProps = {}
+// : NextPage<ChapterProps>
 
-const Chapter: NextPage<ChapterProps> = (props) => {
+const Chapter = (props: any) => {
   return (
     <Page {...props}>
       <QuranReader />
@@ -43,14 +44,19 @@ const Chapter: NextPage<ChapterProps> = (props) => {
 }
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const { params, locale, preview = false, defaultLocale } = ctx
+  const {
+    params,
+    locale,
+    // preview = false,
+    defaultLocale,
+  } = ctx
   // @ts-ignore
   const { chapterId, startAt } = params
 
-  let chapterIdOrVerseKeyOrSlug = String(chapterId)
-  let isChapter = isValidChapterId(chapterIdOrVerseKeyOrSlug)
+  const chapterIdOrVerseKeyOrSlug = String(chapterId)
+  // let isChapter = isValidChapterId(chapterIdOrVerseKeyOrSlug)
 
-  console.log({ chapterIdOrVerseKeyOrSlug, chapterId })
+  // console.log({ chapterIdOrVerseKeyOrSlug, chapterId })
 
   const apiClient = new ApiClient(process.env.QURAN_API_V3)
 

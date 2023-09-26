@@ -6,8 +6,8 @@ export default function createSvgIcon(
   displayName: string,
   viewBox?: string,
 ): typeof SvgIcon {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore internal component
+  // @typescript-eslint/ban-ts-comment
   const Component = (props, ref) => (
     <SvgIcon viewBox={viewBox} ref={ref} {...props}>
       {path}
@@ -18,7 +18,7 @@ export default function createSvgIcon(
     Component.displayName = `${displayName}Icon`
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @typescript-eslint/ban-ts-comment
   // @ts-ignore internal component
   return React.memo(React.forwardRef(Component))
 }

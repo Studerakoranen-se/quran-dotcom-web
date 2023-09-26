@@ -1,9 +1,9 @@
 import { Media, MediaReveal } from '@noaignite/oui'
 import { Button, styled } from '@mui/material'
+import { PortableTextBlock } from '@portabletext/types'
 import { useI18n } from '~/contexts'
 import { RouterLink, SanityHtml } from '~/containers'
 import { transformSanityMedia } from '~/api/sanity/utils'
-import { PortableTextBlock } from '@portabletext/types'
 
 const CourseHeroRoot = styled('section')<{
   ownerState: { largeMedia?: boolean }

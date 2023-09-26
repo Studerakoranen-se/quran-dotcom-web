@@ -1,14 +1,12 @@
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
-import { useI18n } from '~/contexts'
 import { Box, Tab, Tabs, Typography } from '@mui/material'
+// import { useI18n } from '~/contexts'
 import { RouterLink } from '~/containers'
 import { SCROLL_TO_NEAREST_ELEMENT, useScrollToElement } from '~/hooks/useScrollToElement'
 import { getSurahNavigationUrl } from '~/utils'
 
-const BREAKPOINT_KEY = 'sm'
-
-const QuranReaderDrawerRoot = styled('div')(({ theme }) => ({
+const QuranReaderDrawerRoot = styled('div')(() => ({
   width: '100%',
 }))
 
@@ -61,7 +59,7 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 type QuranReaderDrawerProps = {
-  chapterId: number
+  chapterId?: number
   chapters: Chapter[]
   juzs: {
     id?: number
@@ -75,7 +73,7 @@ type QuranReaderDrawerProps = {
 const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranReaderDrawerProps) {
   const { chapterId, chapters, juzs } = props
 
-  const { t } = useI18n()
+  // const { t } = useI18n()
 
   const [scrollTo, selectedChapterRef] =
     useScrollToElement<HTMLDivElement>(SCROLL_TO_NEAREST_ELEMENT)

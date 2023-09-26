@@ -1,16 +1,16 @@
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
-import axios from 'axios'
+// import axios from 'axios'
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 import ReactAudioPlayer from 'react-audio-player'
 import { Box, Button, Collapse, IconButton, Typography, styled } from '@mui/material'
 import { IoMdPlay } from 'react-icons/io'
 import { IoChatbubble } from 'react-icons/io5'
 import { BsBookHalf, BsThreeDots, BsPlayFill, BsFillPauseFill, BsGear } from 'react-icons/bs'
-import QuranReaderDrawer from './partials/QuranReaderDrawer'
 import { addToHistory, updateVerseCount } from '~/store/historySlice'
 import { useGlobalHandlers, useGlobalState } from '~/contexts'
 import { FilterIcon } from '~/components'
+import QuranReaderDrawer from './partials/QuranReaderDrawer'
 import QuranWord from './partials/QuranWord'
 
 const BREAKPOINT_KEY = 'md'
@@ -121,9 +121,17 @@ const QuranReaderVerseItemWords = styled('div')(() => ({
   gap: '0.5rem',
 }))
 
-// type QuranReaderProps = {}
+type QuranReaderProps = {
+  chapterId?: number
+  chapter?: any
+  startAt?: number
+  locale?: string
+  verses?: any[]
+  chapters?: any[]
+  juzs?: any[]
+}
 
-function QuranReader(props) {
+function QuranReader(props: QuranReaderProps) {
   const { chapter, chapterId, startAt, locale, verses, chapters = [], juzs = [] } = props
 
   const dispatch = useDispatch()
@@ -149,17 +157,16 @@ function QuranReader(props) {
     setAudioPlaying(false)
   }
 
-  const handleTafsir = (verseID: number) => {
-    axios
-      .get(
-        `https://api.quran.com/api/v3/chapters/${chapterId}/verses/${verseID}/tafsirs?language=${locale}`,
-      )
-      .then(({ data }) => {
-        // setChapterInfo(data.chapter);
-
-        console.log(data)
-      })
-  }
+  // const handleTafsir = (verseID: number) => {
+  //   axios
+  //     .get(
+  //       `https://api.quran.com/api/v3/chapters/${chapterId}/verses/${verseID}/tafsirs?language=${locale}`,
+  //     )
+  //     .then(({ data }) => {
+  //       // setChapterInfo(data.chapter);
+  //       console.log(data)
+  //     })
+  // }
 
   const handleHighlightText = (id: any, segment: any) => {
     const verseElement = document.querySelector(`#${id}`)
@@ -168,7 +175,7 @@ function QuranReader(props) {
     const words = Array.from(verseElement.querySelectorAll('button'))
 
     let segmentIndex = 0
-    let lastSegmentTime = 0
+    // let lastSegmentTime = 0
 
     const audioElement = audio.audioEl.current
 
@@ -212,15 +219,15 @@ function QuranReader(props) {
   }
 
   const handleAudioEnded = () => {
-    const audios = verses.map((verse: any) => verse.audio)
+    const audios = verses?.map((verse: any) => verse.audio)
 
     // const currentIndex = audios.indexOf(currentAudio)
-    if (currentVerse === audios.length - 1) {
+    if (currentVerse === (audios && audios?.length - 1)) {
       setCurrentAudio('')
       setCurrentVerse(0)
     } else {
-      setCurrentAudio(`https://audio.qurancdn.com/${audios[currentVerse].url}`)
-      handleHighlightText(`v${currentVerse + 1}`, audios[currentVerse].segments)
+      setCurrentAudio(`https://audio.qurancdn.com/${audios?.[currentVerse].url}`)
+      handleHighlightText(`v${currentVerse + 1}`, audios?.[currentVerse].segments)
       setCurrentVerse(currentVerse + 1)
     }
   }
@@ -229,7 +236,7 @@ function QuranReader(props) {
     if (chapterId) {
       dispatch(addToHistory(chapter))
     }
-  }, [chapterId, dispatch, locale])
+  }, [chapterId, dispatch, locale, chapter])
 
   React.useEffect(() => {
     // Get the element by its ID
@@ -341,7 +348,7 @@ function QuranReader(props) {
           <IconButton
             aria-label={`Filtrele menüyu kapat`}
             size="small"
-            onClick={() => handleTafsir(verse.verse_number)}
+            // onClick={() => handleTafsir(verse.verse_number)}
           >
             <BsBookHalf />
           </IconButton>
@@ -430,7 +437,7 @@ function QuranReader(props) {
                     color="textInverted"
                     size="medium"
                     onClick={() => {
-                      setCurrentAudio(`https://audio.qurancdn.com/${verses[0].audio.url}`)
+                      setCurrentAudio(`https://audio.qurancdn.com/${verses?.[0].audio.url}`)
                       setCurrentVerse(1)
                       audio.audioEl.current.play()
                     }}

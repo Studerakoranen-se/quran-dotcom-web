@@ -14,6 +14,7 @@ export default function createGetBlocksProps<T>(blockPropGetters: GetBlockPropsF
 
     let blocksWithData = blocks as Block[]
     if (blocksPromises) {
+      // @ts-ignore
       blocksWithData = await Promise.all(blocksPromises)
     }
 

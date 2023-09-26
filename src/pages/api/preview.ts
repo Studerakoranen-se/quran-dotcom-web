@@ -1,32 +1,32 @@
 // https://www.sanity.io/guides/nextjs-live-preview
 import type { NextApiRequest, NextApiResponse } from 'next'
 import groq from 'groq'
-import { createClient } from 'next-sanity'
-import getSecret, { SECRET_ID } from '~/utils/getSecret'
+// import { createClient } from 'next-sanity'
+// import getSecret, { SECRET_ID } from '~/utils/getSecret'
 import { previewClient } from '~/api/sanity'
 import { i18n } from '../../../locales'
 
-const sanityClient = createClient({
-  apiVersion: process.env.SANITY_API_VERSION as string,
-  dataset: process.env.SANITY_DATASET as string,
-  projectId: process.env.SANITY_PROJECT_ID as string,
-})
+// const sanityClient = createClient({
+//   apiVersion: process.env.SANITY_API_VERSION as string,
+//   dataset: process.env.SANITY_DATASET as string,
+//   projectId: process.env.SANITY_PROJECT_ID as string,
+// })
 
-function redirectToPreview(
-  res: NextApiResponse<string | void>,
-  previewData: { token?: string },
-  Location: string,
-): void {
-  // Enable Preview Mode by setting the cookies
-  res.setPreviewData(previewData)
-  // Redirect to a preview capable route
-  // FIXME: https://github.com/sanity-io/nextjs-blog-cms-sanity-v3/issues/95
-  // res.writeHead(307, { Location })
-  res.writeHead(307, {
-    Location,
-  })
-  res.end()
-}
+// function redirectToPreview(
+//   res: NextApiResponse<string | void>,
+//   previewData: { token?: string },
+//   Location: string,
+// ): void {
+//   // Enable Preview Mode by setting the cookies
+//   res.setPreviewData(previewData)
+//   // Redirect to a preview capable route
+//   // FIXME: https://github.com/sanity-io/nextjs-blog-cms-sanity-v3/issues/95
+//   // res.writeHead(307, { Location })
+//   res.writeHead(307, {
+//     Location,
+//   })
+//   res.end()
+// }
 
 export default async function preview(req: NextApiRequest, res: NextApiResponse<string | void>) {
   const { query } = req
@@ -70,14 +70,14 @@ export default async function preview(req: NextApiRequest, res: NextApiResponse<
   // }
 
   // const client = sanityClient.withConfig({ useCdn: false, token })
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @typescript-eslint/ban-ts-comment
   // @ts-ignore
   // const validSecret = await getSecret(client, SECRET_ID)
 
   // if (validSecret !== query.secret) {
   //   return res.status(401).send('Invalid secret')
   // }
-  // eslint-disable-next-line no-console
+
   // console.log({ validSlug, uri: query.uri })
 
   // Enable Preview Mode by setting the cookies

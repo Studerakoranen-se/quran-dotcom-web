@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 // TODO: This function could be refactored to use Set and Map instead of arrays and objects. That way there is no need to filter out duplicates
 import muiBreakpoints from '~/components/styles/breakpoints'

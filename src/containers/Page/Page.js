@@ -1,7 +1,7 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
-import { SITE_NAME } from '~/utils/constants'
+// import { SITE_NAME } from '~/utils/constants'
 import * as blockVariants from '~/blocks'
 import { createRenderBlock } from '~/utils'
 import { MetaData } from '~/components'
@@ -17,7 +17,17 @@ const makeUrl = (locale, uri) => {
 }
 
 function Page(props) {
-  const { blocks, children, uri, title, fallbackSeo, seo, siteTitle, locale, defaultLocale } = props
+  const {
+    blocks,
+    // children,
+    uri,
+    title,
+    fallbackSeo,
+    seo,
+    siteTitle,
+    locale,
+    defaultLocale,
+  } = props
 
   const url = makeUrl(locale || defaultLocale, uri)
 
@@ -47,8 +57,15 @@ function Page(props) {
 }
 
 Page.propTypes = {
-  children: PropTypes.node,
+  // children: PropTypes.node,
   blocks: PropTypes.array,
+  uri: PropTypes.string,
+  title: PropTypes.string,
+  fallbackSeo: PropTypes.object,
+  seo: PropTypes.object,
+  siteTitle: PropTypes.string,
+  locale: PropTypes.string,
+  defaultLocale: PropTypes.string,
 }
 
 export default Page

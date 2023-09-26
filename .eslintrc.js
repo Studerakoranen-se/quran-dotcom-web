@@ -19,5 +19,6 @@ module.exports = {
     'no-plusplus': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'import/no-cycle': 'off',
+    'no-unsafe-optional-chaining': 'off',
   },
 }

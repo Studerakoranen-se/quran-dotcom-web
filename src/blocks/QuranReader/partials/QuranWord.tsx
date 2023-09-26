@@ -1,3 +1,4 @@
+import * as React from 'react'
 import {
   ButtonBase,
   Tooltip,
@@ -7,17 +8,7 @@ import {
   TooltipProps,
 } from '@mui/material'
 import { ChapterNumberIcon } from '~/components'
-import { makeWordLocation } from '~/utils'
-
-const QuranWordRoot = styled('section')(() => ({
-  position: 'relative',
-}))
-
-const QuranWordRootMain = styled('div')(({ theme }) => ({
-  ...theme.mixins.contain('lg'),
-  marginBlockStart: theme.spacing(3),
-  marginBlockEnd: theme.spacing(3),
-}))
+// import { makeWordLocation } from '~/utils'
 
 const QuranReaderIconContainer = styled('div')(() => ({
   position: 'relative',
@@ -61,14 +52,19 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   },
 }))
 
-// type QuranWordProps = {}
+type QuranWordProps = {
+  word: any
+  setCurrentVerse: any
+  setCurrentAudio: any
+  audio: any
+}
 
-function QuranWord(props) {
+function QuranWord(props: QuranWordProps) {
   const { word, setCurrentVerse, setCurrentAudio, audio } = props
 
   // creating wordLocation instead of using `word.location` because
   // the value of `word.location` is `1:3:5-7`, but we want `1:3:5`
-  const wordLocation = makeWordLocation(word.verse_key, word.position)
+  // const wordLocation = makeWordLocation(word.verse_key, word.position)
   // console.log({ wordLocation })
   // // Determine if the audio player is currently playing the word
   // const isAudioPlayingWord = useXstateSelector(audioService, (state) => {
@@ -104,7 +100,7 @@ function QuranWord(props) {
   return (
     <HtmlTooltip
       title={
-        <>
+        <React.Fragment>
           {/* <Typography variant="body2" sx={{ mb: 0.5 }}>
   {word.translation.text}
 </Typography> */}
@@ -116,7 +112,7 @@ function QuranWord(props) {
           >
             {word.transliteration.text}
           </Typography>
-        </>
+        </React.Fragment>
       }
     >
       <QuranWordItem

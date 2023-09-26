@@ -1,9 +1,8 @@
 import { Media, MediaReveal } from '@noaignite/oui'
 import { Container, styled } from '@mui/material'
-import { Html } from '~/components'
+import { PortableTextBlock } from '@portabletext/types'
 import { transformSanityMedia } from '~/api/sanity/utils'
 import { SanityHtml } from '~/containers'
-import { PortableTextBlock } from '@portabletext/types'
 
 const EditorialRoot = styled('section')(({ theme }) => ({
   position: 'relative',

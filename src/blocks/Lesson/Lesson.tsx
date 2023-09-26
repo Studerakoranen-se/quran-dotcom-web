@@ -121,7 +121,7 @@ interface LessonProps extends LessonBlockQueryResult {
 
 function Lesson(props: LessonProps) {
   const { title, description, lessons, renderIndex = 0 } = props
-  console.log(`props`, props)
+
   const { t } = useI18n()
 
   const [status, setStatus] = React.useState('')
@@ -245,7 +245,7 @@ function Lesson(props: LessonProps) {
             </Box>
 
             {lessons?.length > 0 && (
-              <>
+              <React.Fragment>
                 <CustomTabPanel value={view} index={0}>
                   <Html
                     sx={{
@@ -347,11 +347,7 @@ function Lesson(props: LessonProps) {
                                           }}
                                         />
                                       }
-                                      label={
-                                        <>
-                                          <SanityHtml blocks={option.answer} />
-                                        </>
-                                      }
+                                      label={<SanityHtml blocks={option.answer} />}
                                       value={option.answer[0]?.children[0]?.text}
                                       sx={(theme) => ({
                                         '.MuiFormControlLabel-label': {
@@ -378,7 +374,7 @@ function Lesson(props: LessonProps) {
                     )}
                   </Box>
                 </CustomTabPanel>
-              </>
+              </React.Fragment>
             )}
           </CourseLeftItem>
 

@@ -1,5 +1,5 @@
 import { db } from '~/database'
-import { deleteFile } from '~/utils'
+import { deleteFile } from '../../helpers/fileUpload'
 
 interface LessonFileInterface {
   lesson_id?: string

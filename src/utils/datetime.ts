@@ -118,7 +118,7 @@ export const secondsFormatter = (seconds: number, locale: string) => {
  * @param {string} locale locale
  * @returns {string}
  */
-// eslint-disable-next-line react-func/max-lines-per-function
+
 export const secondsToReadableFormat = (s: number, t: any, locale: string): string => {
   const results: string[] = []
 
@@ -177,6 +177,14 @@ export const milliSecondsToSeconds = (milliSeconds: number): number => milliSeco
 export const secondsToMilliSeconds = (seconds: number): number => seconds * 1000
 
 /**
+ * Parse a date string.
+ *
+ * @param {string} date
+ * @returns {number}
+ */
+export const parseDate = (date: string): number => Date.parse(date)
+
+/**
  * Get the earliest date of a groups of date string.
  *
  * @param {string[]} dates
@@ -184,14 +192,6 @@ export const secondsToMilliSeconds = (seconds: number): number => seconds * 1000
  */
 export const getEarliestDate = (dates: string[]): number =>
   dates.map((dateString) => parseDate(dateString)).sort((a, b) => a - b)[0]
-
-/**
- * Parse a date string.
- *
- * @param {string} date
- * @returns {number}
- */
-export const parseDate = (date: string): number => Date.parse(date)
 
 /**
  * Format date to a string
@@ -265,6 +265,16 @@ export const getCurrentMonth = () => new Date().getMonth() + 1
 export const getCurrentDay = () => new Date().getDate()
 
 /**
+ * Convert a number into a padded string with 0. E.g. 1 -> 01
+ *
+ * @param {number} number
+ * @returns {string}
+ */
+export const numberToPaddedString = (number: number): string => {
+  return number.toString().padStart(2, '0')
+}
+
+/**
  * Converts a date instance to a string in this format: YYYY-MM-DD
  *
  * @param {Date} date
@@ -328,16 +338,6 @@ export const dateToReadableFormat = (
     timeZone: 'UTC',
     ...options,
   })
-}
-
-/**
- * Convert a number into a padded string with 0. E.g. 1 -> 01
- *
- * @param {number} number
- * @returns {string}
- */
-export const numberToPaddedString = (number: number): string => {
-  return number.toString().padStart(2, '0')
 }
 
 type DateRange = { from: string; to: string }

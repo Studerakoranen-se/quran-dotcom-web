@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import type { SanityClient } from '@sanity/client'
 
 // updated within the hour, if it's older it'll create a new secret or return null

@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { PortableText } from '@portabletext/react'
-import { Typography, Button } from '@mui/material'
-import { Html } from '~/components'
 import { PortableTextBlock } from '@portabletext/types'
+import { Html } from '~/components'
 
 const serializers = {
   // types: {
