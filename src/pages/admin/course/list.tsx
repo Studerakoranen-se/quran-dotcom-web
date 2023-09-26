@@ -1,5 +1,4 @@
 // @ts-nocheck
-/* eslint-disable no-console */
 import * as React from 'react'
 import { DataTable } from 'mantine-datatable'
 import sortBy from 'lodash/sortBy'
@@ -19,7 +18,7 @@ type RowData = {
 }
 
 const AdminCourseList = () => {
-  const [rowData, setRowData] = React.React.useState<RowData[]>([])
+  const [rowData, setRowData] = React.useState<RowData[]>([])
   const dispatch = useDispatch()
 
   React.useEffect(() => {
