@@ -20,5 +20,6 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     'import/no-cycle': 'off',
     'no-unsafe-optional-chaining': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
   },
 }
