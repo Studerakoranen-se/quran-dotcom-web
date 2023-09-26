@@ -6,7 +6,7 @@ import { AppBar, IconButton, Button } from '@mui/material'
 import { SITE_HEADER_ID } from '~/utils/constants'
 import { useGlobalState, useGlobalHandlers, useI18n, useRemoteConfig } from '~/contexts'
 import { RouterLink } from '~/containers'
-import { BrandIcon, CloseIcon, MenuIcon, OnlineIcon } from '~/components'
+import { BrandIcon, CloseIcon, MenuIcon } from '~/components'
 import AppNavDropDown from './AppNavDropDown'
 import AppStoreMessage from './AppStoreMessage'
 
@@ -212,11 +212,11 @@ const AppHeader = React.memo(function AppHeader(props) {
         <AppHeaderSupportButton
           onClick={onSupportDialogOpen}
           size="medium"
-          startIcon={
-            isSupportChatOnline && (
-              <OnlineIcon style={{ width: 20, height: 20, margin: '-10px 0' }} />
-            )
-          }
+          // startIcon={
+          //   isSupportChatOnline && (
+          //     <OnlineIcon style={{ width: 20, height: 20, margin: '-10px 0' }} />
+          //   )
+          // }
           variant="contained"
           color="textInverted"
         >

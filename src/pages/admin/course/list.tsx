@@ -19,7 +19,7 @@ type RowData = {
 }
 
 const AdminCourseList = () => {
-  const [rowData, setRowData] = useState<RowData[]>([])
+  const [rowData, setRowData] = React.React.useState<RowData[]>([])
   const dispatch = useDispatch()
 
   React.useEffect(() => {
@@ -27,14 +27,14 @@ const AdminCourseList = () => {
   })
   const isRtl = useSelector((state: IRootState) => state.themeConfig.rtlClass) === 'rtl'
 
-  const [page, setPage] = useState(1)
+  const [page, setPage] = React.useState(1)
   const PAGE_SIZES = [10, 20, 30, 50, 100]
-  const [pageSize, setPageSize] = useState(PAGE_SIZES[1])
-  const [initialRecords, setInitialRecords] = useState<RowData[]>(sortBy(rowData, 'id'))
-  const [recordsData, setRecordsData] = useState(initialRecords)
+  const [pageSize, setPageSize] = React.useState(PAGE_SIZES[1])
+  const [initialRecords, setInitialRecords] = React.useState<RowData[]>(sortBy(rowData, 'id'))
+  const [recordsData, setRecordsData] = React.useState(initialRecords)
 
-  const [search, setSearch] = useState('')
-  const [sortStatus, setSortStatus] = useState({
+  const [search, setSearch] = React.useState('')
+  const [sortStatus, setSortStatus] = React.useState({
     columnAccessor: 'id',
     direction: 'asc',
   })
