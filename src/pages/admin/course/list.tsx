@@ -67,7 +67,6 @@ const AdminCourseList = () => {
     })
       .then((response) => response.json())
       .then((result) => setRowData(result))
-      .catch((error) => console.log('error', error))
   }
 
   // React.useEffect(() => {
