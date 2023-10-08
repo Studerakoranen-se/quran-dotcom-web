@@ -42,7 +42,7 @@ const RouterLink = React.forwardRef<HTMLAnchorElement, React.PropsWithChildren<R
         passHref
         className={className}
         // {...(shouldPassHref && { shouldPassHref })}
-        // {...(shouldPrefetch === false && { prefetch: false })}
+        {...(shouldPrefetch === false && { prefetch: false })}
         // {...other}
       >
         {children}
