@@ -9,13 +9,13 @@ import { RouterLink } from '~/containers'
 
 const BREAKPOINT_KEY_1 = 'lg'
 
-const classes = generateUtilityClasses('CiaAppNavDropDownRoot', [
+const classes = generateUtilityClasses('CiaAppMenuDropDownListItemRoot', [
   'hasSubmenuOpenWithin',
   'hadSubmenuOpenWithin',
   'hasSubmenu',
 ])
 
-const AppNavDropDownRoot = styled('li')(({ theme }) => ({
+const AppMenuDropDownListItemRoot = styled('li')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   color: theme.palette.common.white,
@@ -29,10 +29,15 @@ const AppNavDropDownRoot = styled('li')(({ theme }) => ({
   '&:hover, &:focus-within, &.Cia-selected': {
     backgroundColor: theme.palette.common.white,
     color: theme.palette.primary.main,
+
+    div: {
+      opacity: '1 !important',
+      visibility: 'visible !important',
+    },
   },
 }))
 
-const AppNavDropDownLink = styled('a')(({ theme }) => ({
+const AppMenuDropDownListItemLink = styled('a')(({ theme }) => ({
   transition: theme.transitions.create(['padding', 'background-color', 'color'], {
     duration: theme.transitions.duration.short, // Match MuiButton duration.
   }),
@@ -41,24 +46,36 @@ const AppNavDropDownLink = styled('a')(({ theme }) => ({
   whiteSpace: 'nowrap',
 }))
 
-const AppNavDropDownPrimary = styled(AppNavDropDownLink)(({ theme }) => ({
+const AppMenuDropDownListItemPrimary = styled(AppMenuDropDownListItemLink)(({ theme }) => ({
   ...theme.typography.body1,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: theme.spacing(1, 2),
-  minHeight: 'var(--cia-header-toolbar-primary-height, 0px)',
+  padding: '10px 18px 10px 16px',
+  // minHeight: 'var(--cia-header-toolbar-primary-height, 0px)',
 }))
 
-const AppNavDropDownPaper = styled('div')(({ theme }) => ({
-  ...theme.mixins.fixed('var(--cia-header-height, 0px)', 0, undefined),
+const AppMenuDropDownListItemSecondary = styled(AppMenuDropDownListItemLink)(({ theme }) => ({
+  ...theme.typography.body1,
+  '--_spacing': theme.spacing(1.5),
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  padding: 'var(--_spacing) 0',
+  borderBottom: `1px solid ${theme.palette.inverted.divider}`,
+  '&:hover, &:focus': {
+    paddingLeft: 'var(--_spacing)',
+  },
+}))
+
+const AppMenuDropDownListItemPaper = styled('div')(({ theme }) => ({
+  ...theme.mixins.absolute(undefined, undefined, undefined),
   zIndex: theme.zIndex.appBar,
-  display: 'grid',
-  gridGap: 'var(--cia-container-spacing)',
+  display: 'flex',
   opacity: 0,
   visibility: 'hidden',
-  overflow: 'hidden',
-  padding: 'var(--cia-section-spacing) var(--cia-container-spacing)',
+  // overflow: 'hidden',
+  padding: theme.spacing(1, 2),
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,
   transition: theme.transitions.create(['opacity', 'visibility'], {
@@ -68,25 +85,17 @@ const AppNavDropDownPaper = styled('div')(({ theme }) => ({
   [`.${classes.hasSubmenuOpenWithin}.${classes.hadSubmenuOpenWithin} &`]: {
     transition: 'none',
   },
-  [`${AppNavDropDownRoot}:hover &, ${AppNavDropDownRoot}:focus-within &`]: {
-    opacity: 1,
-    visibility: 'visible',
-  },
-  [theme.breakpoints.up(BREAKPOINT_KEY_1)]: {
-    gridTemplateColumns: '1fr clamp(350px, 33vw, 700px)',
-  },
   // Debug code which forces first menuItem to be open.
-  // [`${AppNavDropDownRoot}:first-child &`]: {
+  // [`${AppMenuDropDownListItemRoot}:first-child &`]: {
   //   opacity: 1,
   //   visibility: 'visible',
   // },
 }))
 
-const AppNavDropDownList = styled('ul')({
+const AppNavDropDownList = styled('ul')(({ theme }) => ({
   display: 'grid',
-  gridGap: 'var(--cia-container-spacing)',
   gridTemplateColumns: 'repeat(auto-fit, 290px)',
-})
+}))
 
 function AppNavDropDown(props) {
   const { menuItem } = props
@@ -122,43 +131,43 @@ function AppNavDropDown(props) {
   }
 
   const hasSubMenu = menuItem.menuItems?.length > 0
-  // const hasSubSubMenu = menuItem.menuItems?.some((x) => x.menuItems?.length > 0)
+  const hasSubSubMenu = menuItem.menuItems?.some((x) => x.menuItems?.length > 0)
 
   return (
-    <AppNavDropDownRoot
+    <AppMenuDropDownListItemRoot
       key={router?.asPath}
       className={hasSubMenu ? classes.hasSubmenu : ''}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       ref={rootRef}
     >
-      <AppNavDropDownPrimary
+      <AppMenuDropDownListItemPrimary
         as={RouterLink}
         href={menuItem.url}
         {...(hasSubMenu && {
           as: ButtonBase,
-          href: undefined,
+          href: menuItem.url,
         })}
       >
         {menuItem.label}
-      </AppNavDropDownPrimary>
+      </AppMenuDropDownListItemPrimary>
 
       {hasSubMenu && (
-        <AppNavDropDownPaper onTransitionEnd={handleSubmenuTransitionEnd}>
+        <AppMenuDropDownListItemPaper onTransitionEnd={handleSubmenuTransitionEnd}>
           <AppNavDropDownList>
             {(hasSubMenu ? menuItem.menuItems : [false])?.map((item, idx) => (
               <li key={idx}>
                 {item && (
-                  <Typography variant="h5" paragraph>
+                  <AppMenuDropDownListItemSecondary as={RouterLink} href={item.url}>
                     {item.label}
-                  </Typography>
+                  </AppMenuDropDownListItemSecondary>
                 )}
               </li>
             ))}
           </AppNavDropDownList>
-        </AppNavDropDownPaper>
+        </AppMenuDropDownListItemPaper>
       )}
-    </AppNavDropDownRoot>
+    </AppMenuDropDownListItemRoot>
   )
 }
 

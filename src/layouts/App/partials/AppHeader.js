@@ -9,6 +9,7 @@ import { RouterLink } from '~/containers'
 import { BrandIcon, CloseIcon, MenuIcon } from '~/components'
 import AppNavDropDown from './AppNavDropDown'
 import AppStoreMessage from './AppStoreMessage'
+import { useRouter } from 'next/router'
 
 const BREAKPOINT_KEY = 'md'
 
@@ -49,26 +50,26 @@ const AppHeaderToolbar = styled('div')(({ theme }) => ({
 
 const AppHeaderBrandLink = styled(RouterLink)(({ theme, ownerState }) => ({
   color: 'white',
-  marginTop: 132,
+  // marginTop: 132,
   '& > svg': {
     display: 'block',
     // width: 33.4,
-    transformOrigin: 'center top',
-    transform: 'translate3d(0, calc(-50% + 2px), 0) scale(0.5)',
+    transformOrigin: 'center center',
+    transform: 'translate3d(0, 1%, 0) scale(0.8)',
     transition: theme.transitions.create(['transform'], {
       duration: theme.transitions.duration.complex,
       easing: theme.transitions.easing.easeOut,
     }),
     color: 'white',
     ...(ownerState.expandedLogo && {
-      transform: 'translate3d(0, calc(-50% + 8px), 0) scale(1.2)',
+      transform: 'translate3d(0, calc(5% + 8px), 0) scale(1.2)',
     }),
     '& > svg': {
       display: 'block',
       // fontSize: 'calc(var(--cia-toolbar-min-height) * 4)',
     },
     [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-      transform: 'translate3d(0, -65%, 0) scale(0.8)',
+      // transform: 'translate3d(0, -65%, 0) scale(0.8)',
     },
   },
 }))
@@ -105,6 +106,8 @@ const AppHeader = React.memo(function AppHeader(props) {
   } = props
 
   const { t } = useI18n()
+  const router = useRouter()
+
   const { menus, menuCtaLabel, menuCtaUrl } = useRemoteConfig()
   const { onNavMenuToggle, onSupportDialogOpen } = useGlobalHandlers()
 
@@ -155,6 +158,7 @@ const AppHeader = React.memo(function AppHeader(props) {
     headerMode: computedHeaderMode,
   }
 
+  console.log('router', router)
   return (
     <AppHeaderRoot
       ownerState={ownerState}
@@ -178,7 +182,7 @@ const AppHeader = React.memo(function AppHeader(props) {
 
       <AppHeaderToolbar>
         <AppHeaderBrandLink
-          ownerState={{ expandedLogo }}
+          ownerState={{ expandedLogo: !router.asPath.includes('surah') && expandedLogo }}
           href="/"
           aria-label={t(__translationGroup)`Go to the homepage`}
         >
