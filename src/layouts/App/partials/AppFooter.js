@@ -6,10 +6,10 @@ import { SITE_FOOTER_ID } from '~/utils/constants'
 import { BrandIcon, FacebookIcon, InstagramIcon, PinterestIcon, TwitterIcon } from '~/components'
 
 const iconVariants = {
-  facebook: FacebookIcon,
-  instagram: InstagramIcon,
-  pinterest: PinterestIcon,
-  twitter: TwitterIcon,
+  Facebook: FacebookIcon,
+  Instagram: InstagramIcon,
+  Pinterest: PinterestIcon,
+  Twitter: TwitterIcon,
 }
 
 const BREAKPOINT_KEY = 'md'
@@ -32,7 +32,7 @@ const AppFooterGroups = styled('div')(({ theme }) => ({
   gridRowGap: theme.spacing(6.5),
 
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-    gridTemplateColumns: 'repeat(6, 1fr)',
+    gridTemplateColumns: 'repeat(5, 1fr)',
     gridRowGap: '5rem',
     gridColumnGap: '5rem',
   },
@@ -117,7 +117,7 @@ const AppFooterCopyRight = styled('div')(({ theme }) => ({
 }))
 
 function AppFooter(props) {
-  const { menus, socials, siteCopyRight } = useRemoteConfig()
+  const { menus, siteSocialLinks, siteCopyRight } = useRemoteConfig()
   const { t } = useI18n()
 
   let menu = menus?.footer || []
@@ -137,7 +137,13 @@ function AppFooter(props) {
           {menus?.footer?.map((menuItem, idx) => (
             <AppFooterGroup key={idx}>
               <AppFooterGroupHeader>
-                <Typography component="span">{menuItem.label}</Typography>
+                {menuItem?.url ? (
+                  <AppFooterNavListItemText href={menuItem?.url}>
+                    {menuItem.label}
+                  </AppFooterNavListItemText>
+                ) : (
+                  <Typography component="span">{menuItem.label}</Typography>
+                )}
               </AppFooterGroupHeader>
 
               <AppFooterGroupBody>
@@ -162,10 +168,10 @@ function AppFooter(props) {
             </AppFooterGroupHeader>
 
             <AppFooterGroupBody>
-              {socials?.length > 0 && (
+              {siteSocialLinks?.length > 0 && (
                 <React.Fragment>
-                  {socials.map((social, idx) => {
-                    const Icon = iconVariants[social.id]
+                  {siteSocialLinks.map((social, idx) => {
+                    const Icon = iconVariants[social.icon]
                     if (!Icon || !social.url) {
                       return null
                     }
@@ -175,7 +181,10 @@ function AppFooter(props) {
                         key={idx}
                         component={RouterLink}
                         href={social.url}
-                        title={t(__translationGroup)`Visit us at ${social.id}`}
+                        title={t(__translationGroup)`Visit us at ${social.icon}`}
+                        style={{
+                          padding: 4,
+                        }}
                       >
                         <Icon sx={{ color: 'white' }} />
                       </IconButton>
