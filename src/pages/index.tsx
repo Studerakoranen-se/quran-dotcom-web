@@ -2,10 +2,9 @@ import { GetStaticPropsContext } from 'next'
 import * as blockPropGetters from '~/blocks/getBlockProps'
 import type { GetBlockPropsFunctions } from '~/blocks/getBlockProps'
 import { createGetBlocksProps } from '~/utils'
-import { settings } from '~/api/__mock__'
 import {
   frontpageQuery,
-  // siteSettingsQuery,
+  siteSettingsQuery,
   getClient as getSanityClient,
   FrontpageQueryResult,
   SiteSettingsQueryResult,
@@ -25,11 +24,19 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const { locale, defaultLocale, preview = false } = context
   const sanityClient = getSanityClient(preview)
 
-  const page = await sanityClient.fetch(frontpageQuery, {
-    locale,
-    preview,
-    defaultLocale,
-  })
+  const [page, settings] = await Promise.all([
+    // @ts-ignore
+    sanityClient.fetch(frontpageQuery, {
+      locale,
+      preview,
+      defaultLocale,
+    }) as FrontpageQueryResult | null,
+    sanityClient.fetch(siteSettingsQuery, {
+      locale,
+      preview,
+      defaultLocale,
+    }) as SiteSettingsQueryResult | null,
+  ])
 
   if (page) {
     const blocksWithData = page?.blocks
@@ -37,6 +44,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         await getBlocksProps(page.blocks, { page, settings, preview }, context)
       : []
 
+    console.log({ settings })
     return {
       props: {
         headerMode: 'auto',
