@@ -1,35 +1,39 @@
 import type { SanityClient } from '@sanity/client'
+import groq from 'groq'
+import createRandomUUID from '~/utils/uuid'
 
 // updated within the hour, if it's older it'll create a new secret or return null
-const query = (ttl: number) =>
-  /* groq */ `*[_id == $id && dateTime(_updatedAt) > dateTime(now()) - ${ttl}][0].secret`
+const query = (ttl: number) => groq`
+  *[_id == $id && dateTime(_updatedAt) > dateTime(now()) - ${ttl}][0].secret
+`
 
 const tag = 'preview.secret'
 
-export const SECRET_ID = `sanity.preview.secret`
+export const SECRET_ID = `preview.secret`
 
 async function getSecret(
   client: SanityClient,
   id: `${string}.${string}`,
   createIfNotExists?: true | (() => string),
 ): Promise<string | null> {
-  const secret = await client.fetch<string | null>(
-    // Use a TTL of 1 hour when reading the secret, while using a 30min expiry if `createIfNotExists` is defined to avoid a race condition where
-    // a preview pane could get a Secret and use it just as it expires. Twice the TTL gives a wide margin to ensure that when the secret is read
-    // it's recent enough to be valid no matter if it's used in an iframe URL, or a "Open Preview" URL.
-    query(createIfNotExists ? 60 * 30 : 60 * 60),
-    { id },
-  )
+  // Use a TTL of 1 hour when reading the secret, while using a 30min expiry if `createIfNotExists` is defined to avoid a race condition where
+  // a preview pane could get a Secret and use it just as it expires. Twice the TTL gives a wide margin to ensure that when the secret is read
+  // it's recent enough to be valid no matter if it's used in an iframe URL, or a "Open Preview" URL.
+  const ttl = createIfNotExists ? 60 * 30 : 60 * 60
+  const secret = await client.fetch<string | null>(query(ttl), { id })
+
   if (!secret && createIfNotExists) {
-    const newSecret =
-      createIfNotExists === true ? Math.random().toString(36).slice(2) : createIfNotExists()
+    const newSecret = createIfNotExists === true ? createRandomUUID() : createIfNotExists()
+
     try {
       const patch = client.patch(id).set({ secret: newSecret })
+
       await client
         .transaction()
         .createIfNotExists({ _id: id, _type: id })
         .patch(patch)
         .commit({ tag })
+      // @ts-ignore
       return newSecret
     } catch (err) {
       console.error(
@@ -38,6 +42,8 @@ async function getSecret(
       )
     }
   }
+
+  console.log('web', secret)
 
   return secret
 }
