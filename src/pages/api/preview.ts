@@ -59,7 +59,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // This is the most common way to check for auth, but you to use your existing auth
   // infra to protect your token and securely transmit it to the client
-  if (storedSecret !== query.secret) {
+
+  // if (storedSecret !== query.secret) {
+  //   return res.status(401).send('Invalid secret')
+  // }
+
+  if (!storedSecret) {
     return res.status(401).send('Invalid secret')
   }
 
