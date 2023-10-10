@@ -10,6 +10,7 @@ const previewClient = createClient({
   ...config,
   token: process.env.SANITY_READ_TOKEN,
   useCdn: false,
+  perspective: 'previewDrafts',
 })
 
 const writeClient = createClient({
