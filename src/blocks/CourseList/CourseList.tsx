@@ -4,7 +4,7 @@ import { useI18n } from '~/contexts'
 import { Html } from '~/components'
 import { RouterLink } from '~/containers'
 import { CourseListBlockQueryResult } from '~/api/sanity'
-import { transformSanityMedia } from '~/api/sanity/utils'
+import { transformSanityImage } from '~/api/sanity/utils'
 
 const CourseListRoot = styled('section')(({ theme }) => ({
   position: 'relative',
@@ -116,15 +116,19 @@ function CourseList(props: CourseListBlockQueryResult) {
           <CourseListItems>
             {entries.map((entry, idx: number) => {
               const { image: sanityMediaProps, title, description, uri } = entry
-
-              const image = transformSanityMedia(sanityMediaProps)
+              // @ts-ignore
+              const image = transformSanityImage(sanityMediaProps, {
+                dpr: 5,
+                width: 112,
+                height: 70,
+              })
 
               return (
                 <CourseListItem key={idx}>
                   {image && (
                     <MediaReveal>
                       {/* @ts-ignore */}
-                      <Media src={image.src} />
+                      <Media src={image} />
                     </MediaReveal>
                   )}
                   <CourseListItemContent>
