@@ -46,7 +46,7 @@ const SurahPreview = (props: any) => {
   const { chapter } = props
 
   return (
-    <SurahPreviewRoot href={`/surah/${chapter?.id}`}>
+    <SurahPreviewRoot href={`/surah/${chapter?.id}`} shouldPrefetch={false}>
       {/* <SurahPreviewContainer> */}
       <SurahPreviewContent>
         <SurahPreviewIconContainer>
