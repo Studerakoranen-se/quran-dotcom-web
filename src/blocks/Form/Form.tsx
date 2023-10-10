@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {
   Alert,
+  Box,
   Checkbox,
   FormControlLabel,
   MenuItem,
@@ -45,6 +46,7 @@ const FormFormitForm = styled(FormitForm)(({ theme }) => ({
 const FormFields = styled('div')(({ theme }) => ({
   display: 'grid',
   gridGap: theme.spacing(3),
+  gridTemplateColumns: 'repeat(3, 1fr)',
 }))
 
 const CheckboxContainer = styled('div')(() => ({
@@ -244,7 +246,7 @@ function Form(props: FormProps) {
 
                     if (type === 'checkbox') {
                       return (
-                        <CheckboxContainer>
+                        <CheckboxContainer sx={{ gridColumn: '1/-1' }}>
                           <FormitField
                             sx={{ my: -1, mr: !label ? 0 : 2 }}
                             component={FormControlLabel}
@@ -259,7 +261,7 @@ function Form(props: FormProps) {
 
                     if (type === 'radio') {
                       return (
-                        <div key={idx}>
+                        <Box key={idx}>
                           <Typography variant="body2" sx={{ mb: 1 }}>
                             {label}
                           </Typography>
@@ -279,7 +281,7 @@ function Form(props: FormProps) {
                               />
                             ))}
                           </FormitField>
-                        </div>
+                        </Box>
                       )
                     }
 
