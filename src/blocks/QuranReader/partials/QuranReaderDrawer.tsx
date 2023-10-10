@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
-import { Box, Tab, Tabs, Typography } from '@mui/material'
+import { Box, ButtonBase, Tab, Tabs, Typography } from '@mui/material'
 // import { useI18n } from '~/contexts'
 import { RouterLink } from '~/containers'
 import { SCROLL_TO_NEAREST_ELEMENT, useScrollToElement } from '~/hooks/useScrollToElement'
@@ -29,6 +29,12 @@ const PreviewContainer = styled('div')(({ theme }) => ({
 
 const StyledRouterLink = styled(RouterLink)<{ ownerState: { href?: string; isActive: boolean } }>(
   ({ theme, ownerState }) => ({
+    textDecoration: 'none',
+
+    '&:hover': {
+      fontWeight: theme.typography.fontWeightBold,
+    },
+
     ...(ownerState?.isActive && {
       color: theme.vars.palette.primary.main,
       fontWeight: theme.typography.fontWeightBold,
@@ -157,16 +163,23 @@ const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranRead
         <CustomTabPanel value={view} index={1}>
           <PreviewContainer>
             {juzs.map((juz: any, i: number) => (
-              <RouterLink
+              <StyledRouterLink
                 key={i}
                 href={`/juz/${juz.id}`}
-                className={`${
-                  i + 1 === juz.id ? ' text-red' : ''
-                  // (chapter.name_simple.toLowerCase().match(search.toLowerCase()) ?? 'hidden')
-                } rounded-lg px-2 py-1`}
+                ownerState={{
+                  isActive: i + 1 === juz.id,
+                }}
+                // className={`${
+                //   i + 1 === juz.id ? ' text-red' : ''
+                //   // (chapter.name_simple.toLowerCase().match(search.toLowerCase()) ?? 'hidden')
+                // } rounded-lg px-2 py-1`}
               >
-                Juz {juz.id}
-              </RouterLink>
+                <Typography component="span" sx={{ fontWeight: 'fontWeightBold' }}>
+                  {juz.id}
+                </Typography>
+                {` - `}
+                Juz
+              </StyledRouterLink>
             ))}
           </PreviewContainer>
         </CustomTabPanel>
