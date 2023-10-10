@@ -1,7 +1,7 @@
 // @ts-nocheck
 import blocksQuery, { BlocksQueryResult } from './blocksQuery'
 
-export interface PageQueryResult
+export interface CourseQueryResult
   extends Pick<NonNullable<Sanity.ProductionWorkspace.Schema.Page>, 'title' | 'seo'> {
   uri?:
     | NonNullable<NonNullable<Sanity.ProductionWorkspace.Schema.Page>['uri']>['current']
