@@ -1,4 +1,3 @@
-import createImageQuery from '../createImageQuery'
 import { MediaQueryResult } from '../mediaQuery'
 
 export interface CourseListBlockQueryResult {
@@ -18,7 +17,7 @@ export default `
   entries[]->{
     title,
     description,
-    'image': {${createImageQuery('image', false)}},
+    image,
     'uri': uri.current
   }
 `
