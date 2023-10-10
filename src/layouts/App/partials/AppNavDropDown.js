@@ -144,10 +144,10 @@ function AppNavDropDown(props) {
       <AppMenuDropDownListItemPrimary
         as={RouterLink}
         href={menuItem.url}
-        {...(hasSubMenu && {
-          as: ButtonBase,
-          href: menuItem.url,
-        })}
+        // {...(hasSubMenu && {
+        //   as: ButtonBase,
+        //   href: menuItem.url,
+        // })}
       >
         {menuItem.label}
       </AppMenuDropDownListItemPrimary>
