@@ -20,7 +20,8 @@ const QuranReaderRoot = styled('section')(() => ({
 }))
 
 const QuranReaderRootMain = styled('div')(({ theme }) => ({
-  ...theme.mixins.contain('lg'),
+  // ...theme.mixins.contain('lg'),
+  padding: theme.spacing(0, 12),
   marginBlockStart: theme.spacing(3),
   marginBlockEnd: theme.spacing(3),
 }))
@@ -29,7 +30,7 @@ const QuranReaderStickyFilter = styled('div')<{
   ownerState: { enableShadow?: boolean; isHeaderStikcy?: boolean }
 }>(({ theme, ownerState }) => ({
   position: 'sticky',
-  zIndex: 2,
+  zIndex: 3,
   top: 0,
   display: 'flex',
   alignItems: 'center',
@@ -79,18 +80,26 @@ const QuranReaderGridActionsButtons = styled('div')(({ theme }) => ({
   backgroundColor: theme.vars.palette.background.default,
 }))
 
-const QuranReaderGrid = styled('div')(({ theme }) => ({
-  position: 'relative',
-  display: 'flex',
-  gridGap: theme.spacing(3, 1),
-  padding: 'var(--ikas-container-spacing) 0',
-  gridTemplateColumns: '1fr',
+const QuranReaderGrid = styled('div')<{ ownerState: { isFilterMenuOpen: boolean } }>(
+  ({ theme, ownerState }) => ({
+    position: 'relative',
+    display: 'flex',
+    padding: 'var(--ikas-container-spacing) 0',
+    gridTemplateColumns: '1fr',
 
-  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-    gridGap: theme.spacing(3),
-    gridTemplateColumns: 'calc(10 * 2rem) 1fr',
-  },
-}))
+    [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+      gridTemplateColumns: 'calc(10 * 2rem) 1fr',
+
+      ...(ownerState?.isFilterMenuOpen && {
+        gridGap: theme.spacing(3),
+      }),
+    },
+
+    ...(ownerState?.isFilterMenuOpen && {
+      gridGap: theme.spacing(3, 1),
+    }),
+  }),
+)
 
 const QuranReaderVerseItem = styled('div')<{ ownerState: { isPlaying?: boolean } }>(
   ({ theme, ownerState }) => ({
@@ -455,7 +464,7 @@ function QuranReader(props: QuranReaderProps) {
           </QuranReaderGridActionsButtons>
         </QuranReaderStickyFilter>
 
-        <QuranReaderGrid>
+        <QuranReaderGrid ownerState={{ isFilterMenuOpen }}>
           <div>
             <QuranReaderCollapse
               in={isFilterMenuOpen}
@@ -473,12 +482,16 @@ function QuranReader(props: QuranReaderProps) {
           <Box
             minHeight="100vh"
             sx={{
-              marginBlockStart: 0,
-              marginBlockEnd: 0,
               marginInlineStart: 'auto',
               marginInlineEnd: 'auto',
-              width: '75%',
-              maxWidth: '112rem',
+              width: '100%',
+              ...(isFilterMenuOpen && {
+                marginBlockStart: 0,
+                marginBlockEnd: 0,
+                marginInlineStart: 'auto',
+                marginInlineEnd: 'auto',
+                maxWidth: '112rem',
+              }),
             }}
           >
             <Virtuoso

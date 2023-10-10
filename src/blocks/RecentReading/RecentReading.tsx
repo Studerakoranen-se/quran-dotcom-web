@@ -8,18 +8,16 @@ const RecentReadingRoot = styled('section')(({ theme }) => ({
 }))
 
 const RecentReadingMain = styled('div')(({ theme }) => ({
-  ...theme.mixins.contain('lg'),
+  ...theme.mixins.contain('xl'),
   marginBlockStart: theme.spacing(3),
   marginBlockEnd: theme.spacing(3),
 }))
 
 const RecentSectionContainer = styled('div')(({ theme }) => ({
-  ...theme.mixins.contain('lg'),
   position: 'relative',
-  display: 'flex',
-  flexWrap: 'wrap',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, 200px)',
   gap: 10,
-  justifyContent: 'center',
   padding: theme.spacing(4, 0),
 }))
 const RecentSectionItemLink = styled(RouterLink)(({ theme }) => ({

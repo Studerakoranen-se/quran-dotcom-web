@@ -10,7 +10,7 @@ const ChapterAndJuzListRoot = styled('section')(({ theme }) => ({
 }))
 
 const ChapterAndJuzListMain = styled('div')(({ theme }) => ({
-  ...theme.mixins.contain('lg'),
+  ...theme.mixins.contain('xl'),
 }))
 
 const ChapterSorter = styled('div')(({ theme }) => ({
@@ -30,13 +30,14 @@ const PreviewContainer = styled('div')(({ theme }) => ({
     gridTemplateColumns: 'repeat(2, 1fr)',
   },
   [theme.breakpoints.up('xl')]: {
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateColumns: 'repeat(4, 1fr)',
   },
 }))
 
 const PreviewContainer2 = styled('div')(({ theme }) => ({
   columnGap: 16,
-  marginTop: 40,
+  marginTop: 12,
+  marginBottom: 24,
   [theme.breakpoints.up('md')]: {
     columnCount: 2,
   },
@@ -83,6 +84,7 @@ enum Sort {
 }
 
 type ChapterAndJuzListProps = {
+  locale: string
   chapters: Chapter[]
   juzs: {
     id?: number
@@ -110,7 +112,7 @@ function CustomTabPanel(props: TabPanelProps) {
 }
 
 function ChapterAndJuzList(props: ChapterAndJuzListProps) {
-  const { chapters = [], juzs = [] } = props
+  const { chapters = [], juzs = [], locale } = props
 
   const [sortBy, setSortBy] = React.useState(Sort.ASC)
   const [view, setView] = React.useState(0)
@@ -220,7 +222,7 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
         <CustomTabPanel value={view} index={0}>
           <PreviewContainer>
             {sortedChapters.map((chapter: any, i: number) => (
-              <SurahPreview key={i} chapter={chapter} />
+              <SurahPreview key={i} chapter={chapter} locale={locale} />
             ))}
           </PreviewContainer>
         </CustomTabPanel>
