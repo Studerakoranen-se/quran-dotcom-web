@@ -169,7 +169,7 @@ function CourseHero(props: CourseHeroProps) {
       {enableHorizontalLine && (
         <MediaReveal>
           <Media
-            src="assets/borderh.png"
+            src="/assets/borderh.png"
             sx={{
               position: 'relative',
               width: '50%',
