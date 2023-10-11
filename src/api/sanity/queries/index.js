@@ -20,6 +20,9 @@ export const pageQuery `{
 
 export * from './partials/blocks'
 
+export { default as articleQuery } from './partials/articleQuery'
+export * from './partials/articleQuery'
+
 export { default as frontpageQuery } from './frontpageQuery'
 export * from './frontpageQuery'
 

@@ -1,3 +1,6 @@
+export { default as articleListBlockQuery } from './articleListBlockQuery'
+export * from './articleListBlockQuery'
+
 export { default as heroBlockQuery } from './heroBlockQuery'
 export * from './heroBlockQuery'
 
