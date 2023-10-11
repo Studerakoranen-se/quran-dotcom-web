@@ -35,6 +35,7 @@ const RecentSectionItem = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   gap: 20,
   padding: theme.spacing(2),
+  height: '100%',
 }))
 
 const RecentSectionItemAyah = styled('div')(({ theme }) => ({
