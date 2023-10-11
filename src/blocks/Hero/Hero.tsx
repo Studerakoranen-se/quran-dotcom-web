@@ -85,9 +85,11 @@ const SubHeadingHtmlText = styled(Html)<{
   }
 }>(({ theme }) => ({
   ...theme.typography.preamble2,
-  maxWidth: 500,
   margin: 0,
-  [theme.breakpoints.up(BREAKPOINT_KEY)]: theme.typography.preamble,
+  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+    ...theme.typography.preamble,
+    maxWidth: 500,
+  },
 }))
 
 const ButtonContainer = styled('div')(({ theme }) => ({
