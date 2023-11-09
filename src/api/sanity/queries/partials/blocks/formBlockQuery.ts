@@ -69,6 +69,7 @@ export default `
   errorMessage,
   showPrivacyPolicyDisclaimer,
   fetchOptions,
+  "tutors": *[_type == 'tutor'],
   fields[] {
     'type': _type,
     name,

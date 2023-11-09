@@ -113,6 +113,14 @@ type FormProps = {
   showPrivacyPolicyDisclaimer: boolean
   submitLabel: string
   successMessage: string
+  tutors: {
+    fullname: string
+    gender: string
+    age: number
+    studyLevel: string
+    email: string
+    phone: string
+  }[]
 }
 
 function Form(props: FormProps) {
@@ -127,6 +135,7 @@ function Form(props: FormProps) {
     showPrivacyPolicyDisclaimer,
     submitLabel,
     successMessage,
+    tutors,
   } = props
 
   const { t } = useI18n()
@@ -162,7 +171,7 @@ function Form(props: FormProps) {
       const urlSearchParams = new URLSearchParams({
         id,
         ...values,
-        ...(endpointProp.includes('/api/v1/mail/send') && {
+        ...(endpointProp.includes('/api/mail') && {
           subject,
           txt,
         }),
@@ -286,25 +295,44 @@ function Form(props: FormProps) {
                     }
 
                     if (type === 'select') {
-                      options?.sort((a, b) => {
-                        return a.label?.localeCompare(b.label)
-                      })
-                      return (
-                        // @ts-ignore
-                        <FormitTextField
-                          label={label}
-                          required={required}
-                          fullWidth
-                          select
-                          {...sharedProps}
-                        >
-                          {options?.map((option, idx2) => (
-                            <MenuItem key={idx2} value={option.value}>
-                              {option.label}
-                            </MenuItem>
-                          ))}
-                        </FormitTextField>
-                      )
+                      if (name === 'teacher') {
+                        return (
+                          // @ts-ignore
+                          <FormitTextField
+                            label={label}
+                            required={required}
+                            fullWidth
+                            select
+                            {...sharedProps}
+                          >
+                            {tutors?.map((tutor, idx2) => (
+                              <MenuItem key={idx2} value={tutor.fullname}>
+                                {tutor.fullname}
+                              </MenuItem>
+                            ))}
+                          </FormitTextField>
+                        )
+                      } else {
+                        options?.sort((a, b) => {
+                          return a.label?.localeCompare(b.label)
+                        })
+                        return (
+                          // @ts-ignore
+                          <FormitTextField
+                            label={label}
+                            required={required}
+                            fullWidth
+                            select
+                            {...sharedProps}
+                          >
+                            {options?.map((option, idx2) => (
+                              <MenuItem key={idx2} value={option.value}>
+                                {option.label}
+                              </MenuItem>
+                            ))}
+                          </FormitTextField>
+                        )
+                      }
                     }
 
                     return (
@@ -347,7 +375,7 @@ function Form(props: FormProps) {
                   {/* [End] Fake fields so bots fills them and the form will not be submitted */}
                 </FormFields>
                 {/* @ts-ignore */}
-                <FormitButton variant="contained" color="primary" type="submit" fullWidth>
+                <FormitButton variant="contained" color="primary" type="submit" sx={{ width: 200 }}>
                   {submitLabel || t(__translationGroup)`Send`}
                 </FormitButton>
                 {showPrivacyPolicyDisclaimer && (
