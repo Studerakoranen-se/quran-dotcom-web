@@ -11,7 +11,6 @@ import {
   Typography,
   styled,
 } from '@mui/material'
-import YouTubePlayer from 'react-youtube'
 import { Formit, Form as FormitForm, Field as FormitField } from '@noaignite/formit'
 import { useI18n } from '~/contexts'
 import { FilesIcon, Html, LessonsIcon, PlayIcon } from '~/components'
@@ -83,12 +82,11 @@ const FormFormitForm = styled(FormitForm)(() => ({
   // gridGap: theme.spacing(4),
 }))
 
-const StyledYouTubePlayer = styled(YouTubePlayer)(() => ({
+const RumblePlayer = styled('iframe')(() => ({
   width: '100%',
   height: 400,
-  iframe: {
-    height: '100%',
-  },
+  borderStyle: 'none',
+  margin: 'auto 0 !important',
   // display: 'grid',
   // gridGap: theme.spacing(4),
 }))
@@ -214,15 +212,10 @@ function Lesson(props: LessonProps) {
             )}
 
             {lessons?.[activeLesson].youtubeVideo && (
-              <StyledYouTubePlayer
-                opts={{
-                  height: '100%',
-                  width: '100%',
-                }}
-                // className="w-full h-auto"
-                videoId={lessons?.[activeLesson].youtubeVideo}
+              <RumblePlayer
+                src={lessons?.[activeLesson].youtubeVideo}
                 // It feels slightly anti-climatic to see that now but we're done.
-                onStateChange={(e) => checkElapsedTime(e)}
+                // onStateChange={(e) => checkElapsedTime(e)}
               />
             )}
 
