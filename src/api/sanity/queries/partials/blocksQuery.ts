@@ -14,6 +14,7 @@ import {
   FeatureListBlockQueryResult,
   CourseListBlockQueryResult,
   ArticleListBlockQueryResult,
+  PageHeroBlockQueryResult,
 } from './blocks'
 import * as blocksImport from './blocks'
 
@@ -51,6 +52,7 @@ export type BlocksQueryResult =
   | CommonBlockProps<FeatureListBlockQueryResult>
   | CommonBlockProps<CourseListBlockQueryResult>
   | CommonBlockProps<ArticleListBlockQueryResult>
+  | CommonBlockProps<PageHeroBlockQueryResult>
 
 const blockNameQuery = `'name': select(
   ${blocks.map(({ blockType, blockName }) => `_type == '${blockType}' => '${blockName}'`).join(',')}

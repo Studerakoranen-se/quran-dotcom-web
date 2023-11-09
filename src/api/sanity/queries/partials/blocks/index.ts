@@ -36,3 +36,6 @@ export * from './featureListBlockQuery'
 
 export { default as courseListBlockQuery } from './courseListBlockQuery'
 export * from './courseListBlockQuery'
+
+export { default as pageHeroBlockQuery } from './pageHeroBlockQuery'
+export * from './pageHeroBlockQuery'

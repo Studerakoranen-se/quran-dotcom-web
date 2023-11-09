@@ -9,6 +9,7 @@ export const FeatureList = dynamic(() => import(/* webpackChunkName: "blocks/Fea
 export const Form = dynamic(() => import(/* webpackChunkName: "blocks/Form" */ './Form')) // prettier-ignore
 export const Hero = dynamic(() => import(/* webpackChunkName: "blocks/Hero" */ './Hero')) // prettier-ignore
 export const Lesson = dynamic(() => import(/* webpackChunkName: "blocks/Lesson" */ './Lesson')) // prettier-ignore
+export const PageHero = dynamic(() => import(/* webpackChunkName: "blocks/PageHero" */ './PageHero')) // prettier-ignore
 export const QuranBanner = dynamic(() => import(/* webpackChunkName: "blocks/QuranBanner" */ './QuranBanner')) // prettier-ignore
 export const QuranReader = dynamic(() => import(/* webpackChunkName: "blocks/QuranReader" */ './QuranReader')) // prettier-ignore
 export const RecentReading = dynamic(() => import(/* webpackChunkName: "blocks/RecentReading" */ './RecentReading')) // prettier-ignore
