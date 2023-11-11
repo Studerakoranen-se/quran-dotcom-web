@@ -1,5 +1,6 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
+import { useRouter } from 'next/router'
 import { unstable_generateUtilityClasses as generateUtilityClasses } from '@mui/utils'
 import { styled } from '@mui/system'
 import { AppBar, IconButton, Button } from '@mui/material'
@@ -9,7 +10,6 @@ import { RouterLink } from '~/containers'
 import { BrandIcon, CloseIcon, MenuIcon } from '~/components'
 import AppNavDropDown from './AppNavDropDown'
 import AppStoreMessage from './AppStoreMessage'
-import { useRouter } from 'next/router'
 
 const BREAKPOINT_KEY = 'md'
 
@@ -158,7 +158,6 @@ const AppHeader = React.memo(function AppHeader(props) {
     headerMode: computedHeaderMode,
   }
 
-  console.log('router', router)
   return (
     <AppHeaderRoot
       ownerState={ownerState}

@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button } from '@mui/material'
 import { useRouter } from 'next/router'
-
 import { RouterLink } from '~/containers'
 
 // reference: https://nextjs.org/docs/advanced-features/custom-error-page#more-advanced-error-page-customizing

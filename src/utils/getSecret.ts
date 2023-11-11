@@ -43,8 +43,6 @@ async function getSecret(
     }
   }
 
-  console.log('web', secret)
-
   return secret
 }
 

@@ -4,6 +4,10 @@ export interface PageHeroBlockQueryResult {
   id?: string
   headline?: string
   mediaProps?: MediaQueryResult
+  fullHeight?: boolean
+  textColor?: {
+    hex?: string
+  }
 }
 
 export default `

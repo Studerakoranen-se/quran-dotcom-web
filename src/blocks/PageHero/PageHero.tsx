@@ -3,6 +3,7 @@ import { styled } from '@mui/material'
 import { Media, MediaReveal } from '@noaignite/oui'
 import { transformSanityMedia } from '~/api/sanity/utils'
 import { Html } from '~/components'
+import { PageHeroBlockQueryResult } from '~/api/sanity'
 
 const BREAKPOINT_KEY = 'md'
 
@@ -16,11 +17,11 @@ const PageHeroHeroRoot = styled('section')<{
   minHeight: 'max(540px, 20vw)',
   padding: theme.spacing(4, 0, 3, 0),
   clipPath: 'inset(0)',
-  ...(ownerState.fullHeight && {
+  ...(ownerState?.fullHeight && {
     minHeight: 'calc(100vh - var(--cia-header-height, 0px)) !important',
     zIndex: -1,
   }),
-  ...(ownerState.textColor && {
+  ...(ownerState?.textColor && {
     color: ownerState.textColor,
   }),
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
@@ -83,7 +84,7 @@ const PageHeroPatternMediaReveal = styled(MediaReveal)(({ theme }) => ({
   },
 }))
 
-function PageHero(props) {
+function PageHero(props: PageHeroBlockQueryResult & { renderIndex: number }) {
   const { renderIndex, fullHeight, headline, id, mediaProps: sanityMediaProps, textColor } = props
 
   const rootRef = React.useRef(null)
@@ -106,6 +107,7 @@ function PageHero(props) {
   }
 
   return (
+    // @ts-ignore
     <PageHeroHeroRoot ownerState={ownerState} ref={rootRef} id={id}>
       {mediaProps && (
         <PageHeroMediaReveal>

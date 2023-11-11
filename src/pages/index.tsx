@@ -44,7 +44,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         await getBlocksProps(page.blocks, { page, settings, preview }, context)
       : []
 
-    console.log({ settings })
     return {
       props: {
         headerMode: 'auto',

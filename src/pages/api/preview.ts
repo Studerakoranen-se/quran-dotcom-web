@@ -1,10 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { isString, SanityClient } from 'sanity'
+// import { isString, SanityClient } from 'sanity'
 import groq from 'groq'
 import { createClient } from 'next-sanity'
 import getSecret, { SECRET_ID } from '~/utils/getSecret'
 import { previewClient } from '~/api/sanity'
-
 import { i18n } from '../../../locales'
 
 const sanityClient = createClient({
@@ -54,7 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // vulnerable to leaking the token to anyone. If you don't have an custom API with authentication
   // that can handle checking secrets, you may use https://github.com/sanity-io/sanity-studio-secrets
   // to store the secret in your dataset.
-
+  // @ts-ignore
   const storedSecret = await getSecret(client, SECRET_ID, true)
 
   // This is the most common way to check for auth, but you to use your existing auth
