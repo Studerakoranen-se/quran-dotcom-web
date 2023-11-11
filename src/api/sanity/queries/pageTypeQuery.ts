@@ -1,11 +1,12 @@
 // import pageQuery from './partials/pageQuery'
 // import feedQuery from './partials/feedQuery'
 
-import courseQuery from './partials/courseQuery'
+import courseQuery, { CourseQueryResult } from './partials/courseQuery'
 import pageQuery, { PageQueryResult } from './partials/pageQuery'
 
 export interface PageTypes {
   page: PageQueryResult
+  course: CourseQueryResult
 }
 
 export type PageTypeQueryResult<T extends keyof PageTypes> = PageTypes[T]

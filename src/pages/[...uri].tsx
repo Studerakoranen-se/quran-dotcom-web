@@ -7,7 +7,8 @@ import { getClient as getSanityClient, pageTypeQuery, SiteSettingsQueryResult } 
 
 export { default } from '~/containers/Page'
 
-type PageType = PageTypeQueryResult<'article' | 'course' | 'page'>
+// type PageType = PageTypeQueryResult<'article' | 'course' | 'page'>
+type PageType = PageTypeQueryResult<'course' | 'page'>
 
 const getBlocksProps = createGetBlocksProps<{
   page: PageType

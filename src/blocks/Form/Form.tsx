@@ -222,7 +222,7 @@ function Form(props: FormProps) {
 
       setSubmitting(false)
     },
-    [endpointProp, fetchOptionsProp, id, renderIndex],
+    [fetchOptionsProp, id, renderIndex],
   )
 
   // Compose Formit initialValues
@@ -328,27 +328,27 @@ function Form(props: FormProps) {
                             ))}
                           </FormitTextField>
                         )
-                      } else {
-                        options?.sort((a, b) => {
-                          return a.label?.localeCompare(b.label)
-                        })
-                        return (
-                          // @ts-ignore
-                          <FormitTextField
-                            label={label}
-                            required={required}
-                            fullWidth
-                            select
-                            {...sharedProps}
-                          >
-                            {options?.map((option, idx2) => (
-                              <MenuItem key={idx2} value={option.value}>
-                                {option.label}
-                              </MenuItem>
-                            ))}
-                          </FormitTextField>
-                        )
                       }
+
+                      options?.sort((a, b) => {
+                        return a.label?.localeCompare(b.label)
+                      })
+                      return (
+                        // @ts-ignore
+                        <FormitTextField
+                          label={label}
+                          required={required}
+                          fullWidth
+                          select
+                          {...sharedProps}
+                        >
+                          {options?.map((option, idx2) => (
+                            <MenuItem key={idx2} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </FormitTextField>
+                      )
                     }
 
                     return (
