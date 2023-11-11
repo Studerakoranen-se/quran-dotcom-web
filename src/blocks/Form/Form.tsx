@@ -168,37 +168,51 @@ function Form(props: FormProps) {
         values.email
       }\r\n${values.phone}`
 
-      const urlSearchParams = new URLSearchParams({
+      const formValues = {
         id,
         ...values,
-        ...(endpointProp.includes('/api/mail') && {
-          subject,
-          txt,
-        }),
-      })
-
-      const method = fetchOptionsProp?.method || 'POST'
-      const endpoint =
-        method === 'GET'
-          ? new URL(`${endpointProp}?${urlSearchParams.toString()}`)
-          : new URL(endpointProp)
-
-      const fetchOptions = {
-        body: method === 'POST' ? urlSearchParams : undefined,
-        method,
-        ...fetchOptionsProp,
+        subject,
+        // txt,
+        // ...(endpointProp.includes('/api/mail') && {
+        // subject,
+        // txt,
+        // }),
       }
 
-      try {
-        const response = await fetch(endpoint, fetchOptions)
+      const method = fetchOptionsProp?.method || 'POST'
+      // const endpoint =
+      //   method === 'GET'
+      //     ? new URL(`${endpointProp}?${urlSearchParams.toString()}`)
+      //     : new URL(endpointProp)
 
-        if (response.ok) {
-          //   gtmEvent({
-          //     event: 'form_submit',
-          //     parameter1: id,
-          //     parameter2: heading,
-          //   })
-        }
+      // const fetchOptions = {
+      //   body: method === 'POST' ? urlSearchParams : undefined,
+      //   method,
+      //   ...fetchOptionsProp,
+      // }
+
+      try {
+        // const response = await sendMail(method, formValues)
+
+        const response = await fetch('/api/mail', {
+          method,
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(formValues),
+        }).then((res) => {
+          if (!res.ok) throw new Error('Failed to send message')
+          return res.json()
+        })
+
+        // const response = await fetch(endpoint, fetchOptions)
+        // console.log({ response })
+        // if (response.ok) {
+        //   gtmEvent({
+        //     event: 'form_submit',
+        //     parameter1: id,
+        //     parameter2: heading,
+        //   })
+        // }
 
         setStatus(response.ok ? 'success' : 'error')
       } catch (err) {
@@ -237,7 +251,9 @@ function Form(props: FormProps) {
             )}
 
             {status === 'success' ? (
-              <Alert severity="success">{successMessage || t(__translationGroup)`Success`}</Alert>
+              <Alert severity="success" sx={{ alignItems: 'center' }}>
+                {successMessage || t(__translationGroup)`Success`}
+              </Alert>
             ) : (
               <React.Fragment>
                 <FormFields>
