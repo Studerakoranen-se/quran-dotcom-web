@@ -26,6 +26,11 @@ const AppHeaderRoot = styled(AppBar)(({ theme, ownerState }) => ({
       backgroundColor: 'transparent',
       color: ownerState.headerColor,
     },
+
+    '&:hover': {
+      backgroundColor: 'transparent',
+      color: ownerState.headerColor,
+    },
   }),
   // Util classes
   [`& .${classes.toolbarPushStart}`]: { marginLeft: 'auto' },
@@ -185,7 +190,15 @@ const AppHeader = React.memo(function AppHeader(props) {
           href="/"
           aria-label={t(__translationGroup)`Go to the homepage`}
         >
-          <BrandIcon sx={{ fontSize: '90px' }} />
+          <BrandIcon
+            sx={{
+              fontSize: ['opaque', 'auto'].includes(headerModeProp) ? 75 : 90,
+
+              ...(['opaque', 'auto'].includes(headerModeProp) && {
+                transform: 'none !important',
+              }),
+            }}
+          />
         </AppHeaderBrandLink>
 
         <div className={classes.toolbarPushStart} />
