@@ -14,7 +14,8 @@ const PageHeroHeroRoot = styled('section')<{
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  minHeight: 'max(540px, 20vw)',
+  minHeight: 'max(240px, 20vw)',
+  // minHeight: 'max(540px, 20vw)',
   padding: theme.spacing(4, 0, 3, 0),
   clipPath: 'inset(0)',
   ...(ownerState?.fullHeight && {
