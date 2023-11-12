@@ -115,7 +115,7 @@ const FeatureListItemContent = styled('div')<{ ownerState: { verticalLayout?: bo
     ...(ownerState?.verticalLayout && {
       alignItems: 'center',
       textAlign: 'center',
-      padding: theme.spacing(6, 3, 3),
+      padding: theme.spacing(6, 6, 3),
     }),
 
     [theme.breakpoints.down('md')]: {

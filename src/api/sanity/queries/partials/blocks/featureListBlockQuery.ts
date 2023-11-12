@@ -16,7 +16,7 @@ export default `
   text,
   verticalLayout,
   entries[]{
-    heading,
+    title,
     text,
     icon
   }
