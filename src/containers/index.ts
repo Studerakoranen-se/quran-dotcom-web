@@ -1,4 +1,7 @@
 /* eslint-disable import/export */
+export { default as ArticleCard } from './ArticleCard'
+export * from './ArticleCard'
+
 export { default as RouterLink } from './RouterLink'
 export * from './RouterLink'
 
