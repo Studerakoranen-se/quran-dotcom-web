@@ -1,6 +1,7 @@
 import capitalize from '~/utils/capitalize'
 import * as blockComponents from '~/blocks'
 import {
+  AccordionsBlockQueryResult,
   HeroBlockQueryResult,
   ChapterAndJuzListBlockQueryResult,
   RecentReadingBlockQueryResult,
@@ -14,7 +15,9 @@ import {
   FeatureListBlockQueryResult,
   CourseListBlockQueryResult,
   ArticleListBlockQueryResult,
+  ArticleHeroBlogQueryResult,
   PageHeroBlockQueryResult,
+  ContentBlockQueryResult,
 } from './blocks'
 import * as blocksImport from './blocks'
 
@@ -39,6 +42,7 @@ export interface CommonBlockProps<T> {
 }
 
 export type BlocksQueryResult =
+  | CommonBlockProps<AccordionsBlockQueryResult>
   | CommonBlockProps<HeroBlockQueryResult>
   | CommonBlockProps<ChapterAndJuzListBlockQueryResult>
   | CommonBlockProps<RecentReadingBlockQueryResult>
@@ -52,7 +56,9 @@ export type BlocksQueryResult =
   | CommonBlockProps<FeatureListBlockQueryResult>
   | CommonBlockProps<CourseListBlockQueryResult>
   | CommonBlockProps<ArticleListBlockQueryResult>
+  | CommonBlockProps<ArticleHeroBlogQueryResult>
   | CommonBlockProps<PageHeroBlockQueryResult>
+  | CommonBlockProps<ContentBlockQueryResult>
 
 const blockNameQuery = `'name': select(
   ${blocks.map(({ blockType, blockName }) => `_type == '${blockType}' => '${blockName}'`).join(',')}

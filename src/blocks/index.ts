@@ -1,7 +1,11 @@
 import dynamic from 'next/dynamic'
 
+export const Accordions = dynamic(() => import(/* webpackChunkName: "blocks/Accordions" */ './Accordions')) // prettier-ignore
+export const ArticleHero = dynamic(() => import(/* webpackChunkName: "blocks/ArticleHero" */ './ArticleHero')) // prettier-ignore
+export const ArticleList = dynamic(() => import(/* webpackChunkName: "blocks/ArticleList" */ './ArticleList')) // prettier-ignore
 export const ChapterAndJuzList = dynamic(() => import(/* webpackChunkName: "blocks/ChapterAndJuzList" */ './ChapterAndJuzList')) // prettier-ignore
 export const CourseHero = dynamic(() => import(/* webpackChunkName: "blocks/CourseHero" */ './CourseHero')) // prettier-ignore
+export const Content = dynamic(() => import(/* webpackChunkName: "blocks/Content" */ './Content')) // prettier-ignore
 export const CourseList = dynamic(() => import(/* webpackChunkName: "blocks/CourseList" */ './CourseList')) // prettier-ignore
 export const Courses = dynamic(() => import(/* webpackChunkName: "blocks/Courses" */ './Courses')) // prettier-ignore
 export const Editorial = dynamic(() => import(/* webpackChunkName: "blocks/Editorial" */ './Editorial')) // prettier-ignore

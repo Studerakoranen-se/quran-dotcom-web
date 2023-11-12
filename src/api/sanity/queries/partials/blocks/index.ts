@@ -1,5 +1,11 @@
+export { default as accordionsBlockQuery } from './accordionsBlockQuery'
+export * from './accordionsBlockQuery'
+
 export { default as articleListBlockQuery } from './articleListBlockQuery'
 export * from './articleListBlockQuery'
+
+export { default as articleHeroBlockQuery } from './articleHeroBlockQuery'
+export * from './articleHeroBlockQuery'
 
 export { default as heroBlockQuery } from './heroBlockQuery'
 export * from './heroBlockQuery'
@@ -9,6 +15,9 @@ export * from './lessonBlockQuery'
 
 export { default as chapterAndJuzListBlockQuery } from './chapterAndJuzListBlockQuery'
 export * from './chapterAndJuzListBlockQuery'
+
+export { default as contentBlockQuery } from './contentBlockQuery'
+export * from './contentBlockQuery'
 
 export { default as coursesBlockQuery } from './coursesBlockQuery'
 export * from './coursesBlockQuery'
