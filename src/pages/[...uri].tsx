@@ -31,7 +31,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const apiClient = new ApiClient(process.env.QURAN_API_V3)
 
   const uriString = nextUriToString(uri)
-  console.log('uriString', uriString)
+
   // const page = pages.Course
 
   const [page, settings] = await Promise.all([

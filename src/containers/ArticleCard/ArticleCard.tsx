@@ -1,7 +1,6 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
-import { styled } from '@mui/material'
-import { Button, Typography } from '@mui/material'
+import { Button, Typography, styled } from '@mui/material'
 import { Media, MediaReveal } from '@noaignite/oui'
 import { useI18n } from '~/contexts'
 import { ASPECT_RATIOS } from '~/utils/constants'

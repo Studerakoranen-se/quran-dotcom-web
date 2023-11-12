@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Accordion, AccordionDetails, AccordionSummary, Typography, styled } from '@mui/material'
 import { SanityHtml } from '~/containers'
 import { ExpandMoreIcon } from '~/components'
+import { AccordionsBlockQueryResult } from '~/api'
 
 const BREAKPOINT_KEY = 'md'
 
@@ -35,13 +36,13 @@ const AccordionsEntryHeading = styled('h2')(({ theme }) => ({
   },
 }))
 
-function Accordions(props) {
-  const { entries, heading, id, renderIndex } = props
+function Accordions(props: AccordionsBlockQueryResult & { renderIndex: number }) {
+  const { entries, id, renderIndex } = props
 
   return (
     <AccordionsRoot id={id}>
       <AccordionsContainer>
-        {heading && <AccordionsHeading>{heading}</AccordionsHeading>}
+        {/* {heading && <AccordionsHeading>{heading}</AccordionsHeading>} */}
 
         {entries?.map((entry, idx) => (
           <AccordionsGroup key={idx}>

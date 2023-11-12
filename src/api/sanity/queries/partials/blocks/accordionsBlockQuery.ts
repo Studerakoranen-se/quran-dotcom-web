@@ -1,4 +1,5 @@
 export interface AccordionsBlockQueryResult {
+  id?: string
   entries?: {
     heading?: string
     entries: {

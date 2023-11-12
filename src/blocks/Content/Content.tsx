@@ -1,5 +1,4 @@
 import * as React from 'react'
-import PropTypes from 'prop-types'
 import { styled } from '@mui/material'
 import { SanityHtml } from '~/containers'
 import { ContentBlockQueryResult } from '~/api'
@@ -46,12 +45,6 @@ function Content(props: ContentBlockQueryResult) {
       </ContentContainer>
     </ContentRoot>
   )
-}
-
-Content.propTypes = {
-  contentScrollerBreakpoint: PropTypes.string,
-  id: PropTypes.string,
-  text: PropTypes.array,
 }
 
 export default Content

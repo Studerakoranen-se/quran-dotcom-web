@@ -2,10 +2,9 @@ import * as React from 'react'
 import { PortableText } from '@portabletext/react'
 import { PortableTextBlock } from '@portabletext/types'
 import { Media, MediaReveal } from '@noaignite/oui'
-
+import { Typography } from '@mui/material'
 import { Html } from '~/components'
 import { transformSanityImage } from '~/api/sanity/utils'
-import { Typography } from '@mui/material'
 import RouterLink from '../RouterLink'
 
 const serializers = {
@@ -20,7 +19,7 @@ const serializers = {
       const mediaProps = transformSanityImage(value.image)
 
       return (
-        <>
+        <React.Fragment>
           <MediaReveal>
             <Media
               {...(value?.mediaType === 'video' && {
@@ -34,7 +33,7 @@ const serializers = {
             />
           </MediaReveal>
           {value?.alt && <Typography variant="caption2">{value?.alt}</Typography>}
-        </>
+        </React.Fragment>
       )
     },
     //   block: (props) => {
