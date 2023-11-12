@@ -31,12 +31,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const apiClient = new ApiClient(process.env.QURAN_API_V3)
 
   const uriString = nextUriToString(uri)
-
+  console.log('uriString', uriString)
   // const page = pages.Course
 
   const [page, settings] = await Promise.all([
     sanityClient.fetch(pageTypeQuery, {
-      documentTypes: ['course', 'page', 'article'],
+      documentTypes: ['course', 'page', 'blog'],
       uri: locale !== 'sv' ? `${locale}/${uriString}` : uriString,
       locale,
       localeUnderscoreCountry: locale?.replace('-', '_'),
@@ -109,7 +109,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
     return {
       props: {
-        headerMode: 'auto',
+        // @ts-ignore
+        headerMode: page?.headerMode ?? 'auto',
         settings,
         preview,
         locale,

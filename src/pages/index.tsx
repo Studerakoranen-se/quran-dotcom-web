@@ -46,7 +46,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
     return {
       props: {
-        headerMode: 'auto',
+        // @ts-ignore
+        headerMode: page?.headerMode ?? 'auto',
         defaultLocale: context.defaultLocale,
         locale: context.locale,
         settings,
