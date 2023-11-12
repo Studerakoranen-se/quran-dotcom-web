@@ -1,12 +1,14 @@
 // import pageQuery from './partials/pageQuery'
 // import feedQuery from './partials/feedQuery'
 
+import articleQuery, { ArticleQueryResult } from './partials/articleQuery'
 import courseQuery, { CourseQueryResult } from './partials/courseQuery'
 import pageQuery, { PageQueryResult } from './partials/pageQuery'
 
 export interface PageTypes {
   page: PageQueryResult
   course: CourseQueryResult
+  blog: ArticleQueryResult
 }
 
 export type PageTypeQueryResult<T extends keyof PageTypes> = PageTypes[T]
@@ -14,6 +16,7 @@ export type PageTypeQueryResult<T extends keyof PageTypes> = PageTypes[T]
 const PAGE_TYPE_QUERIES = {
   page: pageQuery,
   course: courseQuery,
+  blog: articleQuery,
 }
 
 /* resolve published pages, drafts and localized pages in this order:

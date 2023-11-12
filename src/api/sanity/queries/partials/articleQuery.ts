@@ -9,6 +9,7 @@ export interface ArticleQueryResult extends Pick<Sanity.Schema.Article, 'title'>
 
 export default `
   title,
+  headerMode,
   'uri': uri.current,
   'date': publishedDate,
   'blocks': blocks[]{${blocksQuery}},

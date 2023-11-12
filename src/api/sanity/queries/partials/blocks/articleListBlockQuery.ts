@@ -2,30 +2,35 @@
 import createImageQuery, { ImageQueryResult } from '../createImageQuery'
 import createLinkQuery from '../createLinkQuery'
 
-export interface ArticleListBlockQueryResult
-  extends Pick<Sanity.Schema.ArticleListBlock, 'heading' | 'subheading'> {
+export interface ArticleListBlockQueryResult {
+  id?: string
+  heading?: string
+  body?: string
   articles: {
     title?: string
-    mediaProps?: ImageQueryResult
+    excerpt?: string
+    // mediaProps?: ImageQueryResult
+    mediaProps?: any
     date?: string
     url?: string
+    ctaLabel?: string
+    ctaUrl?: string
   }[]
 }
-
-// 'articles': *[_type == 'blog' $excludeDrafts] | order(publishedDate desc){
-//   title,
-//   subheading,
-//   ctaText,
-//   'mediaProps': {${createImageQuery('coalesce(image, mediaProps)', true)}},
-//   'date': publishedDate,
-//   'url': select(
-//     defined(url) => ${createLinkQuery('url')},
-//     '/' + uri.current
-//   )
-//   }
 
 // TODO: this query should probably coalesce on drafts and published articles so you get draft articles when you preview the article list block
 export default `
   heading,
-  subheading
+  body,
+  'articles': *[_type == 'blog'] | order(publishedDate desc){
+    title,
+    excerpt,
+    'mediaProps': {${createImageQuery('coalesce(image, mediaProps)', true)}},
+    'date': publishedDate,
+    ctaLabel,
+    'ctaUrl': select(
+      defined(ctaUrl) => ${createLinkQuery('ctaUrl')},
+      '/' + uri.current
+    )
+  }
 `
