@@ -239,7 +239,7 @@ function Form(props: FormProps) {
 
       setSubmitting(false)
     },
-    [fetchOptionsProp, id, renderIndex],
+    [endpointProp, fetchOptionsProp, id, renderIndex],
   )
 
   // Compose Formit initialValues

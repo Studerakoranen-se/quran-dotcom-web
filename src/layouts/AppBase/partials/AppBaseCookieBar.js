@@ -59,6 +59,7 @@ function AppBaseCookieBar(props) {
 
 AppBaseCookieBar.propTypes = {
   open: PropTypes.bool,
+  cookieConsentText: PropTypes.string,
 }
 
 export default AppBaseCookieBar
