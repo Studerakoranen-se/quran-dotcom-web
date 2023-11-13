@@ -1,7 +1,9 @@
 export interface FormBlockQueryResult {
   id?: string
-  endpoint?: string
+  endpoint: string
   heading?: string
+  text?: any
+  gridLayout?: boolean
   submitLabel?: string
   successMessage?: string
   errorMessage?: string
@@ -64,6 +66,8 @@ export interface FormBlockQueryResult {
 export default `
   endpoint,
   heading,
+  text,
+  gridLayout,
   submitLabel,
   successMessage,
   errorMessage,

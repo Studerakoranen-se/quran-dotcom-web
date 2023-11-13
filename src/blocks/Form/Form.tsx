@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import { Formit, Form as FormitForm, Field as FormitField } from '@noaignite/formit'
 import { useI18n, useRemoteConfig } from '~/contexts'
-import { FormitButton, FormitTextField } from '~/containers'
+import { FormitButton, FormitTextField, SanityHtml } from '~/containers'
 import { getAge } from '~/utils'
 // import { gtmEvent } from '~/utils'
 
@@ -20,17 +20,22 @@ const FormRoot = styled('section')({
   padding: 'var(--cia-section-spacing) var(--cia-container-spacing)',
 })
 
-const FormGrid = styled('div')(({ theme }) => ({
-  display: 'grid',
-  gridGap: theme.spacing(2, 'var(--cia-container-spacing)'),
-  padding: 'calc(var(--cia-section-spacing) * 2) calc(var(--cia-container-spacing) * 2)',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.common.white,
-  boxShadow: '0px 4px 430px rgba(0, 0, 0, 0.1)',
-  // [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-  //   gridTemplateColumns: 'repeat(2, 1fr)',
-  // },
-}))
+const FormGrid = styled('div')<{ ownerState: { gridLayout?: boolean } }>(
+  ({ theme, ownerState }) => ({
+    display: 'grid',
+    gridGap: theme.spacing(2, 'var(--cia-container-spacing)'),
+    padding: 'calc(var(--cia-section-spacing) * 2) calc(var(--cia-container-spacing) * 2)',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: theme.palette.common.white,
+    boxShadow: '0px 4px 430px rgba(0, 0, 0, 0.1)',
+
+    [theme.breakpoints.up('md')]: {
+      ...(ownerState?.gridLayout && {
+        gridTemplateColumns: 'repeat(2, 1fr)',
+      }),
+    },
+  }),
+)
 
 const FormHeading = styled('h1')(({ theme }) => ({
   ...theme.typography.h5,
@@ -43,11 +48,19 @@ const FormFormitForm = styled(FormitForm)(({ theme }) => ({
   gridGap: theme.spacing(4),
 }))
 
-const FormFields = styled('div')(({ theme }) => ({
-  display: 'grid',
-  gridGap: theme.spacing(3),
-  gridTemplateColumns: 'repeat(3, 1fr)',
-}))
+const FormFields = styled('div')<{ ownerState: { gridLayout?: boolean } }>(
+  ({ theme, ownerState }) => ({
+    display: 'grid',
+    gridGap: theme.spacing(3),
+    // gridTemplateColumns: 'repeat(3, 1fr)',
+
+    [theme.breakpoints.up('md')]: {
+      ...(!ownerState?.gridLayout && {
+        gridTemplateColumns: 'repeat(3, 1fr)',
+      }),
+    },
+  }),
+)
 
 const CheckboxContainer = styled('div')(() => ({
   display: 'flex',
@@ -105,7 +118,9 @@ type FieldType = InputType | CheckboxType | RadioType | SelectType
 type FormProps = {
   id: string
   renderIndex: string
-  heading: string
+  heading?: string
+  text?: any
+  gridLayout?: boolean
   endpoint: string
   errorMessage: string
   fetchOptions: any
@@ -130,12 +145,14 @@ function Form(props: FormProps) {
     fetchOptions: fetchOptionsProp,
     fields,
     heading,
+    text,
     id,
     renderIndex,
     showPrivacyPolicyDisclaimer,
     submitLabel,
     successMessage,
     tutors,
+    gridLayout,
   } = props
 
   const { t } = useI18n()
@@ -194,13 +211,13 @@ function Form(props: FormProps) {
       try {
         // const response = await sendMail(method, formValues)
 
-        const response = await fetch('/api/mail', {
+        const response = await fetch(endpointProp, {
           method,
           credentials: 'include',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify(formValues),
         }).then((res) => {
-          if (!res.ok) throw new Error('Failed to send message')
+          if (!res.ok) throw new Error('Failed to send')
           return res.json()
         })
 
@@ -238,11 +255,15 @@ function Form(props: FormProps) {
   return (
     <Formit initialValues={initialValues} onSubmit={handleSubmit}>
       <FormRoot id={id}>
-        <FormGrid>
+        <FormGrid
+          ownerState={{
+            gridLayout,
+          }}
+        >
           <header>{heading && <FormHeading>{heading}</FormHeading>}</header>
 
           <FormFormitForm>
-            {/* {text && <SanityHtml blocks={text} />} */}
+            {text && <SanityHtml blocks={text} />}
 
             {status === 'error' && (
               <Alert severity="error">
@@ -256,7 +277,11 @@ function Form(props: FormProps) {
               </Alert>
             ) : (
               <React.Fragment>
-                <FormFields>
+                <FormFields
+                  ownerState={{
+                    gridLayout,
+                  }}
+                >
                   {fields?.map((field, idx) => {
                     // @ts-ignore
                     const { label, name, options, pattern, required, type, helperText, rows } =
@@ -391,7 +416,13 @@ function Form(props: FormProps) {
                   {/* [End] Fake fields so bots fills them and the form will not be submitted */}
                 </FormFields>
                 {/* @ts-ignore */}
-                <FormitButton variant="contained" color="primary" type="submit" sx={{ width: 200 }}>
+                <FormitButton
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{ width: !gridLayout ? 200 : undefined }}
+                  {...(gridLayout && { fullWidth: true })}
+                >
                   {submitLabel || t(__translationGroup)`Send`}
                 </FormitButton>
                 {showPrivacyPolicyDisclaimer && (
