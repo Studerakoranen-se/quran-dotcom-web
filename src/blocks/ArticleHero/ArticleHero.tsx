@@ -70,7 +70,7 @@ const HeroHeading = styled('h1')(() => ({}))
 const HeadingHtmlText = styled(Html)(({ theme }) => ({
   ...theme.typography.h4,
   margin: '0 0 -0.2em', // Optically align text to next elements top margin.
-  fontSize: `max(${theme.typography.h4.fontSize}, 3.7vw)`,
+  fontSize: `max(${theme.typography.h4.fontSize}, 2.7vw)`,
 }))
 
 const HeroSubheading = styled('h2')(() => ({}))

@@ -14,14 +14,16 @@ const ArticleListHeader = styled('header')({
 const ArticleListHeading = styled('h1')(({ theme }) => ({
   ...theme.typography.h4,
   margin: theme.spacing(0, 0, 3),
-  fontSize: `max(${theme.typography.h4.fontSize}, 3.7vw)`,
+  fontSize: `max(${theme.typography.h4.fontSize}, 2.7vw)`,
 }))
 
 const ArticleListSubheading = styled('h2')(({ theme }) => ({
   ...theme.typography.preamble2,
   margin: 0,
-  // @ts-ignore
-  [theme.breakpoints.up(BREAKPOINT_KEY_1)]: theme.typography.preamble1,
+  [theme.breakpoints.up(BREAKPOINT_KEY_1)]: {
+    // @ts-ignore
+    ...theme.typography.preamble1,
+  },
 }))
 
 const ArticleListGridWrapper = styled('div')(({ theme }) => ({
