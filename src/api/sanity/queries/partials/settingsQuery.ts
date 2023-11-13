@@ -47,6 +47,17 @@ export default `
     shareGraphic,
   },
   ...coalesce(
+    *[_type == 'cookieSettings'][0]
+    ) {
+      enabledCookieConsent == true => {
+        enabledCookieConsent,
+        "cookieConsentText": coalesce(
+          cookieConsentText[$locale],
+          cookieConsentText[$defaultLocale]
+        ),
+      },
+    },
+  ...coalesce(
     *[_type == 'siteContent'][0]
     ) {
       siteEmail,

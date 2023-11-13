@@ -2,7 +2,7 @@ import * as React from 'react'
 import PropTypes from 'prop-types'
 import { styled } from '@mui/material'
 import { SITE_MAIN_ID, SITE_ROOT_ID } from '~/utils/constants'
-import { GlobalStateContext } from '~/contexts'
+import { useRemoteConfig, GlobalStateContext } from '~/contexts'
 import { AppBaseCookieBar, AppBaseLoader, AppBaseLanguageDialog, AppBaseSkipLink } from './partials'
 
 const AppBaseRoot = styled('div')({
@@ -13,6 +13,7 @@ const AppBaseRoot = styled('div')({
 
 function AppBase(props) {
   const { children } = props
+  const { enabledCookieConsent, cookieConsentText } = useRemoteConfig()
 
   return (
     <AppBaseRoot id={SITE_ROOT_ID}>
@@ -26,7 +27,9 @@ function AppBase(props) {
       <GlobalStateContext.Consumer>
         {({ isCookieBarOpen }) => {
           // Will only fetch `AppBaseCookieBar` chunk if user has not consented.
-          return isCookieBarOpen ? <AppBaseCookieBar open /> : null
+          return isCookieBarOpen && enabledCookieConsent ? (
+            <AppBaseCookieBar open cookieConsentText={cookieConsentText} />
+          ) : null
         }}
       </GlobalStateContext.Consumer>
     </AppBaseRoot>

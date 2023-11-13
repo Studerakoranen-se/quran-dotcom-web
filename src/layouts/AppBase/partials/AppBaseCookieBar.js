@@ -26,7 +26,7 @@ const AppBaseCookieBarContent = styled('div')(({ theme }) => ({
 }))
 
 function AppBaseCookieBar(props) {
-  const { open, ...other } = props
+  const { open, cookieConsentText, ...other } = props
 
   const { t } = useI18n()
   const { onCookieBarClose } = useGlobalHandlers()
@@ -41,11 +41,7 @@ function AppBaseCookieBar(props) {
       {...other}
     >
       <AppBaseCookieBarContent>
-        <Typography variant="body2">
-          {t(
-            __translationGroup,
-          )`We use cookies to give you the best user experience. By using our website you agree to our privacy policy.`}
-        </Typography>
+        <Typography variant="body2">{cookieConsentText}</Typography>
 
         <IconButton
           onClick={onCookieBarClose}
