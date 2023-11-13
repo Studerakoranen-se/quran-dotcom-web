@@ -225,7 +225,7 @@ const AppHeader = React.memo(function AppHeader(props) {
           </AppHeaderCtaButton>
         )}
 
-        <AppHeaderSupportButton
+        {/* <AppHeaderSupportButton
           onClick={onSupportDialogOpen}
           size="medium"
           // startIcon={
@@ -237,7 +237,7 @@ const AppHeader = React.memo(function AppHeader(props) {
           color="textInverted"
         >
           {t(__translationGroup)`Let's talk!`}
-        </AppHeaderSupportButton>
+        </AppHeaderSupportButton> */}
 
         <IconButton
           className={classes.hiddenOnDesktop}
