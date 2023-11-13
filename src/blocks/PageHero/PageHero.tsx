@@ -14,12 +14,12 @@ const PageHeroHeroRoot = styled('section')<{
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  minHeight: 'max(240px, 20vw)',
+  minHeight: 'max(540px, 20vw)',
   // minHeight: 'max(540px, 20vw)',
   padding: theme.spacing(4, 0, 3, 0),
   clipPath: 'inset(0)',
   ...(ownerState?.fullHeight && {
-    minHeight: 'calc(100vh - var(--cia-header-height, 0px)) !important',
+    minHeight: 'calc(100vh - 100px) !important',
     zIndex: -1,
   }),
   ...(ownerState?.textColor && {
@@ -27,7 +27,7 @@ const PageHeroHeroRoot = styled('section')<{
   }),
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
     padding: theme.spacing(8, 0, 4, 0),
-    minHeight: 'max(840px, 20vw)',
+    // minHeight: 'max(840px, 20vw)',
   },
 }))
 
@@ -72,17 +72,23 @@ const PageHeroHeadingHtmlText = styled(Html)(({ theme }) => ({
 
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
     ...theme.typography.h4,
-    fontSize: `max(${theme.typography.h4.fontSize}, 3.7vw)`,
+    fontSize: `max(${theme.typography.h4.fontSize}, 2.7vw)`,
   },
 }))
 
-const PageHeroPatternMediaReveal = styled(MediaReveal)(({ theme }) => ({
+const PageHeroPatternMediaReveal = styled(MediaReveal)<{
+  ownerState: { fullHeight?: boolean }
+}>(({ theme, ownerState }) => ({
   ...theme.mixins.absolute(null, null, 0, null),
   zIndex: -1,
 
   '& *:not(style)': {
     height: '100%',
   },
+
+  ...(!ownerState?.fullHeight && {
+    ...theme.mixins.absolute(null, null, 50, null),
+  }),
 }))
 
 function PageHero(props: PageHeroBlockQueryResult & { renderIndex: number }) {
@@ -136,7 +142,7 @@ function PageHero(props: PageHeroBlockQueryResult & { renderIndex: number }) {
       </PageHeroHeroContent>
 
       <PageHeroPatternMediaReveal>
-        <Media src="/assets/borderh.png" />
+        <Media src="/assets/borderh.png" sx={{ height: '5px !important' }} />
       </PageHeroPatternMediaReveal>
     </PageHeroHeroRoot>
   )
