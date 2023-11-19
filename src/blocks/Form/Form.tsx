@@ -156,8 +156,8 @@ function Form(props: FormProps) {
     gridLayout,
   } = props
 
-  const theme = useTheme()
-  console.log('theme.vars', theme.palette.mode === 'light')
+  const muiTheme = useTheme()
+
   const { t } = useI18n()
   // @ts-ignore
   const { privacyPolicyPageUrl } = useRemoteConfig()
@@ -422,8 +422,10 @@ function Form(props: FormProps) {
                 <FormitButton
                   variant="contained"
                   color={
-                    // @ts-ignore
-                    theme.palette.mode === 'light' ? 'primary' : theme.palette.inverted.primary
+                    muiTheme.palette.mode === 'light'
+                      ? 'primary'
+                      : // @ts-ignore
+                        muiTheme.palette.inverted.primary
                   }
                   type="submit"
                   sx={{ width: !gridLayout ? 200 : undefined }}

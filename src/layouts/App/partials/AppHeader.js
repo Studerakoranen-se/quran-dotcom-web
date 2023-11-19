@@ -8,9 +8,9 @@ import { SITE_HEADER_ID } from '~/utils/constants'
 import { useGlobalState, useGlobalHandlers, useI18n, useRemoteConfig } from '~/contexts'
 import { FormitTextField, RouterLink } from '~/containers'
 import { BrandIcon, CloseIcon, MenuIcon, ModeSwitcher } from '~/components'
+import { i18n } from '../../../../locales'
 import AppNavDropDown from './AppNavDropDown'
 import AppStoreMessage from './AppStoreMessage'
-import { i18n } from '../../../../locales'
 
 const BREAKPOINT_KEY = 'md'
 
@@ -135,7 +135,7 @@ const AppHeader = React.memo(function AppHeader(props) {
 
   const { t } = useI18n()
   const router = useRouter()
-  console.log('router', router)
+
   const { menus, menuCtaLabel, menuCtaUrl } = useRemoteConfig()
   const { onNavMenuToggle, onSupportDialogOpen } = useGlobalHandlers()
 
@@ -152,10 +152,11 @@ const AppHeader = React.memo(function AppHeader(props) {
 
   const handleLanguageChange = React.useCallback(
     async (event) => {
-      const locale = event.target.value || defaultLocale
+      const locale = event.target.value || router.defaultLocale
 
       // do a hard reload on language change to make sure everything updates correctly
-      window.location = locale === 'sv' ? router?.asPath : `/${locale}/${router?.asPath}`
+      // window.location = locale === 'sv' ? router?.asPath : `/${locale}/${router?.asPath}`
+      window.location = `/${locale}`
     },
     [router?.asPath],
   )

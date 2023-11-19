@@ -24,15 +24,15 @@ export default createSvgIcon(
     />
     <path
       stroke="#000"
-      stroke-linecap="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeWidth="2"
       d="M17.948 10.694c-2.898 1.013-4.378 1.733-6.352 3.084"
     />
     <path fill="#000" d="M30.011 10.694c2.898 1.013 4.378 1.733 6.352 3.084l-6.352-3.084Z" />
     <path
       stroke="#000"
-      stroke-linecap="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeWidth="2"
       d="M30.011 10.694c2.898 1.013 4.378 1.733 6.352 3.084"
     />
     <path
@@ -46,15 +46,15 @@ export default createSvgIcon(
     />
     <path
       stroke="#000"
-      stroke-linecap="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeWidth="2"
       d="M17.948 49.306c-2.898-1.013-4.378-1.733-6.352-3.084"
     />
     <path fill="#000" d="M30.011 49.306c2.898-1.013 4.378-1.733 6.352-3.084l-6.352 3.084Z" />
     <path
       stroke="#000"
-      stroke-linecap="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeWidth="2"
       d="M30.011 49.306c2.898-1.013 4.378-1.733 6.352-3.084"
     />
     <defs>
@@ -66,8 +66,8 @@ export default createSvgIcon(
         y2="15.87"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#DDDDA6" />
-        <stop offset="1" stop-color="#948A6A" />
+        <stop stopColor="#DDDDA6" />
+        <stop offset="1" stopColor="#948A6A" />
       </linearGradient>
       <linearGradient
         id="b"
@@ -77,8 +77,8 @@ export default createSvgIcon(
         y2="44.13"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#DDDDA6" />
-        <stop offset="1" stop-color="#948A6A" />
+        <stop stopColor="#DDDDA6" />
+        <stop offset="1" stopColor="#948A6A" />
       </linearGradient>
     </defs>
   </React.Fragment>,
