@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Button, ButtonBase, Drawer, Typography, styled } from '@mui/material'
+import { Box, Button, ButtonBase, Chip, Drawer, Typography, styled } from '@mui/material'
 import { Media, MediaReveal } from '@noaignite/oui'
 import { TutorsBlockQueryResult } from '~/api/sanity'
 import { transformSanityMedia } from '~/api/sanity/utils'
@@ -73,8 +73,9 @@ type ActiveTutorProps = {
   gender?: string
   age?: number
   fields?: string[]
+  languages?: string[]
   phone?: string
-  email?: string
+  mail?: string
   experience?: string
   text?: any
   isHidden?: boolean
@@ -181,7 +182,49 @@ export default function Tutors(props: TutorsBlockQueryResult) {
           <Typography component="h5" variant="subtitle1" sx={{ mb: 2, fontStyle: 'italic' }}>
             {activeEntry?.title}
           </Typography>
-          {activeEntry?.text && <SanityHtml blocks={activeEntry.text} />}
+          {activeEntry?.fields && (
+            <Box my={2} gap={1} display={'flex'} flexWrap={'wrap'}>
+              {activeEntry.fields.map((field, idx) => (
+                <Chip key={idx} label={field} />
+              ))}
+            </Box>
+          )}
+
+          {activeEntry?.phone && (
+            <Typography variant="body1" gutterBottom>
+              <strong>{t(__translationGroup)`Phone`}</strong>: {activeEntry?.phone}
+            </Typography>
+          )}
+          {activeEntry?.age && (
+            <Typography variant="body1" gutterBottom>
+              <strong>{t(__translationGroup)`Age`}</strong>: {activeEntry?.age}
+            </Typography>
+          )}
+          {activeEntry?.mail && (
+            <Typography variant="body1" gutterBottom>
+              <strong>{t(__translationGroup)`Email`}</strong>: {activeEntry?.mail}
+            </Typography>
+          )}
+          {activeEntry?.experience && (
+            <Typography variant="body1">
+              <strong>{t(__translationGroup)`Experience`}</strong>: {activeEntry?.experience}
+            </Typography>
+          )}
+
+          {activeEntry?.languages && (
+            <Box>
+              <Typography variant="body1">
+                <strong>{t(__translationGroup)`Speaks`}</strong>:
+              </Typography>
+              <Box my={2} gap={1} display={'flex'} flexWrap={'wrap'}>
+                {activeEntry.languages.map((field, idx) => (
+                  <Chip key={idx} label={field} />
+                ))}
+              </Box>
+            </Box>
+          )}
+
+          {activeEntry?.text && <SanityHtml sx={{ mt: 2 }} blocks={activeEntry.text} />}
 
           <Button onClick={handleClose} color="inherit" variant="contained" sx={{ mt: 4 }}>
             {t(__translationGroup)`Back`}

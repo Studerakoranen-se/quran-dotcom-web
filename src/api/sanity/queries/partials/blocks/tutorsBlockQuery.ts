@@ -10,8 +10,9 @@ export interface TutorsBlockQueryResult {
     gender?: string
     age?: number
     fields?: string[]
+    languages?: string[]
     phone?: string
-    email?: string
+    mail?: string
     experience?: string
     text?: any
     image: MediaQueryResult
@@ -33,8 +34,15 @@ export default `
     age,
     experience,
     phone,
-    email,
-    fields,
+    mail,
+    "fields": coalesce(
+        fields[$locale],
+        fields[$defaultLocale]
+      ),
+    "languages": coalesce(
+        languages[$locale],
+        languages[$defaultLocale]
+      ),
     "text": coalesce(
         text[$locale],
         text[$defaultLocale]
