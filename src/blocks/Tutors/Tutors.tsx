@@ -1,8 +1,11 @@
-import { Box, Typography, styled } from '@mui/material'
+import * as React from 'react'
+import { Box, Button, ButtonBase, Drawer, Typography, styled } from '@mui/material'
 import { Media, MediaReveal } from '@noaignite/oui'
 import { TutorsBlockQueryResult } from '~/api/sanity'
 import { transformSanityMedia } from '~/api/sanity/utils'
-import { Html } from '~/components'
+import { useI18n } from '~/contexts'
+import { ArrowForwardIcon, Html } from '~/components'
+import { SanityHtml } from '~/containers'
 
 const TeamRoot = styled('section')(({ theme }) => ({
   position: 'relative',
@@ -54,8 +57,45 @@ const TeamItemCard = styled('div')(() => ({
   backgroundColor: '#ffffff',
 }))
 
+const ActiveTutorDrawer = styled(Drawer)(({ theme }) => ({
+  '& .MuiDrawer-paper': {
+    ...theme.mixins.scrollbars,
+    maxWidth: '100%',
+    width: 500, // By design.
+    height: '100vh',
+    padding: theme.spacing(6),
+  },
+}))
+
+type ActiveTutorProps = {
+  fullname: string
+  title?: string
+  gender?: string
+  age?: number
+  fields?: string[]
+  phone?: string
+  email?: string
+  experience?: string
+  text?: any
+  isHidden?: boolean
+}
+
 export default function Tutors(props: TutorsBlockQueryResult) {
   const { heading, text, entries } = props
+
+  const { t } = useI18n()
+
+  const [activeEntry, setActiveEntry] = React.useState<ActiveTutorProps | null>(null)
+  const [open, setOpen] = React.useState(false)
+
+  const handleClose = React.useCallback(() => {
+    setOpen(false)
+  }, [])
+
+  const handleClick = (entry) => {
+    setActiveEntry(entry)
+    setOpen(true)
+  }
 
   return (
     <TeamRoot>
@@ -79,7 +119,7 @@ export default function Tutors(props: TutorsBlockQueryResult) {
           {entries
             ?.filter((item) => !item?.isHidden)
             .map((item, idx) => {
-              const { image: sanityMediaProps, fullname, description } = item
+              const { image: sanityMediaProps, fullname, title } = item
 
               const image = transformSanityMedia(sanityMediaProps)
 
@@ -91,28 +131,62 @@ export default function Tutors(props: TutorsBlockQueryResult) {
                       <Media src={image.src} alt="" />
                     </MediaReveal>
                   )}
-                  <Box p={2}>
+                  <Box
+                    p={2}
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="flex-start"
+                    minHeight={160}
+                  >
                     {fullname && (
                       <Typography variant="h6" color="primary" gutterBottom>
                         {fullname}
                       </Typography>
                     )}
-                    {description && (
+                    {title && (
                       <Typography
                         variant="body2"
                         sx={{
-                          color: 'text.dark',
+                          color: 'rgba(46, 56, 68, 0.8)',
                           lineHeight: 1.4,
                         }}
                       >
-                        {description.slice(0, 100)}
+                        {title}
                       </Typography>
                     )}
+
+                    <ButtonBase
+                      onClick={() => handleClick(item)}
+                      sx={{
+                        mt: 'auto',
+                      }}
+                    >
+                      <ArrowForwardIcon
+                        fontSize="medium"
+                        sx={{
+                          color: 'rgba(46, 56, 68, 0.8)',
+                        }}
+                      />
+                    </ButtonBase>
                   </Box>
                 </TeamItemCard>
               )
             })}
         </TeamList>
+
+        <ActiveTutorDrawer onClose={handleClose} open={open} anchor="right">
+          <Typography variant="h3" gutterBottom>
+            {activeEntry?.fullname}
+          </Typography>
+          <Typography component="h5" variant="subtitle1" sx={{ mb: 2, fontStyle: 'italic' }}>
+            {activeEntry?.title}
+          </Typography>
+          {activeEntry?.text && <SanityHtml blocks={activeEntry.text} />}
+
+          <Button onClick={handleClose} color="inherit" variant="contained" sx={{ mt: 4 }}>
+            {t(__translationGroup)`Back`}
+          </Button>
+        </ActiveTutorDrawer>
       </TeamGridContainer>
     </TeamRoot>
   )

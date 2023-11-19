@@ -6,7 +6,14 @@ export interface TutorsBlockQueryResult {
   text: string
   entries: {
     fullname: string
-    description: string
+    title?: string
+    gender?: string
+    age?: number
+    fields?: string[]
+    phone?: string
+    email?: string
+    experience?: string
+    text?: any
     image: MediaQueryResult
     isHidden?: boolean
   }[]
@@ -18,7 +25,20 @@ export default `
   entries[]->{
     isHidden,
     fullname,
-    'image': {${createImageQuery('image', false)}},
-    description
+    "title": coalesce(
+        title[$locale],
+        title[$defaultLocale]
+      ),
+    gender,
+    age,
+    experience,
+    phone,
+    email,
+    fields,
+    "text": coalesce(
+        text[$locale],
+        text[$defaultLocale]
+      ),
+    'image': {${createImageQuery('image', false)}}
   }
 `
