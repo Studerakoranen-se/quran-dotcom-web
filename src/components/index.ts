@@ -22,3 +22,6 @@ export * from './Html'
 
 export { default as MetaData } from './MetaData'
 export * from './MetaData'
+
+export { default as ModeSwitcher } from './ModeSwitcher'
+export * from './ModeSwitcher'

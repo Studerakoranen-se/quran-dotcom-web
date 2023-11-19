@@ -16,8 +16,8 @@ const BREAKPOINT_KEY = 'md'
 
 const AppFooterRoot = styled('footer')(({ theme }) => ({
   padding: 'var(--cia-section-spacing) var(--cia-container-spacing)',
-  backgroundColor: '#064B4B',
-  color: theme.vars.palette.text.contrastText,
+  backgroundColor: theme.vars.palette.green[500],
+  color: theme.vars.palette.common.white, // Use `common.white` as color is based on image not theme mode.
   overflow: 'hidden',
   flexShrink: 0,
 }))

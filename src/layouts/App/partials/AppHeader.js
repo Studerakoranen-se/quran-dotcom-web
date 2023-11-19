@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import { useRouter } from 'next/router'
 import { unstable_generateUtilityClasses as generateUtilityClasses } from '@mui/utils'
 import { styled } from '@mui/system'
-import { AppBar, IconButton, Button } from '@mui/material'
+import { AppBar, IconButton, Button, MenuItem, TextField, Select, Typography } from '@mui/material'
 import { SITE_HEADER_ID } from '~/utils/constants'
 import { useGlobalState, useGlobalHandlers, useI18n, useRemoteConfig } from '~/contexts'
-import { RouterLink } from '~/containers'
-import { BrandIcon, CloseIcon, MenuIcon } from '~/components'
+import { FormitTextField, RouterLink } from '~/containers'
+import { BrandIcon, CloseIcon, MenuIcon, ModeSwitcher } from '~/components'
 import AppNavDropDown from './AppNavDropDown'
 import AppStoreMessage from './AppStoreMessage'
+import { i18n } from '../../../../locales'
 
 const BREAKPOINT_KEY = 'md'
 
@@ -99,6 +100,28 @@ const AppHeaderSupportButton = styled(Button)(({ theme }) => ({
   },
 }))
 
+const LanguageSelector = styled(Select)(({ theme }) => ({
+  // width: '100%',
+  height: 44,
+  width: 50,
+  marginRight: 10,
+  '& .MuiSelect-icon': {
+    display: 'none',
+    visibility: 'hidden',
+  },
+  '& .MuiSelect-select': {
+    padding: '0 !important',
+    textAlign: 'center',
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    border: `none`,
+  },
+
+  '& span.bold': {
+    fontWeight: theme.typography.fontWeightBold,
+  },
+}))
+
 const AppHeader = React.memo(function AppHeader(props) {
   const {
     headerColor = 'inherit',
@@ -112,7 +135,7 @@ const AppHeader = React.memo(function AppHeader(props) {
 
   const { t } = useI18n()
   const router = useRouter()
-
+  console.log('router', router)
   const { menus, menuCtaLabel, menuCtaUrl } = useRemoteConfig()
   const { onNavMenuToggle, onSupportDialogOpen } = useGlobalHandlers()
 
@@ -126,6 +149,16 @@ const AppHeader = React.memo(function AppHeader(props) {
   const syncDisableTransparency = React.useCallback(() => {
     setDisableTransparency(window.pageYOffset > 100)
   }, [])
+
+  const handleLanguageChange = React.useCallback(
+    async (event) => {
+      const locale = event.target.value || defaultLocale
+
+      // do a hard reload on language change to make sure everything updates correctly
+      window.location = locale === 'sv' ? router?.asPath : `/${locale}/${router?.asPath}`
+    },
+    [router?.asPath],
+  )
 
   React.useEffect(() => {
     syncDisableTransparency()
@@ -211,6 +244,62 @@ const AppHeader = React.memo(function AppHeader(props) {
             {menus?.primary?.map((menuItem, idx) => (
               <AppNavDropDown key={idx} menuItem={menuItem} />
             ))}
+            <LanguageSelector
+              onChange={handleLanguageChange}
+              value={router?.locale}
+              margin="normal"
+              id="cia-language" // Makes `label` and `helperText` accessible for screen readers.
+              renderValue={(value) => {
+                return (
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: 'white',
+                      textTransform: 'uppercase',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {value}
+                  </Typography>
+                )
+              }}
+              MenuProps={{
+                autoFocus: false,
+                sx: {
+                  ' .MuiMenuItem-root': {
+                    textTransform: 'uppercase',
+                    fontWeight: 'bold',
+                  },
+                  ' .MuiPopover-root': {
+                    zIndex: '16000262 !important',
+                  },
+                  '.MuiPaper-root': {
+                    border: `none`,
+                  },
+                },
+              }}
+            >
+              {i18n.languages
+                .filter((lang) => lang.id !== router?.locale)
+                .map((language) => (
+                  <MenuItem key={language.path} value={language.id}>
+                    {language.id}
+                  </MenuItem>
+                ))}
+            </LanguageSelector>
+            <ModeSwitcher />
+            {/* <FormitTextField
+              name="language"
+              label={router?.locale || router?.defaultLocale}
+              select
+              sx={{ borderColor: 'white' }}
+            >
+              {i18n.languages?.map((language, idx) => (
+                <MenuItem key={idx} value={language.path}>
+                  {language.id}
+                </MenuItem>
+              ))}
+            </FormitTextField> */}
           </AppHeaderList>
         </AppHeaderNav>
 

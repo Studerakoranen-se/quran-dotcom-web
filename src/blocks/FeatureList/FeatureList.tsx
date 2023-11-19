@@ -20,7 +20,8 @@ const iconVariants = {
 
 const FeatureListRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  background: theme.palette.primary.main,
+  backgroundColor: theme.vars.palette.background.default,
+  color: theme.vars.palette.text.primary,
   padding: theme.spacing(4, 2),
 
   [theme.breakpoints.up('md')]: {
@@ -36,8 +37,6 @@ const FeatureListRootMain = styled('div')(({ theme }) => ({
 const FeatureListHeadingsContainer = styled('div')<{ ownerState: { verticalLayout?: boolean } }>(
   ({ theme, ownerState }) => ({
     marginBottom: theme.spacing(5),
-    //   @ts-ignore
-    color: theme.palette.inverted.text.primary,
     [theme.breakpoints.up('md')]: {
       width: 'max(340px, 41.55vw)',
       marginRight: 'auto',
@@ -109,8 +108,6 @@ const FeatureListItemContent = styled('div')<{ ownerState: { verticalLayout?: bo
     width: '100%',
     justifyContent: 'center',
     textAlign: 'left',
-    // @ts-ignore
-    color: theme.palette.inverted.text.primary,
 
     ...(ownerState?.verticalLayout && {
       alignItems: 'center',

@@ -49,7 +49,24 @@ function Accordions(props: AccordionsBlockQueryResult & { renderIndex: number })
             {entry.heading && <AccordionsEntryHeading>{entry.heading}</AccordionsEntryHeading>}
 
             {entry.entries?.map((entry2, idx2) => (
-              <Accordion key={idx2} disableGutters>
+              <Accordion
+                key={idx2}
+                disableGutters
+                sx={(theme) => ({
+                  ...(theme.palette.mode === 'dark' && {
+                    '&.MuiAccordion-root': {
+                      backgroundColor: `white`,
+                      // @ts-ignore
+                      color: theme.palette.textInverted.primary,
+                    },
+
+                    '& .MuiAccordionSummary-expandIconWrapper ': {
+                      // @ts-ignore
+                      color: theme.palette.textInverted.primary,
+                    },
+                  }),
+                })}
+              >
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls={`accordions-${renderIndex}-${idx}-${idx2}-content`}

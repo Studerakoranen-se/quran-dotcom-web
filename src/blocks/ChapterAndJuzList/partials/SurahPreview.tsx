@@ -7,8 +7,9 @@ const SurahPreviewRoot = styled(RouterLink)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: theme.spacing(1),
+  padding: theme.spacing(2),
   border: `2px solid #E0D2B4`,
+  borderRadius: 8,
   '&:hover': {
     borderColor: '#efe8db',
   },
@@ -83,7 +84,7 @@ const SurahPreview = (props: any) => {
         >
           {chapter?.versesCount} Ayahs
         </Typography>
-        <ChapterIconContainer chapterId={chapter?.id.toString()} hasSurahPrefix={false} />
+        {/* <ChapterIconContainer chapterId={chapter?.id.toString()} hasSurahPrefix={false} /> */}
       </SurahPreviewContentLeft>
       {/* </SurahPreviewContainer> */}
     </SurahPreviewRoot>

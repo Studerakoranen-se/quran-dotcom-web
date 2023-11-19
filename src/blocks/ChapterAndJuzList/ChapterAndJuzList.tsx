@@ -194,8 +194,14 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
                 id={`quran-tab-${idx}`}
                 value={tab.value}
                 sx={{
-                  color: 'black !important',
+                  color: 'text.primary',
                   mr: 1,
+                  '&.Mui-selected': {
+                    color: 'text.primary',
+                  },
+                  '&:hover': {
+                    color: 'text.primary',
+                  },
                 }}
               />
             ))}

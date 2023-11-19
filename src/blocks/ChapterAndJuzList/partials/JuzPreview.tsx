@@ -3,14 +3,14 @@ import { RouterLink } from '~/containers'
 import { getChapterData } from '~/utils'
 import SurahPreview from './SurahPreview'
 
-const JuzPreviewRoot = styled('div')(() => ({
+const JuzPreviewRoot = styled('div')(({ theme }) => ({
   borderRadius: 4,
   paddingBlockStart: 13,
   paddingBlockEnd: 13,
   paddingInlineStart: 13,
   paddingInlineEnd: 13,
-  backgroundColor: '#f1f1f1',
   breakInside: 'avoid-column',
+  backgroundColor: theme.palette.mode === 'light' ? '#f1f1f1' : theme.vars.palette.primary.dark,
 }))
 
 const JuzPreviewItem = styled('div')(() => ({
@@ -26,8 +26,9 @@ const JuzPreviewSurah = styled('div')(() => ({
   },
 }))
 
-const SurahPreviewContainer = styled('div')(() => ({
-  backgroundColor: '#f1f1f1',
+const SurahPreviewContainer = styled('div')(({ theme }) => ({
+  backgroundColor:
+    theme.mode === 'light' ? theme.vars.palette.primary.main : theme.vars.palette.background.paper,
 }))
 
 const JuzRouterLink = styled(RouterLink)({

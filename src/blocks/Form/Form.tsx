@@ -10,6 +10,7 @@ import {
   Typography,
   styled,
 } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 import { Formit, Form as FormitForm, Field as FormitField } from '@noaignite/formit'
 import { useI18n, useRemoteConfig } from '~/contexts'
 import { FormitButton, FormitTextField, SanityHtml } from '~/containers'
@@ -26,7 +27,8 @@ const FormGrid = styled('div')<{ ownerState: { gridLayout?: boolean } }>(
     gridGap: theme.spacing(2, 'var(--cia-container-spacing)'),
     padding: 'calc(var(--cia-section-spacing) * 2) calc(var(--cia-container-spacing) * 2)',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.vars.palette.background.default,
+    color: theme.vars.palette.text.primary,
     boxShadow: '0px 4px 430px rgba(0, 0, 0, 0.1)',
 
     [theme.breakpoints.up('md')]: {
@@ -155,6 +157,8 @@ function Form(props: FormProps) {
     gridLayout,
   } = props
 
+  const theme = useTheme()
+  console.log('theme.vars', theme.palette.mode === 'light')
   const { t } = useI18n()
   // @ts-ignore
   const { privacyPolicyPageUrl } = useRemoteConfig()
@@ -418,7 +422,10 @@ function Form(props: FormProps) {
                 {/* @ts-ignore */}
                 <FormitButton
                   variant="contained"
-                  color="primary"
+                  color={
+                    // @ts-ignore
+                    theme.palette.mode === 'light' ? 'primary' : theme.palette.inverted.primary
+                  }
                   type="submit"
                   sx={{ width: !gridLayout ? 200 : undefined }}
                   {...(gridLayout && { fullWidth: true })}

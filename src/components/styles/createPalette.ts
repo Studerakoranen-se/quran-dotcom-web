@@ -43,7 +43,7 @@ export const light = {
   // Consistency between these values is important.
   background: {
     default: common.white,
-    paper: '#EFF0F2',
+    paper: '#f1f1f1',
   },
   // The colors used to style the action elements.
   action: {
@@ -71,7 +71,7 @@ export const dark = {
   textInverted: darkText,
   divider: alpha(common.white, 0.25),
   background: {
-    default: '#6A7883',
+    default: green[500],
     paper: '#61717D',
   },
   action: {

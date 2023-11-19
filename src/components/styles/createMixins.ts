@@ -2,7 +2,11 @@ import { Breakpoints, colors } from '@mui/material'
 import { MixinsOptions } from '@mui/material/styles/createMixins'
 import { Spacing } from '@mui/system'
 
-export default function createMixins(breakpoints: Breakpoints, spacing: Spacing, mixins: MixinsOptions) {
+export default function createMixins(
+  breakpoints: Breakpoints,
+  spacing: Spacing,
+  mixins: MixinsOptions,
+) {
   // eslint-disable-next-line @typescript-eslint/no-shadow
   function position(position, ...args) {
     const keys = ['top', 'right', 'bottom', 'left']

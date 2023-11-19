@@ -15,12 +15,14 @@ import { createEmotionCache } from '~/utils'
 
 interface DocumentProps extends DocumentInitialProps {
   emotionStyleTags: React.ReactNode[]
+  defaultLocale?: string
 }
 
 export default class MyDocument extends Document<DocumentProps> {
   render() {
+    const lang = this.props.locale || this.props.defaultLocale
     return (
-      <Html lang="sv" dir="ltr">
+      <Html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
         <Head>
           {/* Generated from https://favicon.io/ */}
           <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
