@@ -134,7 +134,6 @@ type FormProps = {
     fullname: string
     gender: string
     age: number
-    studyLevel: string
     email: string
     phone: string
   }[]
