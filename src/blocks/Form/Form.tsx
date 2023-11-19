@@ -350,7 +350,8 @@ function Form(props: FormProps) {
                             {...sharedProps}
                           >
                             {tutors?.map((tutor, idx2) => (
-                              <MenuItem key={idx2} value={tutor.fullname}>
+                              // @ts-ignore
+                              <MenuItem key={idx2} value={tutor}>
                                 {tutor.fullname}
                               </MenuItem>
                             ))}

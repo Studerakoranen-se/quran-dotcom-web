@@ -26,6 +26,7 @@ const messageFields = {
   studyLevel: 'Study Level',
   teacher: 'Teacher',
   gender: 'Gender',
+  age: 'Age',
   topic: 'Topic',
   goals: 'Goals',
   others: 'Others',
@@ -48,7 +49,10 @@ const transporter = nodemailer.createTransport({
 const generateEmailContent = (data: any) => {
   const stringData = Object.entries(data).reduce(
     (str, [key, val]) =>
-      (str += `${messageFields[key as keyof typeof messageFields]}: \n${val} \n \n`),
+      (str += `${messageFields[key as keyof typeof messageFields]}: \n${
+        // @ts-ignore
+        typeof val === 'string' ? val : val?.fullname
+      } \n \n`),
     '',
   )
 
@@ -70,13 +74,13 @@ const generateEmailContent = (data: any) => {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  if (req.method === 'POST' && req.body && req.body.email) {
+  if (req.method === 'POST' && req.body && req.body.teacher && req.body.teacher.mail) {
     const { body } = req
 
     try {
       await transporter.sendMail({
         from: Email, // sender address
-        to: req.body.email, // list of receivers teacher
+        to: req.body.teacher.mail, // list of receivers teacher
         ...generateEmailContent(body),
         subject: body.subject,
         // attachments: req?.file
