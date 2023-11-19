@@ -32,8 +32,9 @@ const messageFields = {
 }
 
 const transporter = nodemailer.createTransport({
-  // service: 'gmail',
-  host: 'mailout.one.com',
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  // host: 'mailout.one.com',
   port: 465,
   secure: true, // true for 465, false for other ports
   // requireTLS: true,
@@ -69,13 +70,13 @@ const generateEmailContent = (data: any) => {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  if (req.method === 'POST') {
+  if (req.method === 'POST' && req.body && req.body.email) {
     const { body } = req
 
     try {
       await transporter.sendMail({
         from: Email, // sender address
-        to: Email, // list of receivers
+        to: req.body.email, // list of receivers teacher
         ...generateEmailContent(body),
         subject: body.subject,
         // attachments: req?.file

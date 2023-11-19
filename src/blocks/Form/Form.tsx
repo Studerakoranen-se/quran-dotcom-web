@@ -234,7 +234,7 @@ function Form(props: FormProps) {
         //   })
         // }
 
-        setStatus(response.ok ? 'success' : 'error')
+        setStatus(response.success ? 'success' : 'error')
       } catch (err) {
         console.error(err)
         setStatus('error')
