@@ -28,7 +28,9 @@ const JuzPreviewSurah = styled('div')(() => ({
 
 const SurahPreviewContainer = styled('div')(({ theme }) => ({
   backgroundColor:
-    theme.mode === 'light' ? theme.vars.palette.primary.main : theme.vars.palette.background.paper,
+    theme.palette.mode === 'light'
+      ? theme.vars.palette.primary.main
+      : theme.vars.palette.background.paper,
 }))
 
 const JuzRouterLink = styled(RouterLink)({
