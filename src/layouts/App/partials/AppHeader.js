@@ -158,7 +158,7 @@ const AppHeader = React.memo(function AppHeader(props) {
       // window.location = locale === 'sv' ? router?.asPath : `/${locale}/${router?.asPath}`
       window.location = `/${locale}`
     },
-    [router?.asPath],
+    [router?.asPath, router.defaultLocale],
   )
 
   React.useEffect(() => {
