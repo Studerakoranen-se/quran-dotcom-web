@@ -4,7 +4,7 @@ import { RouterLink } from '~/containers'
 
 const RecentReadingRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  padding: theme.spacing(2, 3.5),
+  padding: 'var(--cia-container-spacing)',
 }))
 
 const RecentReadingMain = styled('div')(({ theme }) => ({
@@ -16,18 +16,23 @@ const RecentReadingMain = styled('div')(({ theme }) => ({
 const RecentSectionContainer = styled('div')(({ theme }) => ({
   position: 'relative',
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, 200px)',
+  gridTemplateColumns: '1fr 1fr',
   gap: 10,
   padding: theme.spacing(4, 0),
+  [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: 'repeat(auto-fit, 200px)',
+  },
 }))
 const RecentSectionItemLink = styled(RouterLink)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   border: `1px solid #E0D2B4`,
-  width: 200,
   borderRadius: theme.spacing(),
   boxShadow: theme.shadows[6],
   textDecoration: 'none',
+  [theme.breakpoints.up('md')]: {
+    width: 200,
+  },
 }))
 const RecentSectionItem = styled('div')(({ theme }) => ({
   display: 'flex',

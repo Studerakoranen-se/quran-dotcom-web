@@ -2,7 +2,7 @@ import * as React from 'react'
 import { PortableText } from '@portabletext/react'
 import { PortableTextBlock } from '@portabletext/types'
 import { Media, MediaReveal } from '@noaignite/oui'
-import { Typography } from '@mui/material'
+import { SxProps, Theme, Typography } from '@mui/material'
 import { Html } from '~/components'
 import { transformSanityImage } from '~/api/sanity/utils'
 import RouterLink from '../RouterLink'
@@ -59,6 +59,7 @@ const serializers = {
 
 type SanityHtmlProps = {
   blocks: PortableTextBlock[]
+  sx?: SxProps<Theme>
 }
 
 const SanityHtml = React.forwardRef(function SanityHtml(props: SanityHtmlProps, ref) {

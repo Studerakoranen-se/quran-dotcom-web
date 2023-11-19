@@ -21,9 +21,13 @@ const QuranReaderRoot = styled('section')(() => ({
 
 const QuranReaderRootMain = styled('div')(({ theme }) => ({
   // ...theme.mixins.contain('lg'),
-  padding: theme.spacing(0, 12),
+  padding: 'var(--cia-container-spacing)',
   marginBlockStart: theme.spacing(3),
   marginBlockEnd: theme.spacing(3),
+
+  [theme.breakpoints.up('lg')]: {
+    padding: theme.spacing(0, 12),
+  },
 }))
 
 const QuranReaderStickyFilter = styled('div')<{

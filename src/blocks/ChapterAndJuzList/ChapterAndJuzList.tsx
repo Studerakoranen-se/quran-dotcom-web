@@ -6,7 +6,7 @@ import JuzPreview from './partials/JuzPreview'
 
 const ChapterAndJuzListRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  padding: theme.spacing(3.5),
+  padding: 'var(--cia-container-spacing)',
 }))
 
 const ChapterAndJuzListMain = styled('div')(({ theme }) => ({

@@ -7,14 +7,9 @@ const BREAKPOINT_KEY = 'md'
 
 const HeroRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'justify-between',
   minHeight: 550,
   color: theme.vars.palette.common.white, // Use `common.white` as color is based on image not theme mode.
-  textAlign: 'center',
   padding: theme.spacing(30, 2, 20),
-
   [theme.breakpoints.up('md')]: {
     minHeight: 650,
   },
@@ -26,12 +21,23 @@ const HeroRoot = styled('section')(({ theme }) => ({
   backgroundSize: 'cover', // Make the background image cover the container width
 }))
 
+const HeroContainer = styled('div')(({ theme }) => ({
+  ...theme.mixins.contain('xl'),
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'justify-between',
+  textAlign: 'center',
+}))
+
 const HeroMain = styled('div')(({ theme }) => ({
   textAlign: 'center',
   paddingInline: 'var(--cia-container-spacing)',
   zIndex: 111,
   [theme.breakpoints.up('md')]: {
     textAlign: 'left',
+  },
+  [theme.breakpoints.up('xl')]: {
+    paddingLeft: 0,
   },
 }))
 
@@ -56,6 +62,10 @@ const HeroMedia = styled('div')(({ theme }) => ({
     zIndex: 0,
     // paddingRight: 26,
     // paddingLeft: 26,
+  },
+
+  [theme.breakpoints.up('xl')]: {
+    paddingRight: 0,
   },
 }))
 
@@ -119,56 +129,58 @@ function Hero(props: HeroProps) {
 
   return (
     <HeroRoot>
-      <HeroMain>
-        {heading && (
-          <HeroHeading>
-            <HeadingHtmlText dangerouslySetInnerHTML={{ __html: heading }} />
-          </HeroHeading>
-        )}
+      <HeroContainer>
+        <HeroMain>
+          {heading && (
+            <HeroHeading>
+              <HeadingHtmlText dangerouslySetInnerHTML={{ __html: heading }} />
+            </HeroHeading>
+          )}
 
-        {subheading && (
-          <HeroSubheading>
-            <SubHeadingHtmlText dangerouslySetInnerHTML={{ __html: subheading }} />
-          </HeroSubheading>
-        )}
-        {text && <Typography dangerouslySetInnerHTML={{ __html: text }} />}
+          {subheading && (
+            <HeroSubheading>
+              <SubHeadingHtmlText dangerouslySetInnerHTML={{ __html: subheading }} />
+            </HeroSubheading>
+          )}
+          {text && <Typography dangerouslySetInnerHTML={{ __html: text }} />}
 
-        {ctaLabel && ctaUrl && (
-          <ButtonContainer>
-            <Button
-              component={RouterLink}
-              href={ctaUrl}
-              variant="contained"
-              size="medium"
-              // @ts-ignore
-              color="textInverted"
-              aria-label={t(__translationGroup)`Read more about "${heading}"`}
-              startIcon={<QuranIcon color="primary" />}
-            >
-              {ctaLabel}
-            </Button>
-            {ctaLabel2 && ctaUrl2 && (
+          {ctaLabel && ctaUrl && (
+            <ButtonContainer>
               <Button
                 component={RouterLink}
-                href={ctaUrl2}
+                href={ctaUrl}
                 variant="contained"
+                size="medium"
                 // @ts-ignore
                 color="textInverted"
-                size="medium"
-                aria-label={t(__translationGroup)`Read more about "${subheading}"`}
-                startIcon={<BookIcon color="primary" />}
+                aria-label={t(__translationGroup)`Read more about "${heading}"`}
+                startIcon={<QuranIcon color="primary" />}
               >
-                {ctaLabel2}
+                {ctaLabel}
               </Button>
-            )}
-          </ButtonContainer>
-        )}
-      </HeroMain>
-      <HeroMedia>
-        <HeroBrandIcon>
-          <BrandIcon sx={{ width: '100%', height: '100%' }} />
-        </HeroBrandIcon>
-      </HeroMedia>
+              {ctaLabel2 && ctaUrl2 && (
+                <Button
+                  component={RouterLink}
+                  href={ctaUrl2}
+                  variant="contained"
+                  // @ts-ignore
+                  color="textInverted"
+                  size="medium"
+                  aria-label={t(__translationGroup)`Read more about "${subheading}"`}
+                  startIcon={<BookIcon color="primary" />}
+                >
+                  {ctaLabel2}
+                </Button>
+              )}
+            </ButtonContainer>
+          )}
+        </HeroMain>
+        <HeroMedia>
+          <HeroBrandIcon>
+            <BrandIcon sx={{ width: '100%', height: '100%' }} />
+          </HeroBrandIcon>
+        </HeroMedia>
+      </HeroContainer>
     </HeroRoot>
   )
 }
