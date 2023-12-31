@@ -153,12 +153,9 @@ const AppHeader = React.memo(function AppHeader(props) {
   const handleLanguageChange = React.useCallback(
     async (event) => {
       const locale = event.target.value || router.defaultLocale
-
-      // do a hard reload on language change to make sure everything updates correctly
-      // window.location = locale === 'sv' ? router?.asPath : `/${locale}/${router?.asPath}`
-      window.location = `/${locale}`
+      router?.push(router.asPath, router.asPath, { locale })
     },
-    [router.defaultLocale],
+    [router],
   )
 
   React.useEffect(() => {

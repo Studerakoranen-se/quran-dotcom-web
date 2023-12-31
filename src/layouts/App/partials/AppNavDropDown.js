@@ -37,6 +37,12 @@ const AppMenuDropDownListItemRoot = styled('li')(({ theme }) => ({
   },
 }))
 
+const AppMenuDropDownListItem = styled('li')(({ theme }) => ({
+  '&:not(:last-child)': {
+    borderBottom: '1px solid rgba(46, 56, 68, 0.1)',
+  },
+}))
+
 const AppMenuDropDownListItemLink = styled('a')(({ theme }) => ({
   transition: theme.transitions.create(['padding', 'background-color', 'color'], {
     duration: theme.transitions.duration.short, // Match MuiButton duration.
@@ -62,7 +68,6 @@ const AppMenuDropDownListItemSecondary = styled(AppMenuDropDownListItemLink)(({ 
   flexDirection: 'column',
   justifyContent: 'center',
   padding: 'var(--_spacing) 0',
-  borderBottom: `1px solid ${theme.palette.inverted.divider}`,
   '&:hover, &:focus': {
     paddingLeft: 'var(--_spacing)',
   },
@@ -76,8 +81,8 @@ const AppMenuDropDownListItemPaper = styled('div')(({ theme }) => ({
   visibility: 'hidden',
   // overflow: 'hidden',
   padding: theme.spacing(1, 2),
-  backgroundColor: theme.palette.background.default,
-  color: theme.palette.text.primary,
+  backgroundColor: theme.palette.common.white,
+  color: theme.palette.common.black,
   transition: theme.transitions.create(['opacity', 'visibility'], {
     duration: theme.transitions.duration.shortest,
   }),
@@ -156,13 +161,13 @@ function AppNavDropDown(props) {
         <AppMenuDropDownListItemPaper onTransitionEnd={handleSubmenuTransitionEnd}>
           <AppNavDropDownList>
             {(hasSubMenu ? menuItem.menuItems : [false])?.map((item, idx) => (
-              <li key={idx}>
+              <AppMenuDropDownListItem key={idx}>
                 {item && (
                   <AppMenuDropDownListItemSecondary as={RouterLink} href={item.url}>
                     {item.label}
                   </AppMenuDropDownListItemSecondary>
                 )}
-              </li>
+              </AppMenuDropDownListItem>
             ))}
           </AppNavDropDownList>
         </AppMenuDropDownListItemPaper>
