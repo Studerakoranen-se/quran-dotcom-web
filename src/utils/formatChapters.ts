@@ -18,6 +18,7 @@ export default function formatChapters(chapter: SingleChapter, locale = 'sv') {
   return {
     ...chapter,
     id: chapter.id,
+    chapterId: chapter?.id?.toString().padStart(3, '0'),
     chapterNumber: chapter?.chapter_number || null,
     evelationPlace: chapter.revelation_place,
     versesCount: chapter.verses_count || 1,

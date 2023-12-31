@@ -1,4 +1,5 @@
 import '../../scripts/globals'
+import '../styles/globals.css'
 // Perfect Scrollbar
 import 'react-perfect-scrollbar/dist/css/styles.css'
 import '../styles/tailwind.css'
@@ -14,6 +15,7 @@ import { Button } from '@mui/material'
 import { RootProvider } from '~/contexts'
 import * as layoutVariants from '~/layouts'
 import { ErrorBoundary, RouterLink } from '~/containers'
+import FontPreLoader from '~/components/Fonts/FontPreLoader'
 import store from '../store'
 
 export interface AppProps extends NextAppProps {
@@ -49,6 +51,7 @@ function App(props: AppProps) {
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
         />
       </Head>
+      <FontPreLoader locale={locale} />
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           {() => {

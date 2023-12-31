@@ -44,13 +44,7 @@ const overrides = {
       font-display: swap;
       src: url('/fonts/Elmessiri/el-messiri-700.woff2') format('woff2');
     }
-    @font-face {
-      font-family: 'SurahNames';
-      font-weight: normal;
-      font-style: normal;
-      font-display: swap;
-      src: url('/fonts/SurahNames/sura_names.woff2') format('woff2');
-    }
+
     */
     /* Define :root css variables. */
     :root {

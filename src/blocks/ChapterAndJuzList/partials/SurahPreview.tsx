@@ -70,12 +70,17 @@ const SurahPreview = (props: any) => {
           />
         </SurahPreviewIconContainer>
         <div className="">
-          <Typography variant="subtitle1">{chapter?.translatedName}</Typography>
+          <Typography variant="subtitle1">{chapter?.transliteratedName}</Typography>
           <Typography sx={{ my: 1.2 }}>{chapter?.translatedName}</Typography>
         </div>
       </SurahPreviewContent>
       <SurahPreviewContentLeft>
-        <Typography>{chapter?.transliteratedName}</Typography>
+        <Typography
+          className={`icon-surah icon-surah${chapter?.id}`}
+          component="span"
+          translate="no"
+          variant="h2"
+        />
         <Typography
           variant="caption"
           sx={{

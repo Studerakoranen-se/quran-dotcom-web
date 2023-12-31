@@ -26,13 +26,6 @@ const JuzPreviewSurah = styled('div')(() => ({
   },
 }))
 
-const SurahPreviewContainer = styled('div')(({ theme }) => ({
-  backgroundColor:
-    theme.palette.mode === 'light'
-      ? theme.vars.palette.primary.main
-      : theme.vars.palette.background.paper,
-}))
-
 const JuzRouterLink = styled(RouterLink)({
   textDecoration: 'underline',
 })
@@ -53,12 +46,10 @@ const JuzPreview = (props: any) => {
           // @ts-ignore
           const chapter = getChapterData(chapters, chapterId - 1)
 
-          // eslint-disable-next-line no-console
-          console.log('chapterId', chapterId)
           return (
-            <SurahPreviewContainer>
+            <div>
               <SurahPreview key={chapterId} chapter={chapter} />
-            </SurahPreviewContainer>
+            </div>
           )
         })}
       </JuzPreviewSurah>
