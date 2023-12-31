@@ -1,7 +1,5 @@
 const languages = [
   { id: 'en', title: 'English', path: '/en/' },
-  { id: 'tr', title: 'Turkish', path: '/tr/' },
-  { id: 'ar', title: 'Arabic', path: '/ar/' },
   { id: 'sv', title: 'Swedish', isDefault: true, path: '/' },
 ]
 
