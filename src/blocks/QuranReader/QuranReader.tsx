@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useDispatch } from 'react-redux'
-// import axios from 'axios'
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 import ReactAudioPlayer from 'react-audio-player'
 import { Box, Button, Collapse, IconButton, Typography, styled } from '@mui/material'
@@ -20,7 +19,6 @@ const QuranReaderRoot = styled('section')(() => ({
 }))
 
 const QuranReaderRootMain = styled('div')(({ theme }) => ({
-  // ...theme.mixins.contain('lg'),
   padding: 'var(--cia-container-spacing)',
   marginBlockStart: theme.spacing(3),
   marginBlockEnd: theme.spacing(3),
@@ -382,7 +380,11 @@ function QuranReader(props: QuranReaderProps) {
               />
             ))}
           </QuranReaderVerseItemWords>
-          <Typography>{verse.translations[0].text}</Typography>
+          <Typography>
+            {locale === 'sv' && verse?.swedishTranslations
+              ? verse.swedishTranslations.swedishText
+              : verse.translations[0].text}
+          </Typography>
         </QuranReaderVerseItemWordsContainer>
       </QuranReaderVerseItem>
     )
@@ -421,7 +423,8 @@ function QuranReader(props: QuranReaderProps) {
               aria-label={`Toggle Surah Drawer`}
               size="small"
             >
-              <FilterIcon fontSize="small" color="primary" />
+              {/* @ts-ignore */}
+              <FilterIcon fontSize="small" color="text" />
             </IconButton>
 
             <Box
@@ -445,9 +448,9 @@ function QuranReader(props: QuranReaderProps) {
                   </Button>
                 ) : (
                   <Button
-                    variant="contained"
+                    variant="text"
                     // @ts-ignore
-                    color="textInverted"
+                    color="text"
                     size="medium"
                     onClick={() => {
                       setCurrentAudio(`https://audio.qurancdn.com/${verses?.[0].audio.url}`)

@@ -36,7 +36,7 @@ const StyledRouterLink = styled(RouterLink)<{ ownerState: { href?: string; isAct
     },
 
     ...(ownerState?.isActive && {
-      color: theme.vars.palette.primary.main,
+      color: theme.vars.palette.text.primary,
       fontWeight: theme.typography.fontWeightBold,
     }),
   }),
@@ -111,7 +111,7 @@ const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranRead
           aria-label="Quran Tabs"
           sx={{
             ' .MuiTabs-indicator': {
-              backgroundColor: 'primary.main',
+              backgroundColor: 'text.main',
               height: '3px',
             },
           }}
@@ -122,10 +122,10 @@ const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranRead
               label={tab.title}
               id={`quran-tab-${idx}`}
               value={tab.value}
-              sx={{
-                color: 'black !important',
+              sx={(theme) => ({
+                color: `${theme.palette.text.primary} !important`,
                 mr: 1,
-              }}
+              })}
             />
           ))}
         </Tabs>

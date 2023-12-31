@@ -2,7 +2,13 @@ import { GetStaticProps } from 'next'
 import * as blockPropGetters from '~/blocks/getBlockProps'
 import type { GetBlockPropsFunctions } from '~/blocks/getBlockProps'
 import { PageTypeQueryResult, siteSettingsQuery } from '~/api/sanity/queries'
-import { ApiClient, createGetBlocksProps, formatChapters, nextUriToString } from '~/utils'
+import {
+  ApiClient,
+  createGetBlocksProps,
+  formatChapters,
+  getTranslatedVerse,
+  nextUriToString,
+} from '~/utils'
 import { getClient as getSanityClient, pageTypeQuery, SiteSettingsQueryResult } from '~/api/sanity'
 
 export { default } from '~/containers/Page'
@@ -62,9 +68,22 @@ export const getStaticProps: GetStaticProps = async (context) => {
     ]
 
     const [verses, chapter] = await Promise.all(promises)
+    // Fetch scraped data for the corresponding chapter ID (adjusting for the different numbering system)
+    const translations = await getTranslatedVerse((parseInt(chapter.chapter.id, 10) - 1).toString())
 
     if (verses?.verses?.length > 0 && chapter?.chapter?.id) {
       const chapterInfo = formatChapters(chapter.chapter, locale)
+
+      verses.verses.forEach((verse) => {
+        // @ts-ignore
+        const matchingData = translations.scrapedData.find(
+          (data) => data.verseNumber === verse.verse_key,
+        )
+        if (matchingData) {
+          verse.swedishTranslations = matchingData
+        }
+      })
+
       const blocks = await getBlocksProps(
         [
           {

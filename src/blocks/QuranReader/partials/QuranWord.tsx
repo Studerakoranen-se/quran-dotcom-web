@@ -25,11 +25,17 @@ const QuranReaderIconContainer = styled('div')(() => ({
 
 const QuranWordItem = styled(ButtonBase)(({ theme }) => ({
   ...theme.typography.body1,
+  fontFamily: 'Scheherazade',
   fontSize: theme.typography.pxToRem(24),
   fontWeight: theme.typography.fontWeightBold,
   '&:hover': {
     color: theme.vars.palette.primary.main,
   },
+
+  [theme.breakpoints.up('md')]: {
+    fontSize: theme.typography.pxToRem(32),
+  },
+
   // [`${QuranReaderVerseItem}:hover &`]: {
   //   span: {
   //     color: '#E0D2B4',
