@@ -49,9 +49,9 @@ const HeadingHtmlText = styled(Html)<{
     __html: string
   }
 }>(({ theme }) => ({
-  ...theme.typography.h3,
+  ...theme.typography.h4,
   margin: 0,
-  fontSize: `max(${theme.typography.h3.fontSize}, 3.2vw)`,
+  fontSize: `max(${theme.typography.h4.fontSize}, 2.2vw)`,
 }))
 
 const StepsSubheading = styled('h2')(({ theme }) => ({

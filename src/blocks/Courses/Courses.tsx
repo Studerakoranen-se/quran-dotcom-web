@@ -8,8 +8,8 @@ const BREAKPOINT_KEY = 'md'
 
 const CoursesRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.common.white,
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.text.primary,
   display: 'flex',
   alignItems: 'center',
   minHeight: 'max(240px, 20vw)',
@@ -101,7 +101,7 @@ function Courses(props: CoursesProps) {
                   href={ctaUrl}
                   variant="contained"
                   // @ts-ignore
-                  color="textInverted"
+                  color="text"
                   size="medium"
                   aria-label={t(__translationGroup)`Read more about "${heading}"`}
                   sx={{

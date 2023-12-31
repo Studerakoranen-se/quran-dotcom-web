@@ -23,9 +23,10 @@ const FormRoot = styled('section')({
 
 const FormGrid = styled('div')<{ ownerState: { gridLayout?: boolean } }>(
   ({ theme, ownerState }) => ({
+    ...theme.mixins.contain('lg'),
     display: 'grid',
     gridGap: theme.spacing(2, 'var(--cia-container-spacing)'),
-    padding: 'calc(var(--cia-section-spacing) * 2) calc(var(--cia-container-spacing) * 2)',
+    padding: 'calc(var(--cia-section-spacing) * 2) var(--cia-container-spacing)',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.vars.palette.background.default,
     color: theme.vars.palette.text.primary,
@@ -40,9 +41,9 @@ const FormGrid = styled('div')<{ ownerState: { gridLayout?: boolean } }>(
 )
 
 const FormHeading = styled('h1')(({ theme }) => ({
-  ...theme.typography.h5,
+  ...theme.typography.h4,
   margin: 0,
-  fontSize: `max(${theme.typography.h5.fontSize}, 2.03vw)`,
+  fontSize: `max(${theme.typography.h4.fontSize}, 2.2vw)`,
 }))
 
 const FormFormitForm = styled(FormitForm)(({ theme }) => ({

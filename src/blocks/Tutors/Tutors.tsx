@@ -12,7 +12,7 @@ const TeamRoot = styled('section')(({ theme }) => ({
   background: theme.palette.primary.main,
   boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
   color: theme.palette.common.white,
-  padding: theme.spacing(3.5),
+  padding: `var(--cia-container-spacing)`,
 }))
 
 const TeamGridContainer = styled('div')(({ theme }) => ({
@@ -39,10 +39,11 @@ const TeamList = styled('div')(({ theme }) => ({
   display: 'grid',
   paddingTop: '2.5rem',
   paddingBottom: '2.5rem',
-  gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
-  gap: '1.25rem',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  gap: '1rem',
 
   [theme.breakpoints.up('md')]: {
+    gap: '1.25rem',
     gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
   },
 

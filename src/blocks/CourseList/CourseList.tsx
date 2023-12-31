@@ -27,7 +27,7 @@ const CourseListRootMain = styled('div')(({ theme }) => ({
 const CourseListHeadingsContainer = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(5),
   //   @ts-ignore
-  color: theme.palette.inverted.text.primary,
+  color: theme.palette.common.white,
   [theme.breakpoints.up('md')]: {
     width: 'max(340px, 41.55vw)',
     margin: '0 auto',
@@ -64,7 +64,7 @@ const CourseListItem = styled('div')(({ theme }) => ({
   overflow: 'hidden',
   alignItems: 'center',
   borderRadius: theme.spacing(),
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: theme.palette.common.white,
   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
   color: theme.palette.primary.main,
 
@@ -147,6 +147,7 @@ function CourseList(props: CourseListBlockQueryResult) {
                       variant="contained"
                       size="medium"
                       aria-label={t(__translationGroup)`Read more about "${title}"`}
+                      color="primary"
                     >
                       {t(__translationGroup)`Click here`}
                     </Button>
