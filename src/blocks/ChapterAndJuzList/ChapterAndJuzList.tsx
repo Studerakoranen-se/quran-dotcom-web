@@ -1,8 +1,10 @@
 import * as React from 'react'
-import { Box, ButtonBase, styled, Tab, Tabs, Typography } from '@mui/material'
-import { ArrowDropDownIcon } from '~/components'
+import { Box, ButtonBase, styled, Typography } from '@mui/material'
+import { useI18n } from '~/contexts'
+import { Tabs, ArrowDropDownIcon } from '~/components'
 import SurahPreview from './partials/SurahPreview'
 import JuzPreview from './partials/JuzPreview'
+import RevelationOrderView from './partials/RevelationOrderView'
 
 const ChapterAndJuzListRoot = styled('section')(({ theme }) => ({
   position: 'relative',
@@ -86,13 +88,6 @@ enum Sort {
 type ChapterAndJuzListProps = {
   locale: string
   chapters: Chapter[]
-  juzs: {
-    id?: number
-    firstVerseId: number
-    juzNumber: number
-    lastVerseId: number
-    versesCount: number
-  }[]
 }
 
 function CustomTabPanel(props: TabPanelProps) {
@@ -111,8 +106,23 @@ function CustomTabPanel(props: TabPanelProps) {
   )
 }
 
+const MOST_VISITED_CHAPTERS = {
+  1: true,
+  2: true,
+  3: true,
+  4: true,
+  18: true,
+  32: true,
+  36: true,
+  55: true,
+  56: true,
+  67: true,
+}
+
 function ChapterAndJuzList(props: ChapterAndJuzListProps) {
-  const { chapters = [], juzs = [], locale } = props
+  const { chapters = [], locale } = props
+
+  const { t } = useI18n()
 
   const [sortBy, setSortBy] = React.useState(Sort.ASC)
   const [view, setView] = React.useState(0)
@@ -126,10 +136,11 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
 
   const tabs = React.useMemo(
     () => [
-      { title: 'Surah', value: 0 },
-      { title: 'Juz', value: 1 },
+      { title: t(__translationGroup)`Surah`, value: 0 },
+      { title: t(__translationGroup)`Juz`, value: 1 },
+      { title: t(__translationGroup)`RevelationOrder`, value: 2 },
     ],
-    [],
+    [t],
   )
 
   const sortedChapters = React.useMemo(
@@ -140,72 +151,16 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
     [sortBy, chapters],
   )
 
-  const sortedJuzIds = React.useMemo(
-    () => (sortBy === Sort.DESC ? juzs.slice(0).reverse() : juzs),
-    [sortBy, juzs],
-  )
-
-  const onTabSelected = (event: React.SyntheticEvent, newView) => {
+  const onTabSelected = (e, newView) => {
     setView(newView)
   }
-
-  // const getChaptersByJuz = (juzs: any, chapters: any) => {
-  //   const juzsWithChapters: any = []
-
-  //   juzs.forEach((juz: any) => {
-  //     const chapterIDs = Object.keys(juz.verseMapping)
-  //     const chapterD: any = []
-
-  //     chapters.forEach((chapter: any) => {
-  //       if (chapterIDs.includes(chapter.id.toString())) {
-  //         chapterD.push(chapter)
-  //       }
-  //     })
-  //     juzsWithChapters.push({
-  //       juz,
-  //       chapters: chapterD,
-  //     })
-  //   })
-
-  //   return juzsWithChapters
-  // }
-
-  // const juzsChs = getChaptersByJuz(juzs, sortedChapters)
 
   return (
     <ChapterAndJuzListRoot>
       <ChapterAndJuzListMain>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs
-            value={view}
-            onChange={onTabSelected}
-            aria-label="Quran Tabs"
-            sx={{
-              ' .MuiTabs-indicator': {
-                backgroundColor: 'primary.main',
-                height: '3px',
-              },
-            }}
-          >
-            {tabs?.map((tab, idx) => (
-              <Tab
-                key={idx}
-                label={tab.title}
-                id={`quran-tab-${idx}`}
-                value={tab.value}
-                sx={{
-                  color: 'text.primary',
-                  mr: 1,
-                  '&.Mui-selected': {
-                    color: 'text.primary',
-                  },
-                  '&:hover': {
-                    color: 'text.primary',
-                  },
-                }}
-              />
-            ))}
-          </Tabs>
+          {/* @ts-ignore */}
+          <Tabs tabs={tabs} selected={view} onSelect={onTabSelected} />
         </Box>
 
         <ChapterSorter>
@@ -228,16 +183,32 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
         <CustomTabPanel value={view} index={0}>
           <PreviewContainer>
             {sortedChapters.map((chapter: any, i: number) => (
-              <SurahPreview key={i} chapter={chapter} locale={locale} />
+              <SurahPreview
+                key={i}
+                href={`/${chapter.id}`}
+                shouldPrefetch={MOST_VISITED_CHAPTERS[Number(chapter.id)] === true}
+                chapterId={Number(chapter.id)}
+                description={`${chapter.versesCount} Ayahs`}
+                surahName={chapter.transliteratedName}
+                surahNumber={Number(chapter.id)}
+                translatedSurahName={chapter.translatedName as string}
+                // isMinimalLayout={shouldUseMinimalLayout(lang)}
+              />
             ))}
           </PreviewContainer>
         </CustomTabPanel>
+
         <CustomTabPanel value={view} index={1}>
           <PreviewContainer2>
-            {sortedJuzIds.map((juzEntry: any, i: number) => (
-              <JuzPreview key={i} chapters={chapters} {...juzEntry} />
-            ))}
+            <JuzPreview isDescending={sortBy === Sort.DESC} />
           </PreviewContainer2>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={view} index={2}>
+          <PreviewContainer>
+            {/* @ts-ignore */}
+            <RevelationOrderView isDescending={sortBy === Sort.DESC} chapters={chapters} />
+          </PreviewContainer>
         </CustomTabPanel>
       </ChapterAndJuzListMain>
     </ChapterAndJuzListRoot>

@@ -1,9 +1,9 @@
 import { Typography, styled } from '@mui/material'
 import { RouterLink } from '~/containers'
 import { ChapterNumberIcon } from '~/components'
-import ChapterIconContainer from '~/components/ChapterIcon/partials/ChapterIconContainer'
+// import ChapterIconContainer from '~/components/ChapterIcon/partials/ChapterIconContainer'
 
-const SurahPreviewRoot = styled(RouterLink)(({ theme }) => ({
+const SurahPreviewRoot = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -43,12 +43,39 @@ const SurahPreviewIconContainer = styled('div')(() => ({
   },
 }))
 
-const SurahPreview = (props: any) => {
-  const { chapter } = props
+type SurahPreviewProps = {
+  href?: string
+  surahNumber: number
+  surahName: string
+  translatedSurahName: string
+  description: number | string
+  chapterId: number
+  isMinimalLayout?: boolean
+  isLoading?: boolean
+  shouldPrefetch?: boolean
+}
+
+const SurahPreview = (props: SurahPreviewProps) => {
+  const {
+    href,
+    surahNumber,
+    surahName,
+    translatedSurahName,
+    description,
+    chapterId,
+    isMinimalLayout,
+    isLoading,
+    shouldPrefetch,
+  } = props
 
   return (
-    <SurahPreviewRoot href={`/surah/${chapter?.id}`} shouldPrefetch={false}>
-      {/* <SurahPreviewContainer> */}
+    <SurahPreviewRoot
+      {...(href && {
+        as: RouterLink,
+        href,
+        shouldPrefetch,
+      })}
+    >
       <SurahPreviewContent>
         <SurahPreviewIconContainer>
           <Typography
@@ -60,7 +87,7 @@ const SurahPreview = (props: any) => {
               width: '100%',
             }}
           >
-            {chapter?.id}
+            {chapterId.toString()}
           </Typography>
           <ChapterNumberIcon
             sx={{
@@ -70,13 +97,13 @@ const SurahPreview = (props: any) => {
           />
         </SurahPreviewIconContainer>
         <div className="">
-          <Typography variant="subtitle1">{chapter?.transliteratedName}</Typography>
-          <Typography sx={{ my: 1.2 }}>{chapter?.translatedName}</Typography>
+          <Typography variant="subtitle1">{surahName}</Typography>
+          <Typography sx={{ my: 1.2 }}>{translatedSurahName}</Typography>
         </div>
       </SurahPreviewContent>
       <SurahPreviewContentLeft>
         <Typography
-          className={`icon-surah icon-surah${chapter?.id}`}
+          className={`icon-surah icon-surah${chapterId.toString()}`}
           component="span"
           translate="no"
           variant="h2"
@@ -87,11 +114,10 @@ const SurahPreview = (props: any) => {
             color: '#C6C6C6',
           }}
         >
-          {chapter?.versesCount} Ayahs
+          {description}
         </Typography>
         {/* <ChapterIconContainer chapterId={chapter?.id.toString()} hasSurahPrefix={false} /> */}
       </SurahPreviewContentLeft>
-      {/* </SurahPreviewContainer> */}
     </SurahPreviewRoot>
   )
 }

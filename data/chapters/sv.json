@@ -1,0 +1,800 @@
+{
+  "1": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Fatihah",
+    "versesCount": 7,
+    "translatedName": "Öppningen",
+    "slug": "oeppningen"
+  },
+  "2": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Baqarah",
+    "versesCount": 286,
+    "translatedName": "Kon",
+    "slug": "kon"
+  },
+  "3": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Ali 'Imran",
+    "versesCount": 200,
+    "translatedName": "Imrans Ätt",
+    "slug": "imrans-aett"
+  },
+  "4": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "An-Nisa",
+    "versesCount": 176,
+    "translatedName": "Kvinnor",
+    "slug": "kvinnor"
+  },
+  "5": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Ma'idah",
+    "versesCount": 120,
+    "translatedName": "Den Himmelska Måltiden",
+    "slug": "den-himmelska-maaltiden"
+  },
+  "6": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-An'am",
+    "versesCount": 165,
+    "translatedName": "Boskap",
+    "slug": "boskap"
+  },
+  "7": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-A'raf",
+    "versesCount": 206,
+    "translatedName": "Urskiljning",
+    "slug": "urskiljning"
+  },
+  "8": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Anfal",
+    "versesCount": 75,
+    "translatedName": "Krigsbyte",
+    "slug": "krigsbyte"
+  },
+  "9": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "At-Tawbah",
+    "versesCount": 129,
+    "translatedName": "Ånger",
+    "slug": "aanger"
+  },
+  "10": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Yunus",
+    "versesCount": 109,
+    "translatedName": "Jonah",
+    "slug": "jonah"
+  },
+  "11": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Hud",
+    "versesCount": 123,
+    "translatedName": "Hud",
+    "slug": "hud"
+  },
+  "12": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Yusuf",
+    "versesCount": 111,
+    "translatedName": "Josef",
+    "slug": "josef"
+  },
+  "13": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Ar-Ra'd",
+    "versesCount": 43,
+    "translatedName": "Åskan",
+    "slug": "aaskan"
+  },
+  "14": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Ibrahim",
+    "versesCount": 52,
+    "translatedName": "Abraham",
+    "slug": "abraham"
+  },
+  "15": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Hijr",
+    "versesCount": 99,
+    "translatedName": "Al-Hijr",
+    "slug": "al-hijr"
+  },
+  "16": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "An-Nahl",
+    "versesCount": 128,
+    "translatedName": "Biet",
+    "slug": "biet"
+  },
+  "17": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Isra",
+    "versesCount": 111,
+    "translatedName": "Den Nattliga Resan",
+    "slug": "den-nattliga-resan"
+  },
+  "18": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Kahf",
+    "versesCount": 110,
+    "translatedName": "Grottan",
+    "slug": "grottan"
+  },
+  "19": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Maryam",
+    "versesCount": 98,
+    "translatedName": "Maria",
+    "slug": "maria"
+  },
+  "20": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Taha",
+    "versesCount": 135,
+    "translatedName": "Ta-Ha",
+    "slug": "ta-ha"
+  },
+  "21": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Anbya",
+    "versesCount": 112,
+    "translatedName": "Profeterna",
+    "slug": "profeterna"
+  },
+  "22": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Hajj",
+    "versesCount": 78,
+    "translatedName": "Vallfärden",
+    "slug": "vallfaerden"
+  },
+  "23": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Mu'minun",
+    "versesCount": 118,
+    "translatedName": "De Troende",
+    "slug": "de-troende"
+  },
+  "24": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "An-Nur",
+    "versesCount": 64,
+    "translatedName": "Ljus",
+    "slug": "ljus"
+  },
+  "25": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Furqan",
+    "versesCount": 77,
+    "translatedName": "Måttstocken",
+    "slug": "maattstocken"
+  },
+  "26": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Ash-Shu'ara",
+    "versesCount": 227,
+    "translatedName": "Poeterna",
+    "slug": "poeterna"
+  },
+  "27": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "An-Naml",
+    "versesCount": 93,
+    "translatedName": "Myrorna",
+    "slug": "myrorna"
+  },
+  "28": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Qasas",
+    "versesCount": 88,
+    "translatedName": "Berättelsen",
+    "slug": "beraettelsen"
+  },
+  "29": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-'Ankabut",
+    "versesCount": 69,
+    "translatedName": "Spindeln",
+    "slug": "spindeln"
+  },
+  "30": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Ar-Rum",
+    "versesCount": 60,
+    "translatedName": "Bysantinerna",
+    "slug": "bysantinerna"
+  },
+  "31": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Luqman",
+    "versesCount": 34,
+    "translatedName": "Luqman",
+    "slug": "luqman"
+  },
+  "32": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "As-Sajdah",
+    "versesCount": 30,
+    "translatedName": "De Faller Ned I Tillbedjan",
+    "slug": "de-faller-ned-i-tillbedjan"
+  },
+  "33": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Ahzab",
+    "versesCount": 73,
+    "translatedName": "De Sammansvurna",
+    "slug": "de-sammansvurna"
+  },
+  "34": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Saba",
+    "versesCount": 54,
+    "translatedName": "Saba",
+    "slug": "saba"
+  },
+  "35": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Fatir",
+    "versesCount": 45,
+    "translatedName": "Himlarnas Och Jordens Skapare",
+    "slug": "himlarnas-och-jordens-skapare"
+  },
+  "36": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Ya-Sin",
+    "versesCount": 83,
+    "translatedName": "Ya-Sin",
+    "slug": "ya-sin"
+  },
+  "37": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "As-Saffat",
+    "versesCount": 182,
+    "translatedName": "I Sluten Ordning",
+    "slug": "i-sluten-ordning"
+  },
+  "38": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Sad",
+    "versesCount": 88,
+    "translatedName": "Sad",
+    "slug": "sad"
+  },
+  "39": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Az-Zumar",
+    "versesCount": 75,
+    "translatedName": "Skarorna",
+    "slug": "skarorna"
+  },
+  "40": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Ghafir",
+    "versesCount": 85,
+    "translatedName": "Han Som Förlåter",
+    "slug": "han-som-foerlaater"
+  },
+  "41": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Fussilat",
+    "versesCount": 54,
+    "translatedName": "En Fast Och Klar Förkunnelse",
+    "slug": "en-fast-och-klar-foerkunnelse"
+  },
+  "42": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Ash-Shuraa",
+    "versesCount": 53,
+    "translatedName": "Samråd",
+    "slug": "samraad"
+  },
+  "43": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Az-Zukhruf",
+    "versesCount": 89,
+    "translatedName": "Guld",
+    "slug": "guld"
+  },
+  "44": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Ad-Dukhan",
+    "versesCount": 59,
+    "translatedName": "Rök",
+    "slug": "roek"
+  },
+  "45": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Jathiyah",
+    "versesCount": 37,
+    "translatedName": "På Knä",
+    "slug": "paa-knae"
+  },
+  "46": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Ahqaf",
+    "versesCount": 35,
+    "translatedName": "Sanddynorna",
+    "slug": "sanddynorna"
+  },
+  "47": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Muhammad",
+    "versesCount": 38,
+    "translatedName": "Muhammad",
+    "slug": "muhammad"
+  },
+  "48": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Fath",
+    "versesCount": 29,
+    "translatedName": "Segern",
+    "slug": "segern"
+  },
+  "49": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Hujurat",
+    "versesCount": 18,
+    "translatedName": "De Inre Rummen",
+    "slug": "de-inre-rummen"
+  },
+  "50": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Qaf",
+    "versesCount": 45,
+    "translatedName": "Qaf",
+    "slug": "qaf"
+  },
+  "51": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Adh-Dhariyat",
+    "versesCount": 60,
+    "translatedName": "De Som Virvlar Upp",
+    "slug": "de-som-virvlar-upp"
+  },
+  "52": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "At-Tur",
+    "versesCount": 49,
+    "translatedName": "Sinai Berg",
+    "slug": "sinai-berg"
+  },
+  "53": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "An-Najm",
+    "versesCount": 62,
+    "translatedName": "Stjärnan",
+    "slug": "stjaernan"
+  },
+  "54": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Qamar",
+    "versesCount": 55,
+    "translatedName": "Månen",
+    "slug": "maanen"
+  },
+  "55": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Ar-Rahman",
+    "versesCount": 78,
+    "translatedName": "Den Nåderike",
+    "slug": "den-naaderike"
+  },
+  "56": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Waqi'ah",
+    "versesCount": 96,
+    "translatedName": "Det Som Måste Komma",
+    "slug": "det-som-maaste-komma"
+  },
+  "57": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Hadid",
+    "versesCount": 29,
+    "translatedName": "Järnet",
+    "slug": "jaernet"
+  },
+  "58": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Mujadila",
+    "versesCount": 22,
+    "translatedName": "Hon Som Vädjar",
+    "slug": "hon-som-vaedjar"
+  },
+  "59": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Hashr",
+    "versesCount": 24,
+    "translatedName": "Mönstringen",
+    "slug": "moenstringen"
+  },
+  "60": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Mumtahanah",
+    "versesCount": 13,
+    "translatedName": "Den Som Skall Förhöras",
+    "slug": "den-som-skall-foerhoeras"
+  },
+  "61": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "As-Saf",
+    "versesCount": 14,
+    "translatedName": "I Slutna Led",
+    "slug": "i-slutna-led"
+  },
+  "62": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Jumu'ah",
+    "versesCount": 11,
+    "translatedName": "Fredagsbönen",
+    "slug": "fredagsboenen"
+  },
+  "63": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Munafiqun",
+    "versesCount": 11,
+    "translatedName": "Hycklarna",
+    "slug": "hycklarna"
+  },
+  "64": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "At-Taghabun",
+    "versesCount": 18,
+    "translatedName": "Då Vinnarna Och Förlorarna Byter Plats",
+    "slug": "daa-vinnarna-och-foerlorarna-byter-plats"
+  },
+  "65": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "At-Talaq",
+    "versesCount": 12,
+    "translatedName": "Skilsmässa",
+    "slug": "skilsmaessa"
+  },
+  "66": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "At-Tahrim",
+    "versesCount": 12,
+    "translatedName": "Förbudet",
+    "slug": "foerbudet"
+  },
+  "67": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Mulk",
+    "versesCount": 30,
+    "translatedName": "Herravälde",
+    "slug": "herravaelde"
+  },
+  "68": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Qalam",
+    "versesCount": 52,
+    "translatedName": "Pennan",
+    "slug": "pennan"
+  },
+  "69": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Haqqah",
+    "versesCount": 52,
+    "translatedName": "Sanningens Stund",
+    "slug": "sanningens-stund"
+  },
+  "70": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Ma'arij",
+    "versesCount": 44,
+    "translatedName": "Vägarna Upp Till Gud",
+    "slug": "vaegarna-upp-till-gud"
+  },
+  "71": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Nuh",
+    "versesCount": 28,
+    "translatedName": "Noa",
+    "slug": "noa"
+  },
+  "72": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Jinn",
+    "versesCount": 28,
+    "translatedName": "Osynliga Väsen",
+    "slug": "osynliga-vaesen"
+  },
+  "73": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Muzzammil",
+    "versesCount": 20,
+    "translatedName": "Du Som Täcker Över Dig",
+    "slug": "du-som-taecker-oever-dig"
+  },
+  "74": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Muddaththir",
+    "versesCount": 56,
+    "translatedName": "Du Som Sveper In Dig",
+    "slug": "du-som-sveper-in-dig"
+  },
+  "75": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Qiyamah",
+    "versesCount": 40,
+    "translatedName": "Uppståndelsen",
+    "slug": "uppstaandelsen"
+  },
+  "76": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Insan",
+    "versesCount": 31,
+    "translatedName": "Människan",
+    "slug": "maenniskan"
+  },
+  "77": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Mursalat",
+    "versesCount": 50,
+    "translatedName": "De Som Sänds Ut",
+    "slug": "de-som-saends-ut"
+  },
+  "78": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "An-Naba",
+    "versesCount": 40,
+    "translatedName": "Tillkännagivandet",
+    "slug": "tillkaennagivandet"
+  },
+  "79": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "An-Nazi'at",
+    "versesCount": 46,
+    "translatedName": "De Som Stiger Över Horisonten",
+    "slug": "de-som-stiger-oever-horisonten"
+  },
+  "80": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "'Abasa",
+    "versesCount": 42,
+    "translatedName": "Med Bister Min",
+    "slug": "med-bister-min"
+  },
+  "81": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "At-Takwir",
+    "versesCount": 29,
+    "translatedName": "När Solen Lindas In",
+    "slug": "naer-solen-lindas-in"
+  },
+  "82": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Infitar",
+    "versesCount": 19,
+    "translatedName": "När Himlen Rämnar",
+    "slug": "naer-himlen-raemnar"
+  },
+  "83": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Mutaffifin",
+    "versesCount": 36,
+    "translatedName": "De Som Snålar Med Mått Och Vikt",
+    "slug": "de-som-snaalar-med-maatt-och-vikt"
+  },
+  "84": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Inshiqaq",
+    "versesCount": 25,
+    "translatedName": "När Himlen Brister I Stycken",
+    "slug": "naer-himlen-brister-i-stycken"
+  },
+  "85": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Buruj",
+    "versesCount": 22,
+    "translatedName": "Stjärnbilderna",
+    "slug": "stjaernbilderna"
+  },
+  "86": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "At-Tariq",
+    "versesCount": 17,
+    "translatedName": "Den Nattliga Besökaren",
+    "slug": "den-nattliga-besoekaren"
+  },
+  "87": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-A'la",
+    "versesCount": 19,
+    "translatedName": "Den Högste",
+    "slug": "den-hoegste"
+  },
+  "88": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Ghashiyah",
+    "versesCount": 26,
+    "translatedName": "Det Som Skall Överskugga Allt",
+    "slug": "det-som-skall-oeverskugga-allt"
+  },
+  "89": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Fajr",
+    "versesCount": 30,
+    "translatedName": "Gryningsljuset",
+    "slug": "gryningsljuset"
+  },
+  "90": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Balad",
+    "versesCount": 20,
+    "translatedName": "Landet",
+    "slug": "landet"
+  },
+  "91": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Ash-Shams",
+    "versesCount": 15,
+    "translatedName": "Solen",
+    "slug": "solen"
+  },
+  "92": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Layl",
+    "versesCount": 21,
+    "translatedName": "Natten",
+    "slug": "natten"
+  },
+  "93": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Ad-Duhaa",
+    "versesCount": 11,
+    "translatedName": "Det Klara Morgonljuset",
+    "slug": "det-klara-morgonljuset"
+  },
+  "94": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Ash-Sharh",
+    "versesCount": 8,
+    "translatedName": "Har Vi Inte Öppnat Ditt Bröst",
+    "slug": "har-vi-inte-oeppnat-ditt-broest"
+  },
+  "95": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "At-Tin",
+    "versesCount": 8,
+    "translatedName": "Fikonträdet",
+    "slug": "fikontraedet"
+  },
+  "96": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-'Alaq",
+    "versesCount": 19,
+    "translatedName": "Grodden",
+    "slug": "grodden"
+  },
+  "97": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Qadr",
+    "versesCount": 5,
+    "translatedName": "Allmaktens Natt",
+    "slug": "allmaktens-natt"
+  },
+  "98": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Al-Bayyinah",
+    "versesCount": 8,
+    "translatedName": "Det Klara Vittnesbördet",
+    "slug": "det-klara-vittnesboerdet"
+  },
+  "99": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "Az-Zalzalah",
+    "versesCount": 8,
+    "translatedName": "När Jorden Skälver",
+    "slug": "naer-jorden-skaelver"
+  },
+  "100": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-'Adiyat",
+    "versesCount": 11,
+    "translatedName": "Stridshästarna",
+    "slug": "stridshaestarna"
+  },
+  "101": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Qari'ah",
+    "versesCount": 11,
+    "translatedName": "Det Dundrande Slaget",
+    "slug": "det-dundrande-slaget"
+  },
+  "102": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "At-Takathur",
+    "versesCount": 8,
+    "translatedName": "Tävlan I Rikedom",
+    "slug": "taevlan-i-rikedom"
+  },
+  "103": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-'Asr",
+    "versesCount": 3,
+    "translatedName": "Den Flyende Tiden",
+    "slug": "den-flyende-tiden"
+  },
+  "104": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Humazah",
+    "versesCount": 9,
+    "translatedName": "Baktalaren",
+    "slug": "baktalaren"
+  },
+  "105": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Fil",
+    "versesCount": 5,
+    "translatedName": "Elefanten",
+    "slug": "elefanten"
+  },
+  "106": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Quraysh",
+    "versesCount": 4,
+    "translatedName": "Quraysh",
+    "slug": "quraysh"
+  },
+  "107": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Ma'un",
+    "versesCount": 7,
+    "translatedName": "Den Minsta Hjälp",
+    "slug": "den-minsta-hjaelp"
+  },
+  "108": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Kawthar",
+    "versesCount": 3,
+    "translatedName": "Det Goda I Överflöd",
+    "slug": "det-goda-i-oeverfloed"
+  },
+  "109": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Kafirun",
+    "versesCount": 6,
+    "translatedName": "Sanningens Förnekare",
+    "slug": "sanningens-foernekare"
+  },
+  "110": {
+    "revelationPlace": "madinah",
+    "transliteratedName": "An-Nasr",
+    "versesCount": 3,
+    "translatedName": "Guds Hjälp",
+    "slug": "guds-hjaelp"
+  },
+  "111": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Masad",
+    "versesCount": 5,
+    "translatedName": "Ett Tvinnat Rep",
+    "slug": "ett-tvinnat-rep"
+  },
+  "112": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Ikhlas",
+    "versesCount": 4,
+    "translatedName": "Den Rena Tron",
+    "slug": "den-rena-tron"
+  },
+  "113": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "Al-Falaq",
+    "versesCount": 5,
+    "translatedName": "Gryningens Herre",
+    "slug": "gryningens-herre"
+  },
+  "114": {
+    "revelationPlace": "makkah",
+    "transliteratedName": "An-Nas",
+    "versesCount": 6,
+    "translatedName": "Människornas Herre",
+    "slug": "maenniskornas-herre"
+  }
+}

@@ -1,6 +1,8 @@
+import * as React from 'react'
 import { styled } from '@mui/material'
 import { RouterLink } from '~/containers'
-import { getChapterData } from '~/utils'
+import { getAllJuzMappings, getChapterData } from '~/utils/chapter'
+import DataContext from '~/contexts/DataContext'
 import SurahPreview from './SurahPreview'
 
 const JuzPreviewRoot = styled('div')(({ theme }) => ({
@@ -30,30 +32,75 @@ const JuzRouterLink = styled(RouterLink)({
   textDecoration: 'underline',
 })
 
-const JuzPreview = (props: any) => {
-  const { chapters, verseMapping, juzNumber } = props
+type JuzPreviewProps = {
+  isDescending: boolean
+}
 
-  const chapterIds = Object.keys(verseMapping)
+const JuzPreview = (props: JuzPreviewProps) => {
+  const { isDescending } = props
+
+  const [juzMappings, setJuzMappings] = React.useState([])
+  const chaptersData = React.useContext(DataContext)
+
+  React.useEffect(() => {
+    getAllJuzMappings()
+      .then((data) => Object.entries(data))
+      .then(setJuzMappings)
+  }, [isDescending])
+
+  const sortedJuzIds = React.useMemo(
+    () =>
+      isDescending ? juzMappings.slice().sort(([a], [b]) => Number(b) - Number(a)) : juzMappings,
+    [isDescending, juzMappings],
+  )
 
   return (
-    <JuzPreviewRoot>
-      <JuzPreviewItem className="flex items-end justify-between pb-5">
-        <RouterLink href={`/juz/${juzNumber}`}>Juz {juzNumber}</RouterLink>
-        <JuzRouterLink href={`/juz/${juzNumber}`}>Read Juz</JuzRouterLink>
-      </JuzPreviewItem>
-      <JuzPreviewSurah>
-        {chapterIds.map((chapterId) => {
-          // @ts-ignore
-          const chapter = getChapterData(chapters, chapterId - 1)
+    <React.Fragment>
+      {sortedJuzIds.map((juzEntry) => {
+        const [juzId, chapterAndVerseMappings] = juzEntry
+        const chapterIds = Object.keys(chapterAndVerseMappings)
 
-          return (
-            <div>
-              <SurahPreview key={chapterId} chapter={chapter} />
-            </div>
-          )
-        })}
-      </JuzPreviewSurah>
-    </JuzPreviewRoot>
+        return (
+          <JuzPreviewRoot key={juzId}>
+            <JuzPreviewItem className="flex items-end justify-between pb-5">
+              <RouterLink
+                href={`/juz/${juzId}`}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignContent: 'space-between',
+                  justifyContent: 'space-between',
+                  width: '100%',
+                }}
+              >
+                <span>Juz {juzId}</span>
+
+                <span>Read Juz</span>
+              </RouterLink>
+            </JuzPreviewItem>
+            <JuzPreviewSurah>
+              {chapterIds.map((chapterId) => {
+                const chapter = getChapterData(chaptersData, chapterId)
+
+                return (
+                  <div key={chapterId}>
+                    <SurahPreview
+                      href={`/${chapterId}/${chapterAndVerseMappings[chapterId]}`}
+                      chapterId={Number(chapterId)}
+                      description={`${chapter.versesCount} Ayahs`}
+                      surahName={chapter.transliteratedName}
+                      surahNumber={Number(chapterId)}
+                      translatedSurahName={chapter.translatedName as string}
+                      // isMinimalLayout={shouldUseMinimalLayout(lang)}
+                    />
+                  </div>
+                )
+              })}
+            </JuzPreviewSurah>
+          </JuzPreviewRoot>
+        )
+      })}
+    </React.Fragment>
   )
 }
 

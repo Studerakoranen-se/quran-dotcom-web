@@ -16,6 +16,8 @@ import { RootProvider } from '~/contexts'
 import * as layoutVariants from '~/layouts'
 import { ErrorBoundary, RouterLink } from '~/containers'
 import FontPreLoader from '~/components/Fonts/FontPreLoader'
+import DataContext from '~/contexts/DataContext'
+import ChaptersData from '~/types/ChaptersData'
 import store from '../store'
 
 export interface AppProps extends NextAppProps {
@@ -27,7 +29,9 @@ export interface AppProps extends NextAppProps {
     headerColor?: string
     headerMode?: string
     layout?: keyof typeof layoutVariants
-    page: Page
+    page: Page & {
+      chaptersData: ChaptersData
+    }
     preview?: boolean
     settings: Record<string, unknown>
     theme?: string
@@ -52,26 +56,28 @@ function App(props: AppProps) {
         />
       </Head>
       <FontPreLoader locale={locale} />
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          {() => {
-            return (
-              <RootProvider
-                emotionCache={emotionCache}
-                defaultLocale={defaultLocale}
-                locale={locale}
-                {...other}
-              >
-                <LayoutComponent headerColor={headerColor} headerMode={headerMode}>
-                  <ErrorBoundary>
-                    <Component {...page} />
-                  </ErrorBoundary>
-                </LayoutComponent>
-              </RootProvider>
-            )
-          }}
-        </PersistGate>
-      </Provider>
+      <DataContext.Provider value={page.chaptersData}>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            {() => {
+              return (
+                <RootProvider
+                  emotionCache={emotionCache}
+                  defaultLocale={defaultLocale}
+                  locale={locale}
+                  {...other}
+                >
+                  <LayoutComponent headerColor={headerColor} headerMode={headerMode}>
+                    <ErrorBoundary>
+                      <Component {...page} />
+                    </ErrorBoundary>
+                  </LayoutComponent>
+                </RootProvider>
+              )
+            }}
+          </PersistGate>
+        </Provider>
+      </DataContext.Provider>
 
       {/* This button closes the Next.js preview mode by linking to the api/exit-preview route */}
       {preview && (
