@@ -45,6 +45,7 @@ const JuzPreview = (props: JuzPreviewProps) => {
   React.useEffect(() => {
     getAllJuzMappings()
       .then((data) => Object.entries(data))
+      // @ts-ignore
       .then(setJuzMappings)
   }, [isDescending])
 
@@ -65,6 +66,7 @@ const JuzPreview = (props: JuzPreviewProps) => {
             <JuzPreviewItem className="flex items-end justify-between pb-5">
               <RouterLink
                 href={`/juz/${juzId}`}
+                // @ts-ignore
                 style={{
                   display: 'flex',
                   flexDirection: 'row',
@@ -85,7 +87,7 @@ const JuzPreview = (props: JuzPreviewProps) => {
                 return (
                   <div key={chapterId}>
                     <SurahPreview
-                      href={`/${chapterId}/${chapterAndVerseMappings[chapterId]}`}
+                      href={`/juz/${chapterId}/${chapterAndVerseMappings[chapterId]}`}
                       chapterId={Number(chapterId)}
                       description={`${chapter.versesCount} Ayahs`}
                       surahName={chapter.transliteratedName}

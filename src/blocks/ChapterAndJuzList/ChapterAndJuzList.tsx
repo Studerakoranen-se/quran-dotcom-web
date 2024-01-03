@@ -185,7 +185,7 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
             {sortedChapters.map((chapter: any, i: number) => (
               <SurahPreview
                 key={i}
-                href={`/${chapter.id}`}
+                href={`/surah/${chapter.id}`}
                 shouldPrefetch={MOST_VISITED_CHAPTERS[Number(chapter.id)] === true}
                 chapterId={Number(chapter.id)}
                 description={`${chapter.versesCount} Ayahs`}
