@@ -1,5 +1,10 @@
 {
   "blocks/Tutors/Tutors.tsx": {
     "Back": ""
+  },
+  "blocks/ChapterAndJuzList/ChapterAndJuzList.tsx": {
+    "Surah": "",
+    "Juz": "",
+    "Revelation Order": ""
   }
 }
