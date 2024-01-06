@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { styled } from '@mui/material'
+import { Typography, styled } from '@mui/material'
 import ChapterIcon from '../ChapterIcon'
 
 export enum ChapterIconsSize {
@@ -20,7 +20,6 @@ const ChapterIconContainerRoot = styled('span')<{ ownerState: { size: string } }
   ({ ownerState }) => ({
     span: {
       lineHeight: 'normal',
-      fontFamily: '"SurahNames", "Arial", sans-serif',
       fontSize: '1.125rem',
     },
 
@@ -45,14 +44,22 @@ const ChapterIconContainerRoot = styled('span')<{ ownerState: { size: string } }
 )
 
 const ChapterIconContainer: React.FC<Props> = (props) => {
-  const { chapterId, size = ChapterIconsSize.Medium, hasSurahPrefix = true } = props
+  const { chapterId, size = ChapterIconsSize.Medium, hasSurahPrefix = false } = props
   const ownerState = {
     size,
   }
   return (
     <ChapterIconContainerRoot ownerState={ownerState}>
       <ChapterIcon id={chapterId} />
-      {hasSurahPrefix && <ChapterIcon id="surah" />}
+      {hasSurahPrefix && (
+        <Typography
+          className={`icon-surah icon-surah-surah`}
+          component="span"
+          translate="no"
+          variant="h2"
+        />
+      )}
+      {/* {hasSurahPrefix && <ChapterIcon id="surah" />} */}
     </ChapterIconContainerRoot>
   )
 }
