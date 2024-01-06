@@ -416,6 +416,7 @@ function Lesson(props: LessonProps) {
                               duration: theme.transitions.duration.short, // Same as MuiButton.
                             }),
                           opacity: activeLesson === idx ? 1 : 0,
+                          color: (theme) => theme.palette.common.white,
                         }}
                       />
                     </Box>
@@ -427,6 +428,7 @@ function Lesson(props: LessonProps) {
                     m: 0,
                     // p: 2,
                     pr: 1,
+                    color: (theme) => `${theme.palette.common.white} !important`,
                   }}
                 />
               ))}

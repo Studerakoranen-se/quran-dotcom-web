@@ -5,12 +5,16 @@ import { Html } from '~/components'
 import { RouterLink } from '~/containers'
 import { CourseListBlockQueryResult } from '~/api/sanity'
 import { transformSanityImage } from '~/api/sanity/utils'
+import { ASPECT_RATIOS } from '~/utils/constants'
 
 const CourseListRoot = styled('section')(({ theme }) => ({
   position: 'relative',
   padding: theme.spacing(4, 2),
-  background: theme.palette.primary.main,
-  boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
+  backgroundColor: theme.vars.palette.background.default,
+
+  ...(theme.palette.mode === 'dark' && {
+    boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
+  }),
 
   [theme.breakpoints.up('md')]: {
     minHeight: 650,
@@ -27,7 +31,7 @@ const CourseListRootMain = styled('div')(({ theme }) => ({
 const CourseListHeadingsContainer = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(5),
   //   @ts-ignore
-  color: theme.palette.common.white,
+  color: theme.vars.palette.text.primary,
   [theme.breakpoints.up('md')]: {
     width: 'max(340px, 41.55vw)',
     margin: '0 auto',
@@ -126,9 +130,13 @@ function CourseList(props: CourseListBlockQueryResult) {
               return (
                 <CourseListItem key={idx}>
                   {image && (
-                    <MediaReveal>
-                      {/* @ts-ignore */}
-                      <Media src={image} />
+                    <MediaReveal style={{ height: '100%' }}>
+                      <Media
+                        src={image}
+                        sx={{
+                          aspectRatio: 112 / 83,
+                        }}
+                      />
                     </MediaReveal>
                   )}
                   <CourseListItemContent>

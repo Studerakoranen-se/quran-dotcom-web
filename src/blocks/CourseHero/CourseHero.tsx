@@ -11,15 +11,15 @@ const CourseHeroRoot = styled('section')<{
   position: 'relative',
   background: theme.palette.primary.main,
   color: theme.palette.common.white,
-  padding: theme.spacing(20, 2, 5),
+  padding: theme.spacing(20, `var(--cia-container-spacing)`, 5),
   minHeight: 550,
 
   [theme.breakpoints.up('md')]: {
     minHeight: 650,
-    padding: theme.spacing(20, 2, 1),
+    padding: theme.spacing(20, `var(--cia-container-spacing)`, 1),
 
     ...(ownerState?.largeMedia && {
-      padding: theme.spacing(20, 2, 5),
+      padding: theme.spacing(20, `var(--cia-container-spacing)`, 5),
     }),
   },
 }))
@@ -37,14 +37,17 @@ const CourseHeroContainer = styled('div')(({ theme }) => ({
     gap: theme.spacing(12),
     padding: 'var(--cia-section-spacing) 0',
   },
+  [theme.breakpoints.up('lg')]: {
+    gridTemplateColumns: 'repeat(2, 1fr)',
+  },
 }))
 
 const CourseHeroContent = styled('div')(({ theme }) => ({
   ...theme.mixins.verticalRhythm(3),
-  [theme.breakpoints.up('md')]: {
-    maxWidth: '100%',
-    width: 'max(340px, 41.55vw)',
-  },
+  // [theme.breakpoints.up('md')]: {
+  //   maxWidth: '100%',
+  //   width: 'max(340px, 41.55vw)',
+  // },
 }))
 
 const CourseHeroMediaReveal = styled(MediaReveal)<{ ownerState: { layoutReverse?: boolean } }>(
