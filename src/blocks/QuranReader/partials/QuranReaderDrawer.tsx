@@ -23,7 +23,7 @@ const QuranReaderDrawerRoot = styled('div')<{
   position: 'fixed',
   insetBlockStart: 0,
   insetInlineStart: 0,
-  paddingBlockStart: 'calc(1.5 * 2rem)',
+  paddingBlockStart: 'calc(3.5 * 2rem)',
   overflowX: 'hidden',
   zIndex: '1',
   boxSizing: 'border-box',
