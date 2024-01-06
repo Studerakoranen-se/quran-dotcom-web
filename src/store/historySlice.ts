@@ -38,4 +38,4 @@ export const historySlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { addToHistory, updateVerseCount } = historySlice.actions
 
-export default historySlice
+export default historySlice.reducer
