@@ -27,7 +27,12 @@ function Page(props) {
     siteTitle,
     locale,
     defaultLocale,
+    hasError,
   } = props
+
+  if (hasError) {
+    return <div>Error</div>
+  }
 
   const url = makeUrl(locale || defaultLocale, uri)
 
@@ -50,7 +55,7 @@ function Page(props) {
       />
 
       {/* {children} */}
-      {blocks.map(renderBlock)}
+      {blocks?.map(renderBlock)}
       {/* <SearchSection /> */}
     </React.Fragment>
   )
@@ -66,6 +71,7 @@ Page.propTypes = {
   siteTitle: PropTypes.string,
   locale: PropTypes.string,
   defaultLocale: PropTypes.string,
+  hasError: PropTypes.string,
 }
 
 export default Page
