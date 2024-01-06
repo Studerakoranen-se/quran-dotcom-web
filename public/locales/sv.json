@@ -1,4 +1,10 @@
 {
+  "footnote": {
+    "title": "Fotnot",
+    "footnote-dl": "<b>Dubbel</b> <br/> En form för verb och pronomen på arabiska när man tilltalar två personer",
+    "footnote-pl": "Plural",
+    "footnote-sg": "Singular"
+  },
   "blocks/Tutors/Tutors.tsx": {
     "Back": "Tillbaka"
   },

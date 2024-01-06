@@ -1,4 +1,11 @@
 {
+  "footnote": {
+    "title": "Footnote",
+    "footnote-dl": "<b>Dual</b> <br/> A form for verbs and pronouns in Arabic language when addressing two people",
+    "footnote-pl": "Plural",
+    "footnote-sg": "Singular"
+  },
+
   "blocks/Tutors/Tutors.tsx": {
     "Back": ""
   },
