@@ -105,7 +105,7 @@ function Editorial(props: EditorialProps) {
         <EditorialContainer>
           {text && <SanityHtml blocks={text} />}
           {mediaProps && (
-            <EditorialMediaReveal ownerState={{ layoutReverse }}>
+            <EditorialMediaReveal ownerState={{ layoutReverse }} aspectRatio>
               <Media
                 {...(mediaProps?.component === 'video'
                   ? {

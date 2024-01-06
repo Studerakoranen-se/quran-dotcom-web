@@ -9,8 +9,8 @@ const RecentReadingRoot = styled('section')(({ theme }) => ({
 
 const RecentReadingMain = styled('div')(({ theme }) => ({
   ...theme.mixins.contain('xl'),
-  marginBlockStart: theme.spacing(3),
-  marginBlockEnd: theme.spacing(3),
+  // marginBlockStart: theme.spacing(3),
+  // marginBlockEnd: theme.spacing(3),
 }))
 
 const RecentSectionContainer = styled('div')(({ theme }) => ({
@@ -18,7 +18,7 @@ const RecentSectionContainer = styled('div')(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr',
   gap: 10,
-  padding: theme.spacing(4, 0),
+  marginTop: theme.spacing(6),
   [theme.breakpoints.up('md')]: {
     gridTemplateColumns: 'repeat(auto-fit, 200px)',
   },
@@ -60,7 +60,6 @@ type RecentReactProps = {
 
 function RecentReading(props: RecentReactProps) {
   const { heading } = props
-
   const histories = useSelector((state: any) => state.history?.recentSurahs)
 
   if (histories.length === 0) return null
@@ -86,16 +85,16 @@ function RecentReading(props: RecentReactProps) {
                     <Typography>{history.chapter_number}</Typography>
                   </Box>
                   <Typography variant="subtitle1">Surah {history.nameSimple}</Typography>
-                  <div className="flex-grow" />
                   <RecentSectionItemAyah>
                     <Typography
-                      sx={{
-                        fontFamily: '"SurahNames", "Arial", sans-serif',
-                      }}
-                    >
-                      {history.nameArabic}
+                      className={`icon-surah icon-surah${history?.id}`}
+                      component="span"
+                      translate="no"
+                      variant="h3"
+                    />
+                    <Typography variant="body2" sx={{ mt: 0.5 }}>
+                      Ayah {history.versesCount}
                     </Typography>
-                    <Typography>Ayah {history.versesCount}</Typography>
                   </RecentSectionItemAyah>
                 </RecentSectionItem>
               </RecentSectionItemLink>
