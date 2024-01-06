@@ -2,8 +2,8 @@ import { useMemo } from 'react'
 import { useSelector, shallowEqual } from 'react-redux'
 import useSWRImmutable from 'swr/immutable'
 import { selectRecentReadingSessions } from '~/store/slices/QuranReader/readingTracker'
-import { makeReadingSessionsUrl } from '~/utils/apiPaths'
-import { privateFetcher } from '~/utils/auth'
+import { makeReadingSessionsUrl } from '~/utils/auth/apiPaths'
+import { privateFetcher } from '~/utils/auth/api'
 
 interface ReadingSession {
   chapterNumber: number

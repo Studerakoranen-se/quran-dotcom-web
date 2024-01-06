@@ -7,8 +7,12 @@ import DataContext from '~/contexts/DataContext'
 import { selectQuranFont, selectQuranMushafLines } from '~/store/slices/QuranReader/styles'
 import { setLastReadVerse } from '~/store/slices/QuranReader/readingTracker'
 import { getMushafId, useGlobalIntersectionObserver } from '~/utils'
-import { makeFilterActivityDaysUrl, makeReadingSessionsUrl, makeStreakUrl } from '~/utils/apiPaths'
-import { addReadingSession, updateActivityDay } from '~/utils/auth'
+import {
+  makeFilterActivityDaysUrl,
+  makeReadingSessionsUrl,
+  makeStreakUrl,
+} from '~/utils/auth/apiPaths'
+import { addReadingSession, updateActivityDay } from '~/utils/auth/api'
 import { UpdateActivityDayBody } from '~/types/auth/ActivityDay'
 import { getFilterActivityDaysParamsOfCurrentMonth } from '~/utils/activity-day'
 import { getObservedVersePayload, getOptions, QURAN_READER_OBSERVER_ID } from '../observer'

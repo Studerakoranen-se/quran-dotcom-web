@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IRootState } from '~/store'
 import SliceName from '~/store/types/SliceName'
 import { getMushafId } from '~/utils/api'
-import { addOrUpdateBulkUserPreferences } from '~/utils/auth'
+import { addOrUpdateBulkUserPreferences } from '~/utils/auth/api'
 import { stateToPreferenceGroups } from '~/utils/auth/preferencesMapper'
 import { getLocaleInitialState } from '../defaultSettings/util'
 
