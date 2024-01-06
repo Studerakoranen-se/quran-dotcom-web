@@ -371,7 +371,7 @@ function QuranReader(props: QuranReaderProps) {
                       color="text"
                       size="medium"
                       onClick={() => {
-                        handleCurrentAudio(`https://audio.qurancdn.com/${verses?.[0].audio.url}`)
+                        // handleCurrentAudio(`https://audio.qurancdn.com/${verses?.[0].audio.url}`)
                         setCurrentVerse(1)
                         audio.audioEl.current.play()
                       }}

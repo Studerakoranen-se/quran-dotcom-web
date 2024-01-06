@@ -45,8 +45,12 @@ export const getOptions = (
 export const getObservedVersePayload = (
   element: Element,
 ): { verseKey: string; chapterId: string; page: string; hizb: string } => ({
+  // @ts-ignore
   verseKey: element.getAttribute('data-verse-key'),
+  // @ts-ignore
   chapterId: element.getAttribute('data-chapter-id'),
+  // @ts-ignore
   page: element.getAttribute('data-page'),
+  // @ts-ignore
   hizb: element.getAttribute('data-hizb'),
 })
