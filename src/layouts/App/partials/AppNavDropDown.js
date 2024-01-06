@@ -83,6 +83,7 @@ const AppMenuDropDownListItemPaper = styled('div')(({ theme }) => ({
   padding: theme.spacing(1, 2),
   backgroundColor: theme.palette.common.white,
   color: theme.palette.common.black,
+  boxShadow: '0px 7px 11px 0px rgb(0 29 29 / 12%)',
   transition: theme.transitions.create(['opacity', 'visibility'], {
     duration: theme.transitions.duration.shortest,
   }),
