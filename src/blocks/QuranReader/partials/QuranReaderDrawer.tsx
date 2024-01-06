@@ -41,10 +41,6 @@ const QuranReaderDrawerRoot = styled('div')<{
     transform: 'translateX(100%)',
   },
 
-  [theme.breakpoints.up('md')]: {
-    width: 'calc(10 * 2rem)',
-  },
-
   ...(ownerState?.visibleContainer && {
     transform: 'translateX(0%)',
     paddingBlockStart: 'calc(3.5 * 2rem)',
@@ -55,6 +51,7 @@ const QuranReaderDrawerRoot = styled('div')<{
 
   ...(ownerState?.containerAuto && {
     [theme.breakpoints.up('md')]: {
+      width: 'calc(10 * 2rem)',
       transform: 'translateX(0%)',
       ' [dir="rtl"] &': {
         transform: 'translateX(0%)', // need to duplicate for specificity
