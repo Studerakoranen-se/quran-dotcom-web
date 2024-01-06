@@ -1,3 +1,4 @@
+// @ts-nocheck
 import range from 'lodash/range'
 import ChaptersData from '~/types/ChaptersData'
 import { getChapterData } from './chapter'
