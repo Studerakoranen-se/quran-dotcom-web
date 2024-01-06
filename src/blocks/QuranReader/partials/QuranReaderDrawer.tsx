@@ -1,46 +1,67 @@
 import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { styled } from '@mui/material/styles'
-import { Box, ButtonBase, Tab, Tabs, Typography } from '@mui/material'
-// import { useI18n } from '~/contexts'
-import { RouterLink } from '~/containers'
-import { SCROLL_TO_NEAREST_ELEMENT, useScrollToElement } from '~/hooks/useScrollToElement'
-import { getSurahNavigationUrl } from '~/utils'
+import { Box, IconButton, useMediaQuery } from '@mui/material'
+import {
+  selectIsSidebarNavigationVisible,
+  selectNavigationItem,
+  selectSelectedNavigationItem,
+  NavigationItem,
+  setIsVisible,
+} from '~/store/slices/QuranReader/sidebarNavigation'
+import { selectIsReadingByRevelationOrder } from '~/store/slices/revelationOrder'
+import useOutsideClickDetector from '~/hooks/useOutsideClickDetector'
+import { FilterIcon, Tabs } from '~/components'
+import SidebarNavigationSelections from './QuranDrawerSelections'
 
-const QuranReaderDrawerRoot = styled('div')(() => ({
-  width: '100%',
-}))
-
-const QuranReaderScrollContainer = styled('div')(({ theme }) => ({
-  ...theme.mixins.scrollable,
-  ...theme.mixins.scrollbars,
-  display: 'inherit',
-  flexDirection: 'inherit',
-  flexGrow: 1,
-  paddingBottom: 'var(--ikas-toolbar-spacing)',
-  height: 'calc(100vh)',
-  marginTop: theme.spacing(2),
-}))
-
-const PreviewContainer = styled('div')(({ theme }) => ({
+const QuranReaderDrawerRoot = styled('div')<{
+  ref: React.RefObject<HTMLElement>
+  ownerState: { containerAuto: boolean; visibleContainer: boolean }
+}>(({ theme, ownerState }) => ({
+  height: '100vh',
+  maxHeight: '100vh',
+  position: 'fixed',
+  insetBlockStart: 0,
+  insetInlineStart: 0,
+  paddingBlockStart: 'calc(1.5 * 2rem)',
+  overflowX: 'hidden',
+  zIndex: '1',
+  boxSizing: 'border-box',
+  backgroundColor: theme.palette.background.default,
+  // borderInlineEnd: `1px solid ${theme.palette.divider}`,
+  width: 'calc(100% - (2 * 2rem))',
+  paddingInline: '1.1875rem',
+  transition: 'transform 0.4s',
   display: 'flex',
   flexDirection: 'column',
-  gap: theme.spacing(1.5),
-}))
+  overflowY: 'hidden',
 
-const StyledRouterLink = styled(RouterLink)<{ ownerState: { href?: string; isActive: boolean } }>(
-  ({ theme, ownerState }) => ({
-    textDecoration: 'none',
+  transform: 'translateX(-100%)',
+  '[dir="rtl"] &': {
+    transform: 'translateX(100%)',
+  },
 
-    '&:hover': {
-      fontWeight: theme.typography.fontWeightBold,
+  [theme.breakpoints.up('md')]: {
+    width: 'calc(10 * 2rem)',
+  },
+
+  ...(ownerState?.visibleContainer && {
+    transform: 'translateX(0%)',
+    paddingBlockStart: 'calc(3.5 * 2rem)',
+    '[dir="rtl"] & ': {
+      transform: 'translateX(0%)', // need to duplicate for specificity
     },
-
-    ...(ownerState?.isActive && {
-      color: theme.vars.palette.text.primary,
-      fontWeight: theme.typography.fontWeightBold,
-    }),
   }),
-)
+
+  ...(ownerState?.containerAuto && {
+    [theme.breakpoints.up('md')]: {
+      transform: 'translateX(0%)',
+      ' [dir="rtl"] &': {
+        transform: 'translateX(0%)', // need to duplicate for specificity
+      },
+    },
+  }),
+}))
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -48,142 +69,128 @@ interface TabPanelProps {
   value: number
 }
 
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && children}
-    </div>
-  )
-}
-
 type QuranReaderDrawerProps = {
-  chapterId?: number
-  chapters: Chapter[]
-  juzs: {
-    id?: number
-    firstVerseId: number
-    juzNumber: number
-    lastVerseId: number
-    versesCount: number
-  }[]
+  locale: string
 }
 
 const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranReaderDrawerProps) {
-  const { chapterId, chapters, juzs } = props
+  const { locale } = props
 
-  // const { t } = useI18n()
+  const isVisible = useSelector(selectIsSidebarNavigationVisible)
+  const selectedNavigationItem = useSelector(selectSelectedNavigationItem)
+  const isReadingByRevelationOrder = useSelector(selectIsReadingByRevelationOrder)
 
-  const [scrollTo, selectedChapterRef] =
-    useScrollToElement<HTMLDivElement>(SCROLL_TO_NEAREST_ELEMENT)
-
-  const [view, setView] = React.useState(0)
+  const dispatch = useDispatch()
+  // @ts-ignore
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'))
+  const sidebarRef = React.useRef<React.RefObject<HTMLElement>>()
 
   const tabs = React.useMemo(
     () => [
-      { title: 'Surah', value: 0 },
-      { title: 'Juz', value: 1 },
+      { title: 'Surah', value: NavigationItem.Surah },
+      { title: 'Juz', value: NavigationItem.Juz },
     ],
     [],
   )
 
-  const onTabSelected = (event: React.SyntheticEvent, newView) => {
-    setView(newView)
+  const onTabSelected = (event: React.SyntheticEvent, value) => {
+    dispatch(selectNavigationItem(value as NavigationItem))
   }
 
-  React.useEffect(() => {
-    scrollTo()
-  }, [chapterId, scrollTo])
+  useOutsideClickDetector(
+    // @ts-ignore
+    sidebarRef,
+    () => {
+      dispatch(setIsVisible(false))
+    },
+    isVisible && isMobile,
+  )
 
   return (
-    <QuranReaderDrawerRoot>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={view}
-          onChange={onTabSelected}
-          aria-label="Quran Tabs"
-          sx={{
-            ' .MuiTabs-indicator': {
-              backgroundColor: 'text.main',
-              height: '3px',
-            },
-          }}
-        >
-          {tabs?.map((tab, idx) => (
-            <Tab
-              key={idx}
-              label={tab.title}
-              id={`quran-tab-${idx}`}
-              value={tab.value}
-              sx={(theme) => ({
-                color: `${theme.palette.text.primary} !important`,
-                mr: 1,
-              })}
+    <QuranReaderDrawerRoot
+      // @ts-ignore
+      ref={sidebarRef}
+      ownerState={{
+        visibleContainer: isVisible === true,
+        containerAuto: isVisible === 'auto',
+      }}
+    >
+      {!isReadingByRevelationOrder ? (
+        // Default ordering
+        <React.Fragment>
+          {/* switchContainer */}
+          <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', marginInlineEnd: '0.375rem' }}>
+              {/* @ts-ignore */}
+              <Tabs tabs={tabs} onSelect={onTabSelected} selected={selectedNavigationItem} />
+            </Box>
+            <IconButton
+              onClick={() => {
+                dispatch(setIsVisible(false))
+              }}
+              sx={{
+                border: (th) => `1px solid ${th.vars.palette.divider}`,
+                color: (th) => (th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4'),
+                borderRadius: 1,
+                p: 0.5,
+              }}
+              aria-label={`Toggle Surah Drawer`}
+              size="small"
+            >
+              {/* @ts-ignore */}
+              <FilterIcon fontSize="small" />
+            </IconButton>
+          </Box>
+          <Box
+            sx={{
+              marginBlockStart: '1rem',
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              paddingBlockEnd: '1rem',
+            }}
+          >
+            <SidebarNavigationSelections
+              isVisible={isVisible}
+              selectedNavigationItem={selectedNavigationItem}
+              locale={locale}
             />
-          ))}
-        </Tabs>
-      </Box>
-      <QuranReaderScrollContainer>
-        <CustomTabPanel value={view} index={0}>
-          <PreviewContainer>
-            {chapters.map((chapter: any, i: number) => (
-              <StyledRouterLink
-                key={i}
-                href={getSurahNavigationUrl(`surah/${chapter.id}`)}
-                ownerState={{
-                  isActive: chapter.id.toString() === chapterId,
-                }}
-                shouldPrefetch={false}
-                // className={`${
-                //   Number(chapterId) === Number(chapter.id) ? ' text-red' : ''
-                //   // (chapter.name_simple.toLowerCase().match(search.toLowerCase()) ?? 'hidden')
-                // } rounded-lg px-2 py-1`}
-              >
-                <Typography
-                  component="span"
-                  sx={{ fontWeight: 'fontWeightBold' }}
-                  ref={chapter.id.toString() === chapterId ? selectedChapterRef : null}
-                >
-                  {chapter.id}
-                </Typography>
-                {` - `}
-                {chapter.nameSimple} ({chapter.translatedName})
-              </StyledRouterLink>
-            ))}
-          </PreviewContainer>
-        </CustomTabPanel>
+          </Box>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row-reverse',
+              marginBlockEnd: '0.1875rem',
+            }}
+          >
+            <IconButton
+              onClick={() => {
+                dispatch(setIsVisible(false))
+              }}
+              sx={{
+                border: (th) => `1px solid ${th.vars.palette.divider}`,
+                color: (th) => (th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4'),
+                borderRadius: 1,
+                p: 0.5,
+              }}
+              aria-label={`Toggle Surah Drawer`}
+              size="small"
+            >
+              {/* @ts-ignore */}
+              <FilterIcon fontSize="small" />
+            </IconButton>
+          </Box>
 
-        <CustomTabPanel value={view} index={1}>
-          <PreviewContainer>
-            {juzs.map((juz: any, i: number) => (
-              <StyledRouterLink
-                key={i}
-                href={`/juz/${juz.id}`}
-                ownerState={{
-                  isActive: i + 1 === juz.id,
-                }}
-                // className={`${
-                //   i + 1 === juz.id ? ' text-red' : ''
-                //   // (chapter.name_simple.toLowerCase().match(search.toLowerCase()) ?? 'hidden')
-                // } rounded-lg px-2 py-1`}
-              >
-                <Typography component="span" sx={{ fontWeight: 'fontWeightBold' }}>
-                  {juz.id}
-                </Typography>
-                {` - `}
-                Juz
-              </StyledRouterLink>
-            ))}
-          </PreviewContainer>
-        </CustomTabPanel>
-      </QuranReaderScrollContainer>
+          <SidebarNavigationSelections
+            isVisible={isVisible}
+            selectedNavigationItem={NavigationItem.Surah}
+            locale={locale}
+          />
+        </React.Fragment>
+      )}
     </QuranReaderDrawerRoot>
   )
 })

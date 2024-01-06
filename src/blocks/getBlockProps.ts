@@ -14,5 +14,3 @@ export type GetBlockPropsFunctions<T> = Record<
 
 // export your "getBlockProps" functions from each block here
 export { getBlockProps as ChapterAndJuzList } from './ChapterAndJuzList'
-export { getBlockProps as Surah } from './Surah'
-export { getBlockProps as QuranReader } from './QuranReader'

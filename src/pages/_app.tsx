@@ -56,7 +56,7 @@ function App(props: AppProps) {
         />
       </Head>
       <FontPreLoader locale={locale} />
-      <DataContext.Provider value={page.chaptersData}>
+      <DataContext.Provider value={page?.chaptersData}>
         <Provider store={store}>
           <PersistGate persistor={persistor}>
             {() => {

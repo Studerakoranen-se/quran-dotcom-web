@@ -1,30 +1,59 @@
 import * as React from 'react'
-import { useDispatch } from 'react-redux'
-import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
+import { VirtuosoHandle } from 'react-virtuoso'
 import ReactAudioPlayer from 'react-audio-player'
-import { Box, Button, Collapse, IconButton, Typography, styled } from '@mui/material'
-import { IoMdPlay } from 'react-icons/io'
-import { IoChatbubble } from 'react-icons/io5'
-import { BsBookHalf, BsThreeDots, BsPlayFill, BsFillPauseFill, BsGear } from 'react-icons/bs'
-import { addToHistory, updateVerseCount } from '~/store/historySlice'
-import { useGlobalHandlers, useGlobalState } from '~/contexts'
+import { Box, Button, IconButton, styled } from '@mui/material'
+import { BsPlayFill, BsFillPauseFill, BsGear } from 'react-icons/bs'
+import {
+  selectIsSidebarNavigationVisible,
+  setIsVisible,
+} from '~/store/slices/QuranReader/sidebarNavigation'
+import { selectReadingPreference } from '~/store/slices/QuranReader/readingPreferences'
+import { selectQuranReaderStyles } from '~/store/slices/QuranReader/styles'
+import { QuranReaderDataType, ReadingPreference } from '~/types/QuranReader'
+import { VersesResponse } from '~/types/ApiResponses'
+// import { addToHistory, updateVerseCount } from '~/store/historySlice'
+import { VerseTrackerContextProvider } from '~/contexts/VerseTrackerContext'
 import { FilterIcon } from '~/components'
 import QuranReaderDrawer from './partials/QuranReaderDrawer'
-import QuranWord from './partials/QuranWord'
+import QuranReaderView from './partials/QuranReaderView'
 
-const BREAKPOINT_KEY = 'md'
+const QuranReaderRoot = styled('section')<{
+  ownerState: {
+    withSidebarNavigationOpenOrAuto: boolean | string
+  }
+}>(({ theme, ownerState }) => ({
+  paddingBlockStart: '1.5rem',
+  paddingInlineStart: 0,
+  paddingInlineEnd: 0,
+  paddingBlockEnd: 'calc(4 * 2rem)',
+  transition: '0.4s',
 
-const QuranReaderRoot = styled('section')(() => ({
-  position: 'relative',
+  ...(ownerState?.withSidebarNavigationOpenOrAuto && {
+    [theme.breakpoints.up('md')]: {
+      marginInlineStart: 'calc(10 * 2rem)',
+    },
+  }),
 }))
 
 const QuranReaderRootMain = styled('div')(({ theme }) => ({
-  padding: 'var(--cia-container-spacing)',
-  marginBlockStart: theme.spacing(3),
-  marginBlockEnd: theme.spacing(3),
+  padding: '0 var(--cia-container-spacing)',
 
-  [theme.breakpoints.up('lg')]: {
+  [theme.breakpoints.up('md')]: {
     padding: theme.spacing(0, 12),
+  },
+}))
+
+const QuranReaderRootInfiniteScroll = styled('div')(({ theme }) => ({
+  marginBlockStart: 0,
+  marginBlockEnd: 0,
+  marginInlineStart: 'auto',
+  marginInlineEnd: 'auto',
+  width: '95%',
+
+  [theme.breakpoints.up('md')]: {
+    width: '88%',
+    maxWidth: '112rem',
   },
 }))
 
@@ -36,7 +65,6 @@ const QuranReaderStickyFilter = styled('div')<{
   top: 0,
   display: 'flex',
   alignItems: 'center',
-  padding: theme.spacing(1, 0),
   width: '100%',
   ...(ownerState.isHeaderStikcy && {
     top: 'calc(22px + var(--cia-header-toolbar-primary-height))',
@@ -44,33 +72,6 @@ const QuranReaderStickyFilter = styled('div')<{
 
   ...(ownerState.enableShadow && {
     boxShadow: '0px 22px 28px -3px rgba(0,0,0,0.1)',
-  }),
-}))
-
-const QuranReaderCollapse = styled(Collapse)<{
-  ownerState: { isFilterMenuOpen?: boolean }
-}>(({ theme, ownerState }) => ({
-  '&.MuiCollapse-root': {
-    position: 'sticky',
-    top: 'calc(90px + var(--cia-header-toolbar-primary-height))',
-    zIndex: 2,
-  },
-
-  // display: 'flex',
-  // alignItems: 'center',
-  // padding: theme.spacing(1, 0),
-  // width: '100%',
-
-  ...(ownerState.isFilterMenuOpen && {
-    '&.MuiCollapse-wrapper': {
-      [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-        width: '300px !important', // Disable MuiCollapse on breakpoint.
-        visibility: 'visible !important', // Disable MuiCollapse on breakpoint.
-        '&.MuiCollapse-wrapperInner': {
-          width: '100%',
-        },
-      },
-    },
   }),
 }))
 
@@ -82,75 +83,26 @@ const QuranReaderGridActionsButtons = styled('div')(({ theme }) => ({
   backgroundColor: theme.vars.palette.background.default,
 }))
 
-const QuranReaderGrid = styled('div')<{ ownerState: { isFilterMenuOpen: boolean } }>(
-  ({ theme, ownerState }) => ({
-    position: 'relative',
-    display: 'flex',
-    padding: 'var(--ikas-container-spacing) 0',
-    gridTemplateColumns: '1fr',
-
-    [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-      gridTemplateColumns: 'calc(10 * 2rem) 1fr',
-
-      ...(ownerState?.isFilterMenuOpen && {
-        gridGap: theme.spacing(3),
-      }),
-    },
-
-    ...(ownerState?.isFilterMenuOpen && {
-      gridGap: theme.spacing(3, 1),
-    }),
-  }),
-)
-
-const QuranReaderVerseItem = styled('div')<{ ownerState: { isPlaying?: boolean } }>(
-  ({ theme, ownerState }) => ({
-    display: 'flex',
-    justifyContent: 'space-between',
-    gap: theme.spacing(1.5),
-    padding: theme.spacing(3, 0),
-    borderBottom: `2px solid ${theme.vars.palette.divider}`,
-
-    ...(ownerState?.isPlaying && {
-      backgroundColor: theme.vars.palette.action.hover,
-    }),
-  }),
-)
-
-const QuranReaderVerseItemWordsContainer = styled('div')(() => ({
-  display: 'flex',
-  paddingLeft: '2.5rem',
-  paddingRight: '0.5rem',
-  flexDirection: 'column',
-  flexGrow: 1,
-  gap: '1.25rem',
-  justifyContent: 'center',
-}))
-const QuranReaderVerseItemWords = styled('div')(() => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '0.5rem',
-}))
-
 type QuranReaderProps = {
-  chapterId?: number
-  chapter?: any
-  startAt?: number
-  locale?: string
-  verses?: any[]
-  chapters?: any[]
-  juzs?: any[]
+  initialData: VersesResponse
+  id: number | string // can be the chapter, verse, tafsir, hizb, juz, rub or page's ID.
+  quranReaderDataType?: QuranReaderDataType
+  locale: string
 }
 
 function QuranReader(props: QuranReaderProps) {
-  const { chapter, chapterId, startAt, locale, verses, chapters = [], juzs = [] } = props
+  const { initialData, id, quranReaderDataType = QuranReaderDataType.Chapter, locale } = props
+
+  // useSyncReadingProgress({
+  //   isReadingPreference: false,
+  // })
+
+  const isSidebarNavigationVisible = useSelector(selectIsSidebarNavigationVisible)
+  const quranReaderStyles = useSelector(selectQuranReaderStyles, shallowEqual)
+  const readingPreference = useSelector(selectReadingPreference) as ReadingPreference
+  const isReadingPreference = readingPreference === ReadingPreference.Reading
 
   const dispatch = useDispatch()
-
-  // @ts-ignore
-  const { isFilterMenuOpen } = useGlobalState()
-  // @ts-ignore
-  const { onFilterMenuToggle } = useGlobalHandlers()
 
   const [currentVerse, setCurrentVerse] = React.useState<number>(0)
 
@@ -158,14 +110,31 @@ function QuranReader(props: QuranReaderProps) {
   const [currentAudio, setCurrentAudio] = React.useState('')
   const [audioPlaying, setAudioPlaying] = React.useState(false)
 
-  const containerRef = React.useRef<HTMLDivElement>(null)
-  const virtuosoRef = React.useRef<VirtuosoHandle>(null)
+  const handleCurrentVerseUpdate = React.useCallback((verse) => {
+    setCurrentVerse(verse)
+  }, [])
+
+  const handleCurrentAudio = React.useCallback((audioLink) => {
+    setCurrentAudio(audioLink)
+  }, [])
+
+  const handleAudioUpdate = React.useCallback((element) => {
+    setAudio(element)
+  }, [])
+
+  const handleAudioOnPlay = React.useCallback(() => {
+    setAudioPlaying(true)
+  }, [])
+
+  const handleAudioOnPause = React.useCallback(() => {
+    setAudioPlaying(false)
+  }, [])
 
   const handlePauseAudio = () => {
     audio.audioEl.current.pause()
     audio.audioEl.current.currentTime = 0
-    setCurrentAudio('')
-    setAudioPlaying(false)
+    handleCurrentAudio('')
+    handleAudioOnPause()
   }
 
   // const handleTafsir = (verseID: number) => {
@@ -179,8 +148,8 @@ function QuranReader(props: QuranReaderProps) {
   //     })
   // }
 
-  const handleHighlightText = (id: any, segment: any) => {
-    const verseElement = document.querySelector(`#${id}`)
+  const handleHighlightText = (newId: any, segment: any) => {
+    const verseElement = document.querySelector(`#${newId}`)
     if (!verseElement) return
 
     const words = Array.from(verseElement.querySelectorAll('button'))
@@ -230,290 +199,228 @@ function QuranReader(props: QuranReaderProps) {
   }
 
   const handleAudioEnded = () => {
-    const audios = verses?.map((verse: any) => verse.audio)
+    const audios = initialData.verses?.map((verse: any) => verse.audio)
 
     // const currentIndex = audios.indexOf(currentAudio)
     if (currentVerse === (audios && audios?.length - 1)) {
-      setCurrentAudio('')
+      handleCurrentAudio('')
       setCurrentVerse(0)
     } else {
-      setCurrentAudio(`https://audio.qurancdn.com/${audios?.[currentVerse].url}`)
+      handleCurrentAudio(`https://audio.qurancdn.com/${audios?.[currentVerse].url}`)
       handleHighlightText(`v${currentVerse + 1}`, audios?.[currentVerse].segments)
       setCurrentVerse(currentVerse + 1)
     }
   }
 
-  React.useEffect(() => {
-    if (chapterId) {
-      dispatch(addToHistory(chapter))
-    }
-  }, [chapterId, dispatch, locale, chapter])
+  // React.useEffect(() => {
+  //   if (chapterId) {
+  //     dispatch(addToHistory(chapter))
+  //   }
+  // }, [chapterId, dispatch, locale, chapter])
 
-  React.useEffect(() => {
-    // Get the element by its ID
-    const targetElement = document.getElementById(`verse${startAt}`)
-    if (targetElement) {
-      const offsetTop = targetElement.offsetTop
-      const windowHeight = window.innerHeight
-      const targetHeight = targetElement.offsetHeight
-      const scrollToPosition = offsetTop - windowHeight / 2 + targetHeight / 2
+  // React.useEffect(() => {
+  //   // Get the element by its ID
+  //   const targetElement = document.getElementById(`verse${startAt}`)
+  //   if (targetElement) {
+  //     const offsetTop = targetElement.offsetTop
+  //     const windowHeight = window.innerHeight
+  //     const targetHeight = targetElement.offsetHeight
+  //     const scrollToPosition = offsetTop - windowHeight / 2 + targetHeight / 2
 
-      window.scrollTo({ top: scrollToPosition, behavior: 'smooth' })
-    }
-  }, [startAt, verses])
+  //     window.scrollTo({ top: scrollToPosition, behavior: 'smooth' })
+  //   }
+  // }, [startAt])
 
-  React.useEffect(() => {
-    if (!containerRef.current || !verses) {
-      // If the container or verses are not available yet, return early
-      return
-    }
+  // React.useEffect(() => {
+  //   if (!containerRef.current || !verses) {
+  //     // If the container or verses are not available yet, return early
+  //     return
+  //   }
 
-    const options = {
-      root: null,
-      rootMargin: '50px',
-      threshold: 0.25,
-    }
+  //   const options = {
+  //     root: null,
+  //     rootMargin: '50px',
+  //     threshold: 0.25,
+  //   }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const matches = entry.target.id.match(/\d+/)
+  //   const observer = new IntersectionObserver((entries) => {
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting) {
+  //         const matches = entry.target.id.match(/\d+/)
 
-          dispatch(
-            updateVerseCount({
-              id: chapterId,
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              verseCount: matches ? matches[0]! : 1,
-            }),
-          )
+  //         dispatch(
+  //           updateVerseCount({
+  //             id: chapterId,
+  //             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  //             verseCount: matches ? matches[0]! : 1,
+  //           }),
+  //         )
 
-          // setVisibleId(entry.target.id)
-        }
-      })
-    }, options)
+  //         // setVisibleId(entry.target.id)
+  //       }
+  //     })
+  //   }, options)
 
-    const elements = containerRef.current.querySelectorAll("[id^='verse']")
-    elements.forEach((element) => {
-      observer.observe(element)
-    })
+  //   const elements = containerRef.current.querySelectorAll("[id^='verse']")
+  //   elements.forEach((element) => {
+  //     observer.observe(element)
+  //   })
 
-    // eslint-disable-next-line consistent-return
-    return () => {
-      elements.forEach((element) => {
-        observer.unobserve(element)
-      })
-    }
-  }, [chapterId, dispatch, verses])
+  //   // eslint-disable-next-line consistent-return
+  //   return () => {
+  //     elements.forEach((element) => {
+  //       observer.unobserve(element)
+  //     })
+  //   }
+  // }, [chapterId, dispatch, verses])
 
-  const itemContentRenderer = (verseIdx: number, verse) => {
-    // if (verseIdx === initialData.metaData.numberOfVerses) {
-    //   return (
-    //     <EndOfScrollingControls
-    //       quranReaderDataType={quranReaderDataType}
-    //       lastVerse={verses[verses.length - 1]}
-    //       initialData={initialData}
-    //     />
-    //   );
-    // }
+  // React.useEffect(() => {
+  //   const updateHighlightColor = () => {
+  //     const verseElement = document.querySelector(`#v${currentVerse}`)
+  //     if (!verseElement) return
 
-    return (
-      <QuranReaderVerseItem
-        key={verseIdx}
-        id={`verse${verseIdx + 1}`}
-        ownerState={{
-          isPlaying:
-            audioPlaying && currentAudio === `https://audio.qurancdn.com/${verse.audio.url}`,
-        }}
-      >
-        <div className="flex flex-col items-center w-10 gap-4">
-          <div className="">{verse.verse_key}</div>
-          {audioPlaying && currentAudio === `https://audio.qurancdn.com/${verse.audio.url}` ? (
-            <IconButton
-              onClick={handlePauseAudio}
-              aria-label={`Filtrele menüyu kapat`}
-              size="small"
-            >
-              <BsFillPauseFill />
-            </IconButton>
-          ) : (
-            <IconButton
-              onClick={() => {
-                setCurrentVerse(verse.verse_number)
-                setCurrentAudio(`https://audio.qurancdn.com/${verse.audio.url}`)
-                audio.audioEl.current.play()
-                // setShowControl(true)
-                setAudioPlaying(true)
-                handleHighlightText(`v${verse.verse_number}`, verse.audio.segments)
-              }}
-              aria-label={`Filtrele menüyu kapat`}
-              size="small"
-            >
-              <IoMdPlay />
-            </IconButton>
-          )}
+  //     const words = Array.from(verseElement.querySelectorAll('button'))
 
-          <IconButton aria-label={`Filtrele menüyu kapat`} size="small">
-            <IoChatbubble />
-          </IconButton>
+  //     words.forEach((word) => {
+  //       if (theme.palette.mode === 'dark') {
+  //         word.style.color = '#E0D2B4'
+  //       } else {
+  //         word.style.color = '#139090'
+  //       }
+  //     })
+  //   }
 
-          <IconButton
-            aria-label={`Filtrele menüyu kapat`}
-            size="small"
-            // onClick={() => handleTafsir(verse.verse_number)}
-          >
-            <BsBookHalf />
-          </IconButton>
+  //   updateHighlightColor()
 
-          <IconButton aria-label={`Filtrele menüyu kapat`} size="small">
-            <BsThreeDots />
-          </IconButton>
-        </div>
-        <QuranReaderVerseItemWordsContainer>
-          <QuranReaderVerseItemWords id={`v${verse.verse_number}`} dir="rtl">
-            {verse.words.map((word: any, idx: number) => (
-              <QuranWord
-                key={idx}
-                word={word}
-                setCurrentVerse={setCurrentVerse}
-                setCurrentAudio={setCurrentAudio}
-                audio={audio}
-              />
-            ))}
-          </QuranReaderVerseItemWords>
-          <Typography>
-            {locale === 'sv' && verse?.swedishTranslations
-              ? verse.swedishTranslations.swedishText
-              : verse.translations[0].text}
-          </Typography>
-        </QuranReaderVerseItemWordsContainer>
-      </QuranReaderVerseItem>
-    )
-  }
+  //   return () => {
+  //     // Clean up if needed
+  //   }
+  // }, [theme.palette.mode, currentVerse])
 
   return (
-    <QuranReaderRoot>
-      <QuranReaderRootMain>
-        <QuranReaderStickyFilter ownerState={{ enableShadow: false, isHeaderStikcy: true }}>
-          <QuranReaderGridActionsButtons>
-            <ReactAudioPlayer
-              src={currentAudio}
-              autoPlay
-              // controls
-              ref={(element) => {
-                setAudio(element)
-              }}
-              onPlay={() => {
-                setAudioPlaying(true)
-              }}
-              onEnded={() => {
-                setAudioPlaying(false)
-                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                currentVerse === 0 || handleAudioEnded()
-              }}
-            />
-            <IconButton
-              onClick={onFilterMenuToggle}
-              // sx={
-              //   {
-              //     // border: (theme) => `1px solid ${theme.vars.palette.divider}`,
-              //     // borderRadius: 1,
-              //     // p: 0.1,
-              //   }
-              // }
-              aria-label={`Toggle Surah Drawer`}
-              size="small"
-            >
-              {/* @ts-ignore */}
-              <FilterIcon fontSize="small" color="text" />
-            </IconButton>
-
-            <Box
-              display="flex"
-              alignItems="center"
-              //  className="pt-10 space-y-6"
-            >
-              {/* <Bismillah bismillah_pre={chapter?.bismillah_pre} /> */}
-              <Box>
-                {audioPlaying ? (
-                  <Button
-                    variant="contained"
-                    // @ts-ignore
-                    color="textInverted"
-                    size="medium"
-                    onClick={handlePauseAudio}
-                    // className="text-[#E0D2B4] flex items-center gap-2 ml-auto"
-                    startIcon={<BsFillPauseFill />}
-                  >
-                    pausa ljud
-                  </Button>
-                ) : (
-                  <Button
-                    variant="text"
-                    // @ts-ignore
-                    color="text"
-                    size="medium"
-                    onClick={() => {
-                      setCurrentAudio(`https://audio.qurancdn.com/${verses?.[0].audio.url}`)
-                      setCurrentVerse(1)
-                      audio.audioEl.current.play()
-                    }}
-                    startIcon={<BsPlayFill />}
-                    // className="text-[#E0D2B4] flex items-center gap-2 ml-auto"
-                  >
-                    Spela upp ljud
-                  </Button>
-                )}
-              </Box>
-              <IconButton aria-label={`Change Settings`} size="small">
-                <BsGear />
+    <React.Fragment>
+      <QuranReaderRoot
+        ownerState={{
+          withSidebarNavigationOpenOrAuto: isSidebarNavigationVisible,
+        }}
+      >
+        <QuranReaderRootMain>
+          <QuranReaderStickyFilter ownerState={{ enableShadow: false, isHeaderStikcy: true }}>
+            <QuranReaderGridActionsButtons>
+              <ReactAudioPlayer
+                src={currentAudio}
+                autoPlay
+                // controls
+                ref={(element) => {
+                  handleAudioUpdate(element)
+                }}
+                onPlay={() => {
+                  setAudioPlaying(true)
+                }}
+                onEnded={() => {
+                  handleAudioOnPause()
+                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                  currentVerse === 0 || handleAudioEnded()
+                }}
+              />
+              {}
+              <IconButton
+                onClick={() => {
+                  dispatch(setIsVisible(true))
+                }}
+                sx={{
+                  border: (th) => `1px solid ${th.vars.palette.divider}`,
+                  color: (th) =>
+                    th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4',
+                  borderRadius: 1,
+                  p: 0.5,
+                  visibility: isSidebarNavigationVisible === true ? 'hidden' : 'visibile',
+                }}
+                aria-label={`Toggle Surah Drawer`}
+                size="small"
+              >
+                <FilterIcon fontSize="small" />
               </IconButton>
-            </Box>
-          </QuranReaderGridActionsButtons>
-        </QuranReaderStickyFilter>
 
-        <QuranReaderGrid ownerState={{ isFilterMenuOpen }}>
-          <div>
-            <QuranReaderCollapse
-              in={isFilterMenuOpen}
-              orientation="horizontal"
-              unmountOnExit
-              timeout={100}
-              ownerState={{
-                isFilterMenuOpen,
-              }}
-            >
-              <QuranReaderDrawer chapters={chapters} juzs={juzs} chapterId={chapterId} />
-            </QuranReaderCollapse>
-          </div>
-
-          <Box
-            minHeight="100vh"
-            sx={{
-              marginInlineStart: 'auto',
-              marginInlineEnd: 'auto',
-              width: '100%',
-              ...(isFilterMenuOpen && {
-                marginBlockStart: 0,
-                marginBlockEnd: 0,
-                marginInlineStart: 'auto',
-                marginInlineEnd: 'auto',
-                maxWidth: '112rem',
-              }),
-            }}
-          >
-            <Virtuoso
-              ref={virtuosoRef}
-              useWindowScroll
-              data={verses}
-              totalCount={chapter?.versesCount}
-              increaseViewportBy={1000}
-              initialItemCount={1} // needed for SSR.
-              itemContent={itemContentRenderer}
+              <Box display="flex" alignItems="center">
+                {/* <Bismillah bismillah_pre={chapter?.bismillah_pre} />  */}
+                <Box>
+                  {audioPlaying ? (
+                    <Button
+                      variant="text"
+                      // @ts-ignore
+                      color="text"
+                      size="medium"
+                      onClick={handlePauseAudio}
+                      sx={{
+                        color: (th) =>
+                          th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4',
+                        backgroundColor: 'transparent',
+                        '&:hover, &:focus-within': {
+                          backgroundColor: 'transparent',
+                        },
+                      }}
+                      startIcon={<BsFillPauseFill />}
+                    >
+                      pausa ljud
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="text"
+                      // @ts-ignore
+                      color="text"
+                      size="medium"
+                      onClick={() => {
+                        handleCurrentAudio(`https://audio.qurancdn.com/${verses?.[0].audio.url}`)
+                        setCurrentVerse(1)
+                        audio.audioEl.current.play()
+                      }}
+                      startIcon={<BsPlayFill />}
+                      sx={{
+                        color: (th) =>
+                          th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4',
+                        backgroundColor: 'transparent',
+                        '&:hover, &:focus-within': {
+                          backgroundColor: 'transparent',
+                        },
+                      }}
+                    >
+                      Spela upp ljud
+                    </Button>
+                  )}
+                </Box>
+                <IconButton
+                  aria-label={`Change Settings`}
+                  size="small"
+                  sx={{
+                    border: (th) => `1px solid ${th.vars.palette.divider}`,
+                    color: (th) =>
+                      th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4',
+                    borderRadius: 1,
+                    p: 1,
+                  }}
+                >
+                  <BsGear />
+                </IconButton>
+              </Box>
+            </QuranReaderGridActionsButtons>
+          </QuranReaderStickyFilter>
+        </QuranReaderRootMain>
+        <QuranReaderRootInfiniteScroll>
+          <VerseTrackerContextProvider>
+            <QuranReaderView
+              isReadingPreference={isReadingPreference}
+              quranReaderStyles={quranReaderStyles}
+              initialData={initialData}
+              quranReaderDataType={quranReaderDataType}
+              resourceId={id}
+              locale={locale}
             />
-          </Box>
-        </QuranReaderGrid>
-      </QuranReaderRootMain>
-    </QuranReaderRoot>
+          </VerseTrackerContextProvider>
+        </QuranReaderRootInfiniteScroll>
+      </QuranReaderRoot>
+      <QuranReaderDrawer locale={locale} />
+    </React.Fragment>
   )
 }
 

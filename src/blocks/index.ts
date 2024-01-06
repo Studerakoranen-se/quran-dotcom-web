@@ -18,5 +18,4 @@ export const QuranBanner = dynamic(() => import(/* webpackChunkName: "blocks/Qur
 export const QuranReader = dynamic(() => import(/* webpackChunkName: "blocks/QuranReader" */ './QuranReader')) // prettier-ignore
 export const RecentReading = dynamic(() => import(/* webpackChunkName: "blocks/RecentReading" */ './RecentReading')) // prettier-ignore
 export const Steps = dynamic(() => import(/* webpackChunkName: "blocks/Steps" */ './Steps')) // prettier-ignore
-export const Surah = dynamic(() => import(/* webpackChunkName: "blocks/Surah" */ './Surah')) // prettier-ignore
 export const Tutors = dynamic(() => import(/* webpackChunkName: "blocks/Tutors" */ './Tutors')) // prettier-ignore

@@ -5,11 +5,24 @@ import { PageTypeQueryResult, siteSettingsQuery } from '~/api/sanity/queries'
 import {
   ApiClient,
   createGetBlocksProps,
-  formatChapters,
+  getChapterData,
+  getAllChaptersData,
   getTranslatedVerse,
+  isValidChapterId,
+  isValidVerseKey,
   nextUriToString,
+  getDefaultWordFields,
+  getVerseAndChapterNumbersFromKey,
+  formatStringNumber,
+  ONE_WEEK_REVALIDATION_PERIOD_SECONDS,
+  REVALIDATION_PERIOD_ON_ERROR_SECONDS,
+  getMushafId,
 } from '~/utils'
 import { getClient as getSanityClient, pageTypeQuery, SiteSettingsQueryResult } from '~/api/sanity'
+import { getChapterIdBySlug, getChapterVerses, getPagesLookup } from '~/api'
+import { PagesLookUpResponse } from '~/types/ApiResponses'
+import { generateVerseKeysBetweenTwoVerseKeys } from '~/utils/verseKeys'
+import { getQuranReaderStylesInitialState } from '~/store/defaultSettings/util'
 
 export { default } from '~/containers/Page'
 
@@ -28,17 +41,19 @@ const getBlocksProps = createGetBlocksProps<{
   }>,
 )
 
+// TODO: this needs to be localized and also reflected in next-sitemap.js
+const AYAH_KURSI_SLUGS = ['ayatul-kursi', 'آیت الکرسی']
+
 export const getStaticProps: GetStaticProps = async (context) => {
   const { params = {}, locale, preview = false, defaultLocale } = context
 
   const { uri } = params
-
-  const sanityClient = getSanityClient(preview)
-  const apiClient = new ApiClient(process.env.QURAN_API_V3)
-
+  let chapterIdOrVerseKeyOrSlug = String(params.uri?.[1])
+  let isChapter = isValidChapterId(chapterIdOrVerseKeyOrSlug)
+  const chaptersData = await getAllChaptersData(locale)
   const uriString = nextUriToString(uri)
 
-  // const page = pages.Course
+  const sanityClient = getSanityClient(preview)
 
   const [page, settings] = await Promise.all([
     sanityClient.fetch(pageTypeQuery, {
@@ -56,67 +71,131 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }) as SiteSettingsQueryResult | null,
   ])
 
-  if (uriString.includes('surah')) {
-    const promises = [
-      apiClient?.request(
-        'GET',
-        `chapters/${[
-          uri?.[1],
-        ]}/verses?recitation=1&translations=21&language=${locale}&text_type=words&per_page=1000&tafsirs=169,381,165,164`,
-      ),
-      apiClient?.request('GET', `chapters/${uri?.[1]}?language=${locale}`),
-    ]
-
-    const [verses, chapter] = await Promise.all(promises)
-    // Fetch scraped data for the corresponding chapter ID (adjusting for the different numbering system)
-    const translations = await getTranslatedVerse((parseInt(chapter.chapter.id, 10) - 1).toString())
-
-    if (verses?.verses?.length > 0 && chapter?.chapter?.id) {
-      const chapterInfo = formatChapters(chapter.chapter, locale)
-
-      verses.verses.forEach((verse) => {
-        // @ts-ignore
-        const matchingData = translations.scrapedData.find(
-          (data) => data.verseNumber === verse.verse_key,
-        )
-        if (matchingData) {
-          verse.swedishTranslations = matchingData
+  if (uriString.includes('surah') || uriString.includes('juz')) {
+    // initialize the value as if it's chapter
+    let chapterId = chapterIdOrVerseKeyOrSlug
+    // if it's not a valid chapter id and it's not a valid verse key, will check if it's Ayat Al kursi or if it's a Surah slug
+    if (!isChapter && !isValidVerseKey(chaptersData, chapterIdOrVerseKeyOrSlug)) {
+      // if the value is a slug of Ayatul Kursi
+      if (AYAH_KURSI_SLUGS.includes(chapterIdOrVerseKeyOrSlug.toLowerCase())) {
+        chapterIdOrVerseKeyOrSlug = '2:255'
+      } else {
+        const sluggedChapterId = await getChapterIdBySlug(chapterIdOrVerseKeyOrSlug, locale)
+        // if it's not a valid slug
+        if (!sluggedChapterId) {
+          return { notFound: true }
         }
-      })
+        chapterId = sluggedChapterId
+        isChapter = true
+      }
+    }
 
-      const blocks = await getBlocksProps(
-        [
-          {
-            name: 'QuranReader',
-            props: {
-              // @ts-ignore
-              verses: verses.verses,
-              chapter: chapterInfo,
-              // startAt: startAt || 1,
-              startAt: 1,
-              chapterId: uri?.[1],
-              locale,
-            },
+    const defaultMushafId = getMushafId(
+      getQuranReaderStylesInitialState(locale).quranFont,
+      getQuranReaderStylesInitialState(locale).mushafLines,
+    ).mushaf
+    // common API params between a chapter and the verse key.
+    let apiParams = {
+      ...getDefaultWordFields(),
+      mushaf: defaultMushafId,
+    }
+
+    let numberOfVerses = 1
+    let pagesLookupResponse: PagesLookUpResponse | null = null
+
+    try {
+      // if it's a verseKey
+      if (!isChapter) {
+        const [extractedChapterId, verseNumber] =
+          getVerseAndChapterNumbersFromKey(chapterIdOrVerseKeyOrSlug)
+        chapterId = extractedChapterId
+        // only get 1 verse
+        apiParams = { ...apiParams, ...{ page: verseNumber, perPage: 1 } }
+        pagesLookupResponse = await getPagesLookup({
+          chapterNumber: Number(chapterId),
+          mushaf: defaultMushafId,
+          from: chapterIdOrVerseKeyOrSlug,
+          to: chapterIdOrVerseKeyOrSlug,
+        })
+      } else {
+        pagesLookupResponse = await getPagesLookup({
+          chapterNumber: Number(chapterId),
+          mushaf: defaultMushafId,
+        })
+        numberOfVerses = generateVerseKeysBetweenTwoVerseKeys(
+          chaptersData,
+          pagesLookupResponse.lookupRange.from,
+          pagesLookupResponse.lookupRange.to,
+        ).length
+
+        // @ts-ignore
+        const firstPageOfChapter = Object.keys(pagesLookupResponse.pages)[0]
+        // @ts-ignore
+        const firstPageOfChapterLookup = pagesLookupResponse.pages[firstPageOfChapter]
+        apiParams = {
+          ...apiParams,
+          ...{
+            perPage: 'all',
+            from: firstPageOfChapterLookup.from,
+            to: firstPageOfChapterLookup.to,
           },
-        ],
-        null,
-        context,
+        }
+      }
+      // @ts-ignore
+
+      const versesResponse = await getChapterVerses(
+        formatStringNumber(chapterId),
+        // locale
+        'en',
+        apiParams,
       )
+      const metaData = { numberOfVerses }
+
+      versesResponse.metaData = metaData
+      versesResponse.pagesLookup = pagesLookupResponse
+
+      const chapterResponse = {
+        chapter: { ...getChapterData(chaptersData, chapterId), id: chapterId },
+      }
+
+      // TODO: we need to handle the case where we want to have more blocks in the future.
+      const blocks = [
+        {
+          name: 'QuranReader',
+          props: {
+            initialData: versesResponse,
+            id: chapterResponse.chapter.id,
+            chapterId: uri?.[1],
+            locale,
+          },
+        },
+      ]
 
       return {
         props: {
+          locale,
+          defaultLocale,
           page: {
             locale,
             defaultLocale,
             blocks,
-            title: chapterInfo?.transliteratedName || null,
+            title: chapterResponse.chapter.transliteratedName || null,
             uri: uriString,
             fallbackSeo: {},
             seo: {},
+            chaptersData,
+            chapterResponse,
+            versesResponse,
+            isChapter,
           },
           settings,
         },
-        revalidate: 604800, // chapters will be generated at runtime if not found in the cache, then cached for subsequent requests for 7 days.
+        revalidate: ONE_WEEK_REVALIDATION_PERIOD_SECONDS, // chapters will be generated at runtime if not found in the cache, then cached for subsequent requests for 7 days.
+      }
+    } catch (error) {
+      return {
+        props: { hasError: true },
+        revalidate: REVALIDATION_PERIOD_ON_ERROR_SECONDS, // 35 seconds will be enough time before we re-try generating the page again.
       }
     }
   }
@@ -145,6 +224,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     notFound: true,
+    props: { hasError: true },
     revalidate: 604800,
   }
 }
