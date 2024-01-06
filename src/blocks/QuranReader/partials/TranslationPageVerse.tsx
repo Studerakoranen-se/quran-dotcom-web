@@ -99,6 +99,7 @@ function TranslationPageVerse(props: TranslationPageVerseProps) {
           chapterId={String(verse.chapterId)}
           pageNumber={verse.pageNumber}
           hizbNumber={verse.hizbNumber}
+          // @ts-ignore
           isTranslationSelected={selectedTranslations?.length > 0}
         />
       )}

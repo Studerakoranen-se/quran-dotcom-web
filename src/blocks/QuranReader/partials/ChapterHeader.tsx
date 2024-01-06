@@ -10,12 +10,14 @@ type ChapterHeaderProps = {
   chapterId: string
   pageNumber: number
   hizbNumber: number
+  translationName?: string
+  isTranslationSelected?: boolean
 }
 
 const CHAPTERS_WITHOUT_BISMILLAH = ['1', '9']
 
 function ChapterHeader(props: ChapterHeaderProps) {
-  const { chapterId, pageNumber, hizbNumber } = props
+  const { chapterId, pageNumber, hizbNumber, translationName, isTranslationSelected } = props
 
   const headerRef = React.useRef(null)
   /**
@@ -24,6 +26,13 @@ function ChapterHeader(props: ChapterHeaderProps) {
    * the intersection observer root's borders.
    */
   useIntersectionObserver(headerRef, 'quranReaderObserver')
+
+  // TODO: add translationName change functionality
+  // const onChangeTranslationClicked = () => {
+  //   dispatch(setIsSettingsDrawerOpen(true));
+  //   dispatch(setSettingsView(SettingsView.Translation));
+  //   console.log('change_translation');
+  // };
 
   return (
     <Box
