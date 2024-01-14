@@ -1,15 +1,14 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import useSWRImmutable from 'swr/immutable'
-// import useIsUsingDefaultSettings from '~/hooks/useIsUsingDefaultSettings';
+import useIsUsingDefaultSettings from '~/hooks/useIsUsingDefaultSettings'
 import QuranReaderStyles from '~/store/types/QuranReaderStyles'
 import { VersesResponse } from '~/types/ApiResponses'
 import { Mushaf, QuranReaderDataType } from '~/types/QuranReader'
 import Verse from '~/types/Verse'
-// import { makeBookmarksRangeUrl } from '~/utils/auth/apiPaths';
-// import { isLoggedIn } from '~/utils/auth/login';
-import { getPageNumberFromIndexAndPerPage } from '~/utils/number'
+// import { makeBookmarksRangeUrl } from '~/utils/auth/apiPaths'
 import { getTranslationViewRequestKey, verseFetcher } from '~/blocks/QuranReader/api'
+import { getPageNumberFromIndexAndPerPage } from '~/utils/number'
 
 interface QuranReaderParams {
   quranReaderDataType: QuranReaderDataType
@@ -52,20 +51,22 @@ const useDedupedFetchVerse = ({
   verseIdx,
   locale,
 }: QuranReaderParams): UseDedupedFetchVerseResult => {
-  // const router = useRouter();
+  const router = useRouter()
 
-  // const translationParams = useMemo(
-  //   () =>
-  //     (router.query.translations as string)?.split(',')?.map((translation) => Number(translation)),
-  //   [router.query.translations],
-  // );
+  const translationParams = useMemo(
+    () =>
+      (router.query.translations as string)?.split(',')?.map((translation) => Number(translation)),
+    [router.query.translations],
+  )
 
   const pageNumber = getPageNumberFromIndexAndPerPage(verseIdx, initialData.pagination.perPage)
 
   const idxInPage = verseIdx % initialData.pagination.perPage
 
-  // const isUsingDefaultSettings = useIsUsingDefaultSettings({ translations: translationParams });
-  const isUsingDefaultSettings = true
+  const isUsingDefaultSettings = useIsUsingDefaultSettings({
+    translations: translationParams,
+    locale,
+  })
   const shouldUseInitialData = pageNumber === 1 && isUsingDefaultSettings
   const { data: verses } = useSWRImmutable(
     getTranslationViewRequestKey({
@@ -97,15 +98,6 @@ const useDedupedFetchVerse = ({
   }, [pageNumber, setApiPageToVersesMap, verses])
 
   const bookmarksRangeUrl = null
-  // const bookmarksRangeUrl =
-  //   verses && verses.length && isLoggedIn()
-  //     ? makeBookmarksRangeUrl(
-  //         mushafId,
-  //         Number(verses?.[0].chapterId),
-  //         Number(verses?.[0].verseNumber),
-  //         initialData.pagination.perPage,
-  //       )
-  //     : null;
 
   const verse = verses ? verses[idxInPage] : null
 
