@@ -13,5 +13,9 @@
     "Surah": "",
     "Juz": "",
     "Revelation Order": ""
+  },
+  "blocks/QuranReader/QuranReader.tsx": {},
+  "blocks/QuranReader/partials/ChapterHeader.tsx": {
+    "Translation by": ""
   }
 }

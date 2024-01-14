@@ -12,5 +12,9 @@
     "Surah": "",
     "Juz": "",
     "RevelationOrder": "Surornas kronologiska ordning"
+  },
+  "blocks/QuranReader/QuranReader.tsx": {},
+  "blocks/QuranReader/partials/ChapterHeader.tsx": {
+    "Translation by": "Översättning av"
   }
 }
