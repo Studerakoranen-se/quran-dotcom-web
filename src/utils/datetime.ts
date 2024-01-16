@@ -1,99 +1,5 @@
-export const LANG_LOCALE_MAP = {
-  en: 'en-US',
-  ar: 'ar-EG',
-  bn: 'bn-BD',
-  fa: 'fa-IR',
-  fr: 'fr-FR',
-  id: 'id-ID',
-  it: 'it-IT',
-  nl: 'nl-NL',
-  pt: 'pt-BR',
-  ru: 'ru-RU',
-  sq: 'sq-AL',
-  th: 'th-TH',
-  tr: 'tr-TR',
-  ur: 'ur-PK',
-  zh: 'zh-CN',
-  ms: 'ms-MY',
-}
-
-/**
- * Takes a number and returns a localized string based on the provided locale.
- *
- * @param {number} value
- * @param {string} locale
- * @param {boolean} showLeadingZero
- * @param {Intl.NumberFormatOptions} options
- * @returns {string}
- */
-// Intl.NumberFormat is performance heavy so we are caching the formatter.
-const numberFormatters: Map<Intl.NumberFormatOptions | string, Intl.NumberFormat> = new Map()
-
-let currentLanguageLocale: string | null = null
-
-/**
- * Get the full locale name with lang + country e.g. ar-SA or en-US.
- *
- * @param {string} locale
- * @returns {string}
- */
-export const getLangFullLocale = (locale: string): string => LANG_LOCALE_MAP[locale]
-
-/**
- * This function takes a number and converts it to a decimal number.
- *
- * @param {string | number} number
- * @param {number} decimalPoints number of decimal points
- * @returns {number}
- */
-export const convertNumberToDecimal = (number: string | number, decimalPoints = 1): number => {
-  return Number((typeof number === 'string' ? Number(number) : number).toFixed(decimalPoints))
-}
-
-/**
- * Get the formatted localized number. This either returns
- * the original value or prepends a leading 0 to the beginning
- * of the string if it's allowed and the value is below 10.
- *
- * @param {Intl.NumberFormat} formatter
- * @param {number} value
- * @param {boolean} showLeadingZero
- * @returns {string}
- */
-const getFormattedNumber = (
-  formatter: Intl.NumberFormat,
-  value: number,
-  showLeadingZero: boolean,
-): string => {
-  const formattedNumber = formatter.format(value)
-  if (!showLeadingZero || value >= 10) {
-    return formattedNumber
-  }
-  return `${formatter.format(0)}${formattedNumber}`
-}
-
-const toLocalizedNumber = (
-  value: number,
-  locale: string,
-  showLeadingZero = false,
-  // @ts-ignore
-  options: Intl.NumberFormatOptions = undefined,
-) => {
-  // we do this because an empty object will result in a new formatter being created everytime since we don't have it's reference.
-  const formatterKey = options ?? 'DEFAULT_OPTIONS'
-
-  if (numberFormatters.has(formatterKey) && currentLanguageLocale === locale) {
-    // @ts-ignore
-    return getFormattedNumber(numberFormatters.get(formatterKey), value, showLeadingZero)
-  }
-
-  currentLanguageLocale = locale
-  const fullLocale = LANG_LOCALE_MAP[locale]
-
-  const newNumberFormatter = new Intl.NumberFormat(fullLocale, options)
-  numberFormatters.set(formatterKey, newNumberFormatter)
-  return getFormattedNumber(newNumberFormatter, value, showLeadingZero)
-}
+import { getLangFullLocale, LANG_LOCALE_MAP, toLocalizedNumber } from './locale'
+import { convertNumberToDecimal } from './number'
 
 // Converts seconds to (hours), minutes, and seconds
 export const secondsFormatter = (seconds: number, locale: string) => {
@@ -114,7 +20,7 @@ export const secondsFormatter = (seconds: number, locale: string) => {
  * Or any combination of the three.
  *
  * @param {numbers} s seconds
- * @param {Translate} t translate function
+ * @param {i18n} t translate function
  * @param {string} locale locale
  * @returns {string}
  */
@@ -177,21 +83,22 @@ export const milliSecondsToSeconds = (milliSeconds: number): number => milliSeco
 export const secondsToMilliSeconds = (seconds: number): number => seconds * 1000
 
 /**
- * Parse a date string.
- *
- * @param {string} date
- * @returns {number}
- */
-export const parseDate = (date: string): number => Date.parse(date)
-
-/**
  * Get the earliest date of a groups of date string.
  *
  * @param {string[]} dates
  * @returns {number}
  */
 export const getEarliestDate = (dates: string[]): number =>
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   dates.map((dateString) => parseDate(dateString)).sort((a, b) => a - b)[0]
+
+/**
+ * Parse a date string.
+ *
+ * @param {string} date
+ * @returns {number}
+ */
+export const parseDate = (date: string): number => Date.parse(date)
 
 /**
  * Format date to a string
@@ -265,16 +172,6 @@ export const getCurrentMonth = () => new Date().getMonth() + 1
 export const getCurrentDay = () => new Date().getDate()
 
 /**
- * Convert a number into a padded string with 0. E.g. 1 -> 01
- *
- * @param {number} number
- * @returns {string}
- */
-export const numberToPaddedString = (number: number): string => {
-  return number.toString().padStart(2, '0')
-}
-
-/**
  * Converts a date instance to a string in this format: YYYY-MM-DD
  *
  * @param {Date} date
@@ -284,6 +181,7 @@ export const dateToDateString = (
   date: Date | { day: number; month: number; year: number },
 ): string => {
   const { year, month, day } = date instanceof Date ? dateToYearMonthDay(date) : date
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   return `${year}-${numberToPaddedString(month)}-${numberToPaddedString(day)}`
 }
 
@@ -338,6 +236,16 @@ export const dateToReadableFormat = (
     timeZone: 'UTC',
     ...options,
   })
+}
+
+/**
+ * Convert a number into a padded string with 0. E.g. 1 -> 01
+ *
+ * @param {number} number
+ * @returns {string}
+ */
+export const numberToPaddedString = (number: number): string => {
+  return number.toString().padStart(2, '0')
 }
 
 type DateRange = { from: string; to: string }
