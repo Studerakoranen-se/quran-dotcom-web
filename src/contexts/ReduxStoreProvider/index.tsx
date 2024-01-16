@@ -1,21 +1,21 @@
-import * as React from 'react'
+import { Fragment, useContext, useMemo, ReactNode } from 'react'
 import Router from 'next/router'
 import { Provider } from 'react-redux'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
 import getStore from '~/store'
 import syncUserPreferences from '~/store/actions/sync-user-preferences'
-import PreferenceGroup from '~/types/auth/PreferenceGroup'
 import { getUserPreferences } from '~/utils/auth/api'
+import { isLoggedIn } from '~/utils/auth/login'
 import { setLocaleCookie } from '~/utils/cookies'
 import isClient from '~/utils/isClient'
+import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
+import PreferenceGroup from '~/types/auth/PreferenceGroup'
 
-interface ReduxProviderProps {
-  children: React.ReactNode
+type ReduxProviderProps = {
+  children: ReactNode
   locale: string
 }
-
 /**
  * A wrapper around the Provider component to skip rendering <PersistGate />
  * on the server. PersistGate prevents children from rendering until the persisted
@@ -25,17 +25,18 @@ interface ReduxProviderProps {
  * @param {any} props
  * @returns {Provider}
  */
+
 const ReduxProvider = ({ children, locale }: ReduxProviderProps) => {
-  const store = React.useMemo(() => getStore(locale), [locale])
-  const persistor = React.useMemo(() => persistStore(store), [store])
-  const audioService = React.useContext(AudioPlayerMachineContext)
+  const store = useMemo(() => getStore(locale), [locale])
+  const persistor = useMemo(() => persistStore(store), [store])
+  const audioService = useContext(AudioPlayerMachineContext)
 
   /**
    * Before the Gate lifts, we want to get the user preferences
    * then store in Redux so that they can be used.
    */
   const onBeforeLift = async () => {
-    if (isClient) {
+    if (isClient && isLoggedIn()) {
       try {
         const userPreferences = await getUserPreferences()
         const remoteLocale = userPreferences[PreferenceGroup.LANGUAGE]
@@ -46,10 +47,11 @@ const ReduxProvider = ({ children, locale }: ReduxProviderProps) => {
               query: Router.query,
             },
             Router.asPath,
-            { locale, scroll: true },
+            { locale: remoteLocale[PreferenceGroup.LANGUAGE], scroll: true },
           )
           setLocaleCookie(remoteLocale[PreferenceGroup.LANGUAGE])
         }
+
         store.dispatch(syncUserPreferences(userPreferences, locale))
         const playbackRate =
           userPreferences[PreferenceGroup.AUDIO]?.playbackRate ||
@@ -67,7 +69,7 @@ const ReduxProvider = ({ children, locale }: ReduxProviderProps) => {
     <Provider store={store}>
       <PersistGate persistor={persistor} onBeforeLift={onBeforeLift}>
         {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
-        {() => <React.Fragment>{children}</React.Fragment>}
+        {() => <Fragment>{children}</Fragment>}
       </PersistGate>
     </Provider>
   )
