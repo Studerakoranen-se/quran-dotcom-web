@@ -33,6 +33,7 @@ function GlobalProvider(props) {
   const [isSearchMenuOpen, setSearchMenuOpen] = React.useState(false)
   const [isStoreMessageOpen, setStoreMessageOpen] = React.useState(!!storeMessage)
   const [isFilterMenuOpen, setFilterMenuOpen] = React.useState(true)
+  const [isSurahInfoDialogOpen, setSurahInfoDialogOpen] = React.useState(false)
 
   // Helpers
 
@@ -109,6 +110,18 @@ function GlobalProvider(props) {
     setFilterMenuOpen((prev) => !prev)
   }, [])
 
+  const onSurahInfoDialogClose = React.useCallback(() => {
+    setSurahInfoDialogOpen(false)
+  }, [])
+
+  const onSurahInfoDialogOpen = React.useCallback(() => {
+    setSurahInfoDialogOpen(true)
+  }, [])
+
+  const onSurahInfoDialogToggle = React.useCallback(() => {
+    setSurahInfoDialogOpen((prev) => !prev)
+  }, [])
+
   const stateContextValue = React.useMemo(
     () => ({
       isCookieBarOpen,
@@ -116,6 +129,7 @@ function GlobalProvider(props) {
       isNavMenuOpen,
       isSearchMenuOpen,
       isStoreMessageOpen,
+      isSurahInfoDialogOpen,
       // Computed props
       isSomeMenuOpen: isNavMenuOpen || isSearchMenuOpen,
       isFilterMenuOpen,
@@ -127,6 +141,7 @@ function GlobalProvider(props) {
       isNavMenuOpen,
       isSearchMenuOpen,
       isStoreMessageOpen,
+      isSurahInfoDialogOpen,
     ],
   )
 
@@ -143,6 +158,9 @@ function GlobalProvider(props) {
       onFilterMenuClose,
       onFilterMenuOpen,
       onFilterMenuToggle,
+      onSurahInfoDialogClose,
+      onSurahInfoDialogOpen,
+      onSurahInfoDialogToggle,
     }),
     [
       onCookieBarClose,
@@ -156,6 +174,9 @@ function GlobalProvider(props) {
       onFilterMenuClose,
       onFilterMenuOpen,
       onFilterMenuToggle,
+      onSurahInfoDialogClose,
+      onSurahInfoDialogOpen,
+      onSurahInfoDialogToggle,
     ],
   )
 

@@ -3,7 +3,6 @@ import * as blockPropGetters from '~/blocks/getBlockProps'
 import type { GetBlockPropsFunctions } from '~/blocks/getBlockProps'
 import { PageTypeQueryResult, siteSettingsQuery } from '~/api/sanity/queries'
 import {
-  ApiClient,
   createGetBlocksProps,
   getChapterData,
   getAllChaptersData,
@@ -19,7 +18,7 @@ import {
   getMushafId,
 } from '~/utils'
 import { getClient as getSanityClient, pageTypeQuery, SiteSettingsQueryResult } from '~/api/sanity'
-import { getChapterIdBySlug, getChapterVerses, getPagesLookup } from '~/api'
+import { getChapterIdBySlug, getChapterInfo, getChapterVerses, getPagesLookup } from '~/api'
 import { PagesLookUpResponse } from '~/types/ApiResponses'
 import { generateVerseKeysBetweenTwoVerseKeys } from '~/utils/verseKeys'
 import { getQuranReaderStylesInitialState } from '~/store/defaultSettings/util'
@@ -48,10 +47,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { params = {}, locale, preview = false, defaultLocale } = context
 
   const { uri } = params
+  const uriString = nextUriToString(uri)
+
   let chapterIdOrVerseKeyOrSlug = String(params.uri?.[1])
   let isChapter = isValidChapterId(chapterIdOrVerseKeyOrSlug)
   const chaptersData = await getAllChaptersData(locale)
-  const uriString = nextUriToString(uri)
 
   const sanityClient = getSanityClient(preview)
 
@@ -141,12 +141,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
           },
         }
       }
-      // @ts-ignore
+
+      const chapterInfoResponse = await getChapterInfo(chapterId, locale as string)
 
       const versesResponse = await getChapterVerses(
         formatStringNumber(chapterId),
-        // locale
-        'en',
+        locale as string,
         apiParams,
       )
       const metaData = { numberOfVerses }
@@ -167,6 +167,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
             id: chapterResponse.chapter.id,
             chapterId: uri?.[1],
             locale,
+            chapterInfoResponse,
+            chapterResponse,
           },
         },
       ]
