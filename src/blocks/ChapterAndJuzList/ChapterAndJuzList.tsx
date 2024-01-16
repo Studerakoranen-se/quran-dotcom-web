@@ -17,7 +17,7 @@ const ChapterAndJuzListMain = styled('div')(({ theme }) => ({
 
 const ChapterSorter = styled('div')(({ theme }) => ({
   display: 'flex',
-  marginBlockStart: 'var(--spacing-xsmall)',
+  marginBlockStart: '0.625rem',
   justifyContent: 'flex-end',
   alignItems: 'baseline',
   marginTop: theme.spacing(2),
@@ -68,8 +68,8 @@ const ChapterSortByValue = styled(ButtonBase)(({ theme }) => ({
   },
 
   '& > span > svg': {
-    width: 'var(--spacing-small)',
-    marginInlineStart: 'var(--spacing-xxsmall)',
+    width: '0.8125rem',
+    marginInlineStart: '0.375rem',
     transition: 'transform var(--transition-regular)',
   },
 }))
