@@ -39,7 +39,7 @@ const useGetQueryParamOrXstateValue = (
 ): { value: any; isQueryParamDifferent: boolean } => {
   const { query, isReady } = useRouter()
   const audioService = useContext(AudioPlayerMachineContext)
-  console.log({ queryParam })
+
   const { selector } = QUERY_PARAMS_DATA[queryParam]
 
   const selectedValue = useXstateSelector(audioService, selector)
