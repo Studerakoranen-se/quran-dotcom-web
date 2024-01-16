@@ -82,10 +82,6 @@ const LanguageSelector = React.forwardRef(function LanguageSelector(props) {
 
     const nextTranslations = locale === 'en' ? [48, 20] : [48]
 
-    if (locale === 'sv') {
-      removeQueryParam(QueryParam.Translations)
-    }
-
     onTranslationsSettingsChange(
       nextTranslations,
       setSelectedTranslations({ translations: nextTranslations, locale }),
@@ -96,6 +92,7 @@ const LanguageSelector = React.forwardRef(function LanguageSelector(props) {
       router.query[QueryParam.Translations] = nextTranslations.join(',')
       router.push(router, undefined, { shallow: true, locale })
     } else {
+      removeQueryParam(QueryParam.Translations)
       await Router.push(
         {
           pathname: Router.pathname,
