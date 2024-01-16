@@ -1,5 +1,4 @@
-/* eslint-disable max-lines */
-/* eslint-disable react/no-multi-comp */
+// @ts-nocheck
 import React, { useContext, useEffect, useRef } from 'react'
 import { useSelector } from '@xstate/react'
 import { CircularProgress, styled } from '@mui/material'

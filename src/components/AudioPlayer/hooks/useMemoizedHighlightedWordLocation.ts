@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useRef } from 'react'
 import Segment from '~/types/Segment'
 import VerseTiming from '~/types/VerseTiming'

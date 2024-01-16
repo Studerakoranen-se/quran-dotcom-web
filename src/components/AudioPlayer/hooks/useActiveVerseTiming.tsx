@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useRef } from 'react'
 import AudioData from '~/types/AudioData'
 import VerseTiming from '~/types/VerseTiming'

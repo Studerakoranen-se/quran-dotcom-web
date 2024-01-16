@@ -45,7 +45,7 @@ export const getDefaultTranslationIdsByLang = (
   if (translationsByLanguages[LOCALE_TO_TRANSLATION_LANGUAGE[lang]]) {
     translationIds = translationsByLanguages[LOCALE_TO_TRANSLATION_LANGUAGE[lang]].map(
       (translation) => translation?.id?.toString(),
-    )
+    ) as string[]
   }
   if (returnAsString) {
     return translationIds.join(',')

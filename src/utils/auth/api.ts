@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable max-lines */
 import { configureRefreshFetch } from 'refresh-fetch'
 import { fetcher } from '~/api'
 import CompleteAnnouncementRequest from '~/types/auth/CompleteAnnouncementRequest'

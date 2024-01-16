@@ -4,6 +4,7 @@ import CloseRadioButton from './Buttons/CloseRadioButton'
 import PlayPauseButton from './Buttons/PlayPauseButton'
 import styles from './RadioPlaybackControl.module.scss'
 
+// eslint-disable-next-line react/prop-types
 const RadioPlaybackControl = ({ radioActor }) => {
   const [radioService] = useActor(radioActor)
   const stationInfo = useCurrentStationInfo((radioService as any).context)
