@@ -4,8 +4,9 @@ import { useRouter } from 'next/router'
 import { unstable_generateUtilityClasses as generateUtilityClasses } from '@mui/utils'
 import { styled } from '@mui/system'
 import { ButtonBase, Typography } from '@mui/material'
-import { SITE_MAIN_ID } from '~/utils/constants'
+import { useGlobalHandlers } from '~/contexts'
 import { RouterLink } from '~/containers'
+import { SITE_MAIN_ID } from '~/utils/constants'
 
 const BREAKPOINT_KEY_1 = 'lg'
 
@@ -105,11 +106,14 @@ const AppNavDropDownList = styled('ul')(({ theme }) => ({
 
 function AppNavDropDown(props) {
   const { menuItem } = props
+
   const router = useRouter()
+  const { onLanguageMenuClose } = useGlobalHandlers()
 
   const rootRef = React.useRef(null)
 
   const handleMouseEnter = () => {
+    onLanguageMenuClose()
     const [target, parent] = [rootRef.current, rootRef.current.parentNode]
 
     // Handle menu state for if curent item has submenu.

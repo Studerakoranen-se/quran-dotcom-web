@@ -1,16 +1,23 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
-import { useRouter } from 'next/router'
+import useSize from '@react-hook/size'
+import Router, { useRouter } from 'next/router'
 import { unstable_generateUtilityClasses as generateUtilityClasses } from '@mui/utils'
 import { styled } from '@mui/system'
 import { AppBar, IconButton, Button, MenuItem, TextField, Select, Typography } from '@mui/material'
-import { SITE_HEADER_ID } from '~/utils/constants'
+import { useDispatch, useSelector } from 'react-redux'
 import { useGlobalState, useGlobalHandlers, useI18n, useRemoteConfig } from '~/contexts'
+import LanguageSelector from '~/containers/LanguageSelector'
 import { FormitTextField, RouterLink } from '~/containers'
-import { BrandIcon, CloseIcon, MenuIcon, ModeSwitcher } from '~/components'
+import { BrandIcon, CloseIcon, GlobeIcon, MenuIcon, ModeSwitcher } from '~/components'
+import { selectIsUsingDefaultSettings } from '~/store/slices/defaultSettings'
+import resetSettings from '~/store/actions/reset-settings'
+import { SITE_HEADER_ID } from '~/utils/constants'
+import { logValueChange } from '~/utils/eventLogger'
+import { setLocaleCookie } from '~/utils/cookies'
 import { i18n } from '../../../../locales'
-import AppNavDropDown from './AppNavDropDown'
 import AppStoreMessage from './AppStoreMessage'
+import AppNavDropDown from './AppNavDropDown'
 
 const BREAKPOINT_KEY = 'md'
 
@@ -100,25 +107,28 @@ const AppHeaderSupportButton = styled(Button)(({ theme }) => ({
   },
 }))
 
-const LanguageSelector = styled(Select)(({ theme }) => ({
-  // width: '100%',
-  height: 44,
-  width: 50,
-  marginRight: 10,
-  '& .MuiSelect-icon': {
-    display: 'none',
-    visibility: 'hidden',
+const LanguageSelectorRoot = styled(LanguageSelector)(({ theme }) => ({
+  ...theme.mixins.scrollable,
+  ...theme.mixins.scrollbars,
+  maxHeight: 'calc(100vh - var(--cia-header-height) - var(--cia-toolbar-spacing) * 2)',
+  margin: 'var(--cia-toolbar-spacing)',
+  backgroundColor: theme.palette.common.white,
+  color: theme.palette.common.black,
+  boxShadow: '0px 7px 11px 0px rgb(0 29 29 / 12%)',
+  borderRadius: 0,
+  '&:focus': {
+    outline: 0,
   },
-  '& .MuiSelect-select': {
-    padding: '0 !important',
-    textAlign: 'center',
-  },
-  '& .MuiOutlinedInput-notchedOutline': {
-    border: `none`,
-  },
+}))
 
-  '& span.bold': {
-    fontWeight: theme.typography.fontWeightBold,
+const LanguageSelectorNav = styled('nav')(({ theme }) => ({
+  position: 'fixed',
+  zIndex: theme.zIndex.appBar,
+  top: 'calc(var(--cia-header-height) - 30px)',
+  right: 0,
+  width: '10%',
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
   },
 }))
 
@@ -130,14 +140,21 @@ const AppHeader = React.memo(function AppHeader(props) {
     isSomeMenuOpen,
     isStoreMessageOpen,
     isSupportChatOnline,
+    isLanguageMenuOpen,
     ...other
   } = props
 
   const { t } = useI18n()
   const router = useRouter()
+  const dispatch = useDispatch()
+  const rootRef = React.useRef(null)
+  const [, rootHeight] = useSize(rootRef)
 
   const { menus, menuCtaLabel, menuCtaUrl } = useRemoteConfig()
-  const { onNavMenuToggle, onSupportDialogOpen } = useGlobalHandlers()
+  const { onNavMenuToggle, onSupportDialogOpen, onLanguageMenuClose, onLanguageMenuToggle } =
+    useGlobalHandlers()
+
+  const isUsingDefaultSettings = useSelector(selectIsUsingDefaultSettings)
 
   const [expandedLogo, setExpandedLogo] = React.useState(true)
   const [disableTransparency, setDisableTransparency] = React.useState(false)
@@ -150,13 +167,20 @@ const AppHeader = React.memo(function AppHeader(props) {
     setDisableTransparency(window.pageYOffset > 100)
   }, [])
 
-  const handleLanguageChange = React.useCallback(
-    async (event) => {
-      const locale = event.target.value || router.defaultLocale
-      router?.push(router.asPath, router.asPath, { locale })
-    },
-    [router],
-  )
+  // const handleLanguageChange = React.useCallback(
+  //   async (event) => {
+  //     const locale = event.target.value || router.defaultLocale
+
+  //     if (router?.asPath.includes('surah')) {
+  //       window.location.href = decodeURIComponent(
+  //         locale === 'sv' ? router?.asPath : `/${locale}/${router?.asPath}}`,
+  //       )
+  //     } else {
+  //       router?.push(router.asPath, router.asPath, { locale })
+  //     }
+  //   },
+  //   [router],
+  // )
 
   React.useEffect(() => {
     syncDisableTransparency()
@@ -194,8 +218,9 @@ const AppHeader = React.memo(function AppHeader(props) {
     headerMode: computedHeaderMode,
   }
 
-  return (
+  return [
     <AppHeaderRoot
+      ref={rootRef}
       ownerState={ownerState}
       position={headerModeProp === 'opaque' ? 'sticky' : 'fixed'}
       id={SITE_HEADER_ID}
@@ -206,7 +231,7 @@ const AppHeader = React.memo(function AppHeader(props) {
         dangerouslySetInnerHTML={{
           __html: `
             :root {
-              --cia-header-height: ${headerHeight};
+              --cia-header-height: ${rootHeight}px;
               --cia-sticky-top: var(--cia-header-height);
             }
           `,
@@ -242,62 +267,12 @@ const AppHeader = React.memo(function AppHeader(props) {
             {menus?.primary?.map((menuItem, idx) => (
               <AppNavDropDown key={idx} menuItem={menuItem} />
             ))}
-            <LanguageSelector
-              onChange={handleLanguageChange}
-              value={router?.locale}
-              margin="normal"
-              id="cia-language" // Makes `label` and `helperText` accessible for screen readers.
-              renderValue={(value) => {
-                return (
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      color: 'white',
-                      textTransform: 'uppercase',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {value}
-                  </Typography>
-                )
-              }}
-              MenuProps={{
-                autoFocus: false,
-                sx: {
-                  ' .MuiMenuItem-root': {
-                    textTransform: 'uppercase',
-                    fontWeight: 'bold',
-                  },
-                  ' .MuiPopover-root': {
-                    zIndex: '16000262 !important',
-                  },
-                  '.MuiPaper-root': {
-                    border: `none`,
-                  },
-                },
-              }}
-            >
-              {i18n.languages
-                .filter((lang) => lang.id !== router?.locale)
-                .map((language) => (
-                  <MenuItem key={language.path} value={language.id}>
-                    {language.id}
-                  </MenuItem>
-                ))}
-            </LanguageSelector>
+
+            <IconButton onClick={onLanguageMenuToggle} size="small">
+              <GlobeIcon />
+            </IconButton>
+
             <ModeSwitcher />
-            {/* <FormitTextField
-              name="language"
-              label={router?.locale || router?.defaultLocale}
-              select
-              sx={{ borderColor: 'white' }}
-            >
-              {i18n.languages?.map((language, idx) => (
-                <MenuItem key={idx} value={language.path}>
-                  {language.id}
-                </MenuItem>
-              ))}
-            </FormitTextField> */}
           </AppHeaderList>
         </AppHeaderNav>
 
@@ -340,8 +315,16 @@ const AppHeader = React.memo(function AppHeader(props) {
 
         <div className={classes.toolbarEdgeEnd} />
       </AppHeaderToolbar>
-    </AppHeaderRoot>
-  )
+    </AppHeaderRoot>,
+    !isLanguageMenuOpen ? null : (
+      <LanguageSelectorNav // NOTE: Must be outside of `AppBar` due to double `backdrop-filter: blur`.
+        key="country-menu"
+        aria-label={t(__translationGroup)`Language selector`}
+      >
+        <LanguageSelectorRoot onChange={onLanguageMenuClose} disablePadding autoFocus />
+      </LanguageSelectorNav>
+    ),
+  ]
 })
 
 AppHeader.propTypes = {
@@ -351,11 +334,17 @@ AppHeader.propTypes = {
   isSomeMenuOpen: PropTypes.bool,
   isStoreMessageOpen: PropTypes.bool,
   isSupportChatOnline: PropTypes.bool,
+  isLanguageMenuOpen: PropTypes.bool,
 }
 
 function AppHeaderContainer(props) {
-  const { isNavMenuOpen, isStoreMessageOpen, isSomeMenuOpen, isSupportChatOnline } =
-    useGlobalState()
+  const {
+    isNavMenuOpen,
+    isStoreMessageOpen,
+    isSomeMenuOpen,
+    isSupportChatOnline,
+    isLanguageMenuOpen,
+  } = useGlobalState()
 
   return (
     <AppHeader
@@ -363,6 +352,7 @@ function AppHeaderContainer(props) {
       isStoreMessageOpen={isStoreMessageOpen}
       isSupportChatOnline={isSupportChatOnline}
       isSomeMenuOpen={isSomeMenuOpen}
+      isLanguageMenuOpen={isLanguageMenuOpen}
       {...props}
     />
   )

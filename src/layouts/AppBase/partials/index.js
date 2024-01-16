@@ -6,5 +6,4 @@ export const AppBaseCookieBar = dynamic(
 )
 
 export { default as AppBaseLoader } from './AppBaseLoader'
-export { default as AppBaseLanguageDialog } from './AppBaseLanguageDialog'
 export { default as AppBaseSkipLink } from './AppBaseSkipLink'

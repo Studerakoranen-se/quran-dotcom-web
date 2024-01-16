@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { styled } from '@mui/material'
 import { SITE_MAIN_ID, SITE_ROOT_ID } from '~/utils/constants'
 import { useRemoteConfig, GlobalStateContext } from '~/contexts'
-import { AppBaseCookieBar, AppBaseLoader, AppBaseLanguageDialog, AppBaseSkipLink } from './partials'
+import { AppBaseCookieBar, AppBaseLoader, AppBaseSkipLink } from './partials'
 
 const AppBaseRoot = styled('div')({
   display: 'flex',
@@ -21,7 +21,6 @@ function AppBase(props) {
 
       {children}
 
-      <AppBaseLanguageDialog />
       <AppBaseLoader />
 
       <GlobalStateContext.Consumer>
