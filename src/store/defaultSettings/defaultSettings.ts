@@ -40,7 +40,7 @@ const TAFSIRS_INITIAL_STATE: TafsirsSettings = {
   isUsingDefaultTafsirs: true,
 }
 
-export const DEFAULT_TRANSLATIONS = [131] // Dr. Mustafa Khattab, the Clear Quran
+export const DEFAULT_TRANSLATIONS = [48] // Knut Bernström
 
 const TRANSLATIONS_INITIAL_STATE: TranslationsSettings = {
   selectedTranslations: DEFAULT_TRANSLATIONS,
