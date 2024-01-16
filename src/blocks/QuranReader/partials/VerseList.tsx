@@ -38,6 +38,14 @@ const VerseListItems = styled('div')(({ theme }) => ({
   a: {
     textDecoration: 'none',
   },
+
+  '&::-webkit-scrollbar': {
+    width: 5,
+    backgroundColor: theme.vars.palette.grey[200],
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: theme.palette?.mode === 'dark' ? '#cab280' : theme.vars.palette.primary.main,
+  },
 }))
 
 const VerseList = ({ locale }: { locale: string }) => {

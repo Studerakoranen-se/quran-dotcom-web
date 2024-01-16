@@ -31,7 +31,6 @@ export default function createTheme(options: ThemeExtendOption = {}) {
     ...other
   } = options
 
-
   const theme = experimental_extendTheme(
     {
       colorSchemes: {

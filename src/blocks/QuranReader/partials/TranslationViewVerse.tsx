@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { styled } from '@mui/material'
 import QuranReaderStyles from '~/store/types/QuranReaderStyles'
 import { QuranReaderDataType } from '~/types/QuranReader'
 import Verse from '~/types/Verse'
@@ -8,6 +9,14 @@ import { getMushafId } from '~/utils'
 import TranslationPageVerse from './TranslationPageVerse'
 import TranslationViewCellSkeleton from './TranslationViewCellSkeleton'
 
+const TranslationViewVerseContainer = styled('div')(({ theme }) => ({
+  maxWidth: '100%',
+  marginInlineStart: 'auto',
+  marginInlineEnd: 'auto',
+  [theme.breakpoints.up('md')]: {
+    maxWidth: '80%',
+  },
+}))
 type TranslationViewVerseProps = {
   locale: string
   quranReaderStyles: QuranReaderStyles
@@ -20,15 +29,6 @@ type TranslationViewVerseProps = {
   initialData: VersesResponse
   verseIdx: number
   totalVerses: number
-
-  audioPlaying: boolean
-  currentAudio?: string
-  handlePauseAudio: () => void
-  handleCurrentVerseUpdate: (verseNumber: number) => void
-  handleCurrentAudio: (audio: string) => void
-  handleAudioOnPlay: () => void
-  handleHighlightText: (verseId: string, segments: any[]) => void
-  audio: any
 }
 
 function TranslationViewVerse(props: TranslationViewVerseProps) {
@@ -45,14 +45,6 @@ function TranslationViewVerse(props: TranslationViewVerseProps) {
     totalVerses,
 
     locale,
-    audio,
-    audioPlaying,
-    handleAudioOnPlay,
-    currentAudio,
-    handleCurrentAudio,
-    handleHighlightText,
-    handleCurrentVerseUpdate,
-    handlePauseAudio,
   } = props
 
   const mushafId = getMushafId(quranReaderStyles.quranFont, quranReaderStyles.mushafLines).mushaf
@@ -73,18 +65,14 @@ function TranslationViewVerse(props: TranslationViewVerseProps) {
 
   if (!verse) {
     return (
-      <div
-      // className={styles.container}
-      >
+      <TranslationViewVerseContainer>
         <TranslationViewCellSkeleton />
-      </div>
+      </TranslationViewVerseContainer>
     )
   }
 
   return (
-    <div
-    // className={styles.container}
-    >
+    <TranslationViewVerseContainer>
       <TranslationPageVerse
         isLastVerseInView={verseIdx + 1 === totalVerses}
         verse={verse}
@@ -96,17 +84,9 @@ function TranslationViewVerse(props: TranslationViewVerseProps) {
         initialData={initialData}
         //  firstVerseInPage={firstVerseInPage}
 
-        audio={audio}
-        audioPlaying={audioPlaying}
-        handleAudioOnPlay={handleAudioOnPlay}
         locale={locale}
-        currentAudio={currentAudio}
-        handleCurrentAudio={handleCurrentAudio}
-        handleHighlightText={handleHighlightText}
-        handleCurrentVerseUpdate={handleCurrentVerseUpdate}
-        handlePauseAudio={handlePauseAudio}
       />
-    </div>
+    </TranslationViewVerseContainer>
   )
 }
 

@@ -1,4 +1,6 @@
+/* eslint-disable no-console */
 import * as React from 'react'
+import { useSelector as useXstateSelector } from '@xstate/react'
 import { shallowEqual, useSelector } from 'react-redux'
 import {
   ButtonBase,
@@ -15,6 +17,7 @@ import {
   selectTooltipContentType,
   selectInlineDisplayWordByWordPreferences,
 } from '~/store/slices/QuranReader/readingPreferences'
+import { selectShowTooltipWhenPlayingAudio } from '~/store/slices/AudioPlayer/state'
 import { ChapterNumberIcon } from '~/components'
 import TajweedWord from '~/components/QuranWord/TajweedWordImage'
 import TextWord from '~/components/QuranWord/TextWord'
@@ -22,12 +25,22 @@ import getTooltipText from '~/components/QuranWord/getToolTipText'
 import GlyphWord from '~/components/QuranWord/GlyphWord'
 import { isQCFFont } from '~/utils/fontFaceHelper'
 import { areArraysEqual } from '~/utils/array'
-import { makeWordLocation } from '~/utils'
+import { getChapterNumberFromKey, getWordTimeSegment, makeWordLocation } from '~/utils'
 import Word, { CharType } from '~/types/Word'
-import { QuranFont, ReadingPreference } from '~/types/QuranReader'
+import { QuranFont, ReadingPreference, WordClickFunctionality } from '~/types/QuranReader'
 import InlineWordByWord from '~/components/QuranWord/InlineWordByWord'
+import { milliSecondsToSeconds } from '~/utils/datetime'
+import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
+import { logButtonClick } from '~/utils/eventLogger'
+import playWordAudio from './playWordAudio'
 
 export const DATA_ATTRIBUTE_WORD_LOCATION = 'data-word-location'
+
+const QuranWordRoot = styled('div')(({ theme }) => ({
+  display: 'inline-block',
+  cursor: 'pointer',
+  whiteSpace: 'nowrap',
+}))
 
 const QuranReaderIconContainer = styled('div')(() => ({
   position: 'relative',
@@ -63,12 +76,60 @@ const QuranReaderIconText = styled('span')(({ theme }) => ({
   // },
 }))
 
-const QuranWordItem = styled(ButtonBase)(({ theme }) => ({
+const QuranWordItem = styled(ButtonBase)<{
+  ownerState: {
+    isRecitationEnabled?: boolean
+    shouldBeHighLighted?: boolean
+    shouldShowSecondaryHighlight?: boolean
+    isWordByWordLayout?: boolean
+    additionalWordGap?: boolean
+    tajweedWord?: boolean
+  }
+}>(({ theme, ownerState }) => ({
   ...theme.typography.body1,
   fontFamily: 'Scheherazade',
   fontSize: theme.typography.pxToRem(24),
   fontWeight: theme.typography.fontWeightBold,
   color: theme.vars.palette.text.primary,
+
+  ...(ownerState?.isRecitationEnabled && {
+    '&:hover': {
+      color: theme.palette.mode === 'dark' ? '#E0D2B4' : '#5ea9a9',
+    },
+  }),
+
+  // ...(ownerState?.shouldBeHighLighted && {
+  //   color: theme.palette.mode === 'dark' ? '#E0D2B4' : theme.vars.palette.primary.main,
+  // }),
+
+  ...(ownerState?.shouldShowSecondaryHighlight && {
+    backgroundColor: '#efe2cd',
+  }),
+
+  ...(ownerState?.isWordByWordLayout && {
+    textAlign: 'center',
+    paddingBlockStart: '0.1875rem',
+    paddingBlockEnd: '0.1875rem',
+    paddingInlineStart: '0.1875rem',
+    paddingInlineEnd: '0.1875rem',
+  }),
+
+  ...(ownerState?.additionalWordGap && {
+    marginInlineEnd: theme.spacing(0.75),
+  }),
+
+  ...(ownerState?.tajweedWord && {
+    '--tajweed-image-bg':
+      theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(31, 189, 233, 0.15)',
+
+    '&:hover': {
+      backgroundColor: 'var(--tajweed-image-bg)',
+    },
+
+    ...(ownerState?.shouldBeHighLighted && {
+      backgroundColor: 'var(--tajweed-image-bg)',
+    }),
+  }),
 
   [theme.breakpoints.up('md')]: {
     fontSize: theme.typography.pxToRem(32),
@@ -79,28 +140,26 @@ const QuranWordItem = styled(ButtonBase)(({ theme }) => ({
   //     color: '#E0D2B4',
   //   },
   // },
+
+  // // [`${QuranReaderVerseItem}:hover &`]: {
+  // //   span: {
+  // //     color: '#E0D2B4',
+  // //   },
+  // // },
 }))
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
-  '& > *': {
-    marginTop: `0 !important`,
+  [`& .${tooltipClasses.arrow}`]: {
+    color: theme.palette.common.black,
   },
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: '#f5f5f9',
-    color: 'rgba(0, 0, 0, 0.87)',
-    maxWidth: 220,
-    fontSize: theme.typography.pxToRem(12),
-    border: '1px solid #dadde9',
+    backgroundColor: theme.palette.common.black,
   },
 }))
 
 type QuranWordProps = {
-  setCurrentVerse: any
-  setCurrentAudio: any
-  audio: any
-
   word: Word
   font: QuranFont
   isHighlighted?: boolean
@@ -120,14 +179,15 @@ function QuranWord(props: QuranWordProps) {
     isFontLoaded = true,
 
     word,
-    setCurrentVerse,
-    setCurrentAudio,
-    audio,
   } = props
 
   const [isTooltipOpened, setIsTooltipOpened] = React.useState(false)
 
   const wordClickFunctionality = useSelector(selectWordClickFunctionality)
+  const audioService = React.useContext(AudioPlayerMachineContext)
+
+  const showTooltipWhenPlayingAudio = useSelector(selectShowTooltipWhenPlayingAudio)
+
   const { showWordByWordTranslation, showWordByWordTransliteration } = useSelector(
     selectInlineDisplayWordByWordPreferences,
     shallowEqual,
@@ -140,8 +200,15 @@ function QuranWord(props: QuranWordProps) {
   // @ts-ignore
   const wordLocation = makeWordLocation(word?.verseKey, word.position)
 
+  // Determine if the audio player is currently playing the word
+  const isAudioPlayingWord = useXstateSelector(audioService, (state) => {
+    const { surah, ayahNumber, wordLocation: wordPosition } = state.context
+    return `${surah}:${ayahNumber}:${wordPosition}` === wordLocation
+  })
+
   const isWordByWordLayout = showWordByWordTranslation || showWordByWordTransliteration
-  let wordText
+
+  let wordText: React.ReactNode = null
 
   if (isQCFFont(font)) {
     wordText = (
@@ -169,13 +236,34 @@ function QuranWord(props: QuranWordProps) {
   */
   const showTooltip =
     word.charTypeName === CharType.Word && isWordByWordAllowed && !!showTooltipFor.length
-  const shouldBeHighLighted = isHighlighted || isTooltipOpened
-  // const shouldBeHighLighted =
-  //   isHighlighted || isTooltipOpened || (isAudioHighlightingAllowed && isAudioPlayingWord);
+  const shouldBeHighLighted = isHighlighted || isTooltipOpened || isAudioHighlightingAllowed
   const translationViewTooltipContent = React.useMemo(
     () => (isWordByWordAllowed ? getTooltipText(showTooltipFor, word) : null),
     [isWordByWordAllowed, showTooltipFor, word],
   )
+
+  const isRecitationEnabled = wordClickFunctionality === WordClickFunctionality.PlayAudio
+
+  const onClick = React.useCallback(() => {
+    if (isRecitationEnabled) {
+      logButtonClick('quran_word_pronounce')
+      const currentState = audioService.getSnapshot()
+      const isPlaying = currentState.matches('VISIBLE.AUDIO_PLAYER_INITIATED.PLAYING')
+      const currentSurah = getChapterNumberFromKey(word.verseKey as string)
+      const isSameSurah = currentState.context.surah === Number(currentSurah)
+      const shouldSeekTo = isPlaying && isSameSurah
+      if (shouldSeekTo) {
+        const wordSegment = getWordTimeSegment(currentState.context.audioData.verseTimings, word)
+        if (!wordSegment) return
+        const [startTime] = wordSegment
+        audioService.send({ type: 'SEEK_TO', timestamp: milliSecondsToSeconds(startTime) })
+      } else {
+        playWordAudio(word)
+      }
+    } else {
+      logButtonClick('quran_word')
+    }
+  }, [audioService, isRecitationEnabled, word])
 
   if (word.charTypeName === 'end') {
     return (
@@ -186,60 +274,33 @@ function QuranWord(props: QuranWordProps) {
     )
   }
 
+  const shouldHandleWordClicking =
+    // @ts-ignore
+    readingPreference === ReadingPreference.Translation && word.charTypeName !== CharType.End
+
   return (
-    <Box
-      className="quran-word"
-      {...{
-        [DATA_ATTRIBUTE_WORD_LOCATION]: wordLocation,
-      }}
-      sx={{
-        // ...(isRecitationEnabled && {
-        //   '&:hover': {
-        //     color: 'text.primary',
-        //   }
-        // }),
-        ...(shouldBeHighLighted && {
-          color: 'text.primary',
-        }),
-        ...(shouldShowSecondaryHighlight && {
-          backgroundColor: 'background.paper',
-        }),
-        ...(isWordByWordLayout && {
-          textAlign: 'center',
-          paddingBlockStart: '0.1875rem',
-          paddingBlockEnd: '0.1875rem',
-          paddingInlineStart: '0.1875rem',
-          paddingInlineEnd: '0.1875rem',
-        }),
-        ...(readingPreference === ReadingPreference.Translation && {
-          marginInlineEnd: '0.375rem',
-        }),
-        ...(QuranFont.Tajweed && {
-          backgroundColor: 'background.default',
-        }),
-      }}
-    >
+    <QuranWordRoot>
       <HtmlTooltip
-        // open={showTooltip}
-        // isOpen={isAudioPlayingWord && showTooltipWhenPlayingAudio ? true : undefined}
-        // onOpen={setIsTooltipOpened}
-        title={
-          // @ts-ignore
-          <Typography
-            variant="body2"
-            sx={{
-              fontWeight: 'fontWeightBold',
-            }}
-          >
-            {translationViewTooltipContent}
-          </Typography>
-        }
+        placement="top"
+        arrow
+        disableFocusListener
+        // open={showTooltipWhenPlayingAudio ? true : undefined}
+        title={<Typography variant="body2">{translationViewTooltipContent}</Typography>}
+        // open={isAudioPlayingWord && showTooltipWhenPlayingAudio ? true : undefined}
       >
         <QuranWordItem
-          onClick={() => {
-            setCurrentVerse(0)
-            setCurrentAudio(`https://audio.qurancdn.com/${word.audio?.url || word.audio_url}`)
-            audio.audioEl.current.play()
+          {...(shouldHandleWordClicking && { onClick, onKeyPress: onClick })}
+          tabIndex={0}
+          {...{
+            [DATA_ATTRIBUTE_WORD_LOCATION]: wordLocation,
+          }}
+          ownerState={{
+            isRecitationEnabled,
+            shouldBeHighLighted,
+            shouldShowSecondaryHighlight,
+            isWordByWordLayout,
+            additionalWordGap: readingPreference === ReadingPreference.Translation,
+            tajweedWord: font === QuranFont.Tajweed,
           }}
         >
           {wordText}
@@ -252,7 +313,7 @@ function QuranWord(props: QuranWordProps) {
           {showWordByWordTranslation && <InlineWordByWord text={word.translation?.text} />}
         </React.Fragment>
       )}
-    </Box>
+    </QuranWordRoot>
   )
 }
 

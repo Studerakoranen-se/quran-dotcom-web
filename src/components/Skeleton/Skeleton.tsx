@@ -16,11 +16,20 @@ type SkeletonProps = {
   isSquared?: boolean
   isActive?: boolean
   style?: React.CSSProperties
+  className?: string
 }
 
-const Skeleton = ({ children, isRounded, isSquared, isActive = true, style }: SkeletonProps) => {
+const Skeleton = ({
+  className,
+  children,
+  isRounded,
+  isSquared,
+  isActive = true,
+  style,
+}: SkeletonProps) => {
   return (
     <SkeletonRoot
+      className={className}
       ownerState={{ baseSize: !children, active: isActive, rounded: isRounded, squared: isSquared }}
       style={style}
     >

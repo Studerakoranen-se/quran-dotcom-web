@@ -1,0 +1,27 @@
+.cellContainer {
+  border-block-end: 1px solid rgb(235, 238, 240);
+}
+
+.verseContainer {
+  height: calc(1.7 * var(--font-size));
+}
+
+.translationText {
+  display: inline-flex;
+  width: auto;
+}
+
+.translationAuthor {
+  display: inline-flex;
+  width: auto;
+  margin-block-start: 0.1875rem;
+  font-size: var(--font-size-xsmall);
+}
+
+.actionItem {
+  margin-inline-end: calc(0.5 * 0.375rem);
+  @media only screen and (min-width: 768px) {
+    margin-inline-end: 0;
+    margin-block-end: calc(0.5 * 0.375rem);
+  }
+}

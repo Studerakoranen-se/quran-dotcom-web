@@ -26,6 +26,9 @@ export * from './MetaData'
 export { default as ModeSwitcher } from './ModeSwitcher'
 export * from './ModeSwitcher'
 
+export { default as PlayChapterAudioButton } from './PlayChapterAudioButton'
+export * from './PlayChapterAudioButton'
+
 export { default as Tabs } from './Tabs'
 export * from './Tabs'
 

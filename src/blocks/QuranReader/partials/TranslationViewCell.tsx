@@ -1,14 +1,18 @@
 import * as React from 'react'
 import { useRouter } from 'next/router'
-import { Box, IconButton, styled } from '@mui/material'
-import { IoMdPlay } from 'react-icons/io'
-import { BsFillPauseFill } from 'react-icons/bs'
+import { useSelector as useSelectorXstate } from '@xstate/react'
+import { Box, styled } from '@mui/material'
+import { useSelector } from 'react-redux'
 import QuranReaderStyles from '~/store/types/QuranReaderStyles'
-import useScroll, { SMOOTH_SCROLL_TO_TOP } from '~/hooks/useScrollToElement'
+import useScroll, { SMOOTH_SCROLL_TO_CENTER } from '~/hooks/useScrollToElement'
 import BookmarksMap from '~/types/BookmarksMap'
 import Verse from '~/types/Verse'
 import Translation from '~/types/Translation'
-import { getVerseWords } from '~/utils'
+import { getVerseWords, makeVerseKey } from '~/utils'
+import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
+import { selectEnableAutoScrolling } from '~/store/slices/AudioPlayer/state'
+import PlayVerseAudioButton from '~/components/Verse/PlayVerseAudioButton'
+import VerseLink from '~/components/VerseLink'
 import {
   verseFontChanged,
   verseTranslationChanged,
@@ -17,41 +21,56 @@ import {
 import VerseText from './VerseText'
 import TranslationText from './TranslationText'
 
-const TranslationViewCellRoot = styled('div')<{ ownerState: { isPlaying?: boolean } }>(
+const TranslationViewCellRoot = styled('div')<{ ownerState: { isHighlighted?: boolean } }>(
   ({ theme, ownerState }) => ({
     display: 'flex',
     justifyContent: 'space-between',
     gap: theme.spacing(1.5),
     padding: theme.spacing(3, 0),
     borderBottom: `2px solid ${theme.vars.palette.divider}`,
+    flexDirection: 'column',
 
-    ...(ownerState?.isPlaying && {
+    ...(ownerState?.isHighlighted && {
       backgroundColor: theme.vars.palette.action.hover,
     }),
     '--gap-size': 'calc(0.5 * 2rem)',
 
     [theme.breakpoints.up('md')]: {
       '--gap-size': 'calc(1.5 * 2rem)',
+      gap: theme.spacing(4),
+      flexDirection: 'row',
+      padding: theme.spacing(0, 2),
     },
   }),
 )
 
-const TranslationViewCellContainer = styled('div')(({ theme }) => ({
+const TranslationViewCellActionContainer = styled('div')(({ theme }) => ({
+  marginBlockStart: 'var(--gap-size)',
   display: 'flex',
   justifyContent: 'space-between',
   flexDirection: 'column',
   direction: 'ltr',
-  padding: '0.8125rem',
 
   [theme.breakpoints.up('md')]: {
-    flexDirection: 'row',
-    padding: 0,
+    flexDirection: 'column',
+    justifyContent: 'start',
+    // marginInlineEnd: 'calc(2 * 2rem)',
   },
 }))
 
-const TranslationViewCellActions = styled('div')(() => ({
-  flex: 1,
-  position: 'relative',
+const TranslationViewCellActionsLeft = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+
+  [theme.breakpoints.up('md')]: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+}))
+
+const TranslationViewCellActionsRight = styled(TranslationViewCellActionsLeft)(() => ({
+  justifyContent: 'flex-end',
 }))
 
 const TranslationViewCellContentContainer = styled('div')(({ theme }) => ({
@@ -80,86 +99,71 @@ type TranslationViewCellProps = {
   verseIndex: number
   pageBookmarks: BookmarksMap | undefined
   bookmarksRangeUrl: string | null
-
   locale: string
-  audioPlaying: boolean
-  currentAudio?: string
-  handlePauseAudio: () => void
-  handleCurrentVerseUpdate: (verseNumber: number) => void
-  handleCurrentAudio: (audio: string) => void
-  handleAudioOnPlay: () => void
-  handleHighlightText: (verseId: string, segments: any[]) => void
-  audio: any
 }
 
 function TranslationViewCell(props: TranslationViewCellProps) {
-  const {
-    verse,
-    quranReaderStyles,
-    verseIndex,
-    pageBookmarks,
-    bookmarksRangeUrl,
-
-    audio,
-    audioPlaying,
-    handleAudioOnPlay,
-    locale,
-    currentAudio,
-    handleCurrentAudio,
-    handleHighlightText,
-    handleCurrentVerseUpdate,
-    handlePauseAudio,
-  } = props
+  const { verse, quranReaderStyles, verseIndex, pageBookmarks, bookmarksRangeUrl, locale } = props
 
   const router = useRouter()
   const { startingVerse } = router.query
 
+  const audioService = React.useContext(AudioPlayerMachineContext)
+  const isHighlighted = useSelectorXstate(audioService, (state) => {
+    const { ayahNumber, surah } = state.context
+    return makeVerseKey(surah as string | number, ayahNumber) === verse.verseKey
+  })
+
+  const enableAutoScrolling = useSelector(selectEnableAutoScrolling)
+
   const [scrollToSelectedItem, selectedItemRef]: [() => void, React.RefObject<HTMLDivElement>] =
-    useScroll(SMOOTH_SCROLL_TO_TOP)
+    useScroll(SMOOTH_SCROLL_TO_CENTER)
 
   React.useEffect(() => {
-    if (Number(startingVerse) === verseIndex + 1) {
+    if ((isHighlighted && enableAutoScrolling) || Number(startingVerse) === verseIndex + 1) {
       scrollToSelectedItem()
     }
-  }, [scrollToSelectedItem, startingVerse, verseIndex])
+  }, [isHighlighted, scrollToSelectedItem, enableAutoScrolling, startingVerse, verseIndex])
 
+  // console.log('verse.translations', verse.translations)
   return (
     <div ref={selectedItemRef}>
       <TranslationViewCellRoot
         ownerState={{
-          isPlaying:
-            audioPlaying && currentAudio === `https://audio.qurancdn.com/${verse.audio?.url}`,
+          isHighlighted,
         }}
       >
-        <TranslationViewCellContainer>
-          <TranslationViewCellActions>
-            <div className="">{verse.verseKey}</div>
-            {audioPlaying && currentAudio === `https://audio.qurancdn.com/${verse.audio?.url}` ? (
-              <IconButton
-                onClick={handlePauseAudio}
-                aria-label={`Filtrele menüyu kapat`}
-                size="small"
-              >
-                <BsFillPauseFill />
-              </IconButton>
-            ) : (
-              <IconButton
-                onClick={() => {
-                  handleCurrentVerseUpdate(verse.verseNumber)
-                  handleCurrentAudio(`https://audio.qurancdn.com/${verse.audio?.url}`)
-                  audio.audioEl.current.play()
-                  // setShowControl(true)
-                  handleAudioOnPlay()
-                  // handleHighlightText(`v${verse.verseNumber}`, verse.audio.segments)
-                }}
-                aria-label={`Filtrele menüyu kapat`}
-                size="small"
-              >
-                <IoMdPlay />
-              </IconButton>
-            )}
-          </TranslationViewCellActions>
-        </TranslationViewCellContainer>
+        <TranslationViewCellActionContainer>
+          <TranslationViewCellActionsLeft>
+            <Box
+              sx={(theme) => ({
+                display: 'inline-block',
+                marginInlineEnd: 'calc(0.5 * 0.375rem)',
+                [theme.breakpoints.up('md')]: {
+                  marginInlineEnd: 0,
+                },
+              })}
+            >
+              <VerseLink verseKey={verse.verseKey} locale={locale} />
+            </Box>
+
+            <Box
+              sx={(theme) => ({
+                display: 'inline-block',
+                marginInlineEnd: 'calc(0.5 * 0.375rem)',
+                [theme.breakpoints.up('md')]: {
+                  marginInlineEnd: 0,
+                },
+              })}
+            >
+              <PlayVerseAudioButton
+                verseKey={verse.verseKey}
+                timestamp={verse?.timestamps?.timestampFrom}
+              />
+            </Box>
+          </TranslationViewCellActionsLeft>
+          {/* <TranslationViewCellActionsRight>bookmarksRangeUrl</TranslationViewCellActionsRight> */}
+        </TranslationViewCellActionContainer>
 
         <TranslationViewCellContentContainer>
           <Box
@@ -171,13 +175,7 @@ function TranslationViewCell(props: TranslationViewCellProps) {
               marginBlockEnd: 'var(--gap-size)',
             }}
           >
-            <VerseText
-              words={getVerseWords(verse)}
-              shouldShowH1ForSEO={verseIndex === 0}
-              setCurrentVerse={handleCurrentVerseUpdate}
-              setCurrentAudio={handleCurrentAudio}
-              audio={audio}
-            />
+            <VerseText words={getVerseWords(verse)} shouldShowH1ForSEO={verseIndex === 0} />
           </Box>
 
           {/* verseTranslationsContainer */}
@@ -187,35 +185,26 @@ function TranslationViewCell(props: TranslationViewCellProps) {
             }}
           >
             {verse.translations?.map((translation: Translation) => (
-              <div
+              <Box
                 key={translation.id}
-                //  className={styles.verseTranslationContainer}
+                sx={{
+                  marginBlockEnd: '2rem',
+                }}
               >
                 <TranslationText
                   translationFontScale={quranReaderStyles.translationFontScale}
                   text={translation.text}
-                  // @ts-ignore
-                  languageId={translation.languageId}
-                  // @ts-ignore
-                  resourceName={verse?.translations?.length > 1 ? translation.resourceName : null}
+                  languageId={translation.languageId as number}
+                  resourceName={
+                    (verse && verse.translations && verse.translations.length > 1
+                      ? translation.resourceName
+                      : null) as string
+                  }
                 />
-              </div>
+              </Box>
             ))}
           </Box>
         </TranslationViewCellContentContainer>
-
-        {/* <TranslationViewCellWordsContainer>
-          <Typography
-            dangerouslySetInnerHTML={{
-              __html:
-                // @ts-ignore
-                locale === 'sv' && verse?.swedishTranslations
-                  ? // @ts-ignore
-                    verse.swedishTranslations.swedishText
-                  : verse.translations?.[0].text,
-            }}
-          />
-        </TranslationViewCellWordsContainer> */}
       </TranslationViewCellRoot>
     </div>
   )

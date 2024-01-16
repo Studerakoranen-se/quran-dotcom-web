@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useSelector } from 'react-redux'
 import Fuse from 'fuse.js'
 import { styled } from '@mui/material/styles'
 import { TextField, Typography } from '@mui/material'
@@ -8,6 +9,7 @@ import { SCROLL_TO_NEAREST_ELEMENT, useScrollToElement } from '~/hooks/useScroll
 import { getSurahNavigationUrl, toLocalizedNumber } from '~/utils'
 import DataContext from '~/contexts/DataContext'
 import useChapterIdsByUrlPath from '~/hooks/useChapterId'
+import { selectLastReadVerseKey } from '~/store/slices/QuranReader/readingTracker'
 
 const SurahListRoot = styled('div')(() => ({
   flex: 2,
@@ -21,13 +23,21 @@ const SurahListContainer = styled('div')(() => ({
 }))
 
 const SurahListItems = styled('div')(({ theme }) => ({
+  ...theme.mixins.scrollbars,
+  ...theme.mixins.scrollable,
   position: 'absolute',
   inset: 0,
-  overflowX: 'hidden',
-  overflowY: 'auto',
   paddingBlockEnd: 'calc(2 * 2rem)',
   a: {
     textDecoration: 'none',
+  },
+
+  '&::-webkit-scrollbar': {
+    width: 5,
+    backgroundColor: theme.vars.palette.grey[200],
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: theme.palette?.mode === 'dark' ? '#cab280' : theme.vars.palette.primary.main,
   },
 }))
 
@@ -70,11 +80,13 @@ const SurahList = React.memo(function QuranReaderDrawer(props: SurahListProps) {
   const { locale } = props
 
   // const { t } = useI18n()
-  const router = useRouter()
   const chaptersData = React.useContext(DataContext)
 
+  const router = useRouter()
   const chapterIds = useChapterIdsByUrlPath(locale)
   const urlChapterId = chapterIds && chapterIds.length > 0 ? chapterIds[0] : null
+
+  const lastReadVerseKey = useSelector(selectLastReadVerseKey)
 
   const [currentChapterId, setCurrentChapterId] = React.useState(urlChapterId)
   const [searchQuery, setSearchQuery] = React.useState('')
@@ -120,9 +132,9 @@ const SurahList = React.memo(function QuranReaderDrawer(props: SurahListProps) {
   const [scrollTo, selectedChapterRef] =
     useScrollToElement<HTMLDivElement>(SCROLL_TO_NEAREST_ELEMENT)
 
-  // useEffect(() => {
-  //   setCurrentChapterId(lastReadVerseKey.chapterId);
-  // }, [lastReadVerseKey]);
+  React.useEffect(() => {
+    setCurrentChapterId(lastReadVerseKey.chapterId)
+  }, [lastReadVerseKey])
 
   React.useEffect(() => {
     // when the user navigates to a new chapter, the current chapter id

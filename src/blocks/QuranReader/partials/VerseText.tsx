@@ -25,19 +25,12 @@ type VerseTextProps = {
   words: Word[]
   isReadingMode?: boolean
   shouldShowH1ForSEO?: boolean
-
-  setCurrentVerse: any
-  setCurrentAudio: any
-  audio: any
 }
 
 const VerseText = ({
   words,
   isReadingMode = false,
   shouldShowH1ForSEO = false,
-  setCurrentVerse,
-  setCurrentAudio,
-  audio,
 }: VerseTextProps) => {
   const textRef = React.useRef(null)
   useIntersectionObserver(textRef, QURAN_READER_OBSERVER_ID)
@@ -133,9 +126,6 @@ const VerseText = ({
             isFontLoaded={isFontLoaded}
             isHighlighted={word.verseKey === selectedVerseKey}
             shouldShowSecondaryHighlight={word.verseKey === hoveredVerseKey}
-            setCurrentVerse={setCurrentVerse}
-            setCurrentAudio={setCurrentAudio}
-            audio={audio}
           />
         ))}
       </Box>

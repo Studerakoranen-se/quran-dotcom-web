@@ -1,5 +1,5 @@
-import classNames from 'classnames'
 import range from 'lodash/range'
+import classNames from 'clsx'
 import { useSelector, shallowEqual } from 'react-redux'
 import { Box, Button } from '@mui/material'
 import Skeleton from '~/components/Skeleton'
@@ -7,6 +7,10 @@ import useGetQueryParamOrReduxValue from '~/hooks/useGetQueryParamOrReduxValue'
 import { selectQuranReaderStyles } from '~/store/slices/QuranReader/styles'
 import QueryParam from '~/types/QueryParam'
 import { QuranFont } from '~/types/QuranReader'
+import { getFontClassName } from '~/utils/fontFaceHelper'
+import cellStyles from './TranslationViewCell.module.scss'
+import skeletonStyles from './TranslationViewSkeleton.module.scss'
+import verseTextStyles from './VerseText.module.scss'
 
 const TRANSLATION_TEXT_SAMPLE =
   'He has revealed to you ˹O Prophet˺ the Book in truth, confirming what came before it, as He revealed the Torah and the Gospel'
@@ -28,57 +32,18 @@ function TranslationViewCellSkeleton({ hasActionMenuItems = true }: Props) {
   const isTajweedFont = quranFont === QuranFont.Tajweed
 
   return (
-    <Box
-      sx={{
-        borderBlockEnd: '1px solid rgb(235, 238, 240)',
-
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexDirection: 'column',
-        direction: 'ltr',
-
-        padding: '0.8125rem',
-        '--gap-size': 'calc(0.5 * 2rem)',
-
-        // --gap-size: calc(1.5 * 2rem);
-        //   flex-direction: row;
-        //   padding: 0;
-      }}
-    >
-      <div
-      // className={cellStyles.actionContainer}
-      >
-        <div
-        // className={cellStyles.actionContainerLeft}
-        >
+    <div className={classNames(cellStyles.cellContainer, skeletonStyles.cellContainer)}>
+      <div className={cellStyles.actionContainer}>
+        <div className={cellStyles.actionContainerLeft}>
           {range(0, 4).map((index) => (
-            <Skeleton
-              key={index}
-              style={{
-                marginInlineEnd: 'calc(0.5 * 0.375rem)',
-                //  @include breakpoints.tablet {
-                //    margin-inline-end: 0;
-                //    margin-block-end: calc(0.5 * 0.375rem);
-                //  }
-              }}
-            >
+            <Skeleton key={index} className={skeletonStyles.actionItem}>
               <Button size="small" />
             </Skeleton>
           ))}
         </div>
         {hasActionMenuItems && (
-          <div
-          // className={cellStyles.actionContainerRight}
-          >
-            <Skeleton
-              style={{
-                marginInlineEnd: 'calc(0.5 * 0.375rem)',
-                //  @include breakpoints.tablet {
-                //    margin-inline-end: 0;
-                //    margin-block-end: calc(0.5 * 0.375rem);
-                //  }
-              }}
-            >
+          <div className={cellStyles.actionContainerRight}>
+            <Skeleton className={cellStyles.actionItem}>
               <Button size="small" />
             </Skeleton>
           </div>
@@ -94,30 +59,26 @@ function TranslationViewCellSkeleton({ hasActionMenuItems = true }: Props) {
         }}
       >
         <Skeleton
-        // className={classNames(skeletonStyles.verseContainer, cellStyles.arabicVerseContainer, {
-        //   [verseTextStyles[getFontClassName(quranFont, quranTextFontScale, mushafLines)]]:
-        //     !isTajweedFont,
-        // })}
+          className={classNames(skeletonStyles.verseContainer, cellStyles.arabicVerseContainer, {
+            [verseTextStyles[getFontClassName(quranFont, quranTextFontScale, mushafLines)]]:
+              !isTajweedFont,
+          })}
         />
         <div
-        // className={classNames(
-        //   cellStyles.verseTranslationsContainer,
-        //   skeletonStyles[`translation-font-size-${translationFontScale}`],
-        // )}
+          className={classNames(
+            cellStyles.verseTranslationsContainer,
+            skeletonStyles[`translation-font-size-${translationFontScale}`],
+          )}
         >
           {selectedTranslations.map((translation) => (
             <span key={translation}>
               <div>
-                <Skeleton
-                // lassName={classNames(skeletonStyles.translationText)}
-                >
+                <Skeleton className={classNames(skeletonStyles.translationText)}>
                   {TRANSLATION_TEXT_SAMPLE}
                 </Skeleton>
               </div>
               <div>
-                <Skeleton
-                //  className={classNames(skeletonStyles.translationAuthor)}
-                >
+                <Skeleton className={classNames(skeletonStyles.translationAuthor)}>
                   {TRANSLATION_AUTHOR_SAMPLE}
                 </Skeleton>
               </div>
@@ -125,7 +86,7 @@ function TranslationViewCellSkeleton({ hasActionMenuItems = true }: Props) {
           ))}
         </div>
       </Box>
-    </Box>
+    </div>
   )
 }
 

@@ -11,7 +11,7 @@ import {
 } from '~/store/slices/QuranReader/sidebarNavigation'
 import { selectIsReadingByRevelationOrder } from '~/store/slices/revelationOrder'
 import useOutsideClickDetector from '~/hooks/useOutsideClickDetector'
-import { FilterIcon, Tabs } from '~/components'
+import { CloseIcon, Tabs } from '~/components'
 import SidebarNavigationSelections from './QuranDrawerSelections'
 
 const QuranReaderDrawerRoot = styled('div')<{
@@ -23,9 +23,8 @@ const QuranReaderDrawerRoot = styled('div')<{
   position: 'fixed',
   insetBlockStart: 0,
   insetInlineStart: 0,
-  paddingBlockStart: 'calc(3.5 * 2rem)',
   overflowX: 'hidden',
-  zIndex: '1',
+  zIndex: 3,
   boxSizing: 'border-box',
   backgroundColor: theme.palette.background.default,
   // borderInlineEnd: `1px solid ${theme.palette.divider}`,
@@ -35,23 +34,35 @@ const QuranReaderDrawerRoot = styled('div')<{
   display: 'flex',
   flexDirection: 'column',
   overflowY: 'hidden',
+  boxShadow: '0px 22px 28px -3px rgba(0,0,0,0.1)',
+  paddingBlockStart: 'calc(2 * 2.5rem)',
 
   transform: 'translateX(-100%)',
   '[dir="rtl"] &': {
     transform: 'translateX(100%)',
   },
 
+  [theme.breakpoints.up('md')]: {
+    width: 'calc(10 * 2rem)',
+    paddingBlockStart: 'calc(3.5 * 2rem)',
+  },
+
   ...(ownerState?.visibleContainer && {
     transform: 'translateX(0%)',
-    paddingBlockStart: 'calc(3.5 * 2rem)',
+
     '[dir="rtl"] & ': {
       transform: 'translateX(0%)', // need to duplicate for specificity
+    },
+
+    [theme.breakpoints.up('md')]: {
+      width: 'calc(10 * 2rem)',
+      paddingBlockStart: 'calc(3.5 * 2rem)',
     },
   }),
 
   ...(ownerState?.containerAuto && {
     [theme.breakpoints.up('md')]: {
-      width: 'calc(10 * 2rem)',
+      // width: 'calc(10 * 2rem)',
       transform: 'translateX(0%)',
       ' [dir="rtl"] &': {
         transform: 'translateX(0%)', // need to duplicate for specificity
@@ -134,8 +145,7 @@ const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranRead
               aria-label={`Toggle Surah Drawer`}
               size="small"
             >
-              {/* @ts-ignore */}
-              <FilterIcon fontSize="small" />
+              <CloseIcon fontSize="small" />
             </IconButton>
           </Box>
           <Box
@@ -176,8 +186,7 @@ const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranRead
               aria-label={`Toggle Surah Drawer`}
               size="small"
             >
-              {/* @ts-ignore */}
-              <FilterIcon fontSize="small" />
+              <CloseIcon fontSize="small" />
             </IconButton>
           </Box>
 

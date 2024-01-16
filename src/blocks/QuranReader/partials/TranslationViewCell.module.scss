@@ -1,0 +1,125 @@
+@mixin lighten-background-color {
+  background-image: linear-gradient(to right, hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0.8));
+}
+
+.cellContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  direction: ltr;
+  padding: 0.8125rem;
+  --gap-size: calc(0.5 * 2rem);
+  @media only screen and (min-width: 768px) {
+    --gap-size: calc(1.5 * 2rem);
+    flex-direction: row;
+    padding: 0;
+  }
+}
+
+.highlightedContainer {
+  background: #f8f9fa;
+}
+
+.contentContainer {
+  flex: 1;
+  position: relative;
+}
+
+.actionContainer {
+  margin-block-start: var(--gap-size);
+  display: flex;
+  direction: ltr;
+  flex-direction: row;
+  justify-content: space-between;
+  @media only screen and (min-width: 768px) {
+    flex-direction: column;
+    justify-content: start;
+    margin-inline-end: calc(2 * 2rem);
+  }
+  align-items: center;
+}
+.arabicVerseContainer {
+  direction: rtl;
+  padding-block-start: 0.375rem;
+  margin-block-start: var(--gap-size);
+  margin-block-end: var(--gap-size);
+}
+.verseTranslationsContainer {
+  margin-block-end: calc(1.3 * var(--gap-size));
+}
+
+.verseTranslationContainer {
+  margin-block-end: 2rem;
+}
+
+.actionContainerLeft,
+.actionContainerRight {
+  display: flex;
+  align-items: center;
+  @media only screen and (min-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+.actionContainerLeft {
+  justify-content: flex-start;
+}
+.actionContainerRight {
+  justify-content: flex-end;
+}
+
+.iconContainer.verseAction {
+  color: #272727;
+  height: calc(2.2 * 1rem);
+  width: calc(2.2 * 1rem);
+
+  &:hover {
+    color: #272727;
+    background-color: transparent;
+    background-image: none;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 1;
+      color: #2ca4ab;
+      background-color: #2ca4ab;
+      @include lighten-background-color;
+    }
+  }
+}
+
+.fadedVerseAction {
+  opacity: 0.5;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  & > svg {
+    width: calc(1.1 * 1rem);
+    height: calc(1.1 * 1rem);
+  }
+}
+
+// fix optical illussion for triangle icon inside circle button
+.playIcon {
+  /* stylelint-disable-next-line csstools/use-logical */
+  margin-left: calc(0.5 * 0.375rem);
+}
+
+.priorityAction {
+  order: 1;
+  @media only screen and (min-width: 768px) {
+    order: unset;
+  }
+}
+
+.actionContainerLeft .actionItem {
+  display: inline-block;
+  margin-inline-end: calc(0.5 * 0.375rem);
+  @media only screen and (min-width: 768px) {
+    margin-inline-end: 0;
+  }
+}

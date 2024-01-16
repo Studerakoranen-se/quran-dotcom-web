@@ -4,6 +4,7 @@ import { Virtuoso, VirtuosoHandle } from 'react-virtuoso'
 import { Box, useTheme } from '@mui/material'
 import { addToHistory, updateVerseCount } from '~/store/historySlice'
 import useGetQueryParamOrReduxValue from '~/hooks/useGetQueryParamOrReduxValue'
+import useGetQueryParamOrXstateValue from '~/hooks/useGetQueryParamOrXstateValue'
 import QuranReaderStyles from '~/store/types/QuranReaderStyles'
 import { QuranReaderDataType } from '~/types/QuranReader'
 import { VersesResponse } from '~/types/ApiResponses'
@@ -26,12 +27,12 @@ function TranslationView(props: TranslationViewProps) {
   const [apiPageToVersesMap, setApiPageToVersesMap] = React.useState<Record<number, Verse[]>>({
     1: initialData.verses,
   })
-  // const {
-  //   value: reciterId,
-  //   isQueryParamDifferent: reciterQueryParamDifferent,
-  // }: { value: number; isQueryParamDifferent: boolean } = useGetQueryParamOrXstateValue(
-  //   QueryParam.Reciter,
-  // );
+  const {
+    value: reciterId,
+    isQueryParamDifferent: reciterQueryParamDifferent,
+  }: { value: number; isQueryParamDifferent: boolean } = useGetQueryParamOrXstateValue(
+    QueryParam.Reciter,
+  )
   const {
     value: selectedTranslations,
     isQueryParamDifferent: translationsQueryParamDifferent,

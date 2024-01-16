@@ -18,7 +18,7 @@ const ScrollableSelectionListContainer = styled('div')(() => ({
   position: 'relative',
 }))
 
-const ScrollableSelectionListItems = styled('div')(() => ({
+const ScrollableSelectionListItems = styled('div')(({ theme }) => ({
   position: 'absolute',
   inset: 0,
   overflowX: 'hidden',
@@ -27,6 +27,14 @@ const ScrollableSelectionListItems = styled('div')(() => ({
   paddingRight: 'calc(1 * 0.5rem)',
   a: {
     textDecoration: 'none',
+  },
+
+  '&::-webkit-scrollbar': {
+    width: 5,
+    backgroundColor: theme.vars.palette.grey[200],
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: theme.palette?.mode === 'dark' ? '#cab280' : theme.vars.palette.primary.main,
   },
 }))
 
@@ -107,8 +115,8 @@ const ScrollableSelection = ({
           {filteredItems.map((item) => (
             <RouterLink href={getHref(item.value)} key={item.value} shouldPrefetch={false}>
               <ScrollableSelectionListItem
-                ownerState={{ isActive: item.value === selectedItem }}
                 ref={item.value === selectedItem ? selectedItemRef : null}
+                ownerState={{ isActive: item.value === selectedItem }}
               >
                 {renderItem(item)}
               </ScrollableSelectionListItem>

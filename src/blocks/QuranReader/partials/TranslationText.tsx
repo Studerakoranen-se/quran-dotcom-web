@@ -1,12 +1,18 @@
 /* eslint-disable no-console */
 import React, { MouseEvent, useState } from 'react'
-import { Box } from '@mui/material'
+import { Box, styled } from '@mui/material'
 import { getLanguageDataById } from '~/utils/locale'
 import { getFootnote } from '~/api'
+import { Html } from '~/components'
 import Footnote from '~/types/Footnote'
 import { useI18n } from '~/contexts'
 import FootnoteText from './FootnoteText'
 // import FootnoteText from './FootnoteText';
+
+const TranslationTextRoot = styled('div')(({ theme }) => ({}))
+const TranslationTextFootNote = styled('div')(({ theme }) => ({
+  sup: {},
+}))
 
 interface Props {
   translationFontScale: number
@@ -148,58 +154,59 @@ const TranslationText: React.FC<Props> = ({
     }
   }
   const hideFootnote = () => setShowFootnote(false)
-  const langData = getLanguageDataById(languageId)
+
+  const langData = getLanguageDataById(156)
 
   const shouldShowFootnote = showFootnote && (footnote || isLoading)
 
   return (
-    <div
+    <TranslationTextRoot
     // className={styles[`translation-font-size-${translationFontScale}`]}
     >
-      <Box
+      <Html
         onClick={(event) => onTextClicked(event)}
         // styles[langData.font])
 
         dangerouslySetInnerHTML={{ __html: text }}
-        sx={{
-          lineHeight: 'normal',
-          sup: {
-            color: (theme) => (theme.palette.mode === 'light' ? '#4ab0b0' : 'text.primary'),
-            insetBlockStart: 'calc(-1 * 0.625rem)',
-            position: 'relative',
-            fontSize: 'var(--font-size-xsmall)',
-            lineHeight: 0,
-            verticalAlign: 'baseline',
-            paddingBlockStart: 0,
-            paddingBlockEnd: 0,
-            paddingInlineStart: '0.1875rem',
-            paddingInlineEnd: '0.1875rem',
-            cursor: 'pointer',
-          },
-          'sup[class="qiraat"]': {
-            display: 'none',
-          },
-          i: {
-            fontSize: '1rem',
-          },
-          span: {
-            b: {
-              color: 'warning.main',
-            },
-          },
+        // sx={{
+        //   lineHeight: 'normal',
+        //   sup: {
+        //     color: (theme) => (theme.palette.mode === 'light' ? '#4ab0b0' : 'text.primary'),
+        //     insetBlockStart: 'calc(-1 * 0.625rem)',
+        //     position: 'relative',
+        //     fontSize: '0.75rem',
+        //     lineHeight: 0,
+        //     verticalAlign: 'baseline',
+        //     paddingBlockStart: 0,
+        //     paddingBlockEnd: 0,
+        //     paddingInlineStart: '0.1875rem',
+        //     paddingInlineEnd: '0.1875rem',
+        //     cursor: 'pointer',
+        //   },
+        //   'sup[class="qiraat"]': {
+        //     display: 'none',
+        //   },
+        //   i: {
+        //     fontSize: '1rem',
+        //   },
+        //   span: {
+        //     b: {
+        //       color: 'warning.main',
+        //     },
+        //   },
 
-          ...(langData.direction === 'rtl' && {
-            direction: 'rtl',
-            /* stylelint-disable-next-line csstools/use-logical */
-            textAlign: 'right',
-          }),
+        //   ...(langData.direction === 'rtl' && {
+        //     direction: 'rtl',
+        //     /* stylelint-disable-next-line csstools/use-logical */
+        //     textAlign: 'right',
+        //   }),
 
-          ...(langData.direction === 'ltr' && {
-            /* stylelint-disable-next-line csstools/use-logical */
-            textAlign: 'left',
-            direction: 'ltr',
-          }),
-        }}
+        //   ...(langData.direction === 'ltr' && {
+        //     /* stylelint-disable-next-line csstools/use-logical */
+        //     textAlign: 'left',
+        //     direction: 'ltr',
+        //   }),
+        // }}
       />
       {shouldShowFootnote && (
         <FootnoteText
@@ -250,7 +257,7 @@ const TranslationText: React.FC<Props> = ({
           — {resourceName}
         </Box>
       )}
-    </div>
+    </TranslationTextRoot>
   )
 }
 

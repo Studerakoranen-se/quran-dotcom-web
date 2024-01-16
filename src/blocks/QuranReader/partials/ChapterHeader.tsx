@@ -1,10 +1,17 @@
 import * as React from 'react'
-import { Box } from '@mui/material'
-import { Bismillah as BismillahIcon } from '~/components/icons'
+import { useDispatch } from 'react-redux'
+import { Box, ButtonBase, IconButton } from '@mui/material'
+// import { BsFillPauseFill, BsGear } from 'react-icons/bs'
+import { Bismillah as BismillahIcon, InfoIcon } from '~/components/icons'
 import ChapterIconContainer, {
   ChapterIconsSize,
 } from '~/components/ChapterIcon/partials/ChapterIconContainer'
 import useIntersectionObserver from '~/hooks/useObserveElement'
+import { setIsSettingsDrawerOpen, setSettingsView, SettingsView } from '~/store/slices/navbar'
+import { useGlobalHandlers, useI18n } from '~/contexts'
+// import { getSurahInfoNavigationUrl } from '~/utils'
+import { PlayChapterAudioButton } from '~/components'
+import { logButtonClick } from '~/utils/eventLogger'
 
 type ChapterHeaderProps = {
   chapterId: string
@@ -19,6 +26,11 @@ const CHAPTERS_WITHOUT_BISMILLAH = ['1', '9']
 function ChapterHeader(props: ChapterHeaderProps) {
   const { chapterId, pageNumber, hizbNumber, translationName, isTranslationSelected } = props
 
+  const dispatch = useDispatch()
+  const { t } = useI18n()
+  // @ts-ignore
+  const { onSurahInfoDialogOpen } = useGlobalHandlers()
+
   const headerRef = React.useRef(null)
   /**
    * the intersection observer is needed so that we know that the first verse
@@ -28,11 +40,11 @@ function ChapterHeader(props: ChapterHeaderProps) {
   useIntersectionObserver(headerRef, 'quranReaderObserver')
 
   // TODO: add translationName change functionality
-  // const onChangeTranslationClicked = () => {
-  //   dispatch(setIsSettingsDrawerOpen(true));
-  //   dispatch(setSettingsView(SettingsView.Translation));
-  //   console.log('change_translation');
-  // };
+  const onChangeTranslationClicked = () => {
+    dispatch(setIsSettingsDrawerOpen(true))
+    dispatch(setSettingsView(SettingsView.Translation))
+    logButtonClick('change_translation')
+  }
 
   return (
     <Box
@@ -64,6 +76,106 @@ function ChapterHeader(props: ChapterHeaderProps) {
           />
         )}
       </div>
+
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBlockStart: '0.375rem',
+          marginBlockEnd: '0.375rem',
+          marginInlineStart: 0,
+          marginInlineEnd: 0,
+          paddingBlockStart: '0.375rem',
+          paddingBlockEnd: '0.375rem',
+          paddingInlineStart: 0,
+          paddingInlineEnd: 0,
+          position: 'relative',
+          direction: 'ltr',
+        }}
+      >
+        <Box
+          className="left"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            textAlign: 'start',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Box className="infoContainer">
+            {translationName ? (
+              <Box className="translation">
+                {isTranslationSelected && (
+                  <Box className="translationBy">{t(__translationGroup)`Translation by`}</Box>
+                )}
+                <span>{translationName}</span>{' '}
+                <ButtonBase
+                  onKeyPress={onChangeTranslationClicked}
+                  tabIndex={0}
+                  role="button"
+                  onClick={onChangeTranslationClicked}
+                  className="changeTranslation"
+                >
+                  trans change
+                </ButtonBase>
+                <span className="changeTranslation" />
+              </Box>
+            ) : (
+              <span
+              // size={ButtonSize.Small}
+              // variant={ButtonVariant.Ghost}
+              // startIcon={<InfoIcon />}
+              // href={getSurahInfoNavigationUrl(chapterId)}
+              // shouldPrefetch={false}
+              // hasSidePadding={false}
+              // onClick={() => {
+              //   console.log('chapter_header_info');
+              // }}
+              >
+                Surah Info
+              </span>
+            )}
+          </Box>
+        </Box>
+        <Box
+          className="right"
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            textAlign: 'start',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Box display="flex" alignItems="center">
+            <PlayChapterAudioButton chapterId={Number(chapterId)} />
+            {translationName && (
+              <IconButton
+                size="small"
+                // href={getSurahInfoNavigationUrl(chapterId)}
+                onClick={() => {
+                  onSurahInfoDialogOpen?.()
+                  logButtonClick('chapter_header_info')
+                }}
+              >
+                {/* {t('quran-reader:surah-info')} */}
+                <InfoIcon />
+              </IconButton>
+            )}
+            {/* <IconButton
+              aria-label={`Change Settings`}
+              size="small"
+              sx={{
+                border: (th) => `1px solid ${th.vars.palette.divider}`,
+                color: (th) => (th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4'),
+                borderRadius: 1,
+                p: 1,
+              }}
+            >
+              <BsGear />
+            </IconButton> */}
+          </Box>
+        </Box>
+      </Box>
     </Box>
   )
 }
