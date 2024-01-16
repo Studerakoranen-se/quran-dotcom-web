@@ -80,7 +80,7 @@ const LanguageSelector = React.forwardRef(function LanguageSelector(props) {
     // add the selectedTranslationId to redux
     // if unchecked, remove it from redux
 
-    const nextTranslations = locale === 'en' ? [48, 20] : [48]
+    const nextTranslations = locale === 'en' ? [20] : [48]
 
     onTranslationsSettingsChange(
       nextTranslations,
