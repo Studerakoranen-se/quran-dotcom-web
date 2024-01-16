@@ -15,9 +15,9 @@ const RouterLink = React.forwardRef<HTMLAnchorElement, React.PropsWithChildren<R
       href = '',
       replace,
       scroll,
-      shallow,
+      shallow = false,
       shouldPassHref,
-      shouldPrefetch,
+      shouldPrefetch = true,
       className,
       ...other
     } = props
