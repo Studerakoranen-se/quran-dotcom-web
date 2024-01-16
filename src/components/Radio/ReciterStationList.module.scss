@@ -1,0 +1,13 @@
+.container {
+  display: grid;
+  box-sizing: border-box;
+  gap: 1rem;
+  padding: 0.8125rem;
+  grid-template-columns: repeat(2, 1fr);
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media only screen and (min-width: 1024px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

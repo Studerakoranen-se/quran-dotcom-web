@@ -1,0 +1,30 @@
+.checkboxContainer {
+  text-align: start;
+  display: flex;
+  flex-direction: column;
+  & > div {
+    margin-inline: 1rem;
+    margin-block: 0.375rem;
+  }
+}
+
+.experienceTipContainer {
+  margin-block-start: 1rem;
+}
+
+.link {
+  color: var(--color-success-medium);
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.helpText {
+  opacity: var(--opacity-85);
+  font-size: var(--font-size-small);
+}

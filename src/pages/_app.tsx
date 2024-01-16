@@ -15,6 +15,8 @@ import FontPreLoader from '~/components/Fonts/FontPreLoader'
 import DataContext from '~/contexts/DataContext'
 import ChaptersData from '~/types/ChaptersData'
 import ReduxProvider from '~/contexts/ReduxStoreProvider'
+import { AudioPlayerMachineProvider } from '~/xstate/AudioPlayerMachineContext'
+import AudioPlayer from '~/components/AudioPlayer/AudioPlayer'
 
 export interface AppProps extends NextAppProps {
   Component: NextPage<Page>
@@ -51,20 +53,23 @@ function App(props: AppProps) {
       </Head>
       <FontPreLoader locale={locale} />
       <DataContext.Provider value={page?.chaptersData}>
-        <ReduxProvider locale={locale}>
-          <RootProvider
-            emotionCache={emotionCache}
-            defaultLocale={defaultLocale}
-            locale={locale}
-            {...other}
-          >
-            <LayoutComponent headerColor={headerColor} headerMode={headerMode}>
-              <ErrorBoundary>
-                <Component {...page} />
-              </ErrorBoundary>
-            </LayoutComponent>
-          </RootProvider>
-        </ReduxProvider>
+        <AudioPlayerMachineProvider>
+          <ReduxProvider locale={locale}>
+            <RootProvider
+              emotionCache={emotionCache}
+              defaultLocale={defaultLocale}
+              locale={locale}
+              {...other}
+            >
+              <LayoutComponent headerColor={headerColor} headerMode={headerMode}>
+                <ErrorBoundary>
+                  <Component {...page} />
+                  <AudioPlayer />
+                </ErrorBoundary>
+              </LayoutComponent>
+            </RootProvider>
+          </ReduxProvider>
+        </AudioPlayerMachineProvider>
       </DataContext.Provider>
 
       {/* This button closes the Next.js preview mode by linking to the api/exit-preview route */}

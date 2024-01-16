@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.item {
+  &:first-child {
+    margin-inline-start: 0.8125rem;
+  }
+  & + & {
+    margin-inline-start: 1rem;
+  }
+}
