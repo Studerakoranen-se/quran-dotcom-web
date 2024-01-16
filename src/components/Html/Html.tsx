@@ -50,6 +50,11 @@ export const HtmlRoot = styled('div')(({ theme }) => ({
       color: 'inherit',
     },
   },
+  sup: {
+    ...theme.typography.caption,
+    fontWeight: theme.typography.fontWeightBold,
+    color: theme.palette.mode === 'dark' ? '#E0D2B4' : '#5ea9a9',
+  },
 }))
 
 interface HtmlProps {
@@ -59,6 +64,7 @@ interface HtmlProps {
   dangerouslySetInnerHTML?: {
     __html: string
   }
+  onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 const Html = React.forwardRef(function Html(props: HtmlProps, ref: any) {
