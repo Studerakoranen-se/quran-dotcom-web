@@ -6,6 +6,9 @@ const { merge } = require('webpack-merge')
 const webpackBaseConfig = require('./webpackBaseConfig')
 const { i18n } = require('./locales')
 
+const isDev = process.env.NEXT_PUBLIC_VERCEL_ENV === 'development'
+const isProduction = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
+
 const nextConfig = {
   // For more on internalization see:
   // https://nextjs.org/docs/advanced-features/i18n-routing
@@ -28,7 +31,11 @@ const nextConfig = {
     DATADOG_CLIENT_TOKEN: process.env.DATADOG_CLIENT_TOKEN,
     DATADOG_SITE: process.env.DATADOG_SITE,
   },
+  output: 'standalone',
+  reactStrictMode: false,
   poweredByHeader: false,
+  swcMinify: true,
+  trailingSlash: false,
   webpack: async (config) => {
     return merge(config, webpackBaseConfig, {
       resolve: {
@@ -43,7 +50,7 @@ const nextConfig = {
     })
   },
   headers: async () => [
-    ...(process.env.DISABLE_INDEXING
+    ...(process.env.DISABLE_INDEXING && isProduction
       ? [
           {
             source: '/:path*',
