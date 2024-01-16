@@ -283,25 +283,16 @@ function TranslationView(props: TranslationViewProps) {
       <TranslationViewVerse
         // key={verse.id}
         verseIdx={verseIdx}
-        // @ts-ignore
-        totalVerses={initialData.metaData.numberOfVerses}
+        totalVerses={initialData?.metaData?.numberOfVerses as number}
         quranReaderDataType={quranReaderDataType}
         quranReaderStyles={quranReaderStyles}
         setApiPageToVersesMap={setApiPageToVersesMap}
         selectedTranslations={selectedTranslations}
         wordByWordLocale={wordByWordLocale}
-        reciterId={1}
+        reciterId={reciterId}
         initialData={initialData}
         resourceId={resourceId}
-        // audioPlaying={audioPlaying}
-        // handlePauseAudio={handlePauseAudio}
-        // handleAudioOnPlay={handleAudioOnPlay}
-        // handleCurrentVerseUpdate={handleCurrentVerseUpdate}
-        // handleCurrentAudio={handleCurrentAudio}
-        // currentAudio={currentAudio}
-        // audio={audio}
-        // handleHighlightText={handleHighlightText}
-        // locale={locale}
+        locale={locale}
       />
     )
   }

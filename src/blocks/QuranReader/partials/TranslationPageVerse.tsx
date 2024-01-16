@@ -1,6 +1,6 @@
 import * as React from 'react'
 // import useSWRImmutable from 'swr/immutable'
-import { useVerseTrackerContext } from '~/contexts'
+import { useVerseTrackerContext } from '~/contexts/VerseTrackerContext'
 import QuranReaderStyles from '~/store/types/QuranReaderStyles'
 import { toLocalizedNumber } from '~/utils'
 import Verse from '~/types/Verse'
