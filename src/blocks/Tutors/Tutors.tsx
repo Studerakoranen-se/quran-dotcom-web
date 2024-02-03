@@ -9,16 +9,19 @@ import { SanityHtml } from '~/containers'
 
 const TeamRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  background: theme.palette.primary.main,
-  boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
-  color: theme.palette.common.white,
+  background: theme.vars.palette.background.default,
+  boxShadow:
+    theme.palette.mode === 'dark'
+      ? 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)'
+      : 'inset 0px 4px 136px rgb(218 218 218 / 80%)',
+  color: theme.vars.palette.text.textInverted,
   padding: `var(--cia-container-spacing)`,
 }))
 
 const TeamGridContainer = styled('div')(({ theme }) => ({
   ...theme.mixins.contain('lg'),
   position: 'relative',
-  padding: 'calc(var(--cia-section-spacing) * 2) 0',
+  padding: 'var(--cia-section-spacing) 0',
 }))
 
 const TutorHeading = styled('h1')(() => ({}))

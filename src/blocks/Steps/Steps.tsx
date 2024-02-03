@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Media } from '@noaignite/oui'
-import { Typography, styled } from '@mui/material'
+import { Typography, alpha, styled } from '@mui/material'
 import { Html } from '~/components'
 import { transformSanityMedia } from '~/api/sanity/utils'
 import { StepsBlockQueryResult } from '~/api/sanity'
@@ -9,9 +9,9 @@ const BREAKPOINT_KEY = 'md'
 
 const StepsRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  background: theme.palette.primary.main,
+  background: theme.palette.background.default,
   boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
-  color: theme.palette.common.white,
+  color: theme.palette.text.textInverted,
   padding: theme.spacing(3.5),
 }))
 
@@ -21,7 +21,10 @@ const StepsBackground = styled('div')(({ theme }) => ({
   '& *:not(style)': {
     height: '100%',
   },
-  background: `linear-gradient(180deg, #043B3B 0%, rgba(4, 59, 59, 0.5) 53.47%, #043B3B 100%), url('/assets/bg-2.png')`,
+  background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${alpha(
+    theme.palette.primary.main,
+    0.08,
+  )} 53.47%, ${theme.palette.background.default} 100%), url('/assets/bg-2.png')`,
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'top',
@@ -34,12 +37,11 @@ const StepsContainer = styled('div')(({ theme }) => ({
   //   justifyItems: 'center',
   //   alignItems: 'center',
   zIndex: 1,
-  padding: 'calc(var(--cia-section-spacing) * 2) 0',
   textAlign: 'center',
-  //   [theme.breakpoints.up('md')]: {
-  //     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-  //     gap: theme.spacing(12),
-  //   },
+  paddingBottom: 'var(--cia-section-spacing)',
+  [theme.breakpoints.up('md')]: {
+    padding: 'calc(var(--cia-section-spacing) * 2) 0',
+  },
 }))
 
 const StepsHeading = styled('h1')(() => ({}))
@@ -103,7 +105,8 @@ const StepsItem = styled('div')<{ ownerState: { reverseDirection?: boolean } }>(
     alignItems: 'center',
     borderRadius: theme.spacing(),
     width: '100%',
-    background: '#0A5757',
+    background: theme.palette.primary.dark,
+    color: theme.palette.common.white,
     padding: theme.spacing(6, 2),
     gap: theme.spacing(5),
 
@@ -115,6 +118,7 @@ const StepsItem = styled('div')<{ ownerState: { reverseDirection?: boolean } }>(
       width: 660,
       borderRadius: theme.spacing(20),
       padding: 0,
+      background: '#0A5757',
 
       ...(ownerState?.reverseDirection && {
         flexDirection: 'row-reverse',
@@ -128,12 +132,14 @@ const StepsItemIcon = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: 9999,
-  background: '#0A5757',
+  background:
+    // @ts-ignore
+    theme.palette.mode === 'dark' ? theme.palette.green[400] : theme.palette.primary.light,
   width: 168,
   height: 168,
   outlineStyle: 'solid',
   outlineWidth: '10px',
-  outlineColor: '#043B3B',
+  outlineColor: theme.palette.primary.main,
 
   img: {
     width: 110,
@@ -162,6 +168,24 @@ const StepsItemContent = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     textAlign: 'left',
     width: 350,
+  },
+}))
+
+const StepsItemContentTitle = styled('h2')(({ theme }) => ({
+  ...theme.typography.subtitle1,
+  margin: 0,
+  marginBottom: theme.spacing(2),
+  [theme.breakpoints.up('md')]: {
+    ...theme.typography.h2,
+  },
+}))
+
+const StepsItemContentText = styled('h2')(({ theme }) => ({
+  ...theme.typography.body2,
+  margin: 0,
+  lineHeight: 1.5,
+  [theme.breakpoints.up('md')]: {
+    ...theme.typography.body1,
   },
 }))
 
@@ -204,12 +228,8 @@ function Steps(props: StepsBlockQueryResult) {
                   {/* @ts-ignore */}
                   <StepsItemIcon>{icon && <Media src={icon.src} alt="" />}</StepsItemIcon>
                   <StepsItemContent>
-                    {entryHeading && (
-                      <Typography variant="h2" gutterBottom>
-                        {entryHeading}
-                      </Typography>
-                    )}
-                    {text && <Typography variant="body1">{text}</Typography>}
+                    {entryHeading && <StepsItemContentTitle>{entryHeading}</StepsItemContentTitle>}
+                    {text && <StepsItemContentText>{text}</StepsItemContentText>}
                   </StepsItemContent>
                 </StepsItem>
                 <StepsItemArrowIcon

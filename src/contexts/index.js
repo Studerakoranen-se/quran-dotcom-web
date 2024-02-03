@@ -10,6 +10,3 @@ export * from './RemoteConfig'
 
 export { default as RootProvider } from './Root'
 export * from './Root'
-
-export { default as VerseTrackerContextProvider } from './VerseTrackerContext'
-export * from './VerseTrackerContext'

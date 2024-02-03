@@ -21,8 +21,6 @@ const ModeSwitcher = () => {
 
   return (
     <IconButton
-      // @ts-ignore
-      color={mode === 'light' ? 'textInverted' : 'text'}
       size="small"
       onClick={() => {
         if (mode === 'light') {

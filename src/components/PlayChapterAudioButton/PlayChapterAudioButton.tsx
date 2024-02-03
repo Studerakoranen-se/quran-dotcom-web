@@ -83,6 +83,10 @@ const PlayChapterAudioButton = ({ chapterId }: Props) => {
             '&:hover, &:focus-within': {
               backgroundColor: 'transparent',
             },
+            paddingRight: {
+              xs: '0px !important',
+              md: '18px',
+            },
           }}
           startIcon={<BsFillPauseFill />}
         >
@@ -101,6 +105,10 @@ const PlayChapterAudioButton = ({ chapterId }: Props) => {
             backgroundColor: 'transparent',
             '&:hover, &:focus-within': {
               backgroundColor: 'transparent',
+            },
+            paddingRight: {
+              xs: '0px !important',
+              md: '18px',
             },
           }}
 

@@ -13,7 +13,7 @@ const TranslationViewVerseContainer = styled('div')(({ theme }) => ({
   maxWidth: '100%',
   marginInlineStart: 'auto',
   marginInlineEnd: 'auto',
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     maxWidth: '80%',
   },
 }))

@@ -9,8 +9,8 @@ const CourseHeroRoot = styled('section')<{
   ownerState: { largeMedia?: boolean }
 }>(({ theme, ownerState }) => ({
   position: 'relative',
-  background: theme.palette.primary.main,
-  color: theme.palette.common.white,
+  background: theme.vars.palette.background.default,
+  color: theme.vars.palette.text.textInverted,
   padding: theme.spacing(20, `var(--cia-container-spacing)`, 5),
   minHeight: 550,
 
@@ -31,7 +31,7 @@ const CourseHeroContainer = styled('div')(({ theme }) => ({
   justifyItems: 'center',
   alignItems: 'center',
   zIndex: 1,
-  padding: 'calc(var(--cia-section-spacing) * 2) 0 calc(var(--cia-section-spacing) * 3)',
+  padding: 'calc(var(--cia-section-spacing) * 2) 0  var(--cia-section-spacing)',
   [theme.breakpoints.up('md')]: {
     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
     gap: theme.spacing(12),
@@ -60,7 +60,7 @@ const CourseHeroMediaReveal = styled(MediaReveal)<{ ownerState: { layoutReverse?
       position: 'absolute',
       top: theme.spacing(8),
       left: 0,
-      opacity: 0.2,
+      opacity: 0.1,
     },
   }),
 )
@@ -128,8 +128,6 @@ function CourseHero(props: CourseHeroProps) {
               component={RouterLink}
               href={ctaUrl}
               variant="contained"
-              // @ts-ignore
-              color="textInverted"
               size="medium"
               aria-label={t(__translationGroup)`Applay for private course"`}
               sx={{
@@ -173,16 +171,21 @@ function CourseHero(props: CourseHeroProps) {
         <MediaReveal>
           <Media
             src="/assets/borderh.png"
-            sx={{
+            sx={(theme) => ({
               position: 'relative',
-              width: '50%',
+              width: '100%',
               height: '0.125rem',
               marginLeft: 'auto',
               marginRight: 'auto',
+
+              [theme.breakpoints.up('md')]: {
+                width: '50%',
+              },
+
               ...(largeMedia && {
                 marginTop: 8,
               }),
-            }}
+            })}
           />
         </MediaReveal>
       )}

@@ -102,7 +102,7 @@ declare module '@mui/material/styles' {
 
   interface TypeText {
     contrastText: string
-    textInverted?: Record<string, any>
+    textInverted?: string
     main: string
   }
 }

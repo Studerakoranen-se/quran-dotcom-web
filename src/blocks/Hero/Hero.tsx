@@ -1,4 +1,4 @@
-import { Button, styled, Typography } from '@mui/material'
+import { alpha, Button, styled, Typography } from '@mui/material'
 import { useI18n } from '~/contexts'
 import { RouterLink } from '~/containers'
 import { BrandIcon, Html, QuranIcon, BookIcon } from '~/components'
@@ -8,17 +8,18 @@ const BREAKPOINT_KEY = 'md'
 const HeroRoot = styled('section')(({ theme }) => ({
   position: 'relative',
   minHeight: 550,
-  color: theme.vars.palette.common.white, // Use `common.white` as color is based on image not theme mode.
+  color: theme.vars.palette.text.textInverted,
   padding: theme.spacing(30, 2, 20),
   [theme.breakpoints.up('md')]: {
     minHeight: 650,
   },
 
-  background:
-    "linear-gradient(180deg, #043B3B 50%, #043B3B 80%, #043B3B 100%), url('/assets/bg-arbic.png')",
-  backgroundPosition: 'top right',
+  background: `linear-gradient(180deg, ${alpha(theme.palette.background.default, 0.5)} 50%, ${alpha(
+    theme.palette.background.default,
+    0.5,
+  )} 80%, ${alpha(theme.palette.background.default, 0.5)} 100%), url('/assets/bg-arbic.png')`,
+  backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover', // Make the background image cover the container width
 }))
 
 const HeroContainer = styled('div')(({ theme }) => ({
@@ -151,8 +152,6 @@ function Hero(props: HeroProps) {
                 href={ctaUrl}
                 variant="contained"
                 size="medium"
-                // @ts-ignore
-                color="textInverted"
                 aria-label={t(__translationGroup)`Read more about "${heading}"`}
                 startIcon={<QuranIcon color="primary" />}
               >
@@ -163,8 +162,6 @@ function Hero(props: HeroProps) {
                   component={RouterLink}
                   href={ctaUrl2}
                   variant="contained"
-                  // @ts-ignore
-                  color="textInverted"
                   size="medium"
                   aria-label={t(__translationGroup)`Read more about "${subheading}"`}
                   startIcon={<BookIcon color="primary" />}

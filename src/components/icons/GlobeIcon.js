@@ -4,7 +4,7 @@ import createSvgIcon from '../utils/createSvgIcon'
 export default createSvgIcon(
   <React.Fragment>
     <path
-      stroke="white"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="1"
@@ -12,7 +12,7 @@ export default createSvgIcon(
       d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10ZM2 12h20"
     />
     <path
-      stroke="white"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="1"

@@ -37,7 +37,7 @@ const QuranReaderRoot = styled('section')<{
 const QuranReaderRootMain = styled('div')(({ theme }) => ({
   padding: '0 var(--cia-container-spacing)',
 
-  [theme.breakpoints.up('md')]: {
+  [theme.breakpoints.up('lg')]: {
     padding: theme.spacing(0, 12),
   },
 }))

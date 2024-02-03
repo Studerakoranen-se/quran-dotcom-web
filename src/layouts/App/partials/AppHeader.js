@@ -30,14 +30,16 @@ const classes = generateUtilityClasses('CiaAppHeader', [
 
 const AppHeaderRoot = styled(AppBar)(({ theme, ownerState }) => ({
   ...(ownerState.headerMode === 'transparent' && {
-    '&:not(:hover):not(:focus-within)': {
-      backgroundColor: 'transparent',
-      color: ownerState.headerColor,
-    },
+    '@media (hover: hover)': {
+      '&:not(:hover):not(:focus-within)': {
+        backgroundColor: 'transparent',
+        color: ownerState.headerColor,
+      },
 
-    '&:hover': {
-      backgroundColor: 'transparent',
-      color: ownerState.headerColor,
+      '&:hover': {
+        backgroundColor: 'transparent',
+        color: ownerState.headerColor,
+      },
     },
   }),
   // Util classes
@@ -54,16 +56,13 @@ const AppHeaderRoot = styled(AppBar)(({ theme, ownerState }) => ({
 const AppHeaderToolbar = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  height: 'var(--cia-header-toolbar-primary-height)',
+  height: 'calc(30px + var(--cia-header-toolbar-primary-height))',
   padding: '0 var(--cia-container-spacing)',
-  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-    height: 'calc(30px + var(--cia-header-toolbar-primary-height))',
-  },
+  color: theme.palette.text.textInverted,
 }))
 
 const AppHeaderBrandLink = styled(RouterLink)(({ theme, ownerState }) => ({
-  color: 'white',
-  // marginTop: 132,
+  // marginTop: 20,
   '& > svg': {
     display: 'block',
     // width: 33.4,
@@ -73,7 +72,6 @@ const AppHeaderBrandLink = styled(RouterLink)(({ theme, ownerState }) => ({
       duration: theme.transitions.duration.complex,
       easing: theme.transitions.easing.easeOut,
     }),
-    color: 'white',
     ...(ownerState.expandedLogo && {
       transform: 'translate3d(0, calc(5% + 8px), 0) scale(1.2)',
     }),
@@ -83,6 +81,7 @@ const AppHeaderBrandLink = styled(RouterLink)(({ theme, ownerState }) => ({
     },
     [theme.breakpoints.up(BREAKPOINT_KEY)]: {
       // transform: 'translate3d(0, -65%, 0) scale(0.8)',
+      marginTop: 0,
     },
   },
 }))
@@ -267,12 +266,6 @@ const AppHeader = React.memo(function AppHeader(props) {
             {menus?.primary?.map((menuItem, idx) => (
               <AppNavDropDown key={idx} menuItem={menuItem} />
             ))}
-
-            <IconButton onClick={onLanguageMenuToggle} size="small">
-              <GlobeIcon />
-            </IconButton>
-
-            <ModeSwitcher />
           </AppHeaderList>
         </AppHeaderNav>
 
@@ -301,6 +294,12 @@ const AppHeader = React.memo(function AppHeader(props) {
           {t(__translationGroup)`Let's talk!`}
         </AppHeaderSupportButton> */}
 
+        <IconButton onClick={onLanguageMenuToggle} size="small" sx={{ mr: 1 }}>
+          <GlobeIcon />
+        </IconButton>
+
+        <ModeSwitcher />
+
         <IconButton
           className={classes.hiddenOnDesktop}
           onClick={onNavMenuToggle}
@@ -308,7 +307,6 @@ const AppHeader = React.memo(function AppHeader(props) {
           aria-haspopup="true"
           aria-expanded={isNavMenuOpen}
           aria-label={t(__translationGroup)`Toggle main menu`}
-          color="textInverted"
         >
           {isNavMenuOpen ? <CloseIcon /> : <MenuIcon />}
         </IconButton>

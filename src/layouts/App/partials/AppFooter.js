@@ -16,8 +16,8 @@ const BREAKPOINT_KEY = 'md'
 
 const AppFooterRoot = styled('footer')(({ theme }) => ({
   padding: 'var(--cia-section-spacing) var(--cia-container-spacing)',
-  backgroundColor: theme.vars.palette.green[500],
-  color: theme.vars.palette.common.white, // Use `common.white` as color is based on image not theme mode.
+  backgroundColor: theme.vars.palette.background.default,
+  color: theme.vars.palette.text.textInverted,
   overflow: 'hidden',
   flexShrink: 0,
 }))
@@ -97,10 +97,9 @@ const AppFooterNavListItemText = styled(RouterLink)(({ theme }) => ({
 }))
 
 const AppFooterBrandLink = styled(RouterLink)(({ theme }) => ({
-  color: 'white',
   '& > svg': {
     display: 'block',
-    color: 'white',
+
     '& > svg': {
       display: 'block',
       // fontSize: 'calc(var(--cia-toolbar-min-height) * 4)',
@@ -186,7 +185,7 @@ function AppFooter(props) {
                           padding: 4,
                         }}
                       >
-                        <Icon sx={{ color: 'white' }} />
+                        <Icon />
                       </IconButton>
                     )
                   })}

@@ -7,11 +7,11 @@ import { AccordionsBlockQueryResult } from '~/api'
 const BREAKPOINT_KEY = 'md'
 
 const AccordionsRoot = styled('section')(({ theme }) => ({
-  padding: 'var(--cia-section-spacing) var(--cia-container-spacing)',
+  padding: 'calc(var(--cia-section-spacing) * 2) var(--cia-container-spacing)',
 }))
 
 const AccordionsContainer = styled('div')(({ theme }) => ({
-  maxWidth: theme.breakpoints.values.sm,
+  ...theme.mixins.contain('sm'),
 }))
 
 const AccordionsHeading = styled('h1')(({ theme }) => ({
@@ -30,7 +30,7 @@ const AccordionsGroup = styled('div')({
 
 const AccordionsEntryHeading = styled('h2')(({ theme }) => ({
   ...theme.typography.h6,
-  margin: theme.spacing(0, 0, 2),
+  margin: theme.spacing(0, 0, 4),
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
     fontSize: theme.typography.h5.fontSize,
   },

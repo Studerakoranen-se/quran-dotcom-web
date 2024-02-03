@@ -26,7 +26,7 @@ const TranslationViewCellRoot = styled('div')<{ ownerState: { isHighlighted?: bo
     display: 'flex',
     justifyContent: 'space-between',
     gap: theme.spacing(1.5),
-    padding: theme.spacing(3, 0),
+    padding: theme.spacing(3, 2),
     borderBottom: `2px solid ${theme.vars.palette.divider}`,
     flexDirection: 'column',
 
@@ -39,7 +39,7 @@ const TranslationViewCellRoot = styled('div')<{ ownerState: { isHighlighted?: bo
       '--gap-size': 'calc(1.5 * 2rem)',
       gap: theme.spacing(4),
       flexDirection: 'row',
-      padding: theme.spacing(0, 2),
+      padding: 0,
     },
   }),
 )
@@ -181,14 +181,14 @@ function TranslationViewCell(props: TranslationViewCellProps) {
           {/* verseTranslationsContainer */}
           <Box
             sx={{
-              marginBlockEnd: 'calc(1.3 * var(--gap-size))',
+              marginBlockEnd: { md: 'calc(1.3 * var(--gap-size))' },
             }}
           >
             {verse.translations?.map((translation: Translation) => (
               <Box
                 key={translation.id}
                 sx={{
-                  marginBlockEnd: '2rem',
+                  marginBlockEnd: { md: '2rem' },
                 }}
               >
                 <TranslationText

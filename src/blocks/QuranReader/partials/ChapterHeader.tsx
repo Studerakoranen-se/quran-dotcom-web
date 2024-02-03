@@ -100,6 +100,10 @@ function ChapterHeader(props: ChapterHeaderProps) {
             flexDirection: 'column',
             textAlign: 'start',
             justifyContent: 'space-between',
+            paddingTop: {
+              xs: '0.5rem',
+              md: 0,
+            },
           }}
         >
           <Box className="infoContainer">
@@ -146,7 +150,19 @@ function ChapterHeader(props: ChapterHeaderProps) {
             justifyContent: 'space-between',
           }}
         >
-          <Box display="flex" alignItems="center">
+          <Box
+            display="flex"
+            sx={{
+              flexDirection: {
+                xs: 'column',
+                md: 'row',
+              },
+              alignItems: {
+                xs: 'flex-end',
+                md: 'center',
+              },
+            }}
+          >
             <PlayChapterAudioButton chapterId={Number(chapterId)} />
             {translationName && (
               <IconButton

@@ -19,7 +19,6 @@ const classes = generateUtilityClasses('CiaAppMenuDropDownListItemRoot', [
 const AppMenuDropDownListItemRoot = styled('li')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  color: theme.palette.common.white,
   transition: theme.transitions.create(['background-color'], {
     duration: theme.transitions.duration.shortest,
   }),

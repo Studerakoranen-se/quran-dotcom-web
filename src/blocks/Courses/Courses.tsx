@@ -26,7 +26,7 @@ const CoursesRootMain = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   flexGrow: 1,
-  gap: '1.25rem',
+  gap: '5rem',
   justifyContent: 'center',
   alignItems: 'center',
   padding: theme.spacing(2.5, 1.25),
@@ -35,6 +35,7 @@ const CoursesRootMain = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    gap: '1.25rem',
   },
 }))
 

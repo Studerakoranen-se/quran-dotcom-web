@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { styled } from '@mui/material'
+import { alpha, styled } from '@mui/material'
 import { Media, MediaReveal } from '@noaignite/oui'
 import { transformSanityMedia } from '~/api/sanity/utils'
 import { Html } from '~/components'
@@ -46,9 +46,9 @@ const PageHeroMedia = styled(Media)(({ theme }) => ({
     content: '""',
     background: `linear-gradient(
      180.03deg,
-    #043b3b5e 16%,
-    rgb(4 59 60 / 88%) 63.39%,
-    #043b3b 96.17%
+     ${alpha(theme.palette.background.default, 0.2)} 16%,
+    ${alpha(theme.palette.background.default, 0.2)} 63.39%,
+    ${theme.vars.palette.background.default} 96.17%
   )`,
     transition: theme.transitions.create(['opacity'], {
       duration: theme.transitions.duration.complex * 2,
