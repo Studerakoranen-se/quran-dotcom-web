@@ -14,12 +14,10 @@ const HeroRoot = styled('section')(({ theme }) => ({
     minHeight: 650,
   },
 
-  background: `linear-gradient(180deg, ${alpha(theme.palette.background.default, 0.5)} 50%, ${alpha(
-    theme.palette.background.default,
-    0.5,
-  )} 80%, ${alpha(theme.palette.background.default, 0.5)} 100%), url('/assets/bg-arbic.png')`,
+  background: `url('/assets/bg-arbic.png')`,
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
+  backgroundSize: '50%',
 }))
 
 const HeroContainer = styled('div')(({ theme }) => ({
