@@ -27,8 +27,9 @@ const messageFields = {
 }
 
 const transporter = nodemailer.createTransport({
-  // service: 'gmail',
-  host: 'mailout.one.com',
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  // host: 'mailout.one.com',
   port: 465,
   secure: true, // true for 465, false for other ports
   // requireTLS: true,
