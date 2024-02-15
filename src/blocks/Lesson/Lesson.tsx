@@ -10,6 +10,7 @@ import {
   Tabs,
   Typography,
   styled,
+  useMediaQuery,
 } from '@mui/material'
 import { Formit, Form as FormitForm, Field as FormitField } from '@noaignite/formit'
 import { useI18n } from '~/contexts'
@@ -21,8 +22,8 @@ const BREAKPOINT_KEY = 'md'
 
 const CourseRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  background: theme.palette.primary.main,
-  color: theme.palette.common.white,
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.text.primary,
   padding: theme.spacing(20, 2, 10),
 
   [theme.breakpoints.up('md')]: {
@@ -53,10 +54,8 @@ const CourseGrid = styled('div')(({ theme }) => ({
 }))
 
 const CourseLeftItem = styled('div')(({ theme }) => ({
-  paddingTop: '2.5rem',
   paddingBottom: '2.5rem',
   gridColumn: 'span 12 / span 12',
-  color: theme.palette.common.white,
 
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
     gridColumn: 'span 8 / span 8',
@@ -64,16 +63,34 @@ const CourseLeftItem = styled('div')(({ theme }) => ({
 }))
 
 const CourseRightItem = styled('div')(({ theme }) => ({
-  paddingTop: '2.5rem',
+  ...theme.mixins.scrollable,
+  ...theme.mixins.scrollbars,
+  maxHeight: 'calc(100vh - var(--cia-header-height))',
+
+  paddingRight: '1rem',
   paddingBottom: '2.5rem',
   // paddingLeft: '3rem',
-  order: '-9999',
+
   gridColumn: 'span 12 / span 12',
   color: theme.palette.common.white,
 
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-    order: 9999,
     gridColumn: 'span 4 / span 4',
+  },
+}))
+
+const CourseRightItemTabs = styled(Tabs)(({ theme }) => ({
+  ' .MuiTabs-flexContainer': {
+    alignItems: 'flex-start',
+    '& .MuiTab-root': {
+      // ml: 3,
+    },
+  },
+  ' .MuiTabs-indicator': {
+    right: 'unset',
+    width: '100%',
+    backgroundColor: theme.palette.action.disabled,
+    borderRadius: theme.spacing(1),
   },
 }))
 
@@ -121,6 +138,8 @@ function Lesson(props: LessonProps) {
   const { title, description, lessons, renderIndex = 0 } = props
 
   const { t } = useI18n()
+  // @ts-ignore
+  const isBreakpointUp = useMediaQuery((theme) => theme.breakpoints.up('md'))
 
   const [status, setStatus] = React.useState('')
   const [view, setView] = React.useState<number>(0)
@@ -128,12 +147,55 @@ function Lesson(props: LessonProps) {
 
   const tabs = React.useMemo(
     () => [
-      { title: 'About', value: 0 },
-      { title: 'Resources', value: 1 },
-      { title: 'Quiz', value: 2 },
+      { title: 'Lessons', value: 0, isHidden: !isBreakpointUp },
+      { title: 'About', value: 1, isHidden: true },
+      { title: 'Resources', value: 2, isHidden: true },
+      { title: 'Quiz', value: 3, isHidden: true },
     ],
-    [],
+    [isBreakpointUp],
   )
+
+  const renderLessons = React.useMemo(() => {
+    return lessons.map((lesson, idx) => {
+      return (
+        <Tab
+          key={idx}
+          label={
+            <React.Fragment>
+              <span style={{ flex: 2, textAlign: 'left' }}>{`${idx + 1} . ${lesson.title}`}</span>
+              <span>{lessons[activeLesson]?.duration}</span>
+            </React.Fragment>
+          }
+          id={`active-lesson-tab-${idx}`}
+          value={idx}
+          iconPosition="start"
+          // icon={
+          //   <Box width={30} height={30}>
+          //     <PlayIcon
+          //       fontSize="large"
+          //       sx={{
+          //         transition: (theme) =>
+          //           theme.transitions.create(['all'], {
+          //             duration: theme.transitions.duration.short, // Same as MuiButton.
+          //           }),
+          //         opacity: activeLesson === idx ? 1 : 0,
+          //         // color: (theme) => theme.palette.common.white,
+          //       }}
+          //     />
+          //   </Box>
+          // }
+          sx={{
+            justifyContent: 'space-between',
+            width: '100%',
+            minHeight: '60px',
+            m: 0,
+            px: 2,
+          }}
+        />
+      )
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeLesson])
 
   const onTabSelected = (event: React.SyntheticEvent, newView) => {
     setView(newView)
@@ -141,15 +203,6 @@ function Lesson(props: LessonProps) {
 
   const onActiveLessonTabSelected = (event: React.SyntheticEvent, newView) => {
     setActiveLesson(newView)
-  }
-
-  const checkElapsedTime = (e) => {
-    const duration = e.target.getDuration()
-    const currentTime = e.target.getCurrentTime()
-
-    if (currentTime / duration > 0.95) {
-      // setModalIsOpen(true)
-    }
   }
 
   const handleSubmit = React.useCallback(
@@ -212,34 +265,36 @@ function Lesson(props: LessonProps) {
             )}
 
             {lessons?.[activeLesson].youtubeVideo && (
-              <RumblePlayer
-                src={lessons?.[activeLesson].youtubeVideo}
-                // It feels slightly anti-climatic to see that now but we're done.
-                // onStateChange={(e) => checkElapsedTime(e)}
-              />
+              <RumblePlayer src={lessons?.[activeLesson].youtubeVideo} />
             )}
 
-            <Box sx={{ borderBottom: 2, borderColor: 'rgba(54, 95, 95, 0.5)', mt: 3 }}>
-              <Tabs
-                value={view}
-                onChange={onTabSelected}
-                aria-label="Course Tabs"
-                sx={{
-                  ' .MuiTabs-indicator': {
-                    backgroundColor: '#679898',
-                    height: '3px',
-                  },
-                }}
-              >
-                {tabs?.map((tab, idx) => (
-                  <Tab key={idx} label={tab.title} id={`course-tab-${idx}`} value={tab.value} />
-                ))}
+            <Box sx={{ borderBottom: 1, borderColor: 'text.secondary', mt: 3 }}>
+              <Tabs value={view} onChange={onTabSelected} aria-label="Course Tabs">
+                {tabs?.map((tab, idx) => {
+                  if (!tab.isHidden) return null
+                  return (
+                    <Tab key={idx} label={tab.title} id={`course-tab-${idx}`} value={tab.value} />
+                  )
+                })}
               </Tabs>
             </Box>
 
             {lessons?.length > 0 && (
               <React.Fragment>
-                <CustomTabPanel value={view} index={0}>
+                {!isBreakpointUp && (
+                  <CustomTabPanel value={view} index={0}>
+                    <CourseRightItemTabs
+                      sx={{ mt: 2 }}
+                      orientation="vertical"
+                      value={activeLesson}
+                      onChange={onActiveLessonTabSelected}
+                      aria-label="Lessons"
+                    >
+                      {renderLessons}
+                    </CourseRightItemTabs>
+                  </CustomTabPanel>
+                )}
+                <CustomTabPanel value={view} index={1}>
                   <Html
                     sx={{
                       mt: 2,
@@ -248,7 +303,7 @@ function Lesson(props: LessonProps) {
                   />
                 </CustomTabPanel>
 
-                <CustomTabPanel value={view} index={1}>
+                <CustomTabPanel value={view} index={2}>
                   <Typography variant="subtitle1" sx={{ mt: 2.5, mb: 2 }}>
                     Course Summary
                   </Typography>
@@ -282,8 +337,6 @@ function Lesson(props: LessonProps) {
                       {lessons[activeLesson]?.resources?.map((file: any, i: number) => (
                         <Button
                           variant="contained"
-                          // @ts-ignore
-                          color="textInverted"
                           sx={{ backgroundColor: 'rgb(255 255 255 / 22%)', color: 'white' }}
                         >
                           <span style={{ flex: 2, textAlign: 'left' }}>
@@ -295,7 +348,7 @@ function Lesson(props: LessonProps) {
                   </Box>
                 </CustomTabPanel>
 
-                <CustomTabPanel value={view} index={2}>
+                <CustomTabPanel value={view} index={3}>
                   <Typography variant="subtitle1" sx={{ mt: 2.5, mb: 2 }}>
                     Quiz
                   </Typography>
@@ -333,13 +386,7 @@ function Lesson(props: LessonProps) {
                                   {question?.answers?.map((option, idx2) => (
                                     <FormControlLabel
                                       key={idx2}
-                                      control={
-                                        <Radio
-                                          sx={{
-                                            color: 'white',
-                                          }}
-                                        />
-                                      }
+                                      control={<Radio />}
                                       label={<SanityHtml blocks={option.answer} />}
                                       value={option.answer[0]?.children[0]?.text}
                                       sx={(theme) => ({
@@ -353,13 +400,9 @@ function Lesson(props: LessonProps) {
                               </Box>
                             ))
                           )}
+
                           {/* @ts-ignore */}
-                          <FormitButton
-                            variant="contained"
-                            type="submit"
-                            fullWidth
-                            color="textInverted"
-                          >
+                          <FormitButton variant="contained" type="submit" fullWidth>
                             {t(__translationGroup)`Send`}
                           </FormitButton>
                         </FormFormitForm>
@@ -371,69 +414,18 @@ function Lesson(props: LessonProps) {
             )}
           </CourseLeftItem>
 
-          <CourseRightItem>
-            <Tabs
-              orientation="vertical"
-              value={activeLesson}
-              onChange={onActiveLessonTabSelected}
-              aria-label="Lessons"
-              sx={{
-                ' .MuiTabs-flexContainer': {
-                  alignItems: 'flex-start',
-                  '& .MuiTab-root': {
-                    // ml: 3,
-                  },
-                },
-                ' .MuiTabs-indicator': {
-                  right: 'unset',
-                  width: '100%',
-                  backgroundColor: 'rgb(255 255 255 / 22%)',
-                  borderRadius: (theme) => theme.spacing(1),
-                },
-              }}
-            >
-              {lessons?.map((tab, idx) => (
-                <Tab
-                  key={idx}
-                  label={
-                    <React.Fragment>
-                      <span style={{ flex: 2, textAlign: 'left' }}>{`${idx + 1} . ${
-                        tab.title
-                      }`}</span>
-                      <span>{lessons[activeLesson]?.duration}</span>
-                    </React.Fragment>
-                  }
-                  id={`active-lesson-tab-${idx}`}
-                  value={idx}
-                  iconPosition="start"
-                  icon={
-                    <Box width={30} height={30}>
-                      <PlayIcon
-                        fontSize="large"
-                        sx={{
-                          transition: (theme) =>
-                            theme.transitions.create(['all'], {
-                              duration: theme.transitions.duration.short, // Same as MuiButton.
-                            }),
-                          opacity: activeLesson === idx ? 1 : 0,
-                          color: (theme) => theme.palette.common.white,
-                        }}
-                      />
-                    </Box>
-                  }
-                  sx={{
-                    justifyContent: 'space-between',
-                    width: '100%',
-                    minHeight: '60px',
-                    m: 0,
-                    // p: 2,
-                    pr: 1,
-                    color: (theme) => `${theme.palette.common.white} !important`,
-                  }}
-                />
-              ))}
-            </Tabs>
-          </CourseRightItem>
+          {isBreakpointUp && (
+            <CourseRightItem>
+              <CourseRightItemTabs
+                orientation="vertical"
+                value={activeLesson}
+                onChange={onActiveLessonTabSelected}
+                aria-label="Lessons"
+              >
+                {renderLessons}
+              </CourseRightItemTabs>
+            </CourseRightItem>
+          )}
         </CourseGrid>
       </CourseMain>
     </CourseRoot>
