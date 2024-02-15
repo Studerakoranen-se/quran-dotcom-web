@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Action } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { ListItemText, MenuItem, MenuList, SvgIcon } from '@mui/material'
 import { selectIsUsingDefaultSettings } from '~/store/slices/defaultSettings'
 import resetSettings from '~/store/actions/reset-settings'
@@ -14,13 +14,15 @@ import useRemoveQueryParam from '~/hooks/useRemoveQueryParam'
 import { setLocaleCookie } from '~/utils/cookies'
 import usePersistPreferenceGroup from '~/hooks/auth/usePersistPreferenceGroup'
 import PreferenceGroup from '~/types/auth/PreferenceGroup'
-import QueryParam from '~/types/QueryParam'
+// import QueryParam from '~/types/QueryParam'
+import { useGlobalHandlers } from '~/contexts'
 import { i18n } from '@/locales'
 
 const LanguageSelector = React.forwardRef(function LanguageSelector(props) {
   const router = useRouter()
   const dispatch = useDispatch()
-
+  // @ts-ignore
+  const { onLanguageMenuClose } = useGlobalHandlers()
   const {
     actions: { onSettingsChange },
     isLoading,
@@ -88,22 +90,25 @@ const LanguageSelector = React.forwardRef(function LanguageSelector(props) {
       setSelectedTranslations({ translations: selectedTranslations, locale }),
     )
 
-    if (nextTranslations.length && locale !== 'sv') {
-      router.query[QueryParam.Translations] = nextTranslations.join(',')
-      router.push(router, undefined, { shallow: true, locale })
-    } else {
-      removeQueryParam(QueryParam.Translations)
-      await Router.push(
-        {
-          pathname: Router.pathname,
-          query: Router.query,
-        },
-        Router.asPath,
-        { locale, scroll: true },
-      )
-    }
+    router?.push(router, undefined, { locale, scroll: true })
+
+    // if (nextTranslations.length && locale !== 'sv') {
+    //   // router.query[QueryParam.Translations] = nextTranslations.join(',')
+    //   router.push(router, undefined, { shallow: true, locale })
+    // } else {
+    //   removeQueryParam(QueryParam.Translations)
+    //   await Router.push(
+    //     {
+    //       pathname: Router.pathname,
+    //       query: Router.query,
+    //     },
+    //     Router.asPath,
+    //     { locale, scroll: true },
+    //   )
+    // }
 
     setLocaleCookie(locale)
+    onLanguageMenuClose()
   }
 
   return (

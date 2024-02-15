@@ -66,6 +66,7 @@ function GlobalProvider(props) {
   const onNavMenuToggle = React.useCallback(() => {
     setNavMenuOpen((prev) => !prev)
     setSearchMenuOpen(false)
+    setLanguageMenuOpen(false)
   }, [])
 
   const onNavMenuClose = React.useCallback(() => {
@@ -83,6 +84,7 @@ function GlobalProvider(props) {
 
   const onLanguageMenuToggle = React.useCallback(() => {
     setLanguageMenuOpen((prev) => !prev)
+    setNavMenuOpen(false)
   }, [])
 
   const onLanguageMenuClose = React.useCallback(() => {
