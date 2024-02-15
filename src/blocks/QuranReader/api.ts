@@ -58,7 +58,7 @@ export const getTranslationViewRequestKey = ({
   // if the response has only 1 verse it means we should set the page to that verse this will be combined with perPage which will be set to only 1.
   const page = isVerseData ? initialData.verses[0].verseNumber : pageNumber
   if (quranReaderDataType === QuranReaderDataType.Juz) {
-    return makeJuzVersesUrl(id, locale, {
+    return makeJuzVersesUrl(id, wordByWordLocale, {
       wordTranslationLanguage: wordByWordLocale,
       page,
       reciter,
@@ -69,7 +69,7 @@ export const getTranslationViewRequestKey = ({
     })
   }
   if (quranReaderDataType === QuranReaderDataType.Hizb) {
-    return makeHizbVersesUrl(id, locale, {
+    return makeHizbVersesUrl(id, wordByWordLocale, {
       wordTranslationLanguage: wordByWordLocale,
       page,
       reciter,
@@ -80,7 +80,7 @@ export const getTranslationViewRequestKey = ({
     })
   }
   if (quranReaderDataType === QuranReaderDataType.Page) {
-    return makePageVersesUrl(id, locale, {
+    return makePageVersesUrl(id, wordByWordLocale, {
       wordTranslationLanguage: wordByWordLocale,
       page,
       reciter,
@@ -91,7 +91,7 @@ export const getTranslationViewRequestKey = ({
     })
   }
   if (quranReaderDataType === QuranReaderDataType.Rub) {
-    return makeRubVersesUrl(id, locale, {
+    return makeRubVersesUrl(id, wordByWordLocale, {
       wordTranslationLanguage: wordByWordLocale,
       reciter,
       page,
@@ -104,7 +104,7 @@ export const getTranslationViewRequestKey = ({
     })
   }
   if (quranReaderDataType === QuranReaderDataType.VerseRange) {
-    return makeVersesUrl(id, locale, {
+    return makeVersesUrl(id, wordByWordLocale, {
       wordTranslationLanguage: wordByWordLocale,
       reciter,
       page,
@@ -117,7 +117,7 @@ export const getTranslationViewRequestKey = ({
     })
   }
 
-  return makeVersesUrl(id, locale, {
+  return makeVersesUrl(id, wordByWordLocale, {
     wordTranslationLanguage: wordByWordLocale,
     reciter,
     page,
@@ -136,7 +136,7 @@ export const getReaderViewRequestKey = ({
   wordByWordLocale,
   pageVersesRange,
 }: ReadingViewRequestKeyInput): string => {
-  return makePageVersesUrl(pageNumber, locale, {
+  return makePageVersesUrl(pageNumber, wordByWordLocale, {
     ...getDefaultWordFields(quranReaderStyles.quranFont),
     ...getMushafId(quranReaderStyles.quranFont, quranReaderStyles.mushafLines),
     reciter,

@@ -1,17 +1,13 @@
 import * as React from 'react'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { IconButton, styled } from '@mui/material'
-import {
-  selectIsSidebarNavigationVisible,
-  setIsVisible,
-} from '~/store/slices/QuranReader/sidebarNavigation'
+import { shallowEqual, useSelector } from 'react-redux'
+import { styled } from '@mui/material'
+import { selectIsSidebarNavigationVisible } from '~/store/slices/QuranReader/sidebarNavigation'
 import { selectReadingPreference } from '~/store/slices/QuranReader/readingPreferences'
 import { selectQuranReaderStyles } from '~/store/slices/QuranReader/styles'
 import { QuranReaderDataType, ReadingPreference } from '~/types/QuranReader'
 import { ChapterInfoResponse, ChapterResponse, VersesResponse } from '~/types/ApiResponses'
 // import { addToHistory, updateVerseCount } from '~/store/historySlice'
 import { VerseTrackerContextProvider } from '~/contexts/VerseTrackerContext'
-import { FilterIcon } from '~/components'
 import QuranReaderDrawer from './partials/QuranReaderDrawer'
 import QuranReaderView from './partials/QuranReaderView'
 import QuranReaderInfoDrawer from './partials/QuranReaderInfoDrawer'
@@ -115,8 +111,6 @@ function QuranReader(props: QuranReaderProps) {
   const readingPreference = useSelector(selectReadingPreference) as ReadingPreference
   const isReadingPreference = readingPreference === ReadingPreference.Reading
 
-  const dispatch = useDispatch()
-
   return (
     <React.Fragment>
       <QuranReaderRoot
@@ -124,29 +118,6 @@ function QuranReader(props: QuranReaderProps) {
           withSidebarNavigationOpenOrAuto: isSidebarNavigationVisible,
         }}
       >
-        <QuranReaderRootMain>
-          <QuranReaderStickyFilter ownerState={{ enableShadow: false, isHeaderStikcy: true }}>
-            <QuranReaderGridActionsButtons>
-              <IconButton
-                onClick={() => {
-                  dispatch(setIsVisible(true))
-                }}
-                sx={{
-                  border: (th) => `1px solid ${th.vars.palette.divider}`,
-                  color: (th) =>
-                    th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4',
-                  borderRadius: 1,
-                  p: 0.5,
-                  visibility: isSidebarNavigationVisible === true ? 'hidden' : 'visibile',
-                }}
-                aria-label={`Toggle Surah Drawer`}
-                size="small"
-              >
-                <FilterIcon fontSize="small" />
-              </IconButton>
-            </QuranReaderGridActionsButtons>
-          </QuranReaderStickyFilter>
-        </QuranReaderRootMain>
         <QuranReaderRootInfiniteScroll
           ownerState={{
             readingView: isReadingPreference,

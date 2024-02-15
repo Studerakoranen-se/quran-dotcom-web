@@ -11,11 +11,11 @@ import TranslationViewCellSkeleton from './TranslationViewCellSkeleton'
 
 const TranslationViewVerseContainer = styled('div')(({ theme }) => ({
   maxWidth: '100%',
-  marginInlineStart: 'auto',
-  marginInlineEnd: 'auto',
-  [theme.breakpoints.up('lg')]: {
-    maxWidth: '80%',
-  },
+  // marginInlineStart: 'auto',
+  // marginInlineEnd: 'auto',
+  // [theme.breakpoints.up('lg')]: {
+  //   maxWidth: '80%',
+  // },
 }))
 type TranslationViewVerseProps = {
   locale: string

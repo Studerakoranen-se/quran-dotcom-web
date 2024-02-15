@@ -238,8 +238,8 @@ const TranslationText: React.FC<Props> = ({
 
           sx={{
             marginBlockStart: 'calc(0.5 * 0.375rem)',
-            color: '#666',
-            fontSize: '0.75rem',
+            color: (theme) => theme.palette.text.secondary,
+            fontSize: (theme) => theme.typography.body2.fontSize,
 
             ...(langData.direction === 'rtl' && {
               direction: 'rtl',

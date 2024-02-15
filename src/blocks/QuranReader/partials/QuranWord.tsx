@@ -89,7 +89,7 @@ const QuranWordItem = styled(ButtonBase)<{
   ...theme.typography.body1,
   fontFamily: 'Scheherazade',
   fontSize: theme.typography.pxToRem(24),
-  fontWeight: theme.typography.fontWeightBold,
+  // fontWeight: theme.typography.fontWeightBold,
   color: theme.vars.palette.text.primary,
 
   ...(ownerState?.isRecitationEnabled && {
@@ -132,7 +132,7 @@ const QuranWordItem = styled(ButtonBase)<{
   }),
 
   [theme.breakpoints.up('md')]: {
-    fontSize: theme.typography.pxToRem(32),
+    fontSize: theme.typography.pxToRem(34),
   },
 
   // [`${QuranReaderVerseItem}:hover &`]: {
