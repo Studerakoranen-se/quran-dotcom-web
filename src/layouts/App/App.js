@@ -1,9 +1,13 @@
 import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { styled } from '@mui/material'
+import { SettingsView, selectNavbar } from '~/store/slices/navbar'
 import { SITE_FOOTER_ID, SITE_HEADER_ID, SITE_MAIN_ID } from '~/utils/constants'
+import TranslationSelectionBody from '~/components/TranslationSelectionBody'
 import AppBase from '../AppBase'
-import { AppFooter, AppHeader, AppNavDrawer, AppSearchDrawer } from './partials'
+import { AppFooter, AppHeader, AppNavDrawer, AppSearchDrawer, AppSettingsDrawer } from './partials'
+import { DrawerType } from './partials/AppSettingsDrawer'
 
 const AppMain = styled('main')({
   flexGrow: 1,
@@ -12,6 +16,13 @@ const AppMain = styled('main')({
 
 function App(props) {
   const { children, headerColor, headerMode } = props
+
+  // const dispatch = useDispatch()
+  // const { isSettingsDrawerOpen, settingsView } = useSelector(selectNavbar)
+
+  // let header
+
+  // if (settingsView === SettingsView.Translation) header = <div>Translations</div>
 
   return (
     <AppBase>
@@ -25,6 +36,11 @@ function App(props) {
 
       <AppNavDrawer />
       <AppSearchDrawer />
+      {/* <AppSettingsDrawer type={DrawerType.Settings} header={header} closeOnNavigation={false}>
+        {isSettingsDrawerOpen && settingsView === SettingsView.Translation && (
+          <TranslationSelectionBody />
+        )}
+      </AppSettingsDrawer> */}
     </AppBase>
   )
 }

@@ -17,7 +17,7 @@ const AppNavDrawerRoot = styled(Drawer)(({ theme }) => ({
     width: 500, // By design.
     height: 'calc(100% - var(--drawer-top))',
     padding: 'var(--cia-section-spacing) 0',
-    backgroundColor: theme.vars.palette.primary.main,
+    backgroundColor: theme.vars.palette.background.default,
   },
 }))
 
@@ -28,7 +28,7 @@ const AppNavDrawerScrollContainer = styled('div')(({ theme }) => ({
   flexDirection: 'inherit',
   flexGrow: 1,
   padding: theme.spacing(0, 2),
-  backgroundColor: theme.vars.palette.primary.main,
+  backgroundColor: theme.vars.palette.background.default,
 }))
 
 const AppNavDrawerList = styled('ul')(({ theme }) => ({

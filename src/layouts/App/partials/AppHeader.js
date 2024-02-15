@@ -110,7 +110,7 @@ const LanguageSelectorRoot = styled(LanguageSelector)(({ theme }) => ({
   ...theme.mixins.scrollable,
   ...theme.mixins.scrollbars,
   maxHeight: 'calc(100vh - var(--cia-header-height) - var(--cia-toolbar-spacing) * 2)',
-  margin: 'var(--cia-toolbar-spacing)',
+  marginTop: 'var(--cia-toolbar-spacing)',
   backgroundColor: theme.palette.common.white,
   color: theme.palette.common.black,
   boxShadow: '0px 7px 11px 0px rgb(0 29 29 / 12%)',
@@ -124,11 +124,7 @@ const LanguageSelectorNav = styled('nav')(({ theme }) => ({
   position: 'fixed',
   zIndex: theme.zIndex.appBar,
   top: 'calc(var(--cia-header-height) - 30px)',
-  right: 0,
-  width: '10%',
-  [theme.breakpoints.down('sm')]: {
-    display: 'none',
-  },
+  right: 'var(--cia-section-spacing)',
 }))
 
 const AppHeader = React.memo(function AppHeader(props) {
