@@ -31,7 +31,7 @@ const CourseHeroContainer = styled('div')(({ theme }) => ({
   justifyItems: 'center',
   alignItems: 'center',
   zIndex: 1,
-  padding: 'calc(var(--cia-section-spacing) * 2) 0  var(--cia-section-spacing)',
+  paddingBottom: 'calc(var(--cia-section-spacing) * 2)',
   [theme.breakpoints.up('md')]: {
     gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
     gap: theme.spacing(12),
@@ -44,23 +44,22 @@ const CourseHeroContainer = styled('div')(({ theme }) => ({
 
 const CourseHeroContent = styled('div')(({ theme }) => ({
   ...theme.mixins.verticalRhythm(3),
-  // [theme.breakpoints.up('md')]: {
-  //   maxWidth: '100%',
-  //   width: 'max(340px, 41.55vw)',
-  // },
+
+  marginTop: theme.spacing(6),
+  [theme.breakpoints.up('md')]: {
+    marginTop: 0,
+  },
 }))
 
 const CourseHeroMediaReveal = styled(MediaReveal)<{ ownerState: { layoutReverse?: boolean } }>(
   ({ theme, ownerState }) => ({
-    ...(ownerState?.layoutReverse && {
-      order: -1,
-    }),
-
-    [theme.breakpoints.down('md')]: {
-      position: 'absolute',
-      top: theme.spacing(8),
-      left: 0,
-      opacity: 0.1,
+    order: -1,
+    paddingTop: 60,
+    [theme.breakpoints.up('md')]: {
+      paddingTop: 0,
+      ...(ownerState?.layoutReverse && {
+        order: -1,
+      }),
     },
   }),
 )
@@ -72,11 +71,12 @@ const CourseHeroBackground = styled('div')(({ theme }) => ({
     height: '100%',
   },
   background: `url('/assets/quran-bkg.png')`,
-  backgroundSize: '500px',
+  backgroundSize: '400px',
   backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center',
+  backgroundPosition: 'center 10%',
 
   [theme.breakpoints.up('md')]: {
+    backgroundPosition: 'center',
     backgroundSize: '800px',
   },
 }))

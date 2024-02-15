@@ -9,7 +9,7 @@ import red from '../colors/red'
 
 export const darkText = {
   // The most important text.
-  primary: common.black,
+  primary: green[500],
   // Secondary text.
   secondary: alpha(common.black, 0.65),
   // Disabled text have even lower visual prominence.
@@ -56,7 +56,7 @@ export const light = {
     selected: alpha(common.black, 0.08),
     selectedOpacity: 0.08,
     // The color of a disabled action.
-    disabled: alpha(common.black, 0.26),
+    disabled: alpha(green[200], 0.3),
     // The background color of a disabled action.
     disabledBackground: alpha(common.black, 0.12),
     disabledOpacity: 0.38,
@@ -80,7 +80,7 @@ export const dark = {
     hoverOpacity: 0.08,
     selected: alpha(common.white, 0.16),
     selectedOpacity: 0.16,
-    disabled: alpha(common.white, 0.3),
+    disabled: alpha(green[300], 0.3),
     disabledBackground: alpha(common.white, 0.12),
     disabledOpacity: 0.38,
     focus: alpha(common.white, 0.12),
