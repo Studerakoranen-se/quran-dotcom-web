@@ -5,7 +5,7 @@ export default createSvgIcon(
   <React.Fragment>
     <path
       fill="none"
-      stroke="#fff"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="1.5"
@@ -13,7 +13,7 @@ export default createSvgIcon(
     />
     <path
       fill="none"
-      stroke="#fff"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="1.5"

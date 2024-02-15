@@ -5,20 +5,20 @@ const overrides = {
       minHeight: theme.spacing(5),
       marginRight: theme.spacing(5),
       minWidth: `60px !important`,
-      color: theme.palette.inverted.text.primary,
+      color: theme.palette.text.primary,
       opacity: 0.5,
       textTransform: 'none',
 
       '&:hover': {
-        color: theme.palette.inverted.text.primary,
+        color: theme.palette.text.primary,
         opacity: 1,
       },
       '&.Mui-selected': {
-        color: theme.palette.inverted.text.main,
+        color: theme.palette.text.main,
         opacity: 1,
       },
       '&:focus': {
-        color: theme.palette.inverted.text.primary,
+        color: theme.palette.text.primary,
       },
     }),
   },
