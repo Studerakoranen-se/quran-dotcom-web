@@ -14,7 +14,7 @@ import { useTheme } from '@mui/material/styles'
 import { Formit, Form as FormitForm, Field as FormitField } from '@noaignite/formit'
 import { useI18n, useRemoteConfig } from '~/contexts'
 import { FormitButton, FormitTextField, SanityHtml } from '~/containers'
-import { getAge } from '~/utils'
+
 // import { gtmEvent } from '~/utils'
 
 const FormRoot = styled('section')({
@@ -55,7 +55,6 @@ const FormFields = styled('div')<{ ownerState: { gridLayout?: boolean } }>(
   ({ theme, ownerState }) => ({
     display: 'grid',
     gridGap: theme.spacing(3),
-    // gridTemplateColumns: 'repeat(3, 1fr)',
 
     [theme.breakpoints.up('md')]: {
       ...(!ownerState?.gridLayout && {
@@ -177,44 +176,14 @@ function Form(props: FormProps) {
       }
       /* [End] If one of the fake fields are filled then the form will not be submitted */
 
-      const subject = 'Subject: Application for Tutor'
-      const txt = `Dear ${
-        //  tutor?.fullname
-        values?.fullname
-      },\r\n\r\nI hope this email finds you well. My name is ${`${values.firstName} ${values.lastName}`} and I am a student seeking a tutor to help me with my studies.\r\n\r\nAfter careful consideration and research, I came across your profile and I was impressed with your qualifications and experience in the field of teaching. I am interested in working with you as my tutor.\r\n\r\nA little about myself, I am a ${getAge(
-        values.age,
-      )} years old ${values.gender} student currently pursuing ${
-        values.studyLevel
-      }. I am passionate about learning and I am seeking a tutor who can guide me in my academic journey and help me reach my full potential.\r\n\r\nI believe that your expertise and teaching style will be a perfect fit for my learning needs. I am confident that with your guidance, I will be able to achieve my academic goals.\r\n\r\nPlease let me know if you are available to take me on as a student and what your availability and rates are. I am looking forward to hearing from you soon.\r\n\r\nThank you for considering my application.\r\n\r\nSincerely,\r\n\r\n${`${values.firstName} ${values.lastName}`}\r\n${
-        values.email
-      }\r\n${values.phone}`
-
       const formValues = {
         id,
         ...values,
-        subject,
-        // txt,
-        // ...(endpointProp.includes('/api/mail') && {
-        // subject,
-        // txt,
-        // }),
       }
 
       const method = fetchOptionsProp?.method || 'POST'
-      // const endpoint =
-      //   method === 'GET'
-      //     ? new URL(`${endpointProp}?${urlSearchParams.toString()}`)
-      //     : new URL(endpointProp)
-
-      // const fetchOptions = {
-      //   body: method === 'POST' ? urlSearchParams : undefined,
-      //   method,
-      //   ...fetchOptionsProp,
-      // }
 
       try {
-        // const response = await sendMail(method, formValues)
-
         const response = await fetch(endpointProp, {
           method,
           credentials: 'include',
@@ -224,16 +193,6 @@ function Form(props: FormProps) {
           if (!res.ok) throw new Error('Failed to send')
           return res.json()
         })
-
-        // const response = await fetch(endpoint, fetchOptions)
-        // console.log({ response })
-        // if (response.ok) {
-        //   gtmEvent({
-        //     event: 'form_submit',
-        //     parameter1: id,
-        //     parameter2: heading,
-        //   })
-        // }
 
         setStatus(response.success ? 'success' : 'error')
       } catch (err) {
@@ -423,12 +382,6 @@ function Form(props: FormProps) {
                 {/* @ts-ignore */}
                 <FormitButton
                   variant="contained"
-                  color={
-                    muiTheme.palette.mode === 'light'
-                      ? 'primary'
-                      : // @ts-ignore
-                        muiTheme.palette.inverted.primary
-                  }
                   type="submit"
                   sx={{ width: !gridLayout ? 200 : undefined }}
                   {...(gridLayout && { fullWidth: true })}
