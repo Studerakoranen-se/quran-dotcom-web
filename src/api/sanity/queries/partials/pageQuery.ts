@@ -12,6 +12,8 @@ export interface PageQueryResult
 export default `
   title,
   headerMode,
+  headerColor,
+  headerColorDark,
   'uri': uri.current,
   'blocks': blocks[]{${blocksQuery}},
   defined(seo) => { seo {
