@@ -15,7 +15,7 @@ const AppMain = styled('main')({
 })
 
 function App(props) {
-  const { children, headerColor, headerMode } = props
+  const { children, headerColor, headerColorDark, headerMode } = props
 
   // const dispatch = useDispatch()
   // const { isSettingsDrawerOpen, settingsView } = useSelector(selectNavbar)
@@ -26,7 +26,12 @@ function App(props) {
 
   return (
     <AppBase>
-      <AppHeader id={SITE_HEADER_ID} headerColor={headerColor} headerMode={headerMode} />
+      <AppHeader
+        id={SITE_HEADER_ID}
+        headerColor={headerColor}
+        headerMode={headerMode}
+        headerColorDark={headerColorDark}
+      />
 
       <AppMain id={SITE_MAIN_ID} role="main" tabIndex="-1">
         {children}
@@ -48,6 +53,7 @@ function App(props) {
 App.propTypes = {
   children: PropTypes.node.isRequired,
   headerColor: PropTypes.string,
+  headerColorDark: PropTypes.string,
   headerMode: PropTypes.string,
 }
 

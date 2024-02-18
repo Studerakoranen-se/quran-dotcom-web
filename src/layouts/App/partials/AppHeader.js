@@ -29,19 +29,26 @@ const classes = generateUtilityClasses('CiaAppHeader', [
 ])
 
 const AppHeaderRoot = styled(AppBar)(({ theme, ownerState }) => ({
+  color: theme.palette.mode === 'light' ? ownerState.headerColorDark : ownerState.headerColor,
   ...(ownerState.headerMode === 'transparent' && {
     '@media (hover: hover)': {
       '&:not(:hover):not(:focus-within)': {
         backgroundColor: 'transparent',
-        color: ownerState.headerColor,
+        color: theme.palette.mode === 'light' ? ownerState.headerColorDark : ownerState.headerColor,
       },
 
       '&:hover': {
         backgroundColor: 'transparent',
-        color: ownerState.headerColor,
+        color: theme.palette.mode === 'light' ? ownerState.headerColorDark : ownerState.headerColor,
       },
     },
   }),
+
+  ...(ownerState.headerMode !== 'transparent' &&
+    theme.palette.mode === 'light' && {
+      // backgroundColor: 'transparent',
+      color: theme.vars.palette.text.primary,
+    }),
   // Util classes
   [`& .${classes.toolbarPushStart}`]: { marginLeft: 'auto' },
   [`& .${classes.toolbarEdgeEnd}`]: { marginRight: -3 },
@@ -58,7 +65,7 @@ const AppHeaderToolbar = styled('div')(({ theme }) => ({
   alignItems: 'center',
   height: 'calc(30px + var(--cia-header-toolbar-primary-height))',
   padding: '0 var(--cia-container-spacing)',
-  color: theme.palette.text.textInverted,
+  color: theme.vars.palette.text.textInverted,
 }))
 
 const AppHeaderBrandLink = styled(RouterLink)(({ theme, ownerState }) => ({
@@ -111,8 +118,8 @@ const LanguageSelectorRoot = styled(LanguageSelector)(({ theme }) => ({
   ...theme.mixins.scrollbars,
   maxHeight: 'calc(100vh - var(--cia-header-height) - var(--cia-toolbar-spacing) * 2)',
   marginTop: 'var(--cia-toolbar-spacing)',
-  backgroundColor: theme.palette.common.white,
-  color: theme.palette.common.black,
+  backgroundColor: theme.vars.palette.common.white,
+  color: theme.vars.palette.common.black,
   boxShadow: '0px 7px 11px 0px rgb(0 29 29 / 12%)',
   borderRadius: 0,
   '&:focus': {
@@ -130,6 +137,7 @@ const LanguageSelectorNav = styled('nav')(({ theme }) => ({
 const AppHeader = React.memo(function AppHeader(props) {
   const {
     headerColor = 'inherit',
+    headerColorDark = '#033535',
     headerMode: headerModeProp = 'opaque',
     isNavMenuOpen,
     isSomeMenuOpen,
@@ -161,21 +169,6 @@ const AppHeader = React.memo(function AppHeader(props) {
   const syncDisableTransparency = React.useCallback(() => {
     setDisableTransparency(window.pageYOffset > 100)
   }, [])
-
-  // const handleLanguageChange = React.useCallback(
-  //   async (event) => {
-  //     const locale = event.target.value || router.defaultLocale
-
-  //     if (router?.asPath.includes('surah')) {
-  //       window.location.href = decodeURIComponent(
-  //         locale === 'sv' ? router?.asPath : `/${locale}/${router?.asPath}}`,
-  //       )
-  //     } else {
-  //       router?.push(router.asPath, router.asPath, { locale })
-  //     }
-  //   },
-  //   [router],
-  // )
 
   React.useEffect(() => {
     syncDisableTransparency()
@@ -210,6 +203,7 @@ const AppHeader = React.memo(function AppHeader(props) {
 
   const ownerState = {
     headerColor,
+    headerColorDark,
     headerMode: computedHeaderMode,
   }
 
@@ -276,25 +270,23 @@ const AppHeader = React.memo(function AppHeader(props) {
           </AppHeaderCtaButton>
         )}
 
-        {/* <AppHeaderSupportButton
-          onClick={onSupportDialogOpen}
-          size="medium"
-          // startIcon={
-          //   isSupportChatOnline && (
-          //     <OnlineIcon style={{ width: 20, height: 20, margin: '-10px 0' }} />
-          //   )
-          // }
-          variant="contained"
-          color="textInverted"
-        >
-          {t(__translationGroup)`Let's talk!`}
-        </AppHeaderSupportButton> */}
-
         <IconButton onClick={onLanguageMenuToggle} size="small" sx={{ mr: 1 }}>
-          <GlobeIcon />
+          <GlobeIcon
+            sx={(theme) => ({
+              color: theme.palette.mode === 'light' ? headerColorDark : headerColor,
+              ...(ownerState.headerMode !== 'transparent' &&
+                theme.palette.mode === 'light' && {
+                  color: theme.vars.palette.text.primary,
+                }),
+            })}
+          />
         </IconButton>
 
-        <ModeSwitcher />
+        <ModeSwitcher
+          headerColor={headerColor}
+          headerColorDark={headerColorDark}
+          headerMode={ownerState.headerMode}
+        />
 
         <IconButton
           className={classes.hiddenOnDesktop}
@@ -304,7 +296,19 @@ const AppHeader = React.memo(function AppHeader(props) {
           aria-expanded={isNavMenuOpen}
           aria-label={t(__translationGroup)`Toggle main menu`}
         >
-          {isNavMenuOpen ? <CloseIcon /> : <MenuIcon />}
+          {isNavMenuOpen ? (
+            <CloseIcon
+              sx={{
+                color: (theme) => (theme.palette.mode === 'light' ? headerColorDark : headerColor),
+              }}
+            />
+          ) : (
+            <MenuIcon
+              sx={{
+                color: (theme) => (theme.palette.mode === 'light' ? headerColorDark : headerColor),
+              }}
+            />
+          )}
         </IconButton>
 
         <div className={classes.toolbarEdgeEnd} />
@@ -323,6 +327,7 @@ const AppHeader = React.memo(function AppHeader(props) {
 
 AppHeader.propTypes = {
   headerColor: PropTypes.string,
+  headerColorDark: PropTypes.string,
   headerMode: PropTypes.oneOf(['opaque', 'transparent', 'auto']),
   isNavMenuOpen: PropTypes.bool,
   isSomeMenuOpen: PropTypes.bool,

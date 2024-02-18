@@ -211,6 +211,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
       props: {
         // @ts-ignore
         headerMode: page?.headerMode ?? 'auto',
+        // @ts-ignore
+        headerColor: page?.headerColor ?? 'white',
+        // @ts-ignore
+        headerColorDark: page?.headerColorDark ?? '#043b3b',
         settings,
         preview,
         locale,

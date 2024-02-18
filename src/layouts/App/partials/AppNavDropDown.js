@@ -27,8 +27,8 @@ const AppMenuDropDownListItemRoot = styled('li')(({ theme }) => ({
     borderBottomRightRadius: 0,
   },
   '&:hover, &:focus-within, &.Cia-selected': {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.primary.main,
+    backgroundColor: theme.vars.palette.common.white,
+    color: theme.vars.palette.primary.main,
 
     div: {
       opacity: '1 !important',
@@ -81,8 +81,8 @@ const AppMenuDropDownListItemPaper = styled('div')(({ theme }) => ({
   visibility: 'hidden',
   // overflow: 'hidden',
   padding: theme.spacing(1, 2),
-  backgroundColor: theme.palette.common.white,
-  color: theme.palette.common.black,
+  backgroundColor: theme.vars.palette.common.white,
+  color: theme.vars.palette.common.black,
   boxShadow: '0px 7px 11px 0px rgb(0 29 29 / 12%)',
   transition: theme.transitions.create(['opacity', 'visibility'], {
     duration: theme.transitions.duration.shortest,

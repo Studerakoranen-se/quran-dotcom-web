@@ -40,6 +40,8 @@ AppBase.propTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
   headerColor: PropTypes.string,
   // eslint-disable-next-line react/no-unused-prop-types
+  headerColorDark: PropTypes.string,
+  // eslint-disable-next-line react/no-unused-prop-types
   headerMode: PropTypes.string,
 }
 

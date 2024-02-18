@@ -5,7 +5,13 @@ import { ThemeIcon, ThemeMoonIcon } from '~/components'
 
 // ModeSwitcher is an example interface for toggling between modes.
 // Material UI does not provide the toggle interface—you have to build it yourself.
-const ModeSwitcher = () => {
+const ModeSwitcher = (props: {
+  headerColor: string
+  headerColorDark: string
+  headerMode: string
+}) => {
+  const { headerColor, headerColorDark, headerMode } = props
+
   const { mode, setMode } = useColorScheme()
   const [mounted, setMounted] = React.useState(false)
 
@@ -30,7 +36,29 @@ const ModeSwitcher = () => {
         }
       }}
     >
-      {mode === 'light' ? <ThemeIcon fontSize="small" /> : <ThemeMoonIcon fontSize="small" />}
+      {mode === 'light' ? (
+        <ThemeIcon
+          fontSize="small"
+          sx={(theme) => ({
+            color: theme.palette.mode === 'light' ? headerColorDark : headerColor,
+            ...(headerMode !== 'transparent' &&
+              theme.palette.mode === 'light' && {
+                color: theme.vars.palette.text.primary,
+              }),
+          })}
+        />
+      ) : (
+        <ThemeMoonIcon
+          fontSize="small"
+          sx={(theme) => ({
+            color: theme.palette.mode === 'light' ? headerColorDark : headerColor,
+            ...(headerMode !== 'transparent' &&
+              theme.palette.mode === 'light' && {
+                color: theme.vars.palette.text.primary,
+              }),
+          })}
+        />
+      )}
     </IconButton>
   )
 }
