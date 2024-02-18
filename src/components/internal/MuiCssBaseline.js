@@ -1,51 +1,5 @@
 const overrides = {
   styleOverrides: (theme) => `
-    /* Include font files here. */
-    /* Out-commented @font-face example:
-    @font-face {
-      font-family: 'Manrope';
-      font-weight: 400;
-      font-display: swap;
-      src: url('/fonts/Manrope/Manrope-Regular.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Manrope';
-      font-weight: 500;
-      font-display: swap;
-      src: url('/fonts/Manrope/Manrope-Medium.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'Manrope';
-      font-weight: 700;
-      font-display: swap;
-      src: url('/fonts/Manrope/Manrope-Bold.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'El Messiri';
-      font-weight: 400;
-      font-display: swap;
-      src: url('/fonts/Elmessiri/el-messiri-regular.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'El Messiri';
-      font-weight: 500;
-      font-display: swap;
-      src: url('/fonts/Elmessiri/el-messiri-500.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'El Messiri';
-      font-weight: 600;
-      font-display: swap;
-      src: url('/fonts/Elmessiri/el-messiri-600.woff2') format('woff2');
-    }
-    @font-face {
-      font-family: 'El Messiri';
-      font-weight: 700;
-      font-display: swap;
-      src: url('/fonts/Elmessiri/el-messiri-700.woff2') format('woff2');
-    }
-
-    */
     /* Define :root css variables. */
     :root {
       /* Base */
@@ -63,6 +17,59 @@ const overrides = {
       --cia-section-spacing: max(${theme.spacing(3)}, 3.7vw);
       --cia-container-spacing: calc(100vw / 24);
     }
+
+    html {
+      @font-face {
+        font-family: 'Irish Grover';
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/IrishGrover/irish-grover-regular.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/Inter/inter-regular.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-weight: 500;
+        font-display: swap;
+        src: url('/fonts/Inter/inter-500.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-weight: 700;
+        font-display: swap;
+        src: url('/fonts/Inter/inter-700.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'El Messiri';
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/Elmessiri/el-messiri-regular.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'El Messiri';
+        font-weight: 500;
+        font-display: swap;
+        src: url('/fonts/Elmessiri/el-messiri-500.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'El Messiri';
+        font-weight: 600;
+        font-display: swap;
+        src: url('/fonts/Elmessiri/el-messiri-600.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'El Messiri';
+        font-weight: 700;
+        font-display: swap;
+        src: url('/fonts/Elmessiri/el-messiri-700.woff2') format('woff2');
+      }
+    }
+
     /* Opinionated defaults taken from sanitize.css */
     /* https://github.com/csstools/sanitize.css */
     iframe, img, input, select, textarea {

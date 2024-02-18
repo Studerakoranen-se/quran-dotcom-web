@@ -31,7 +31,66 @@ export default class MyDocument extends Document<DocumentProps> {
           <link rel="manifest" href="/site.webmanifest" />
 
           {/* Preload font files here: */}
-          {/* <link rel="preload" href="/fonts/family/family-regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /> */}
+          <link
+            rel="preload"
+            href="/fonts/Elmessiri/el-messiri-regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/Elmessiri/el-messiri-500.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/Elmessiri/el-messiri-600.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/Elmessiri/el-messiri-700.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+
+          <link
+            rel="preload"
+            href="/fonts/IrishGrover/irish-grover-regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+
+          <link
+            rel="preload"
+            href="/fonts/Inter/inter-regular"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+
+          <link
+            rel="preload"
+            href="/fonts/Inter/inter-500.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+
+          <link
+            rel="preload"
+            href="/fonts/Inter/inter-700.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
 
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           <meta name="emotion-insertion-point" content="" />

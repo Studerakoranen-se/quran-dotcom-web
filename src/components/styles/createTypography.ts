@@ -12,7 +12,8 @@ const caseNoCaps = {
 export default function createTypography(typography: TypographyOptions) {
   const {
     fontFamilyPrimary = '"El Messiri", "Arial", sans-serif',
-    fontFamilySecondary = '"Manrope", "Arial", sans-serif',
+    fontFamilySecondary = '"Inter", "Arial", sans-serif',
+    fontFamilyTerritory = '"Irish Grover", "Arial", sans-serif',
     // The default font size of the Material Specification.
     fontSize = 14, // px
     fontWeightLight = 300,
@@ -49,23 +50,23 @@ export default function createTypography(typography: TypographyOptions) {
   })
 
   const variants = {
-    h1: buildVariant(fontFamilyPrimary, fontWeightBold, 64, 1, -0.01, caseAllCaps),
-    h2: buildVariant(fontFamilyPrimary, fontWeightBold, 24, 1, 0),
-    h3: buildVariant(fontFamilyPrimary, fontWeightSemibold, 32, 1, -0.01, caseAllCaps),
-    h4: buildVariant(fontFamilyPrimary, fontWeightSemibold, 20, 1, -0.01, caseAllCaps),
-    h5: buildVariant(fontFamilyPrimary, fontWeightMedium, 20, 1, 0, caseAllCaps),
-    h6: buildVariant(fontFamilyPrimary, fontWeightMedium, 18, 1, 0, caseAllCaps),
-    subtitle1: buildVariant(fontFamilySecondary, fontWeightSemibold, 18, 1, 0, caseNoCaps),
-    subtitle2: buildVariant(fontFamilySecondary, fontWeightSemibold, 11, 1, 0, caseAllCaps),
+    h1: buildVariant(fontFamilyPrimary, fontWeightBold, 64, 1, -0.01, caseNoCaps),
+    h2: buildVariant(fontFamilyPrimary, fontWeightBold, 48, 1, 0),
+    h3: buildVariant(fontFamilyPrimary, fontWeightSemibold, 32, 1, -0.01, caseNoCaps),
+    h4: buildVariant(fontFamilyPrimary, fontWeightSemibold, 20, 1, -0.01, caseNoCaps),
+    h5: buildVariant(fontFamilyPrimary, fontWeightMedium, 20, 1, 0, caseNoCaps),
+    h6: buildVariant(fontFamilyPrimary, fontWeightMedium, 18, 1, 0, caseNoCaps),
+    subtitle1: buildVariant(fontFamilySecondary, fontWeightMedium, 18, 1, 0, caseNoCaps),
+    subtitle2: buildVariant(fontFamilySecondary, fontWeightMedium, 11, 1, 0, caseNoCaps),
     body1: buildVariant(fontFamilySecondary, fontWeightRegular, 16, 1.5, 0, caseNoCaps),
     body2: buildVariant(fontFamilySecondary, fontWeightRegular, 14, 1, 0, caseNoCaps),
     button: buildVariant(fontFamilySecondary, fontWeightMedium, 16, 1, 0, caseNoCaps),
     caption: buildVariant(fontFamilySecondary, fontWeightLight, 14, 1, 0, caseNoCaps),
-    overline: buildVariant(fontFamilyPrimary, fontWeightRegular, 12, 1, 0.055, caseAllCaps),
+    overline: buildVariant(fontFamilyPrimary, fontWeightRegular, 12, 1, 0.055, caseNoCaps),
     // Custom variants
     caption2: buildVariant(fontFamilySecondary, fontWeightRegular, 11, 1, 0, caseNoCaps), // Custom variant
-    preamble: buildVariant(fontFamilyPrimary, fontWeightLight, 22, 1, 0, caseNoCaps),
-    preamble2: buildVariant(fontFamilyPrimary, fontWeightRegular, 18, 1, 0),
+    preamble: buildVariant(fontFamilySecondary, fontWeightLight, 22, 1, 0, caseNoCaps),
+    preamble2: buildVariant(fontFamilySecondary, fontWeightRegular, 18, 1, 0),
     inputText: buildVariant(fontFamilySecondary, fontWeightRegular, 13, 1, 0), // Should at least be 16px fontSize for iOS Safari not to zoom in on focus.
   }
 
@@ -75,6 +76,7 @@ export default function createTypography(typography: TypographyOptions) {
       pxToRem,
       fontFamilyPrimary,
       fontFamilySecondary,
+      fontFamilyTerritory,
       fontSize,
       fontWeightLight,
       fontWeightRegular,

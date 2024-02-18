@@ -34,6 +34,7 @@ interface ExtraMixins {
 interface ExtraTypography {
   fontFamilyPrimary?: React.CSSProperties['fontFamily']
   fontFamilySecondary?: React.CSSProperties['fontFamily']
+  fontFamilyTerritory?: React.CSSProperties['fontFamily']
   fontWeightSemibold?: React.CSSProperties['fontWeight']
 }
 
@@ -104,6 +105,9 @@ declare module '@mui/material/styles' {
     contrastText: string
     textInverted?: string
     main: string
+  }
+  interface TypeBackground {
+    dark: string
   }
 }
 
