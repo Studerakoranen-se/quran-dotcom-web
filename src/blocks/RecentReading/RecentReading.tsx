@@ -49,7 +49,7 @@ const RecentSectionItemAyah = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   height: 80,
-  color: theme.palette.common.white,
+  color: theme.vars.palette.common.white,
   backgroundColor: '#022929',
   borderRadius: theme.spacing(),
 }))

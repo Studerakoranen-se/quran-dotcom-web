@@ -27,7 +27,7 @@ const AudioPlayerRoot = styled('div')(({ theme }) => ({
   width: '100%',
   insetBlockEnd: 0,
   textAlign: 'center',
-  background: theme.palette.background.default,
+  background: theme.vars.palette.background.default,
   transition: '0.4s',
   zIndex: 300,
   boxShadow: '0 5px 10px rgba(0, 0, 0, 0.12)',

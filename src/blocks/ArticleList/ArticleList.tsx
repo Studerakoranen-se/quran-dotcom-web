@@ -27,11 +27,11 @@ const ArticleListSubheading = styled('h2')(({ theme }) => ({
 }))
 
 const ArticleListGridWrapper = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.divider,
+  backgroundColor: theme.vars.palette.divider,
 }))
 
 const ArticleListGrid = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.divider,
+  backgroundColor: theme.vars.palette.divider,
   [theme.breakpoints.up(BREAKPOINT_KEY_1)]: {
     display: 'grid',
     gridGap: 1,
@@ -43,7 +43,7 @@ const ArticleListGrid = styled('div')(({ theme }) => ({
 }))
 
 const ArticleListGridItem = styled('div')(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
+  backgroundColor: theme.vars.palette.background.default,
 }))
 
 function ArticleList(props: ArticleListBlockQueryResult) {

@@ -132,11 +132,11 @@ const FeatureListIconButton = styled(IconButton)<{ ownerState: { verticalLayout?
     border: `1px solid #E0D2B4`,
     width: '6rem',
     height: '6rem',
-    background: theme.palette.primary.dark,
+    background: theme.vars.palette.primary.dark,
     borderStyle: 'solid',
 
     '&:hover, &:focus': {
-      background: theme.palette.primary.dark,
+      background: theme.vars.palette.primary.dark,
       cursor: 'cursor',
     },
 

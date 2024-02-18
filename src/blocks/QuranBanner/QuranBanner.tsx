@@ -25,7 +25,7 @@ const QuranBannerMediaReveal = styled(MediaReveal)(({ theme }) => ({
   zIndex: -1,
   inset: 0,
   display: 'flex',
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: theme.vars.palette.primary.main,
 }))
 
 const QuranBannerMedia = styled(Media)(({ theme }) => ({

@@ -93,10 +93,11 @@ const SubHeadingHtmlText = styled(Html)<{
     __html: string
   }
 }>(({ theme }) => ({
-  ...theme.typography.preamble2,
+  ...theme.typography.subtitle1,
   margin: 0,
+  marginBottom: theme.spacing(4),
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-    ...theme.typography.preamble,
+    ...theme.typography.subtitle1,
     maxWidth: 500,
   },
 }))

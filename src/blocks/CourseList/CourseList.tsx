@@ -5,7 +5,6 @@ import { Html } from '~/components'
 import { RouterLink } from '~/containers'
 import { CourseListBlockQueryResult } from '~/api/sanity'
 import { transformSanityImage } from '~/api/sanity/utils'
-import { ASPECT_RATIOS } from '~/utils/constants'
 
 const CourseListRoot = styled('section')(({ theme }) => ({
   position: 'relative',
@@ -68,9 +67,9 @@ const CourseListItem = styled('div')(({ theme }) => ({
   overflow: 'hidden',
   alignItems: 'center',
   borderRadius: theme.spacing(),
-  backgroundColor: theme.palette.common.white,
+  backgroundColor: theme.vars.palette.common.white,
   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-  color: theme.palette.primary.main,
+  color: theme.vars.palette.primary.main,
 
   [theme.breakpoints.up('md')]: {
     gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Button, ButtonBase, Chip, Drawer, Typography, styled } from '@mui/material'
+import { Box, Button, ButtonBase, Chip, Drawer, Typography, alpha, styled } from '@mui/material'
 import { Media, MediaReveal } from '@noaignite/oui'
 import { TutorsBlockQueryResult } from '~/api/sanity'
 import { transformSanityMedia } from '~/api/sanity/utils'
@@ -10,10 +10,7 @@ import { SanityHtml } from '~/containers'
 const TeamRoot = styled('section')(({ theme }) => ({
   position: 'relative',
   background: theme.vars.palette.background.default,
-  boxShadow:
-    theme.palette.mode === 'dark'
-      ? 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)'
-      : 'inset 0px 4px 136px rgb(218 218 218 / 80%)',
+  boxShadow: `inset 0px 4px 136px ${theme.vars.palette.background.dark}`,
   color: theme.vars.palette.text.textInverted,
   padding: `var(--cia-container-spacing)`,
 }))
@@ -144,7 +141,15 @@ export default function Tutors(props: TutorsBlockQueryResult) {
                     minHeight={160}
                   >
                     {fullname && (
-                      <Typography variant="h6" color="primary" gutterBottom>
+                      <Typography
+                        variant="h6"
+                        color="primary"
+                        gutterBottom
+                        sx={{
+                          fontFamily: 'fontFamilySecondary',
+                          fontWeight: 'fontWeightSemibold',
+                        }}
+                      >
                         {fullname}
                       </Typography>
                     )}

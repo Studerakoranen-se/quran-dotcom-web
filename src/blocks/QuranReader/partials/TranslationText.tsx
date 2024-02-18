@@ -165,6 +165,12 @@ const TranslationText: React.FC<Props> = ({
     >
       <Html
         onClick={(event) => onTextClicked(event)}
+        sx={(theme) => ({
+          p: {
+            ...theme.typography.body2,
+            lineHeight: 1.4,
+          },
+        })}
         // styles[langData.font])
 
         dangerouslySetInnerHTML={{ __html: text }}
@@ -237,8 +243,8 @@ const TranslationText: React.FC<Props> = ({
           // styles[langData.font],
 
           sx={{
-            marginBlockStart: 'calc(0.5 * 0.375rem)',
-            color: (theme) => theme.palette.text.secondary,
+            marginBlockStart: 'calc(0.9 * 0.375rem)',
+            color: (theme) => theme.vars.palette.text.secondary,
             fontSize: (theme) => theme.typography.body2.fontSize,
 
             ...(langData.direction === 'rtl' && {

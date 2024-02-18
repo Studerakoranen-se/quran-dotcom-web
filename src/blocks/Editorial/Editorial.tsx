@@ -14,8 +14,8 @@ const EditorialRoot = styled('section')<{ ownerState: { layoutReverse?: boolean 
     ...(!ownerState?.layoutReverse && {
       boxShadow:
         theme.palette.mode === 'light'
-          ? 'inset 0px 4px 130px rgb(221 221 221 / 30%)'
-          : 'inset 0px 4px 130px #006C6C',
+          ? 'inset 0px 4px 190px -43px rgb(221 221 221 / 30%)'
+          : 'inset 0px 4px 190px -43px #006C6C',
     }),
   }),
 )

@@ -32,7 +32,7 @@ const Tabs = ({ tabs, onSelect, selected }: TabsProps) => {
           id={`quran-tab-${idx}`}
           value={tab.value}
           sx={{
-            color: (theme) => `${theme.palette.text.primary} !important`,
+            color: (theme) => `${theme.vars.palette.text.primary} !important`,
             mr: 1,
           }}
         />

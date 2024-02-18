@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, ButtonBase, IconButton } from '@mui/material'
-// import { BsFillPauseFill, BsGear } from 'react-icons/bs'
-import { Bismillah as BismillahIcon, FilterIcon, InfoIcon } from '~/components/icons'
+import { Box, IconButton } from '@mui/material'
+import { FilterIcon, InfoIcon } from '~/components/icons'
 import ChapterIconContainer, {
   ChapterIconsSize,
 } from '~/components/ChapterIcon/partials/ChapterIconContainer'

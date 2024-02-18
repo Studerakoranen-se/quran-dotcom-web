@@ -8,8 +8,8 @@ const BREAKPOINT_KEY = 'md'
 
 const CoursesRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  backgroundColor: theme.palette.background.default,
-  color: theme.palette.text.primary,
+  backgroundColor: theme.vars.palette.background.default,
+  color: theme.vars.palette.text.primary,
   display: 'flex',
   alignItems: 'center',
   minHeight: 'max(240px, 20vw)',

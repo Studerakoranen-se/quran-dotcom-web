@@ -88,8 +88,7 @@ const QuranWordItem = styled(ButtonBase)<{
 }>(({ theme, ownerState }) => ({
   ...theme.typography.body1,
   fontFamily: 'Scheherazade',
-  fontSize: theme.typography.pxToRem(24),
-  // fontWeight: theme.typography.fontWeightBold,
+  fontSize: theme.typography.pxToRem(34),
   color: theme.vars.palette.text.primary,
 
   ...(ownerState?.isRecitationEnabled && {
@@ -132,7 +131,7 @@ const QuranWordItem = styled(ButtonBase)<{
   }),
 
   [theme.breakpoints.up('md')]: {
-    fontSize: theme.typography.pxToRem(34),
+    fontSize: theme.typography.pxToRem(38),
   },
 
   // [`${QuranReaderVerseItem}:hover &`]: {
@@ -152,10 +151,10 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.arrow}`]: {
-    color: theme.palette.common.black,
+    color: theme.vars.palette.common.black,
   },
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.vars.palette.common.black,
   },
 }))
 

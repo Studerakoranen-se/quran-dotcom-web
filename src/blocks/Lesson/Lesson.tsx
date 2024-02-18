@@ -22,8 +22,8 @@ const BREAKPOINT_KEY = 'md'
 
 const CourseRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  backgroundColor: theme.palette.background.default,
-  color: theme.palette.text.primary,
+  backgroundColor: theme.vars.palette.background.default,
+  color: theme.vars.palette.text.primary,
   padding: theme.spacing(20, 2, 10),
 
   [theme.breakpoints.up('md')]: {
@@ -72,7 +72,7 @@ const CourseRightItem = styled('div')(({ theme }) => ({
   // paddingLeft: '3rem',
 
   gridColumn: 'span 12 / span 12',
-  color: theme.palette.common.white,
+  color: theme.vars.palette.common.white,
 
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
     gridColumn: 'span 4 / span 4',
@@ -89,7 +89,7 @@ const CourseRightItemTabs = styled(Tabs)(({ theme }) => ({
   ' .MuiTabs-indicator': {
     right: 'unset',
     width: '100%',
-    backgroundColor: theme.palette.action.disabled,
+    backgroundColor: theme.vars.palette.action.disabled,
     borderRadius: theme.spacing(1),
   },
 }))

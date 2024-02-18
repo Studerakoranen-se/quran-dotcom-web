@@ -19,7 +19,7 @@ import ChapterInfo from '~/types/ChapterInfo'
 import { getBlurDataUrl } from '~/utils/image'
 
 const ImageContainer = styled('div')(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
+  border: `1px solid ${theme.vars.palette.divider}`,
   borderRadius: '0.25rem',
   height: 200,
   width: 200,

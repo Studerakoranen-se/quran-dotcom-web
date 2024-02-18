@@ -16,8 +16,8 @@ import VerseListItem from './VerseListItem'
 const VerseListRoot = styled('div')(({ theme }) => ({
   paddingInlineStart: '0.625rem',
   paddingInlineEnd: '0.625rem',
-  borderInlineStart: `1px solid ${theme.palette.divider}`,
-  borderInlineEnd: `1px solid ${theme.palette.divider}`,
+  borderInlineStart: `1px solid ${theme.vars.palette.divider}`,
+  borderInlineEnd: `1px solid ${theme.vars.palette.divider}`,
   flex: 1,
   display: 'flex',
   flexDirection: 'column',

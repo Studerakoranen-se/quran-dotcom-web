@@ -1,4 +1,4 @@
-import { Typography, styled } from '@mui/material'
+import { Box, Typography, styled } from '@mui/material'
 import { RouterLink } from '~/containers'
 import { ChapterNumberIcon } from '~/components'
 // import ChapterIconContainer from '~/components/ChapterIcon/partials/ChapterIconContainer'
@@ -21,6 +21,7 @@ const SurahPreviewContent = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
   alignItems: 'center',
   gap: theme.spacing(1.5),
+  width: '100%',
 }))
 
 const SurahPreviewContentLeft = styled('div')(({ theme }) => ({
@@ -79,10 +80,12 @@ const SurahPreview = (props: SurahPreviewProps) => {
       <SurahPreviewContent>
         <SurahPreviewIconContainer>
           <Typography
+            variant="subtitle1"
             sx={{
+              fontFamily: 'fontFamilyTerritory',
               textAlign: 'center',
               position: 'absolute',
-              top: '1.2rem',
+              top: '1.35rem',
               left: '0',
               width: '100%',
             }}
@@ -96,28 +99,41 @@ const SurahPreview = (props: SurahPreviewProps) => {
             }}
           />
         </SurahPreviewIconContainer>
-        <div className="">
-          <Typography variant="subtitle1">{surahName}</Typography>
-          <Typography sx={{ my: 1.2 }}>{translatedSurahName}</Typography>
-        </div>
+        <Box flex={1} display="flex" flexDirection="column">
+          <Typography
+            variant="subtitle1"
+            sx={{
+              fontWeight: 'fontWeightSemibold',
+            }}
+          >
+            {surahName}
+          </Typography>
+          <Typography
+            sx={{
+              opacity: (theme) => (theme.palette.mode === 'dark' ? 0.6 : 1),
+            }}
+          >
+            {translatedSurahName}
+          </Typography>
+        </Box>
+        <SurahPreviewContentLeft>
+          <Typography
+            className={`icon-surah icon-surah${chapterId.toString()}`}
+            component="span"
+            translate="no"
+            variant="h3"
+          />
+          <Typography
+            variant="caption"
+            sx={{
+              opacity: (theme) => (theme.palette.mode === 'dark' ? 0.6 : 1),
+            }}
+          >
+            {description}
+          </Typography>
+          {/* <ChapterIconContainer chapterId={chapter?.id.toString()} hasSurahPrefix={false} /> */}
+        </SurahPreviewContentLeft>
       </SurahPreviewContent>
-      <SurahPreviewContentLeft>
-        <Typography
-          className={`icon-surah icon-surah${chapterId.toString()}`}
-          component="span"
-          translate="no"
-          variant="h2"
-        />
-        <Typography
-          variant="caption"
-          sx={{
-            color: '#C6C6C6',
-          }}
-        >
-          {description}
-        </Typography>
-        {/* <ChapterIconContainer chapterId={chapter?.id.toString()} hasSurahPrefix={false} /> */}
-      </SurahPreviewContentLeft>
     </SurahPreviewRoot>
   )
 }

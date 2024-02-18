@@ -9,8 +9,8 @@ const BREAKPOINT_KEY = 'md'
 
 const StepsRoot = styled('section')(({ theme }) => ({
   position: 'relative',
-  background: theme.palette.background.default,
-  boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
+  background: theme.vars.palette.background.default,
+  boxShadow: `inset 0px 4px 136px ${theme.vars.palette.background.dark}`,
   color: theme.palette.text.textInverted,
   padding: theme.spacing(3.5),
 }))
@@ -21,10 +21,10 @@ const StepsBackground = styled('div')(({ theme }) => ({
   '& *:not(style)': {
     height: '100%',
   },
-  background: `linear-gradient(180deg, ${theme.palette.background.default} 0%, ${alpha(
+  background: `linear-gradient(180deg, ${theme.vars.palette.background.default} 0%, ${alpha(
     theme.palette.primary.main,
     0.08,
-  )} 53.47%, ${theme.palette.background.default} 100%), url('/assets/bg-2.png')`,
+  )} 53.47%, ${theme.vars.palette.background.default} 100%), url('/assets/bg-2.png')`,
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'top',
@@ -134,12 +134,14 @@ const StepsItemIcon = styled('div')(({ theme }) => ({
   borderRadius: 9999,
   background:
     // @ts-ignore
-    theme.palette.mode === 'dark' ? theme.palette.green[400] : theme.palette.primary.light,
+    theme.palette.mode === 'dark'
+      ? theme.vars.palette.green[400]
+      : theme.vars.palette.primary.light,
   width: 168,
   height: 168,
   outlineStyle: 'solid',
   outlineWidth: '10px',
-  outlineColor: theme.palette.primary.main,
+  outlineColor: theme.vars.palette.primary.main,
 
   img: {
     width: 110,
@@ -167,7 +169,7 @@ const StepsItemContent = styled('div')(({ theme }) => ({
   margin: '0 auto',
   [theme.breakpoints.up('md')]: {
     textAlign: 'left',
-    width: 350,
+    width: 380,
   },
 }))
 
@@ -176,7 +178,8 @@ const StepsItemContentTitle = styled('h2')(({ theme }) => ({
   margin: 0,
   marginBottom: theme.spacing(2),
   [theme.breakpoints.up('md')]: {
-    ...theme.typography.h2,
+    ...theme.typography.preamble,
+    fontWeight: theme.typography.fontWeightSemibold,
   },
 }))
 

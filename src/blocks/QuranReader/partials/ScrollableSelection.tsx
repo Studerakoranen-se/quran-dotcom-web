@@ -47,12 +47,12 @@ const ScrollableSelectionListItem = styled('div')<{ ownerState: { isActive: bool
     borderRadius: '0.5rem',
 
     '&:hover': {
-      backgroundColor: theme.palette.action.hover,
+      backgroundColor: theme.vars.palette.action.hover,
     },
 
     ...(ownerState?.isActive && {
       fontWeight: theme.typography.fontWeightBold,
-      backgroundColor: theme.palette.action.hover,
+      backgroundColor: theme.vars.palette.action.hover,
     }),
   }),
 )
