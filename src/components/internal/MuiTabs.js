@@ -4,7 +4,7 @@ const overrides = {
       minHeight: 28,
       textTransform: 'none',
       '& [class*="-indicator"]': {
-        backgroundColor: theme.palette.text.primary,
+        backgroundColor: theme.vars.palette.text.primary,
       },
     }),
   },

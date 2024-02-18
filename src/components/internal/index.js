@@ -1,3 +1,6 @@
+export { default as MuiAccordion } from './MuiAccordion'
+export { default as MuiAccordionDetails } from './MuiAccordionDetails'
+export { default as MuiAccordionSummary } from './MuiAccordionSummary'
 export { default as MuiAppBar } from './MuiAppBar'
 export { default as MuiBackdrop } from './MuiBackdrop'
 export { default as MuiBadge } from './MuiBadge'
