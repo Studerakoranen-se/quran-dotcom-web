@@ -5,6 +5,12 @@
     "footnote-pl": "Plural",
     "footnote-sg": "Singular"
   },
+
+  "player": {
+    "pauseAudio": "Pausa ljud",
+    "playAudio": "Spela upp ljud"
+  },
+
   "blocks/Tutors/Tutors.tsx": {
     "Back": "Tillbaka"
   },
@@ -15,6 +21,7 @@
   },
   "blocks/QuranReader/QuranReader.tsx": {},
   "blocks/QuranReader/partials/ChapterHeader.tsx": {
-    "Translation by": "Översättning av"
+    "Translation by": "Översättning av",
+    "Surah Info": ""
   }
 }

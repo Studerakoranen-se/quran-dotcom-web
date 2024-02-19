@@ -6,6 +6,11 @@
     "footnote-sg": "Singular"
   },
 
+  "player": {
+    "pauseAudio": "Pause Audio",
+    "playAudio": "Play Audio"
+  },
+
   "blocks/Tutors/Tutors.tsx": {
     "Back": ""
   },
@@ -16,6 +21,7 @@
   },
   "blocks/QuranReader/QuranReader.tsx": {},
   "blocks/QuranReader/partials/ChapterHeader.tsx": {
-    "Translation by": ""
+    "Translation by": "",
+    "Surah Info": ""
   }
 }
