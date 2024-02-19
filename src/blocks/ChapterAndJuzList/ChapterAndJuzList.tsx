@@ -1,10 +1,21 @@
 import * as React from 'react'
+import dynamic from 'next/dynamic'
 import { Box, ButtonBase, styled, Typography } from '@mui/material'
+import Chapter from '~/types/Chapter'
 import { useI18n } from '~/contexts'
 import { Tabs, ArrowDropDownIcon } from '~/components'
 import SurahPreview from './partials/SurahPreview'
-import JuzPreview from './partials/JuzPreview'
-import RevelationOrderView from './partials/RevelationOrderView'
+import ChapterAndJuzListSkeleton from './partials/ChapterAndJuzListSkeleton'
+
+const JuzPreview = dynamic(() => import('./partials/JuzPreview'), {
+  ssr: false,
+  loading: () => <ChapterAndJuzListSkeleton />,
+})
+
+const RevelationOrderView = dynamic(() => import('./partials/RevelationOrderView'), {
+  ssr: false,
+  loading: () => <ChapterAndJuzListSkeleton />,
+})
 
 const ChapterAndJuzListRoot = styled('section')(({ theme }) => ({
   position: 'relative',
@@ -192,6 +203,7 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
                 surahName={chapter.transliteratedName}
                 surahNumber={Number(chapter.id)}
                 translatedSurahName={chapter.translatedName as string}
+                locale={locale}
                 // isMinimalLayout={shouldUseMinimalLayout(lang)}
               />
             ))}
@@ -206,8 +218,11 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
 
         <CustomTabPanel value={view} index={2}>
           <PreviewContainer>
-            {/* @ts-ignore */}
-            <RevelationOrderView isDescending={sortBy === Sort.DESC} chapters={chapters} />
+            <RevelationOrderView
+              isDescending={sortBy === Sort.DESC}
+              chapters={chapters}
+              locale={locale}
+            />
           </PreviewContainer>
         </CustomTabPanel>
       </ChapterAndJuzListMain>

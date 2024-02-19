@@ -16,7 +16,7 @@ const overrides = {
     }),
     sizeSmall: ({ theme }) => ({
       padding: `${PADDING_TOP}px ${PADDING_X - 6}px ${PADDING_BOTTOM}px ${PADDING_X - 6}px`,
-      fontSize: theme.typography.pxToRem(11),
+      fontSize: theme.typography.pxToRem(14),
     }),
     sizeMedium: {
       padding: `${PADDING_TOP + 8}px ${PADDING_X + 2}px ${PADDING_BOTTOM + 6}px ${PADDING_X}px`,

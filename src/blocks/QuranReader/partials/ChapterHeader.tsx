@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Box, IconButton } from '@mui/material'
+import { Box, Button, IconButton } from '@mui/material'
 import { FilterIcon, InfoIcon } from '~/components/icons'
 import ChapterIconContainer, {
   ChapterIconsSize,
@@ -65,53 +65,84 @@ function ChapterHeader(props: ChapterHeaderProps) {
         }),
       }}
     >
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{
+          display: {
+            xs: 'grid',
+            sm: 'flex',
+          },
+          gridTemplateColumns: '1fr 1fr 1fr',
+          gridTemplateRows: {
+            xs: '1fr 1fr',
+            md: '1fr',
+          },
+        }}
+      >
         <IconButton
           onClick={() => {
             dispatch(setIsVisible(true))
           }}
           sx={{
+            gridRow: '2 / 2',
+            gridColumn: '1',
             border: (th) => `1px solid ${th.vars.palette.divider}`,
-            color: (th) => (th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4'),
             borderRadius: 1,
             p: 0.5,
             visibility: isSidebarNavigationVisible === true ? 'hidden' : 'visibile',
+            width: '30px',
+            height: '30px',
           }}
           aria-label={`Toggle Surah Drawer`}
           size="small"
         >
           <FilterIcon fontSize="small" />
         </IconButton>
-        <Box>
+        <Box
+          sx={{
+            gridRow: '1 / 2',
+            gridColumn: '1 / -1',
+            marginBlockEnd: {
+              xs: 5,
+              md: 0,
+            },
+          }}
+        >
           <ChapterIconContainer chapterId={chapterId} size={ChapterIconsSize.Mega} hasSurahPrefix />
         </Box>
         <Box
           display="flex"
           sx={{
-            flexDirection: {
-              xs: 'column',
-              md: 'row',
-            },
-            alignItems: {
-              xs: 'flex-end',
-              md: 'center',
-            },
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            gap: 2,
+            gridRow: '2 / 2',
+            gridColumn: '3',
           }}
         >
-          <PlayChapterAudioButton chapterId={Number(chapterId)} />
           {translationName && (
-            <IconButton
+            <Button
+              variant="text"
               size="small"
-              // href={getSurahInfoNavigationUrl(chapterId)}
+              sx={{
+                backgroundColor: 'transparent',
+                '&:hover, &:focus-within': {
+                  backgroundColor: 'transparent',
+                },
+                padding: 0,
+              }}
+              startIcon={<InfoIcon fontSize="small" />}
               onClick={() => {
                 onSurahInfoDialogOpen?.()
                 logButtonClick('chapter_header_info')
               }}
             >
-              {/* {t('quran-reader:surah-info')} */}
-              <InfoIcon />
-            </IconButton>
+              {t(__translationGroup)`Surah Info`}
+            </Button>
           )}
+
+          <PlayChapterAudioButton chapterId={Number(chapterId)} />
         </Box>
       </Box>
 

@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Typography, styled } from '@mui/material'
+import { styled, Theme } from '@mui/material/styles'
+import { Typography, SxProps } from '@mui/material'
 import ChapterIcon from '../ChapterIcon'
 
 export enum ChapterIconsSize {
@@ -14,6 +15,7 @@ interface Props {
   chapterId: string
   size?: ChapterIconsSize
   hasSurahPrefix?: boolean
+  sx?: SxProps<Theme>
 }
 
 const ChapterIconContainerRoot = styled('span')<{ ownerState: { size: string } }>(
@@ -44,12 +46,12 @@ const ChapterIconContainerRoot = styled('span')<{ ownerState: { size: string } }
 )
 
 const ChapterIconContainer: React.FC<Props> = (props) => {
-  const { chapterId, size = ChapterIconsSize.Medium, hasSurahPrefix = false } = props
+  const { chapterId, size = ChapterIconsSize.Medium, hasSurahPrefix = false, ...others } = props
   const ownerState = {
     size,
   }
   return (
-    <ChapterIconContainerRoot ownerState={ownerState}>
+    <ChapterIconContainerRoot ownerState={ownerState} {...others}>
       <ChapterIcon id={chapterId} />
       {hasSurahPrefix && (
         <Typography

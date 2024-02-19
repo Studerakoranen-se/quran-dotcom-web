@@ -17,12 +17,11 @@ const RevelationOrderViewRoot = styled('div')(() => ({
 type RevelationOrderViewProps = {
   isDescending: boolean
   chapters: Chapter[]
+  locale: string
 }
 
-const MECCAN_SURAH_STRING_IDENTIFIER = 'makkah' // the value is coming from the backend, ideally we would've set it up as an enum, but other pieces of the code are relying on this as a string, so we'll keep it as a string for now.
-
 const RevelationOrderView = (props: RevelationOrderViewProps) => {
-  const { chapters, isDescending } = props
+  const { chapters, isDescending, locale } = props
 
   const router = useRouter()
 
@@ -60,9 +59,7 @@ const RevelationOrderView = (props: RevelationOrderViewProps) => {
         >
           <SurahPreview
             chapterId={Number(chapter.id)}
-            description={
-              chapter.revelationPlace === MECCAN_SURAH_STRING_IDENTIFIER ? 'Meccan' : 'Medinan'
-            }
+            description={`${chapter.versesCount} Ayahs`}
             surahName={`${chapter.transliteratedName}`}
             surahNumber={
               isDescending
@@ -72,6 +69,7 @@ const RevelationOrderView = (props: RevelationOrderViewProps) => {
             // translatedSurahName={getTranslatedSurahName(chapter, t, lang)}
             translatedSurahName={chapter.translatedName as string}
             isMinimalLayout={false}
+            locale={locale}
             // isLoading={isLoading && clickedSurahId === chapter.id}
           />
         </RevelationOrderViewRoot>

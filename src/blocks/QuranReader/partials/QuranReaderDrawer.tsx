@@ -34,7 +34,7 @@ const QuranReaderDrawerRoot = styled('div')<{
   flexDirection: 'column',
   overflowY: 'hidden',
   boxShadow: '0px 22px 28px -3px rgba(0,0,0,0.1)',
-  paddingBlockStart: 'calc(2 * 2.5rem)',
+  paddingBlockStart: 'calc(2 * 3rem)',
 
   transform: 'translateX(-100%)',
   '[dir="rtl"] &': {

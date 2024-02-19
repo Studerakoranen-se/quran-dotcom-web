@@ -1,6 +1,15 @@
-import { Box, Typography, styled } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { Typography, styled } from '@mui/material'
+import { useContext } from 'react'
+import DataContext from '~/contexts/DataContext'
 import { RouterLink } from '~/containers'
+import useGetRecentlyReadVerseKeys from '~/hooks/useGetRecentlyReadVerseKeys'
+import {
+  getChapterData,
+  getChapterWithStartingVerseUrl,
+  getVerseAndChapterNumbersFromKey,
+  toLocalizedNumber,
+} from '~/utils'
+import SurahPreview, { SurahPreviewDisplay } from '../ChapterAndJuzList/partials/SurahPreview'
 
 const RecentReadingRoot = styled('section')(({ theme }) => ({
   position: 'relative',
@@ -9,98 +18,68 @@ const RecentReadingRoot = styled('section')(({ theme }) => ({
 
 const RecentReadingMain = styled('div')(({ theme }) => ({
   ...theme.mixins.contain('xl'),
-  // marginBlockStart: theme.spacing(3),
-  // marginBlockEnd: theme.spacing(3),
 }))
 
 const RecentSectionContainer = styled('div')(({ theme }) => ({
   position: 'relative',
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  gap: 10,
-  marginTop: theme.spacing(6),
-  [theme.breakpoints.up('md')]: {
-    gridTemplateColumns: 'repeat(auto-fit, 200px)',
-  },
-}))
-const RecentSectionItemLink = styled(RouterLink)(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'column',
-  border: `1px solid #E0D2B4`,
-  borderRadius: theme.spacing(),
-  boxShadow: theme.shadows[6],
-  textDecoration: 'none',
-  [theme.breakpoints.up('md')]: {
-    width: 200,
-  },
-}))
-const RecentSectionItem = styled('div')(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  flexDirection: 'column',
-  gap: 20,
-  padding: theme.spacing(2),
-  height: '100%',
+  gap: theme.spacing(4),
+  flexWrap: 'nowrap',
+  overflowX: 'auto',
 }))
 
-const RecentSectionItemAyah = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  height: 80,
-  color: theme.vars.palette.common.white,
-  backgroundColor: '#022929',
-  borderRadius: theme.spacing(),
+const RecentSectionItem = styled('div')(() => ({
+  minWidth: 220,
+}))
+
+const RecentSectionLink = styled(RouterLink)(({ theme }) => ({
+  textDecoration: 'none',
 }))
 
 type RecentReactProps = {
   heading: string
+  locale: string
 }
 
 function RecentReading(props: RecentReactProps) {
-  const { heading } = props
-  const histories = useSelector((state: any) => state.history?.recentSurahs)
+  const { heading, locale } = props
 
-  if (histories.length === 0) return null
+  const chaptersData = useContext(DataContext)
+  const { recentlyReadVerseKeys, isLoading } = useGetRecentlyReadVerseKeys()
+
+  if (recentlyReadVerseKeys.length === 0) return null
 
   return (
     <RecentReadingRoot>
       <RecentReadingMain>
         {heading && (
-          <Typography variant="h2" component="h4" sx={{ textAlign: 'center' }}>
+          <Typography variant="h3" component="h4" sx={{ textAlign: 'center', mb: '24px' }}>
             {heading}
           </Typography>
         )}
-        {histories.length > 0 && (
-          <RecentSectionContainer>
-            {histories.map((history: any, idx: number) => (
-              <RecentSectionItemLink
-                key={idx}
-                href={`/surah/${history.chapter_number}?startAt=${history.versesCount}`}
-              >
-                <RecentSectionItem>
-                  <Box display="flex" justifyContent="space-between">
-                    <Typography color="text">{history.translatedName}</Typography>
-                    <Typography>{history.chapter_number}</Typography>
-                  </Box>
-                  <Typography variant="subtitle1">Surah {history.nameSimple}</Typography>
-                  <RecentSectionItemAyah>
-                    <Typography
-                      className={`icon-surah icon-surah${history?.id}`}
-                      component="span"
-                      translate="no"
-                      variant="h3"
-                    />
-                    <Typography variant="body2" sx={{ mt: 0.5 }}>
-                      Ayah {history.versesCount}
-                    </Typography>
-                  </RecentSectionItemAyah>
-                </RecentSectionItem>
-              </RecentSectionItemLink>
-            ))}
-          </RecentSectionContainer>
-        )}
+
+        <RecentSectionContainer>
+          {recentlyReadVerseKeys.map((verseKey) => {
+            const [chapterId, verseNumber] = getVerseAndChapterNumbersFromKey(verseKey)
+            const surah = getChapterData(chaptersData, chapterId)
+
+            return (
+              <RecentSectionItem>
+                <RecentSectionLink key={verseKey} href={getChapterWithStartingVerseUrl(verseKey)}>
+                  <SurahPreview
+                    display={SurahPreviewDisplay.Block}
+                    chapterId={Number(chapterId)}
+                    surahNumber={Number(chapterId)}
+                    translatedSurahName={surah.translatedName as string}
+                    surahName={surah.transliteratedName}
+                    description={`Ayah ${toLocalizedNumber(Number(verseNumber), locale)}`}
+                    locale={locale}
+                  />
+                </RecentSectionLink>
+              </RecentSectionItem>
+            )
+          })}
+        </RecentSectionContainer>
       </RecentReadingMain>
     </RecentReadingRoot>
   )

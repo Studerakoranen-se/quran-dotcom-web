@@ -1,6 +1,7 @@
 import { Box, Typography, styled } from '@mui/material'
 import { RouterLink } from '~/containers'
 import { ChapterNumberIcon } from '~/components'
+import SurahPreviewBlock from './SurahPreviewBlock'
 // import ChapterIconContainer from '~/components/ChapterIcon/partials/ChapterIconContainer'
 
 const SurahPreviewRoot = styled('div')(({ theme }) => ({
@@ -44,16 +45,21 @@ const SurahPreviewIconContainer = styled('div')(() => ({
   },
 }))
 
+export enum SurahPreviewDisplay {
+  Block = 'block',
+  Row = 'row',
+}
+
 type SurahPreviewProps = {
   href?: string
   surahNumber: number
   surahName: string
   translatedSurahName: string
-  description: number | string
+  description?: string
   chapterId: number
-  isMinimalLayout?: boolean
-  isLoading?: boolean
   shouldPrefetch?: boolean
+  display?: SurahPreviewDisplay
+  locale: string
 }
 
 const SurahPreview = (props: SurahPreviewProps) => {
@@ -64,10 +70,23 @@ const SurahPreview = (props: SurahPreviewProps) => {
     translatedSurahName,
     description,
     chapterId,
-    isMinimalLayout,
-    isLoading,
     shouldPrefetch,
+    display,
+    locale,
   } = props
+
+  if (display === SurahPreviewDisplay.Block) {
+    return (
+      <SurahPreviewBlock
+        chapterId={chapterId}
+        surahName={surahName}
+        surahNumber={surahNumber}
+        translatedSurahName={translatedSurahName}
+        description={description}
+        locale={locale}
+      />
+    )
+  }
 
   return (
     <SurahPreviewRoot
@@ -83,6 +102,7 @@ const SurahPreview = (props: SurahPreviewProps) => {
             variant="subtitle1"
             sx={{
               fontFamily: 'fontFamilyTerritory',
+              fontWeight: 'fontWeightRegular',
               textAlign: 'center',
               position: 'absolute',
               top: '1.35rem',
@@ -101,7 +121,7 @@ const SurahPreview = (props: SurahPreviewProps) => {
         </SurahPreviewIconContainer>
         <Box flex={1} display="flex" flexDirection="column">
           <Typography
-            variant="subtitle1"
+            variant="body1"
             sx={{
               fontWeight: 'fontWeightSemibold',
             }}
@@ -109,7 +129,10 @@ const SurahPreview = (props: SurahPreviewProps) => {
             {surahName}
           </Typography>
           <Typography
+            variant="caption"
             sx={{
+              mt: 0.5,
+              fontWeight: 'fontWeightMedium',
               opacity: (theme) => (theme.palette.mode === 'dark' ? 0.6 : 1),
             }}
           >
@@ -121,11 +144,12 @@ const SurahPreview = (props: SurahPreviewProps) => {
             className={`icon-surah icon-surah${chapterId.toString()}`}
             component="span"
             translate="no"
-            variant="h3"
+            variant="preamble"
           />
           <Typography
-            variant="caption"
+            variant="caption2"
             sx={{
+              fontWeight: 'fontWeightMedium',
               opacity: (theme) => (theme.palette.mode === 'dark' ? 0.6 : 1),
             }}
           >

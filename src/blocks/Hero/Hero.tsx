@@ -9,15 +9,16 @@ const HeroRoot = styled('section')(({ theme }) => ({
   position: 'relative',
   minHeight: 550,
   color: theme.vars.palette.text.textInverted,
-  padding: theme.spacing(30, 2, 20),
+  padding: theme.spacing(20, 2, 20),
   [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(30, 2, 20),
     minHeight: 650,
-  },
 
-  background: `url('/assets/bg-arbic.png')`,
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: '50%',
+    background: `url('/assets/quran-bkg.png')`,
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '50%',
+  },
 }))
 
 const HeroContainer = styled('div')(({ theme }) => ({
@@ -25,7 +26,12 @@ const HeroContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'justify-between',
+  flexDirection: 'column-reverse',
   textAlign: 'center',
+
+  [theme.breakpoints.up('md')]: {
+    flexDirection: 'row',
+  },
 }))
 
 const HeroMain = styled('div')(({ theme }) => ({
@@ -41,35 +47,20 @@ const HeroMain = styled('div')(({ theme }) => ({
 }))
 
 const HeroMedia = styled('div')(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'flex-end',
-  position: 'static',
-  opacity: 1,
   paddingInline: 'var(--cia-container-spacing)',
   width: '100%',
-  paddingRight: 60,
   paddingBottom: '1.25rem',
-
-  [theme.breakpoints.down('md')]: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    opacity: 0.2,
-    padding: 0,
-    width: 'unset',
-    zIndex: 0,
-    // paddingRight: 26,
-    // paddingLeft: 26,
-  },
 
   [theme.breakpoints.up('xl')]: {
     paddingRight: 0,
   },
 }))
 
-const HeroBrandIcon = styled('div')(() => ({
-  width: 384,
+const HeroBrandIcon = styled('div')(({ theme }) => ({
+  height: 284,
+  [theme.breakpoints.up('md')]: {
+    height: 400,
+  },
 }))
 
 const HeroHeading = styled('h1')(() => ({}))

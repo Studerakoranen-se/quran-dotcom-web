@@ -12,6 +12,7 @@ import {
 } from '~/xstate/actors/audioPlayer/selectors'
 import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
 import { logButtonClick } from '~/utils/eventLogger'
+import { useI18n } from '~/contexts'
 
 interface Props {
   chapterId: number
@@ -19,6 +20,8 @@ interface Props {
 const PlayChapterAudioButton = ({ chapterId }: Props) => {
   // const chaptersData = useContext(DataContext)
   // const chapterData = getChapterData(chaptersData, chapterId.toString())
+
+  const { t } = useI18n()
 
   const audioService = useContext(AudioPlayerMachineContext)
 
@@ -68,56 +71,40 @@ const PlayChapterAudioButton = ({ chapterId }: Props) => {
     )
   }
 
-  return (
-    <Box>
-      {isPlayingCurrentChapter ? (
-        <Button
-          variant="text"
-          // @ts-ignore
-          color="text"
-          size="medium"
-          onClick={pause}
-          sx={{
-            color: (th) => (th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4'),
-            backgroundColor: 'transparent',
-            '&:hover, &:focus-within': {
-              backgroundColor: 'transparent',
-            },
-            paddingRight: {
-              xs: '0px !important',
-              md: '18px',
-            },
-          }}
-          startIcon={<BsFillPauseFill />}
-        >
-          pausa ljud
-        </Button>
-      ) : (
-        <Button
-          variant="text"
-          // @ts-ignore
-          color="text"
-          size="medium"
-          onClick={play}
-          startIcon={<BsPlayFill />}
-          sx={{
-            color: (th) => (th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4'),
-            backgroundColor: 'transparent',
-            '&:hover, &:focus-within': {
-              backgroundColor: 'transparent',
-            },
-            paddingRight: {
-              xs: '0px !important',
-              md: '18px',
-            },
-          }}
+  return isPlayingCurrentChapter ? (
+    <Button
+      variant="text"
+      size="small"
+      onClick={pause}
+      sx={{
+        backgroundColor: 'transparent',
+        '&:hover, &:focus-within': {
+          backgroundColor: 'transparent',
+        },
+        padding: 0,
+      }}
+      startIcon={<BsFillPauseFill />}
+    >
+      {t('player').translate('pauseAudio')}
+    </Button>
+  ) : (
+    <Button
+      variant="text"
+      size="small"
+      onClick={play}
+      startIcon={<BsPlayFill />}
+      sx={{
+        backgroundColor: 'transparent',
+        '&:hover, &:focus-within': {
+          backgroundColor: 'transparent',
+        },
+        padding: 0,
+      }}
 
-          // aria-label={t('aria.play-surah', { surahName: chapterData.transliteratedName })}
-        >
-          Spela upp ljud
-        </Button>
-      )}
-    </Box>
+      // aria-label={t('aria.play-surah', { surahName: chapterData.transliteratedName })}
+    >
+      {t('player').translate('playAudio')}
+    </Button>
   )
 }
 
