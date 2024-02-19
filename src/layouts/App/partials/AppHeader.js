@@ -254,7 +254,7 @@ const AppHeader = React.memo(function AppHeader(props) {
         >
           <AppHeaderList>
             {menus?.primary?.map((menuItem, idx) => (
-              <AppNavDropDown key={idx} menuItem={menuItem} />
+              <AppNavDropDown key={menuItem.url} menuItem={menuItem} />
             ))}
           </AppHeaderList>
         </AppHeaderNav>
