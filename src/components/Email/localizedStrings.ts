@@ -8,9 +8,6 @@ Best regards,
 <br />
 StuderaKoranen.nu
     `,
-    address: `
-Eksatravagen 471, 12738 Skarholmen, Stockholm
-    `,
   },
   ar: {
     previewText: `شكراً لتواصلك معنا!`,
@@ -20,9 +17,6 @@ Eksatravagen 471, 12738 Skarholmen, Stockholm
 مع أطيب التحيات،
 <br />
 StuderaKoranen.nu
-    `,
-    address: `
-Eksatravagen 471, 12738 Skarholmen, Stockholm
     `,
   },
   sv: {
@@ -35,9 +29,6 @@ spännande nyheter.
 Med vänliga hälsningar,
 <br />
 StuderaKoranen.nu
-    `,
-    address: `
-Eksatravagen 471, 12738 Skarholmen, Stockholm
     `,
   },
 }

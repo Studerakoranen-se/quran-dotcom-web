@@ -11,7 +11,6 @@ import {
   Row,
   Section,
   Text,
-  Tailwind,
 } from '@react-email/components'
 import * as React from 'react'
 import localizedStrings from './localizedStrings'
@@ -50,71 +49,66 @@ const ContactEmail = ({ locale = 'ar' }: ContactEmailProps) => {
   const strings = localizedStrings[locale]
 
   return (
-    <Tailwind>
-      <Html lang={locale}>
-        <Head />
-        <Preview>Thank you for contacting us!</Preview>
-        <Body style={main}>
-          <Container style={container}>
-            <Text
-              style={paragraph}
-              dangerouslySetInnerHTML={{
-                __html: strings.previewText,
-              }}
-            />
+    <Html lang={locale}>
+      <Head />
+      <Preview>Thank you for contacting us!</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Text
+            style={paragraph}
+            dangerouslySetInnerHTML={{
+              __html: strings.previewText,
+            }}
+          />
 
-            <Text
-              style={paragraph}
-              dangerouslySetInnerHTML={{
-                __html: strings.content,
-              }}
-            />
+          <Text
+            style={paragraph}
+            dangerouslySetInnerHTML={{
+              __html: strings.content,
+            }}
+          />
 
-            <Text
-              style={paragraph}
-              dangerouslySetInnerHTML={{
-                __html: strings.footerText,
-              }}
-            />
-            <Hr style={hr} />
-          </Container>
-          <Section style={footer}>
-            <Row>
-              <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
-                <Link
-                  className="text-gray-400 hover:text-gray-500"
-                  href="https://www.facebook.com/people/StuderaKoranennu/61553792279856/"
-                >
-                  <span className="sr-only">Facebook</span>
-                  <Img
-                    src={`https://quran-dotcom-web.vercel.app/assets/Facebook.png`}
-                    className="h-6 w-6"
-                  />
-                </Link>
-              </Column>
-              <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
-                <Link
-                  className="text-gray-400 hover:text-gray-500"
-                  href="https://www.instagram.com/studerakoranen.nu"
-                >
-                  <span className="sr-only">Instagram</span>
-                  <Img
-                    src={`https://quran-dotcom-web.vercel.app/assets/Instagram.png`}
-                    className="h-6 w-6"
-                  />
-                </Link>
-              </Column>
-            </Row>
-            <Row>
-              <Text style={{ textAlign: 'center', color: '#706a7b' }}>
-                © 2024 StuderaKoranen, All Rights Reserved <br />
-                {strings.address}
-              </Text>
-            </Row>
-          </Section>
-        </Body>
-      </Html>
-    </Tailwind>
+          <Text
+            style={paragraph}
+            dangerouslySetInnerHTML={{
+              __html: strings.footerText,
+            }}
+          />
+          <Hr style={hr} />
+        </Container>
+        <Section style={footer}>
+          <Row>
+            <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
+              <Link
+                className="text-gray-400 hover:text-gray-500"
+                href="https://www.facebook.com/people/StuderaKoranennu/61553792279856/"
+              >
+                <Img
+                  src={`https://quran-dotcom-web.vercel.app/assets/Facebook.svg`}
+                  style={{ width: '24px', height: '24px' }}
+                />
+              </Link>
+            </Column>
+            <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
+              <Link
+                className="text-gray-400 hover:text-gray-500"
+                href="https://www.instagram.com/studerakoranen.nu"
+              >
+                <Img
+                  src={`https://quran-dotcom-web.vercel.app/assets/Instagram.svg`}
+                  style={{ width: '24px', height: '24px' }}
+                />
+              </Link>
+            </Column>
+          </Row>
+          <Row>
+            <Text style={{ textAlign: 'center', color: '#706a7b' }}>
+              © 2024 StuderaKoranen, All Rights Reserved <br />
+            </Text>
+          </Row>
+        </Section>
+      </Body>
+    </Html>
   )
 }
 
