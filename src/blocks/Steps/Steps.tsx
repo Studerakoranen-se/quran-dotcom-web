@@ -133,9 +133,9 @@ const StepsItemIcon = styled('div')(({ theme }) => ({
   alignItems: 'center',
   borderRadius: 9999,
   background:
-    // @ts-ignore
     theme.palette.mode === 'dark'
-      ? theme.vars.palette.green[400]
+      ? // @ts-ignore
+        theme.vars.palette.green[400]
       : theme.vars.palette.primary.light,
   width: 168,
   height: 168,
