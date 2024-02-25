@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 /**
  * This function returns a number string after making sure
  * it's in the valid format. e.g.

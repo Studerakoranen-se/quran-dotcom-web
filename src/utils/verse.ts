@@ -183,7 +183,7 @@ export const sortByVerseKey = (verseKey1: string, verseKey2: string): number => 
  * @param {Record<string, unknown>} object
  * @returns {Record<string, unknown>}
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 export const sortVersesObjectByVerseKeys = (object: Record<string, any>): Record<string, any> => {
   const sortedObject = {}
   Object.keys(object)

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/naming-convention */
-
 import SearchQuerySource from '~/types/SearchQuerySource'
 import SearchType from '~/types/SearchType'
 // import { isFirebaseEnabled } from 'src/lib/firebase';

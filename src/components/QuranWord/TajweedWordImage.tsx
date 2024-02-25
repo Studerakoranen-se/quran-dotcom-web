@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectQuranReaderStyles } from '~/store/slices/QuranReader/styles'

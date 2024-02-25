@@ -79,7 +79,6 @@ const handleErrors = async (res) => {
 export const postRequest = <T>(url: string, requestData: RequestData): Promise<T> =>
   privateFetcher(url, {
     method: 'POST',
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(requestData),
   })
@@ -95,7 +94,6 @@ const deleteRequest = <T>(url: string, requestData?: RequestData): Promise<T> =>
   privateFetcher(url, {
     method: 'DELETE',
     ...(requestData && {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestData),
     }),
@@ -112,7 +110,6 @@ const patchRequest = <T>(url: string, requestData?: RequestData): Promise<T> =>
   privateFetcher(url, {
     method: 'PATCH',
     ...(requestData && {
-      // eslint-disable-next-line @typescript-eslint/naming-convention
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(requestData),
     }),
@@ -337,7 +334,6 @@ export const withCredentialsFetcher = async <T>(
       credentials: 'include',
       headers: {
         ...init?.headers,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         'x-timezone': getTimezone(),
       },
     })

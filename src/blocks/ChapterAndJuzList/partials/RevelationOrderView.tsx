@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import * as React from 'react'
 import { useRouter } from 'next/router'
 import { styled } from '@mui/material'
@@ -68,7 +67,6 @@ const RevelationOrderView = (props: RevelationOrderViewProps) => {
             } // Show the number based on the revelation order instead of the surah number.
             // translatedSurahName={getTranslatedSurahName(chapter, t, lang)}
             translatedSurahName={chapter.translatedName as string}
-            isMinimalLayout={false}
             locale={locale}
             // isLoading={isLoading && clickedSurahId === chapter.id}
           />

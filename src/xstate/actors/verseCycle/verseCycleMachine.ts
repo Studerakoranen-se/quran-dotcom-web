@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable import/prefer-default-export */
 import { assign, createMachine } from 'xstate'
 import { pure, sendParent } from 'xstate/lib/actions'

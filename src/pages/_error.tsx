@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button } from '@mui/material'
 import { useRouter } from 'next/router'
 import { RouterLink } from '~/containers'
@@ -7,8 +6,8 @@ import { RouterLink } from '~/containers'
 type ErrorProps = {
   statusCode?: number
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const Error = ({ statusCode }: ErrorProps) => {
+
+const Error = () => {
   const router = useRouter()
 
   // if previous page url exist, go back, otherwise go to home

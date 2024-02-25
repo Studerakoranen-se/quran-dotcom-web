@@ -1,5 +1,3 @@
-/* eslint-disable no-return-assign */
-
 import type { NextApiRequest, NextApiResponse } from 'next'
 import nodemailer from 'nodemailer'
 import { render } from '@react-email/render'

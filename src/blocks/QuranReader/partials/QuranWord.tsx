@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import * as React from 'react'
 import { useSelector as useXstateSelector } from '@xstate/react'
 import { shallowEqual, useSelector } from 'react-redux'

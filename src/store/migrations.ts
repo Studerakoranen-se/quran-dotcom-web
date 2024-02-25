@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import initialState, { DEFAULT_TAFSIRS } from '~/store/defaultSettings/defaultSettings'
 import { initialSidebarIsVisible } from '~/store/slices/QuranReader/sidebarNavigation'
 import { consolidateWordByWordState, getDefaultWordByWordDisplay } from '~/utils/wordByWord'

@@ -1,5 +1,3 @@
-/* eslint-disable max-lines */
-/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable import/prefer-default-export */
 import { createMachine, ActorRefFrom, spawn } from 'xstate'
 import { forwardTo, pure, sendParent, stop, assign, send } from 'xstate/lib/actions'

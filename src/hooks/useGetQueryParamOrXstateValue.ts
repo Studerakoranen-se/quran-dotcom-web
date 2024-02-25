@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useContext } from 'react'
 import { useSelector as useXstateSelector } from '@xstate/react'
 import { useRouter } from 'next/router'

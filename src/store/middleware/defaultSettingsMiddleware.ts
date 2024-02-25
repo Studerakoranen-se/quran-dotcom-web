@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { Middleware } from 'redux'
 import { IRootState } from '~/store'
 import { setIsUsingDefaultSettings } from '~/store/slices/defaultSettings'

@@ -113,14 +113,12 @@ export default function transformSanityMedia(
 
       ;(
         Object.entries(muiBreakpoints.values) as Array<[keyof typeof muiBreakpoints.values, number]>
-      )
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        .forEach(([breakpointKey], _i, _array) => {
-          // generate breakpoints object with sanity image objects for each breakpoint
-          if (sanityMedia.src) {
-            breakpoints[breakpointKey] = sanityMedia.src
-          }
-        })
+      ).forEach(([breakpointKey], _i, _array) => {
+        // generate breakpoints object with sanity image objects for each breakpoint
+        if (sanityMedia.src) {
+          breakpoints[breakpointKey] = sanityMedia.src
+        }
+      })
 
       return {
         ...mediaProps,

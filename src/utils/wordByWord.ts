@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { WordByWordDisplay, WordByWordType } from '~/types/QuranReader'
 import { mergeTwoArraysUniquely } from './array'
 

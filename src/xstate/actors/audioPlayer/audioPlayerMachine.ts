@@ -823,9 +823,7 @@ export const audioPlayerMachine =
           ayahNumber: (context) => context.ayahNumber + 1,
         }),
         setSurahAndResetAyahNumber: assign({
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           surah: (context, event) => event.surah,
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           ayahNumber: (context) => 1,
         }),
         setAyahNumber: assign({
@@ -897,7 +895,7 @@ export const audioPlayerMachine =
         },
         setPlaybackRate: pure((context: AudioPlayerContext, event) => {
           const { playbackRate } = event
-          // eslint-disable-next-line no-param-reassign
+
           context.audioPlayer.playbackRate = playbackRate
           return assign({
             playbackRate,
@@ -1013,7 +1011,6 @@ export const audioPlayerMachine =
           return []
         }),
         seekTo: pure((context, event) => {
-          // eslint-disable-next-line no-param-reassign
           context.audioPlayer.currentTime = event.timestamp
           return assign({
             elapsed: event.timestamp,

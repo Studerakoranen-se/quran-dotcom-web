@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable global-require */
 import random from 'lodash/random'
 import Chapter from '~/types/Chapter'
 import ChaptersData from '~/types/ChaptersData'

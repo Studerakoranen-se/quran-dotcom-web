@@ -58,12 +58,7 @@ const ChapterAndJuzListSkeleton = () => {
         />
       </SkeletonTab>
       {chaptersArr.map((k, i) => (
-        <SkeletonItem
-          // eslint-disable-next-line react/no-array-index-key
-          key={`skeleton_${i}`}
-          isActive
-          isSquared
-        />
+        <SkeletonItem key={`skeleton_${i}`} isActive isSquared />
       ))}
     </span>
   )

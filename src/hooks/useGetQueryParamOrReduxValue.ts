@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { useRouter } from 'next/router'
 import { useSelector, shallowEqual } from 'react-redux'
 import { IRootState } from '~/store'
@@ -25,7 +23,6 @@ const QUERY_PARAMS_DATA = {
     reduxSelector: selectWordByWordLocale,
     reduxEqualityFunction: shallowEqual,
     valueType: QueryParamValueType.String,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     validate: (val) => true,
   },
 } as Record<

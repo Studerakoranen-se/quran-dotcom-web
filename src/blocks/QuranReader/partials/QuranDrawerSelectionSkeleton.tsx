@@ -13,8 +13,7 @@ const QuranDrawerSelectionSkeletonRoot = styled('div')(() => ({
 const QuranDrawerSelectionSkeleton = () => {
   return (
     <QuranDrawerSelectionSkeletonRoot>
-      {rowsArr.map((k, i) => (
-        // eslint-disable-next-line react/no-array-index-key
+      {rowsArr.map((_, i) => (
         <Skeleton
           key={`skeleton_${i}`}
           isActive

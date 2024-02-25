@@ -1,5 +1,3 @@
-/* eslint-disable react/no-danger */
-
 import React, { MouseEvent } from 'react'
 import { Box, Button, CircularProgress } from '@mui/material'
 import { useI18n } from '~/contexts'

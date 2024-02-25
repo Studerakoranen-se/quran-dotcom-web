@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { ReactNode, createContext } from 'react'
 import { InterpreterFrom } from 'xstate'
 import { useInterpret } from '@xstate/react'
