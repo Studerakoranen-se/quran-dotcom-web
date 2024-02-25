@@ -5,6 +5,7 @@ import nodemailer from 'nodemailer'
 import { render } from '@react-email/render'
 import ContactEmail from '~/components/Email/ContactEmail'
 import ContactEmailAdmin from '~/components/Email/ContactEmailAdmin'
+import localizedStrings from '~/components/Email/localizedStrings'
 
 const Email = process.env.NODE_MAILER_EMAIL
 const password = process.env.NODE_MAILER_PASSWORD
@@ -36,6 +37,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   if (req.method === 'POST') {
     const { body } = req
 
+    const strings = localizedStrings[body.locale || 'ar']
+
     try {
       await Promise.all([
         transporter.sendMail({
@@ -47,8 +50,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         transporter.sendMail({
           from: Email, // sender address
           to: body.email, // list of receivers
-          subject: `Thanks for contacting us ${body.firstName} ${body.lastName}!`,
-          html: render(ContactEmail({ firstName: body.firstName, lastName: body.lastName })),
+          subject: `${strings.previewText} ${body.firstName} ${body.lastName}!`,
+          html: render(
+            ContactEmail({
+              locale: body.locale,
+            }),
+          ),
         }),
       ])
 

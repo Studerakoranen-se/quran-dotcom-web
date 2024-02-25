@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useRouter } from 'next/router'
 import {
   Alert,
   Box,
@@ -156,7 +157,7 @@ function Form(props: FormProps) {
     gridLayout,
   } = props
 
-  const muiTheme = useTheme()
+  const router = useRouter()
 
   const { t } = useI18n()
   // @ts-ignore
@@ -179,6 +180,7 @@ function Form(props: FormProps) {
       const formValues = {
         id,
         ...values,
+        locale: router.locale,
       }
 
       const method = fetchOptionsProp?.method || 'POST'
@@ -202,7 +204,7 @@ function Form(props: FormProps) {
 
       setSubmitting(false)
     },
-    [endpointProp, fetchOptionsProp, id, renderIndex],
+    [endpointProp, fetchOptionsProp?.method, id, renderIndex, router.locale],
   )
 
   // Compose Formit initialValues
