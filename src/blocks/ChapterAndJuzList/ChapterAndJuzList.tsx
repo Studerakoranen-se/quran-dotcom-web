@@ -212,7 +212,7 @@ function ChapterAndJuzList(props: ChapterAndJuzListProps) {
 
         <CustomTabPanel value={view} index={1}>
           <PreviewContainer2>
-            <JuzPreview isDescending={sortBy === Sort.DESC} />
+            <JuzPreview isDescending={sortBy === Sort.DESC} locale={locale} />
           </PreviewContainer2>
         </CustomTabPanel>
 

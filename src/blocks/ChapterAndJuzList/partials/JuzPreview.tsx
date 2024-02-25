@@ -34,10 +34,11 @@ const JuzRouterLink = styled(RouterLink)({
 
 type JuzPreviewProps = {
   isDescending: boolean
+  locale: string
 }
 
 const JuzPreview = (props: JuzPreviewProps) => {
-  const { isDescending } = props
+  const { isDescending, locale } = props
 
   const [juzMappings, setJuzMappings] = React.useState([])
   const chaptersData = React.useContext(DataContext)
@@ -93,6 +94,7 @@ const JuzPreview = (props: JuzPreviewProps) => {
                       surahName={chapter.transliteratedName}
                       surahNumber={Number(chapterId)}
                       translatedSurahName={chapter.translatedName as string}
+                      locale={locale}
                       // isMinimalLayout={shouldUseMinimalLayout(lang)}
                     />
                   </div>
