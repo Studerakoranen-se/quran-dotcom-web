@@ -23,13 +23,13 @@ const RecentReadingMain = styled('div')(({ theme }) => ({
 const RecentSectionContainer = styled('div')(({ theme }) => ({
   position: 'relative',
   display: 'flex',
-  gap: theme.spacing(4),
+  gap: theme.spacing(2),
   flexWrap: 'nowrap',
   overflowX: 'auto',
 }))
 
 const RecentSectionItem = styled('div')(() => ({
-  minWidth: 220,
+  minWidth: 'calc(6*2.3rem)',
 }))
 
 const RecentSectionLink = styled(RouterLink)(({ theme }) => ({
