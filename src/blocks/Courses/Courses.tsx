@@ -39,12 +39,10 @@ const CoursesRootMain = styled('div')(({ theme }) => ({
   },
 }))
 
-const CoursesEntryHeading = styled('h2')(({ theme }) => ({
-  ...theme.typography.h6,
-  margin: theme.spacing(0, 0, 2),
-  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-    fontSize: theme.typography.h2.fontSize,
-  },
+const CoursesEntryHeading = styled('h1')(({ theme }) => ({
+  ...theme.typography.h4,
+  margin: 0,
+  fontSize: `max(${theme.typography.h4.fontSize}, 2vw)`,
 }))
 
 const CourseItem = styled('div')(({ theme }) => ({

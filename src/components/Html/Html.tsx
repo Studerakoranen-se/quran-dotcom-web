@@ -5,7 +5,11 @@ import { SxProps } from '@mui/material'
 export const HtmlRoot = styled('div')(({ theme }) => ({
   ...theme.typography.body1,
   h1: theme.typography.h1,
-  h2: theme.typography.h2,
+  h2: {
+    ...theme.typography.h4,
+    margin: 0,
+    fontSize: `max(${theme.typography.h4.fontSize}, 2.2vw)`,
+  },
   h3: theme.typography.h3,
   h4: theme.typography.h4,
   h5: theme.typography.h5,

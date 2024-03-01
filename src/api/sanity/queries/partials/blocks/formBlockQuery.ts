@@ -7,7 +7,6 @@ export interface FormBlockQueryResult {
   submitLabel?: string
   successMessage?: string
   errorMessage?: string
-  showPrivacyPolicyDisclaimer?: boolean
   fetchOptions?: {
     method?: 'GET' | 'POST'
   }
@@ -71,7 +70,6 @@ export default `
   submitLabel,
   successMessage,
   errorMessage,
-  showPrivacyPolicyDisclaimer,
   fetchOptions,
   "tutors": *[_type == 'tutor'],
   fields[] {

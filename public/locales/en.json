@@ -12,7 +12,8 @@
   },
 
   "blocks/Tutors/Tutors.tsx": {
-    "Back": ""
+    "Back": "",
+    "Speaks": ""
   },
   "blocks/ChapterAndJuzList/ChapterAndJuzList.tsx": {
     "Surah": "",

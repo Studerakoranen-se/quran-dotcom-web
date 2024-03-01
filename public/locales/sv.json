@@ -12,7 +12,8 @@
   },
 
   "blocks/Tutors/Tutors.tsx": {
-    "Back": "Tillbaka"
+    "Back": "Tillbaka",
+    "Speaks": "Talar"
   },
   "blocks/ChapterAndJuzList/ChapterAndJuzList.tsx": {
     "Surah": "",

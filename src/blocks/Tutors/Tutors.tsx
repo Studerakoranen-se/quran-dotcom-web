@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Box, Button, ButtonBase, Chip, Drawer, Typography, alpha, styled } from '@mui/material'
+import { Box, Button, ButtonBase, Chip, Drawer, Typography, styled } from '@mui/material'
 import { Media, MediaReveal } from '@noaignite/oui'
 import { TutorsBlockQueryResult } from '~/api/sanity'
 import { transformSanityMedia } from '~/api/sanity/utils'
@@ -65,19 +65,20 @@ const ActiveTutorDrawer = styled(Drawer)(({ theme }) => ({
     width: 500, // By design.
     height: '100vh',
     padding: theme.spacing(6),
+    backgroundColor: theme.vars.palette.background.default,
   },
 }))
 
 type ActiveTutorProps = {
   fullname: string
   title?: string
-  gender?: string
-  age?: number
   fields?: string[]
+  tags?: string[]
   languages?: string[]
-  phone?: string
-  mail?: string
-  experience?: string
+  extraFields: {
+    title: string
+    text: string
+  }[]
   text?: any
   isHidden?: boolean
 }
@@ -191,41 +192,27 @@ export default function Tutors(props: TutorsBlockQueryResult) {
           <Typography component="h5" variant="subtitle1" sx={{ mb: 2, fontStyle: 'italic' }}>
             {activeEntry?.title}
           </Typography>
-          {activeEntry?.fields && (
+
+          {activeEntry?.tags && (
             <Box my={2} gap={1} display={'flex'} flexWrap={'wrap'}>
-              {activeEntry.fields.map((field, idx) => (
+              {activeEntry.tags.map((field, idx) => (
                 <Chip key={idx} label={field} />
               ))}
             </Box>
           )}
 
-          {activeEntry?.phone && (
-            <Typography variant="body1" gutterBottom>
-              <strong>{t(__translationGroup)`Phone`}</strong>: {activeEntry?.phone}
+          {activeEntry?.extraFields.map((field, idx) => (
+            <Typography key={idx} variant="body1" gutterBottom>
+              <strong>{field.title}</strong>: {field.text}
             </Typography>
-          )}
-          {activeEntry?.age && (
-            <Typography variant="body1" gutterBottom>
-              <strong>{t(__translationGroup)`Age`}</strong>: {activeEntry?.age}
-            </Typography>
-          )}
-          {activeEntry?.mail && (
-            <Typography variant="body1" gutterBottom>
-              <strong>{t(__translationGroup)`Email`}</strong>: {activeEntry?.mail}
-            </Typography>
-          )}
-          {activeEntry?.experience && (
-            <Typography variant="body1">
-              <strong>{t(__translationGroup)`Experience`}</strong>: {activeEntry?.experience}
-            </Typography>
-          )}
+          ))}
 
           {activeEntry?.languages && (
-            <Box>
+            <Box mt={2}>
               <Typography variant="body1">
                 <strong>{t(__translationGroup)`Speaks`}</strong>:
               </Typography>
-              <Box my={2} gap={1} display={'flex'} flexWrap={'wrap'}>
+              <Box mt={2} mb={4} gap={1} display={'flex'} flexWrap={'wrap'}>
                 {activeEntry.languages.map((field, idx) => (
                   <Chip key={idx} label={field} />
                 ))}
@@ -235,7 +222,7 @@ export default function Tutors(props: TutorsBlockQueryResult) {
 
           {activeEntry?.text && <SanityHtml sx={{ mt: 2 }} blocks={activeEntry.text} />}
 
-          <Button onClick={handleClose} color="inherit" variant="contained" sx={{ mt: 4 }}>
+          <Button onClick={handleClose} variant="contained" size="medium" sx={{ mt: 4 }}>
             {t(__translationGroup)`Back`}
           </Button>
         </ActiveTutorDrawer>

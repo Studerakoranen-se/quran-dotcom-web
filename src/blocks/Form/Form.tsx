@@ -11,7 +11,6 @@ import {
   Typography,
   styled,
 } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
 import { Formit, Form as FormitForm, Field as FormitField } from '@noaignite/formit'
 import { useI18n, useRemoteConfig } from '~/contexts'
 import { FormitButton, FormitTextField, SanityHtml } from '~/containers'
@@ -67,7 +66,7 @@ const FormFields = styled('div')<{ ownerState: { gridLayout?: boolean } }>(
 
 const CheckboxContainer = styled('div')(() => ({
   display: 'flex',
-  alignItems: 'center',
+  flexDirection: 'column',
 }))
 
 const LastFields = styled('div')(() => ({
@@ -98,6 +97,7 @@ type CheckboxType = {
   label: string
   name: string
   required?: boolean
+  labelHtml?: any
 }
 
 type RadioType = {
@@ -128,7 +128,6 @@ type FormProps = {
   errorMessage: string
   fetchOptions: any
   fields: FieldType[]
-  showPrivacyPolicyDisclaimer: boolean
   submitLabel: string
   successMessage: string
   tutors: {
@@ -150,7 +149,6 @@ function Form(props: FormProps) {
     text,
     id,
     renderIndex,
-    showPrivacyPolicyDisclaimer,
     submitLabel,
     successMessage,
     tutors,
@@ -248,9 +246,23 @@ function Form(props: FormProps) {
                   }}
                 >
                   {fields?.map((field, idx) => {
-                    // @ts-ignore
-                    const { label, name, options, pattern, required, type, helperText, rows } =
-                      field
+                    const {
+                      label,
+                      name,
+                      // @ts-ignore
+                      options,
+                      // @ts-ignore
+                      pattern,
+                      required,
+                      // @ts-ignore
+                      type,
+                      // @ts-ignore
+                      helperText,
+                      // @ts-ignore
+                      rows,
+                      // @ts-ignore
+                      labelHtml,
+                    } = field
 
                     const sharedProps = {
                       key: idx,
@@ -262,14 +274,36 @@ function Form(props: FormProps) {
                     if (type === 'checkbox') {
                       return (
                         <CheckboxContainer sx={{ gridColumn: '1/-1' }}>
+                          {labelHtml && (
+                            <SanityHtml
+                              blocks={labelHtml}
+                              sx={{
+                                mb: 2,
+                              }}
+                            />
+                          )}
                           <FormitField
-                            sx={{ my: -1, mr: !label ? 0 : 2 }}
+                            sx={{
+                              my: -1,
+                              mr: !label ? 0 : 2,
+                              '&.MuiFormControlLabel-root': {
+                                alignItems: 'flex-start',
+                              },
+
+                              '&.MuiFormControlLabel-root .MuiStack-root': {
+                                display: 'block',
+                              },
+
+                              '&.MuiFormControlLabel-root .MuiCheckbox-root': {
+                                p: '0px',
+                                px: '9px',
+                              },
+                            }}
                             component={FormControlLabel}
                             control={<Checkbox required={required} />}
                             label={label}
                             {...sharedProps}
                           />
-                          {/* {!label && <SanityHtml blocks={labelHtml} />} */}
                         </CheckboxContainer>
                       )
                     }
@@ -288,11 +322,6 @@ function Form(props: FormProps) {
                                 control={<Radio required={required} />}
                                 label={option.label}
                                 value={option.value}
-                                sx={(theme) => ({
-                                  '.MuiFormControlLabel-label': {
-                                    ...theme.typography.caption,
-                                  },
-                                })}
                               />
                             ))}
                           </FormitField>
@@ -390,14 +419,6 @@ function Form(props: FormProps) {
                 >
                   {submitLabel || t(__translationGroup)`Send`}
                 </FormitButton>
-                {showPrivacyPolicyDisclaimer && (
-                  <Typography>
-                    {t(
-                      __translationGroup,
-                    )`By submitting this form, you confirm that you have read and understood our `}
-                    <a href={privacyPolicyPageUrl}>{t(__translationGroup)`privacy policy`}</a>
-                  </Typography>
-                )}
               </React.Fragment>
             )}
           </FormFormitForm>

@@ -30,15 +30,20 @@ export default `
         title[$locale],
         title[$defaultLocale]
       ),
-    gender,
-    age,
-    experience,
-    phone,
-    mail,
-    "fields": coalesce(
-        fields[$locale],
-        fields[$defaultLocale]
+    "tags": coalesce(
+      tags[][$locale],
+      tags[][$defaultLocale]
+    ),
+    "extraFields": extraFields[]{
+      "title": coalesce(
+        title[$locale],
+        title[$defaultLocale]
       ),
+      "text": coalesce(
+        text[$locale],
+        text[$defaultLocale]
+      ),
+    },
     "languages": coalesce(
         languages[$locale],
         languages[$defaultLocale]
