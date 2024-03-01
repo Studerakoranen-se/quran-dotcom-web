@@ -3,6 +3,7 @@ import nodemailer from 'nodemailer'
 import { render } from '@react-email/render'
 import ConfirmationEmail from '~/components/Email/ConfirmationEmail'
 import ConfirmationTutorEmail from '~/components/Email/ConfirmationTutorEmail'
+import { localizedApplicationStrings } from '~/components/Email/localizedStrings'
 
 const Email = process.env.NODE_MAILER_EMAIL
 const password = process.env.NODE_MAILER_PASSWORD
@@ -32,21 +33,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   if (req.method === 'POST' && req.body && req.body.teacher && req.body.teacher.mail) {
     const { body } = req
 
+    const strings = localizedApplicationStrings[body.locale || 'ar']
+
     try {
       await Promise.all([
         transporter.sendMail({
           from: Email, // from Studera Koranen
           to: req.body.teacher.mail, // To the teacher,
           cc: `studerakoranen@gmail.com`, // To Administator
-          subject: body.subject,
+          subject: `${body.firstName} ${body.lastName}!`,
           html: render(ConfirmationTutorEmail(body)),
         }),
 
         transporter.sendMail({
           from: Email, // from Studera Koranen
           to: body.email, // to the student
-          subject: `Ansökan till Studera Koranen: ${body.firstName} ${body.lastName}`,
-          html: render(ConfirmationEmail({ firstName: body.firstName, lastName: body.lastName })),
+          subject: `${strings.previewText} ${body.firstName} ${body.lastName}!`,
+          html: render(ConfirmationEmail({ locale: body.locale })),
         }),
       ])
       return res.status(200).json({ success: true })

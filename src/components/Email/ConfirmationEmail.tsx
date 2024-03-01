@@ -1,9 +1,22 @@
-import { Body, Container, Head, Hr, Html, Preview, Text } from '@react-email/components'
+import {
+  Body,
+  Column,
+  Container,
+  Head,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Row,
+  Section,
+  Text,
+} from '@react-email/components'
 import * as React from 'react'
+import { localizedApplicationStrings } from './localizedStrings'
 
-interface ConfirmationEmailProps {
-  firstName: string
-  lastName: string
+export type ConfirmationEmailProps = {
+  locale: 'en' | 'ar' | 'sv' // Specify the allowed locales
 }
 
 const main = {
@@ -32,32 +45,70 @@ const footer = {
   fontSize: '12px',
 }
 
-const ConfirmationEmail = ({ firstName, lastName }: ConfirmationEmailProps) => (
-  <Html>
-    <Head />
-    <Preview>Tack för din ansökan till Studera Koranen!</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Text style={paragraph}>Hi {`${firstName} ${lastName}`},</Text>
-        <Text style={paragraph}>
-          Welcome to Studera Koranen, the online Koran teaching platform that helps you learn the
-          Koran in interactive way.
-        </Text>
+const ConfirmationEmail = ({ locale = 'ar' }: ConfirmationEmailProps) => {
+  const strings = localizedApplicationStrings[locale]
+  return (
+    <Html>
+      <Head />
+      <Preview>{strings.previewText}</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Text
+            style={paragraph}
+            dangerouslySetInnerHTML={{
+              __html: strings.previewText,
+            }}
+          />
 
-        <Text style={paragraph}>
-          Our team recieved your request and we will get back to you as soon as possible.
-        </Text>
+          <Text
+            style={paragraph}
+            dangerouslySetInnerHTML={{
+              __html: strings.content,
+            }}
+          />
 
-        <Text style={paragraph}>
-          Best,
-          <br />
-          The Studera Koranen team
-        </Text>
-        <Hr style={hr} />
-        <Text style={footer}>Eksatravagen 471, 12738 Skarholmen, Stockholm</Text>
-      </Container>
-    </Body>
-  </Html>
-)
+          <Text
+            style={paragraph}
+            dangerouslySetInnerHTML={{
+              __html: strings.footerText,
+            }}
+          />
+          <Hr style={hr} />
+        </Container>
+        <Section style={footer}>
+          <Row>
+            <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
+              <Link
+                className="text-gray-400 hover:text-gray-500"
+                href="https://www.facebook.com/people/StuderaKoranennu/61553792279856/"
+              >
+                <Img
+                  src={`https://quran-dotcom-web.vercel.app/assets/Facebook.svg`}
+                  style={{ width: '24px', height: '24px' }}
+                />
+              </Link>
+            </Column>
+            <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
+              <Link
+                className="text-gray-400 hover:text-gray-500"
+                href="https://www.instagram.com/studerakoranen.nu"
+              >
+                <Img
+                  src={`https://quran-dotcom-web.vercel.app/assets/Instagram.svg`}
+                  style={{ width: '24px', height: '24px' }}
+                />
+              </Link>
+            </Column>
+          </Row>
+          <Row>
+            <Text style={{ textAlign: 'center', color: '#706a7b' }}>
+              © 2024 StuderaKoranen, All Rights Reserved <br />
+            </Text>
+          </Row>
+        </Section>
+      </Body>
+    </Html>
+  )
+}
 
 export default ConfirmationEmail

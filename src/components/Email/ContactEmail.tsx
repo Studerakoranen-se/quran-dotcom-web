@@ -13,7 +13,7 @@ import {
   Text,
 } from '@react-email/components'
 import * as React from 'react'
-import localizedStrings from './localizedStrings'
+import { localizedStrings } from './localizedStrings'
 
 const main = {
   backgroundColor: '#ffffff',
@@ -51,7 +51,7 @@ const ContactEmail = ({ locale = 'ar' }: ContactEmailProps) => {
   return (
     <Html lang={locale}>
       <Head />
-      <Preview>Thank you for contacting us!</Preview>
+      <Preview>{strings.previewText}</Preview>
       <Body style={main}>
         <Container style={container}>
           <Text

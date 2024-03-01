@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer'
 import { render } from '@react-email/render'
 import ContactEmail from '~/components/Email/ContactEmail'
 import ContactEmailAdmin from '~/components/Email/ContactEmailAdmin'
-import localizedStrings from '~/components/Email/localizedStrings'
+import { localizedStrings } from '~/components/Email/localizedStrings'
 
 const Email = process.env.NODE_MAILER_EMAIL
 const password = process.env.NODE_MAILER_PASSWORD
