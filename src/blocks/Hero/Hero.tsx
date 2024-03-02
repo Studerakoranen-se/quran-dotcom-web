@@ -9,14 +9,16 @@ const HeroRoot = styled('section')(({ theme }) => ({
   position: 'relative',
   minHeight: 550,
   color: theme.vars.palette.text.textInverted,
-  padding: theme.spacing(20, 2, 20),
+  padding: theme.spacing(20, 2, 15),
+
+  background: `url('/assets/quran-bkg.png')`,
+  backgroundPosition: 'center',
+  backgroundSize: '90%',
+  backgroundRepeat: 'no-repeat',
+
   [theme.breakpoints.up('md')]: {
     padding: theme.spacing(30, 2, 20),
     minHeight: 650,
-
-    background: `url('/assets/quran-bkg.png')`,
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
     backgroundSize: '50%',
   },
 }))
