@@ -195,13 +195,13 @@ export default function Tutors(props: TutorsBlockQueryResult) {
 
           {activeEntry?.tags && (
             <Box my={2} gap={1} display={'flex'} flexWrap={'wrap'}>
-              {activeEntry.tags.map((field, idx) => (
+              {activeEntry.tags?.map((field, idx) => (
                 <Chip key={idx} label={field} />
               ))}
             </Box>
           )}
 
-          {activeEntry?.extraFields.map((field, idx) => (
+          {activeEntry?.extraFields?.map((field, idx) => (
             <Typography key={idx} variant="body1" gutterBottom>
               <strong>{field.title}</strong>: {field.text}
             </Typography>
