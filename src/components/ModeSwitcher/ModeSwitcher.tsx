@@ -26,7 +26,8 @@ const ModeSwitcher = () => {
         setMode(mode === 'light' ? 'dark' : 'light')
       }}
     >
-      {mode === 'light' ? <ThemeIcon fontSize="small" /> : <ThemeMoonIcon fontSize="small" />}
+      {/* 'Turn dark' : 'Turn light' */}
+      {mode === 'light' ? <ThemeMoonIcon fontSize="small" /> : <ThemeIcon fontSize="small" />}
     </IconButton>
   )
 }
