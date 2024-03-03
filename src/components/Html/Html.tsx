@@ -57,7 +57,10 @@ export const HtmlRoot = styled('div')(({ theme }) => ({
   sup: {
     ...theme.typography.caption,
     fontWeight: theme.typography.fontWeightBold,
-    color: theme.palette.mode === 'dark' ? '#E0D2B4' : '#5ea9a9',
+    color: '#5ea9a9',
+    [theme.getColorSchemeSelector('dark')]: {
+      color: '#E0D2B4',
+    },
   },
 }))
 

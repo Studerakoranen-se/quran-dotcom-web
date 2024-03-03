@@ -21,15 +21,34 @@ const RecentReadingMain = styled('div')(({ theme }) => ({
 }))
 
 const RecentSectionContainer = styled('div')(({ theme }) => ({
+  '&::-webkit-scrollbar': {
+    maxWidth: '0.5rem',
+    maxHeight: '0.5rem',
+    backgroundColor: theme.palette.text.secondary,
+    borderRadius: 4,
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: theme.palette.text.primary,
+    [theme.getColorSchemeSelector('dark')]: {
+      backgroundColor: '#E5BD77E5',
+    },
+    borderRadius: 4,
+  },
+
   position: 'relative',
   display: 'flex',
   gap: theme.spacing(2),
   flexWrap: 'nowrap',
+  overscrollBehaviorY: 'contain',
   overflowX: 'auto',
+  overflowY: 'hidden',
+  // Add iOS momentum scrolling.
+  WebkitOverflowScrolling: 'touch',
 }))
 
 const RecentSectionItem = styled('div')(() => ({
   minWidth: 'calc(6*2.3rem)',
+  marginBottom: 10,
 }))
 
 const RecentSectionLink = styled(RouterLink)(({ theme }) => ({

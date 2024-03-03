@@ -11,7 +11,12 @@ const HeroRoot = styled('section')(({ theme }) => ({
   color: theme.vars.palette.text.textInverted,
   padding: theme.spacing(20, 2, 15),
 
-  background: `url('/assets/quran-bkg.png')`,
+  background: `url('/assets/quran-bkg-white.png')`,
+
+  [theme.getColorSchemeSelector('dark')]: {
+    background: `url('/assets/quran-bkg.png')`,
+  },
+
   backgroundPosition: 'center',
   backgroundSize: '90%',
   backgroundRepeat: 'no-repeat',
@@ -19,7 +24,8 @@ const HeroRoot = styled('section')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     padding: theme.spacing(30, 2, 20),
     minHeight: 650,
-    backgroundSize: '50%',
+    backgroundSize: '70%',
+    backgroundOpacity: 0.5,
   },
 }))
 

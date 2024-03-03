@@ -11,9 +11,9 @@ const CourseListRoot = styled('section')(({ theme }) => ({
   padding: theme.spacing(4, 2),
   backgroundColor: theme.vars.palette.background.default,
 
-  ...(theme.palette.mode === 'dark' && {
+  [theme.getColorSchemeSelector('dark')]: {
     boxShadow: 'inset 0px 4px 136px rgba(0, 29, 29, 0.8)',
-  }),
+  },
 
   [theme.breakpoints.up('md')]: {
     minHeight: 650,

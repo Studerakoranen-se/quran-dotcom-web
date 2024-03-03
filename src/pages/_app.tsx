@@ -24,8 +24,7 @@ export interface AppProps extends NextAppProps {
   pageProps: {
     defaultLocale: string
     locale: string
-    headerColor?: string
-    headerColorDark?: string
+
     headerMode?: string
     layout?: keyof typeof layoutVariants
     page: Page & {
@@ -40,17 +39,7 @@ export interface AppProps extends NextAppProps {
 function App(props: AppProps) {
   const { Component, emotionCache, pageProps: nextPageProps } = props
 
-  const {
-    defaultLocale,
-    headerColor,
-    headerColorDark,
-    headerMode,
-    layout,
-    locale,
-    page,
-    preview,
-    ...other
-  } = nextPageProps
+  const { defaultLocale, headerMode, layout, locale, page, preview, ...other } = nextPageProps
   const LayoutComponent = layout ? layoutVariants[layout] : layoutVariants.App
 
   return (
@@ -71,11 +60,7 @@ function App(props: AppProps) {
               locale={locale}
               {...other}
             >
-              <LayoutComponent
-                headerColor={headerColor}
-                headerMode={headerMode}
-                headerColorDark={headerColorDark}
-              >
+              <LayoutComponent headerMode={headerMode}>
                 <ErrorBoundary>
                   <Component {...page} />
                   <AudioPlayer />

@@ -132,11 +132,12 @@ const StepsItemIcon = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: 9999,
-  background:
-    theme.palette.mode === 'dark'
-      ? // @ts-ignore
-        theme.vars.palette.green[400]
-      : theme.vars.palette.primary.light,
+  background: theme.vars.palette.primary.light,
+
+  [theme.getColorSchemeSelector('dark')]: {
+    // @ts-ignore
+    backgroundColor: theme.vars.palette.green[400],
+  },
   width: 168,
   height: 168,
   outlineStyle: 'solid',

@@ -135,12 +135,17 @@ const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranRead
               onClick={() => {
                 dispatch(setIsVisible(false))
               }}
-              sx={{
-                border: (th) => `1px solid ${th.vars.palette.divider}`,
-                color: (th) => (th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4'),
+              sx={(theme) => ({
+                border: `1px solid ${theme.vars.palette.divider}`,
+                color: theme.palette.text.primary,
+
+                [theme.getColorSchemeSelector('dark')]: {
+                  color: '#E0D2B4',
+                },
+
                 borderRadius: 1,
                 p: 0.5,
-              }}
+              })}
               aria-label={`Toggle Surah Drawer`}
               size="small"
             >
@@ -176,12 +181,17 @@ const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranRead
               onClick={() => {
                 dispatch(setIsVisible(false))
               }}
-              sx={{
-                border: (th) => `1px solid ${th.vars.palette.divider}`,
-                color: (th) => (th.palette.mode === 'light' ? th.palette.text.primary : '#E0D2B4'),
+              sx={(theme) => ({
+                border: `1px solid ${theme.vars.palette.divider}`,
+                color: theme.palette.text.primary,
+
+                [theme.getColorSchemeSelector('dark')]: {
+                  color: '#E0D2B4',
+                },
+
                 borderRadius: 1,
                 p: 0.5,
-              }}
+              })}
               aria-label={`Toggle Surah Drawer`}
               size="small"
             >

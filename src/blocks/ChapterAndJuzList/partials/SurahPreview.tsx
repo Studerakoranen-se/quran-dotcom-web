@@ -130,11 +130,14 @@ const SurahPreview = (props: SurahPreviewProps) => {
           </Typography>
           <Typography
             variant="caption"
-            sx={{
+            sx={(theme) => ({
               mt: 0.5,
               fontWeight: 'fontWeightMedium',
-              opacity: (theme) => (theme.palette.mode === 'dark' ? 0.6 : 1),
-            }}
+              opacity: 1,
+              [theme.getColorSchemeSelector('dark')]: {
+                opacity: 0.6,
+              },
+            })}
           >
             {translatedSurahName}
           </Typography>
@@ -148,10 +151,13 @@ const SurahPreview = (props: SurahPreviewProps) => {
           />
           <Typography
             variant="caption2"
-            sx={{
+            sx={(theme) => ({
               fontWeight: 'fontWeightMedium',
-              opacity: (theme) => (theme.palette.mode === 'dark' ? 0.6 : 1),
-            }}
+              opacity: 1,
+              [theme.getColorSchemeSelector('dark')]: {
+                opacity: 0.6,
+              },
+            })}
           >
             {description}
           </Typography>

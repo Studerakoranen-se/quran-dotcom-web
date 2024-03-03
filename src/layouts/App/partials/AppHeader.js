@@ -4,12 +4,28 @@ import useSize from '@react-hook/size'
 import Router, { useRouter } from 'next/router'
 import { unstable_generateUtilityClasses as generateUtilityClasses } from '@mui/utils'
 import { styled } from '@mui/system'
-import { AppBar, IconButton, Button, MenuItem, TextField, Select, Typography } from '@mui/material'
+import {
+  AppBar,
+  IconButton,
+  Button,
+  MenuItem,
+  TextField,
+  Select,
+  Typography,
+  useMediaQuery,
+} from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useGlobalState, useGlobalHandlers, useI18n, useRemoteConfig } from '~/contexts'
 import LanguageSelector from '~/containers/LanguageSelector'
 import { FormitTextField, RouterLink } from '~/containers'
-import { BrandIcon, CloseIcon, GlobeIcon, MenuIcon, ModeSwitcher } from '~/components'
+import {
+  BrandIcon,
+  BrandIconMobile,
+  CloseIcon,
+  GlobeIcon,
+  MenuIcon,
+  ModeSwitcher,
+} from '~/components'
 import { selectIsUsingDefaultSettings } from '~/store/slices/defaultSettings'
 import resetSettings from '~/store/actions/reset-settings'
 import { SITE_HEADER_ID } from '~/utils/constants'
@@ -28,27 +44,7 @@ const classes = generateUtilityClasses('CiaAppHeader', [
   'hiddenOnDesktop',
 ])
 
-const AppHeaderRoot = styled(AppBar)(({ theme, ownerState }) => ({
-  color: theme.palette.mode === 'light' ? ownerState.headerColorDark : ownerState.headerColor,
-  ...(ownerState.headerMode === 'transparent' && {
-    '@media (hover: hover)': {
-      '&:not(:hover):not(:focus-within)': {
-        backgroundColor: 'transparent',
-        color: theme.palette.mode === 'light' ? ownerState.headerColorDark : ownerState.headerColor,
-      },
-
-      '&:hover': {
-        backgroundColor: 'transparent',
-        color: theme.palette.mode === 'light' ? ownerState.headerColorDark : ownerState.headerColor,
-      },
-    },
-  }),
-
-  ...(ownerState.headerMode !== 'transparent' &&
-    theme.palette.mode === 'light' && {
-      // backgroundColor: 'transparent',
-      color: theme.vars.palette.text.primary,
-    }),
+const AppHeaderRoot = styled(AppBar)(({ theme }) => ({
   // Util classes
   [`& .${classes.toolbarPushStart}`]: { marginLeft: 'auto' },
   [`& .${classes.toolbarEdgeEnd}`]: { marginRight: -3 },
@@ -136,8 +132,6 @@ const LanguageSelectorNav = styled('nav')(({ theme }) => ({
 
 const AppHeader = React.memo(function AppHeader(props) {
   const {
-    headerColor = 'inherit',
-    headerColorDark = '#033535',
     headerMode: headerModeProp = 'opaque',
     isNavMenuOpen,
     isSomeMenuOpen,
@@ -158,6 +152,7 @@ const AppHeader = React.memo(function AppHeader(props) {
     useGlobalHandlers()
 
   const isUsingDefaultSettings = useSelector(selectIsUsingDefaultSettings)
+  const isBreakpointUp = useMediaQuery((theme) => theme.breakpoints.up('md'))
 
   const [expandedLogo, setExpandedLogo] = React.useState(true)
   const [disableTransparency, setDisableTransparency] = React.useState(false)
@@ -201,16 +196,9 @@ const AppHeader = React.memo(function AppHeader(props) {
     headerHeight = `calc(${headerHeight} + var(--cia-header-toolbar-secondary-height))`
   }
 
-  const ownerState = {
-    headerColor,
-    headerColorDark,
-    headerMode: computedHeaderMode,
-  }
-
   return [
     <AppHeaderRoot
       ref={rootRef}
-      ownerState={ownerState}
       position={headerModeProp === 'opaque' ? 'sticky' : 'fixed'}
       id={SITE_HEADER_ID}
       {...other}
@@ -235,15 +223,23 @@ const AppHeader = React.memo(function AppHeader(props) {
           href="/"
           aria-label={t(__translationGroup)`Go to the homepage`}
         >
-          <BrandIcon
-            sx={{
-              fontSize: ['opaque', 'auto'].includes(headerModeProp) ? 75 : 90,
+          {isBreakpointUp ? (
+            <BrandIcon
+              sx={{
+                fontSize: ['opaque', 'auto'].includes(headerModeProp) ? 75 : 90,
 
-              ...(['opaque', 'auto'].includes(headerModeProp) && {
-                transform: 'none !important',
-              }),
-            }}
-          />
+                ...(['opaque', 'auto'].includes(headerModeProp) && {
+                  transform: 'none !important',
+                }),
+              }}
+            />
+          ) : (
+            <BrandIconMobile
+              sx={{
+                fontSize: ['opaque', 'auto'].includes(headerModeProp) ? 75 : 90,
+              }}
+            />
+          )}
         </AppHeaderBrandLink>
 
         <div className={classes.toolbarPushStart} />
@@ -271,22 +267,10 @@ const AppHeader = React.memo(function AppHeader(props) {
         )}
 
         <IconButton onClick={onLanguageMenuToggle} size="small" sx={{ mr: 1 }}>
-          <GlobeIcon
-            sx={(theme) => ({
-              color: theme.palette.mode === 'light' ? headerColorDark : headerColor,
-              ...(ownerState.headerMode !== 'transparent' &&
-                theme.palette.mode === 'light' && {
-                  color: theme.vars.palette.text.primary,
-                }),
-            })}
-          />
+          <GlobeIcon />
         </IconButton>
 
-        <ModeSwitcher
-          headerColor={headerColor}
-          headerColorDark={headerColorDark}
-          headerMode={ownerState.headerMode}
-        />
+        <ModeSwitcher />
 
         <IconButton
           className={classes.hiddenOnDesktop}
@@ -296,19 +280,7 @@ const AppHeader = React.memo(function AppHeader(props) {
           aria-expanded={isNavMenuOpen}
           aria-label={t(__translationGroup)`Toggle main menu`}
         >
-          {isNavMenuOpen ? (
-            <CloseIcon
-              sx={{
-                color: (theme) => (theme.palette.mode === 'light' ? headerColorDark : headerColor),
-              }}
-            />
-          ) : (
-            <MenuIcon
-              sx={{
-                color: (theme) => (theme.palette.mode === 'light' ? headerColorDark : headerColor),
-              }}
-            />
-          )}
+          {isNavMenuOpen ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
 
         <div className={classes.toolbarEdgeEnd} />
@@ -326,8 +298,6 @@ const AppHeader = React.memo(function AppHeader(props) {
 })
 
 AppHeader.propTypes = {
-  headerColor: PropTypes.string,
-  headerColorDark: PropTypes.string,
   headerMode: PropTypes.oneOf(['opaque', 'transparent', 'auto']),
   isNavMenuOpen: PropTypes.bool,
   isSomeMenuOpen: PropTypes.bool,

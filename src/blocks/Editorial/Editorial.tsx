@@ -12,10 +12,10 @@ const EditorialRoot = styled('section')<{ ownerState: { layoutReverse?: boolean 
     padding: theme.spacing(3.5),
 
     ...(!ownerState?.layoutReverse && {
-      boxShadow:
-        theme.palette.mode === 'light'
-          ? 'inset 0px 4px 190px -43px rgb(221 221 221 / 30%)'
-          : 'inset 0px 4px 190px -43px #006C6C',
+      boxShadow: 'inset 0px 4px 190px -43px rgb(221 221 221 / 30%)',
+      [theme.getColorSchemeSelector('dark')]: {
+        boxShadow: 'inset 0px 4px 190px -43px #006C6C',
+      },
     }),
   }),
 )
@@ -26,20 +26,21 @@ const EditorialBackground = styled('div')(({ theme }) => ({
   '& *:not(style)': {
     height: '100%',
   },
-  background:
-    theme.palette.mode === 'light'
-      ? `linear-gradient(
+  background: `linear-gradient(
     180.03deg,
     #rgb(255 255 255) 16%,
     #ecebeb 61.39%,
     #rgb(255 255 255) 104.17%
-  ), url('/assets/bgpattern.svg')`
-      : `linear-gradient(
-    180.03deg,
-    #043b3b 16%,
-    rgba(4, 59, 59, 0.85) 61.39%,
-    #043b3b 104.17%
   ), url('/assets/bgpattern.svg')`,
+
+  [theme.getColorSchemeSelector('dark')]: {
+    background: `linear-gradient(
+      180.03deg,
+      #043b3b 16%,
+      rgba(4, 59, 59, 0.85) 61.39%,
+      #043b3b 104.17%
+    ), url('/assets/bgpattern.svg')`,
+  },
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',

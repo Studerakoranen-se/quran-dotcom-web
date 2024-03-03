@@ -63,9 +63,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
     return {
       props: {
-        headerMode: page?.headerMode ?? 'auto',
-        headerColor: page?.headerColor ?? 'white',
-        headerColorDark: page?.headerColorDark ?? '#043b3b',
+        headerMode: page?.headerMode,
         defaultLocale: context.defaultLocale,
         locale: context.locale,
         settings,

@@ -92,7 +92,10 @@ const QuranWordItem = styled(ButtonBase)<{
 
   ...(ownerState?.isRecitationEnabled && {
     '&:hover': {
-      color: theme.palette.mode === 'dark' ? '#E0D2B4' : '#5ea9a9',
+      color: '#5ea9a9',
+      [theme.getColorSchemeSelector('dark')]: {
+        color: '#E0D2B4',
+      },
     },
   }),
 
@@ -117,8 +120,10 @@ const QuranWordItem = styled(ButtonBase)<{
   }),
 
   ...(ownerState?.tajweedWord && {
-    '--tajweed-image-bg':
-      theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.25)' : 'rgba(31, 189, 233, 0.15)',
+    '--tajweed-image-bg': 'rgba(31, 189, 233, 0.15)',
+    [theme.getColorSchemeSelector('dark')]: {
+      '--tajweed-image-bg': 'rgba(255, 255, 255, 0.25)',
+    },
 
     '&:hover': {
       backgroundColor: 'var(--tajweed-image-bg)',

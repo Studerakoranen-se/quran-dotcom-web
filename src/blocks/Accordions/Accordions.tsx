@@ -32,7 +32,7 @@ const AccordionsEntryHeading = styled('h2')(({ theme }) => ({
   ...theme.typography.h6,
   margin: theme.spacing(0, 0, 4),
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-    fontSize: theme.typography.h5.fontSize,
+    fontSize: theme.typography.h4.fontSize,
   },
 }))
 

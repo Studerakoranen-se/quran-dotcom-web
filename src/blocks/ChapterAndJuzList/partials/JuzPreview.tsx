@@ -12,7 +12,10 @@ const JuzPreviewRoot = styled('div')(({ theme }) => ({
   paddingInlineStart: 13,
   paddingInlineEnd: 13,
   breakInside: 'avoid-column',
-  backgroundColor: theme.palette.mode === 'light' ? '#f1f1f1' : theme.vars.palette.primary.dark,
+  backgroundColor: '#f1f1f1',
+  [theme.getColorSchemeSelector('dark')]: {
+    backgroundColor: theme.vars.palette.primary.dark,
+  },
 }))
 
 const JuzPreviewItem = styled('div')(() => ({

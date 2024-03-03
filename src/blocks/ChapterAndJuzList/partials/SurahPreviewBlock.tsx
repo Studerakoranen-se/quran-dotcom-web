@@ -52,10 +52,13 @@ const SurahPreviewBlock = ({
       <Box display="flex" justifyContent="space-between">
         <Box>
           <Typography
-            sx={{
-              opacity: (theme) => (theme.palette.mode === 'dark' ? 0.6 : 1),
+            sx={(theme) => ({
               marginBlockEnd: '1rem',
-            }}
+              opacity: 1,
+              [theme.getColorSchemeSelector('dark')]: {
+                opacity: 0.6,
+              },
+            })}
           >
             {isMinimalLayout && <React.Fragment> Surah </React.Fragment>}
             {translatedSurahName}
@@ -92,20 +95,25 @@ const SurahPreviewBlock = ({
         alignItems="center"
         borderRadius="4px"
         marginTop="auto"
-        sx={{
+        sx={(theme) => ({
           py: '20px',
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'dark' ? '#022929' : 'rgba(224, 210, 180, 0.3)',
-        }}
+          backgroundColor: 'rgba(224, 210, 180, 0.3)',
+          [theme.getColorSchemeSelector('dark')]: {
+            backgroundColor: '#022929',
+          },
+        })}
       >
         <ChapterIconContainer
           chapterId={chapterId.toString()}
           hasSurahPrefix
           size={ChapterIconsSize.Large}
-          sx={{
-            color: (theme) =>
-              theme.palette.mode === 'dark' ? '#E5BD77E5' : theme.palette.primary.main,
-          }}
+          sx={(theme) => ({
+            py: '20px',
+            color: theme.palette.primary.main,
+            [theme.getColorSchemeSelector('dark')]: {
+              color: '#E5BD77E5',
+            },
+          })}
         />
         {description && <Typography variant="caption">{description}</Typography>}
       </Box>

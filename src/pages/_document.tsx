@@ -11,6 +11,7 @@ import Document, {
 import { AppType } from 'next/dist/shared/lib/utils'
 import createEmotionServer from '@emotion/server/create-instance'
 import { EmotionCache } from '@emotion/cache'
+import { getInitColorSchemeScript } from '@mui/material'
 import { createEmotionCache } from '~/utils'
 
 interface DocumentProps extends DocumentInitialProps {
@@ -97,6 +98,7 @@ export default class MyDocument extends Document<DocumentProps> {
           {this.props.emotionStyleTags}
         </Head>
         <body>
+          {getInitColorSchemeScript()}
           <Main />
           <NextScript />
         </body>

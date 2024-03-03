@@ -125,11 +125,14 @@ const LanguageSelector = React.forwardRef(function LanguageSelector(props) {
             {language.id === router.locale && (
               <SvgIcon
                 fontSize="small"
-                sx={{
+                sx={(theme) => ({
                   position: 'absolute',
                   marginTop: -1,
-                  color: (theme) => (theme.palette.mode === 'light' ? '#4ab0b0' : '#cab280'),
-                }}
+                  color: '#4ab0b0',
+                  [theme.getColorSchemeSelector('dark')]: {
+                    color: '#cab280',
+                  },
+                })}
               >
                 <circle cx="12" cy="12" r="6" />
               </SvgIcon>
