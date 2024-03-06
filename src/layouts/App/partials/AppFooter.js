@@ -196,7 +196,7 @@ function AppFooter(props) {
         </AppFooterGroups>
 
         <AppFooterCopyRight>
-          <Typography variant="body2">{siteCopyRight}</Typography>
+          <Typography variant="body2" dangerouslySetInnerHTML={{ __html: siteCopyRight }} />
         </AppFooterCopyRight>
       </AppFooterContainer>
     </AppFooterRoot>
