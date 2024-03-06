@@ -58,20 +58,10 @@ function TranslationView(props: TranslationViewProps) {
 
   const verses = React.useMemo(() => Object.values(apiPageToVersesMap).flat(), [apiPageToVersesMap])
 
-  const itemContentRenderer = (verseIdx: number, verse) => {
-    // if (verseIdx === initialData.metaData.numberOfVerses) {
-    //   return (
-    //     <EndOfScrollingControls
-    //       quranReaderDataType={quranReaderDataType}
-    //       lastVerse={verses[verses.length - 1]}
-    //       initialData={initialData}
-    //     />
-    //   );
-    // }
-
+  const itemContentRenderer = (verseIdx: number) => {
     return (
       <TranslationViewVerse
-        // key={verse.id}
+        key={verseIdx}
         verseIdx={verseIdx}
         totalVerses={initialData?.metaData?.numberOfVerses as number}
         quranReaderDataType={quranReaderDataType}
@@ -107,7 +97,7 @@ function TranslationView(props: TranslationViewProps) {
         ref={virtuosoRef}
         useWindowScroll
         // @ts-ignore
-        totalCount={initialData?.metaData?.numberOfVerses + 1}
+        totalCount={initialData?.metaData?.numberOfVerses}
         increaseViewportBy={1000}
         initialItemCount={1} // needed for SSR.
         itemContent={itemContentRenderer}
