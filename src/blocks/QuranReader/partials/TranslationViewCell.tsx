@@ -13,6 +13,8 @@ import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
 import { selectEnableAutoScrolling } from '~/store/slices/AudioPlayer/state'
 import PlayVerseAudioButton from '~/components/Verse/PlayVerseAudioButton'
 import VerseLink from '~/components/VerseLink'
+import useGetQueryParamOrReduxValue from '~/hooks/useGetQueryParamOrReduxValue'
+import QueryParam from '~/types/QueryParam'
 import {
   verseFontChanged,
   verseTranslationChanged,
@@ -105,6 +107,17 @@ type TranslationViewCellProps = {
 function TranslationViewCell(props: TranslationViewCellProps) {
   const { verse, quranReaderStyles, verseIndex, pageBookmarks, bookmarksRangeUrl, locale } = props
 
+  const {
+    value: selectedTranslations,
+    isQueryParamDifferent: translationsQueryParamDifferent,
+  }: { value: number[]; isQueryParamDifferent: boolean } = useGetQueryParamOrReduxValue(
+    QueryParam.Translations,
+  )
+
+  const filteredTranslations = verse.translations?.filter((item) =>
+    selectedTranslations?.includes(item.resourceId as number),
+  )
+
   const router = useRouter()
   const { startingVerse } = router.query
 
@@ -125,7 +138,6 @@ function TranslationViewCell(props: TranslationViewCellProps) {
     }
   }, [isHighlighted, scrollToSelectedItem, enableAutoScrolling, startingVerse, verseIndex])
 
-  // console.log('verse.translations', verse.translations)
   return (
     <div ref={selectedItemRef}>
       <TranslationViewCellRoot
@@ -184,7 +196,7 @@ function TranslationViewCell(props: TranslationViewCellProps) {
               marginBlockEnd: { md: 'calc(1.3 * var(--gap-size))' },
             }}
           >
-            {verse.translations?.map((translation: Translation) => (
+            {filteredTranslations?.map((translation: Translation) => (
               <Box
                 key={translation.id}
                 sx={{
