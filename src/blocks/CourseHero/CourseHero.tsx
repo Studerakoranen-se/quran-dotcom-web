@@ -129,7 +129,7 @@ function CourseHero(props: CourseHeroProps) {
               href={ctaUrl}
               variant="contained"
               size="medium"
-              aria-label={t(__translationGroup)`Applay for private course"`}
+              aria-label={t(__translationGroup)`Apply for private course"`}
               sx={{
                 mt: 3,
               }}

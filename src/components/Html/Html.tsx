@@ -58,6 +58,7 @@ export const HtmlRoot = styled('div')(({ theme }) => ({
     ...theme.typography.caption,
     fontWeight: theme.typography.fontWeightBold,
     color: '#5ea9a9',
+    cursor: 'pointer',
     [theme.getColorSchemeSelector('dark')]: {
       color: '#E0D2B4',
     },

@@ -102,7 +102,7 @@ function Courses(props: CoursesProps) {
                   // @ts-ignore
                   color="text"
                   size="medium"
-                  aria-label={t(__translationGroup)`Read more about "${heading}"`}
+                  aria-label={t('aria').translate(`read-more`, { value: heading })}
                   sx={{
                     mt: 3,
                   }}

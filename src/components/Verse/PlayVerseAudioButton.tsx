@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
 import { useSelector as useXstateSelector } from '@xstate/react'
-import { Button, CircularProgress, Icon, IconButton, Tooltip } from '@mui/material'
+import { Button, CircularProgress, IconButton, Tooltip } from '@mui/material'
 import useGetQueryParamOrXstateValue from '~/hooks/useGetQueryParamOrXstateValue'
 import QueryParam from '~/types/QueryParam'
-import { getChapterData } from '~/utils/chapter'
 import { getChapterNumberFromKey, getVerseNumberFromKey } from '~/utils/verse'
-import DataContext from '~/contexts/DataContext'
 import { selectIsVerseLoading } from '~/xstate/actors/audioPlayer/selectors'
 import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
 import { logButtonClick } from '~/utils/eventLogger'
+import { useI18n } from '~/contexts'
+import DataContext from '~/contexts/DataContext'
+import { getChapterData } from '~/utils'
 import { PlayIcon } from '../icons'
 
 interface PlayVerseAudioProps {
@@ -23,6 +24,7 @@ const PlayVerseAudioButton: React.FC<PlayVerseAudioProps> = ({
   isTranslationView = true,
   onActionTriggered,
 }) => {
+  const { t } = useI18n()
   const audioService = useContext(AudioPlayerMachineContext)
   const {
     value: reciterId,
@@ -63,10 +65,7 @@ const PlayVerseAudioButton: React.FC<PlayVerseAudioProps> = ({
   }
 
   return (
-    <Tooltip
-      // tooltip={t('audio.player.play')}
-      title="audio.player.play"
-    >
+    <Tooltip title={t('player').translate('play-audio')}>
       <IconButton
         size="small"
         sx={{
@@ -80,8 +79,7 @@ const PlayVerseAudioButton: React.FC<PlayVerseAudioProps> = ({
           // }),
         }}
         onClick={onPlayClicked}
-        aria-label="aria.play-surah"
-        // aria-label={t('aria.play-surah', { surahName: chapterData.transliteratedName })}
+        aria-label={t('aria').translate(`play-surah`, { value: chapterData.transliteratedName })}
       >
         <PlayIcon />
       </IconButton>

@@ -153,7 +153,7 @@ function CourseList(props: CourseListBlockQueryResult) {
                       href={uri}
                       variant="contained"
                       size="medium"
-                      aria-label={t(__translationGroup)`Read more about "${title}"`}
+                      aria-label={t('aria').translate(`read-more ${title}`)}
                       color="primary"
                     >
                       {t(__translationGroup)`Click here`}

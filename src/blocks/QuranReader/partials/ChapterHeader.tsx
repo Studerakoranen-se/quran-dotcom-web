@@ -94,7 +94,7 @@ function ChapterHeader(props: ChapterHeaderProps) {
             width: '30px',
             height: '30px',
           }}
-          aria-label={`Toggle Surah Drawer`}
+          aria-label={t('aria').translate(`nav-drawer-open`)}
           size="small"
         >
           <FilterIcon fontSize="small" />

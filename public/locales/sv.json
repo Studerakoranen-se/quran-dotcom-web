@@ -6,15 +6,61 @@
     "footnote-sg": "Singular"
   },
 
+  "aria": {
+    "change-settings": "Ändra inställningar",
+    "drawer-close": "Stäng låda",
+    "msg-close": "Stäng meddelande",
+    "nav-drawer-open": "Öppna navigationslådan",
+    "play-surah": "Spela Surah ${0}",
+    "pause-surah": "Pausa Surah ${0}",
+    "select-lng": "Välj språk",
+    "sidebar-nav-close": "Stäng sidofältet för navigering",
+    "read-more": "Läs mer om ${0}",
+    "visit-us": "Besök oss på ${0}",
+    "toggle-menu": "Växla huvudmenyn",
+    "toggle-color-mode": "Ändra färgläge"
+  },
+
   "player": {
-    "pauseAudio": "Pausa ljud",
-    "playAudio": "Spela upp ljud"
+    "close-audio-player": "Stäng ljudspelare",
+    "currently-playing": "Du spelar just nu",
+    "delay-verse": "Fördröjning mellan vers",
+    "download": "Ladda ner",
+    "full-surah": "Full surah",
+    "manage-repeat-settings": "Hantera upprepningsinställningar",
+    "mismatch": "Klicka på \"Börja om\" om du vill spela {{currentReadingChapter}} istället",
+    "pause": "Paus",
+    "pause-audio": "Pausa ljud",
+    "play": "Spela",
+    "play-audio": "Spela ljud",
+    "play-range": "Spelområde",
+    "previous-ayah": "Föregående Ayah",
+    "next-ayah": "Nästa Ayah",
+    "repeat-1-verse": "Upprepa vers",
+    "repeat-settings": "Upprepa inställningar",
+    "repeat-verse": "Upprepa varje vers",
+    "search-verse": "Sök efter en vers",
+    "single-verse": "Enstaka vers",
+    "start-over": "Börja om",
+    "start-playing": "Börja spela",
+    "stop-repeating": "Sluta upprepa",
+    "times": "times",
+    "verses-range": "Omfattning av verser"
+  },
+
+  "blocks/CourseHero/CourseHero.tsx": {
+    "Apply for private course": "Ansök till privat kurs"
+  },
+
+  "blocks/CourseList/CourseList.tsx": {
+    "Click here": "Klicka här"
   },
 
   "blocks/Tutors/Tutors.tsx": {
     "Back": "Tillbaka",
     "Speaks": "Talar"
   },
+
   "blocks/ChapterAndJuzList/ChapterAndJuzList.tsx": {
     "Surah": "",
     "Juz": "",

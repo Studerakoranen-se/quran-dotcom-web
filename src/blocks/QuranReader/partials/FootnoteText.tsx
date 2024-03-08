@@ -1,5 +1,5 @@
 import React, { MouseEvent } from 'react'
-import { Box, Button, CircularProgress } from '@mui/material'
+import { Box, Button, CircularProgress, IconButton, Typography } from '@mui/material'
 import { useI18n } from '~/contexts'
 import { CloseIcon } from '~/components'
 // import { getLanguageDataById, findLanguageIdByLocale } from '~/utils/locale';
@@ -39,14 +39,16 @@ const FootnoteText: React.FC<FootnoteTextProps> = ({
         sx={{
           mt: 2,
           pl: 2,
+          pr: 2,
+          pt: 2,
         }}
       >
-        <p>
+        <Typography>
           {t('footnote')`title`} {footnoteName ? `- ${footnoteName}` : null}
-        </p>
-        <Button size="small" onClick={onCloseClicked}>
-          <CloseIcon />
-        </Button>
+        </Typography>
+        <IconButton size="small" onClick={onCloseClicked}>
+          <CloseIcon fontSize="small" />
+        </IconButton>
       </Box>
       {isLoading ? (
         <CircularProgress size="small" />

@@ -13,13 +13,15 @@ import {
 import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
 import { logButtonClick } from '~/utils/eventLogger'
 import { useI18n } from '~/contexts'
+import DataContext from '~/contexts/DataContext'
+import { getChapterData } from '~/utils'
 
 interface Props {
   chapterId: number
 }
 const PlayChapterAudioButton = ({ chapterId }: Props) => {
-  // const chaptersData = useContext(DataContext)
-  // const chapterData = getChapterData(chaptersData, chapterId.toString())
+  const chaptersData = useContext(DataContext)
+  const chapterData = getChapterData(chaptersData, chapterId.toString())
 
   const { t } = useI18n()
 
@@ -84,8 +86,9 @@ const PlayChapterAudioButton = ({ chapterId }: Props) => {
         padding: 0,
       }}
       startIcon={<BsFillPauseFill />}
+      aria-label={t('aria').translate(`pause-surah`, { value: chapterData.transliteratedName })}
     >
-      {t('player').translate('pauseAudio')}
+      {t('player').translate('pause-audio')}
     </Button>
   ) : (
     <Button
@@ -100,10 +103,9 @@ const PlayChapterAudioButton = ({ chapterId }: Props) => {
         },
         padding: 0,
       }}
-
-      // aria-label={t('aria.play-surah', { surahName: chapterData.transliteratedName })}
+      aria-label={t('aria').translate(`play-surah`, { value: chapterData.transliteratedName })}
     >
-      {t('player').translate('playAudio')}
+      {t('player').translate('play-audio')}
     </Button>
   )
 }
