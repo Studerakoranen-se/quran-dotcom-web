@@ -48,7 +48,7 @@ function AppBaseCookieBar(props) {
           color="inherit"
           edge="end"
           size="small"
-          aria-label={t(__translationGroup)`Close cookie bar`}
+          aria-label={t('aria').translate(`msg-close`)}
         >
           <CloseIcon />
         </IconButton>

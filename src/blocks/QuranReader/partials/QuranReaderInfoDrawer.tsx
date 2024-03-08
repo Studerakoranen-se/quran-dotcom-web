@@ -97,7 +97,6 @@ const QuranReaderInfoDrawer = React.memo(function QuranReaderInfoDrawer(
             }}
             onClick={onSurahInfoDialogClose}
             color="inherit"
-            aria-label={t(__translationGroup)`Close market menu`}
           >
             <CloseIcon />
           </IconButton>

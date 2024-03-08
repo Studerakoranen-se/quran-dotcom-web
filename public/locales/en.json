@@ -7,18 +7,23 @@
   },
 
   "aria": {
+    "go-to-home": "Go to the homepage",
     "change-settings": "Change Settings",
     "drawer-close": "Close Surah Drawer",
     "msg-close": "Close Message",
     "nav-drawer-open": "Open Surah Drawer",
+    "main-nav": "Main navigation",
     "play-surah": "Play Surah ${0}",
     "pause-surah": "Play Surah ${0}",
     "select-lng": "Select Language",
+    "select-selector": "Language Selector",
     "sidebar-nav-close": "Close Navigation Sidebar",
     "read-more": "Read more about ${0}",
     "visit-us": "Visit us at ${0}",
     "toggle-menu": "Toggle main menu",
-    "toggle-color-mode": "Change color mode"
+    "toggle-color-mode": "Change color mode",
+    "tabs": "Tabs",
+    "course-tab": "${0} Tabs"
   },
 
   "player": {

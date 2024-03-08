@@ -48,7 +48,7 @@ const AppNavDrawer = React.memo(function AppNavDrawer(props) {
   return (
     <AppNavDrawerRoot onClose={onNavMenuClose} open={isNavMenuOpen} anchor="left" {...other}>
       <AppNavDrawerScrollContainer>
-        <nav aria-label={t(__translationGroup)`Main navigation`}>
+        <nav aria-label={t('aria').translate(`main-nav`)}>
           {menus?.primary?.length > 0 && (
             <AppNavDrawerList>
               {menus.primary.map((menuLink, idx) => (

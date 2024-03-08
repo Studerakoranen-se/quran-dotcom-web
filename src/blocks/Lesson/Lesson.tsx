@@ -132,10 +132,11 @@ function CustomTabPanel(props: TabPanelProps) {
 
 interface LessonProps extends LessonBlockQueryResult {
   renderIndex: number
+  locale: string
 }
 
 function Lesson(props: LessonProps) {
-  const { title, description, lessons, renderIndex = 0 } = props
+  const { title, description, lessons, renderIndex = 0, locale } = props
 
   const { t } = useI18n()
   // @ts-ignore
@@ -269,7 +270,13 @@ function Lesson(props: LessonProps) {
             )}
 
             <Box sx={{ borderBottom: 1, borderColor: 'text.secondary', mt: 3 }}>
-              <Tabs value={view} onChange={onTabSelected} aria-label="Course Tabs">
+              <Tabs
+                value={view}
+                onChange={onTabSelected}
+                aria-label={t('aria').translate(`course-tab`, {
+                  value: locale === 'en' ? 'Courses' : 'Kurs',
+                })}
+              >
                 {tabs?.map((tab, idx) => {
                   if (!tab.isHidden) return null
                   return (
