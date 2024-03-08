@@ -13,6 +13,8 @@ import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
 import { selectEnableAutoScrolling } from '~/store/slices/AudioPlayer/state'
 import PlayVerseAudioButton from '~/components/Verse/PlayVerseAudioButton'
 import VerseLink from '~/components/VerseLink'
+import useGetQueryParamOrReduxValue from '~/hooks/useGetQueryParamOrReduxValue'
+import QueryParam from '~/types/QueryParam'
 import {
   verseFontChanged,
   verseTranslationChanged,
@@ -69,28 +71,9 @@ const TranslationViewCellActionsLeft = styled('div')(({ theme }) => ({
   },
 }))
 
-const TranslationViewCellActionsRight = styled(TranslationViewCellActionsLeft)(() => ({
-  justifyContent: 'flex-end',
-}))
-
 const TranslationViewCellContentContainer = styled('div')(({ theme }) => ({
   flex: 1,
   position: 'relative',
-}))
-
-const TranslationViewCellWordsContainer = styled('div')(() => ({
-  display: 'flex',
-  paddingLeft: '2.5rem',
-  paddingRight: '0.5rem',
-  flexDirection: 'column',
-  flexGrow: 1,
-  gap: '1.25rem',
-  justifyContent: 'center',
-}))
-const TranslationViewCellWords = styled('div')(() => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  gap: '0.5rem',
 }))
 
 type TranslationViewCellProps = {
@@ -104,6 +87,22 @@ type TranslationViewCellProps = {
 
 function TranslationViewCell(props: TranslationViewCellProps) {
   const { verse, quranReaderStyles, verseIndex, pageBookmarks, bookmarksRangeUrl, locale } = props
+
+  const {
+    value: selectedTranslations,
+    isQueryParamDifferent: translationsQueryParamDifferent,
+  }: { value: number[]; isQueryParamDifferent: boolean } = useGetQueryParamOrReduxValue(
+    QueryParam.Translations,
+  )
+
+  const filteredTranslations = React.useMemo(
+    () =>
+      verse.translations?.filter((item) =>
+        selectedTranslations?.includes(item.resourceId as number),
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedTranslations],
+  )
 
   const router = useRouter()
   const { startingVerse } = router.query
@@ -184,7 +183,7 @@ function TranslationViewCell(props: TranslationViewCellProps) {
               marginBlockEnd: { md: 'calc(1.3 * var(--gap-size))' },
             }}
           >
-            {verse.translations?.map((translation: Translation) => (
+            {filteredTranslations?.map((translation: Translation) => (
               <Box
                 key={translation.id}
                 sx={{
