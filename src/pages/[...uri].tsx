@@ -210,7 +210,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return {
       props: {
         // @ts-ignore
-        headerMode: page?.headerMode,
+        headerMode: page?.headerMode ?? 'auto',
         settings,
         preview,
         locale,

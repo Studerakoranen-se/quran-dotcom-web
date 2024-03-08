@@ -221,7 +221,7 @@ const AppHeader = React.memo(function AppHeader(props) {
         <AppHeaderBrandLink
           ownerState={{ expandedLogo: !router.asPath.includes('surah') && expandedLogo }}
           href="/"
-          aria-label={t(__translationGroup)`Go to the homepage`}
+          aria-label={t('aria').translate(`go-to-home`)}
         >
           {isBreakpointUp ? (
             <BrandIcon
@@ -246,7 +246,7 @@ const AppHeader = React.memo(function AppHeader(props) {
 
         <AppHeaderNav
           className={classes.hiddenOnMobile}
-          aria-label={t(__translationGroup)`Main navigation`}
+          aria-label={t('aria').translate(`main-nav`)}
         >
           <AppHeaderList>
             {menus?.primary?.map((menuItem, idx) => (
@@ -295,7 +295,7 @@ const AppHeader = React.memo(function AppHeader(props) {
     !isLanguageMenuOpen ? null : (
       <LanguageSelectorNav // NOTE: Must be outside of `AppBar` due to double `backdrop-filter: blur`.
         key="country-menu"
-        aria-label={t(__translationGroup)`Language selector`}
+        aria-label={t('aria').translate(`select-selector`)}
       >
         <LanguageSelectorRoot onChange={onLanguageMenuClose} disablePadding autoFocus />
       </LanguageSelectorNav>

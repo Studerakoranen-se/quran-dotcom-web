@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Tab as MuiTab, Tabs as MuiTabs } from '@mui/material'
+import { useI18n } from '~/contexts'
 
 type Tab = {
   title: string
@@ -12,12 +13,13 @@ type TabsProps = {
 }
 
 const Tabs = ({ tabs, onSelect, selected }: TabsProps) => {
+  const { t } = useI18n()
   return (
     <MuiTabs
       value={selected}
       // @ts-ignore
       onChange={onSelect}
-      aria-label="Quran Tabs"
+      aria-label={t('aria').translate(`tabs`)}
       sx={{
         ' .MuiTabs-indicator': {
           backgroundColor: 'text.main',

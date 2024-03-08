@@ -128,7 +128,7 @@ function AppFooter(props) {
       <AppFooterContainer>
         <AppFooterGroups>
           <AppFooterAside>
-            <AppFooterBrandLink href="/" aria-label={t(__translationGroup)`Go to the homepage`}>
+            <AppFooterBrandLink href="/" aria-label={t('aria').translate(`go-to-home`)}>
               <BrandIcon sx={{ fontSize: '200px' }} />
             </AppFooterBrandLink>
           </AppFooterAside>

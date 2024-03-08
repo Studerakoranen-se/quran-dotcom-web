@@ -7,18 +7,23 @@
   },
 
   "aria": {
+    "go-to-home": "Gå till hemsidan",
     "change-settings": "Ändra inställningar",
     "drawer-close": "Stäng låda",
     "msg-close": "Stäng meddelande",
     "nav-drawer-open": "Öppna navigationslådan",
+    "main-nav": "Huvudmeny",
     "play-surah": "Spela Surah ${0}",
     "pause-surah": "Pausa Surah ${0}",
     "select-lng": "Välj språk",
+    "select-selector": "Språkväljare",
     "sidebar-nav-close": "Stäng sidofältet för navigering",
     "read-more": "Läs mer om ${0}",
     "visit-us": "Besök oss på ${0}",
     "toggle-menu": "Växla huvudmenyn",
-    "toggle-color-mode": "Ändra färgläge"
+    "toggle-color-mode": "Ändra färgläge",
+    "tabs": "Flikar",
+    "course-tab": "${0}flikar"
   },
 
   "player": {
