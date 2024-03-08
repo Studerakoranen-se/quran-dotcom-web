@@ -180,7 +180,8 @@ function AppFooter(props) {
                         key={idx}
                         component={RouterLink}
                         href={social.url}
-                        title={t(__translationGroup)`Visit us at ${social.icon}`}
+                        title={t('aria').translate(`visit-us`, { value: social.icon })}
+                        aria-label={t('aria').translate(`visit-us`, { value: social.icon })}
                         style={{
                           padding: 4,
                         }}

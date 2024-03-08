@@ -266,7 +266,13 @@ const AppHeader = React.memo(function AppHeader(props) {
           </AppHeaderCtaButton>
         )}
 
-        <IconButton onClick={onLanguageMenuToggle} size="small" sx={{ mr: 1 }}>
+        <IconButton
+          onClick={onLanguageMenuToggle}
+          size="small"
+          sx={{ mr: 1 }}
+          title={t('aria').translate(`select-lng`)}
+          aria-label={t('aria').translate(`select-lng`)}
+        >
           <GlobeIcon />
         </IconButton>
 
@@ -278,7 +284,7 @@ const AppHeader = React.memo(function AppHeader(props) {
           size="small"
           aria-haspopup="true"
           aria-expanded={isNavMenuOpen}
-          aria-label={t(__translationGroup)`Toggle main menu`}
+          aria-label={t('aria').translate(`toggle-menu`)}
         >
           {isNavMenuOpen ? <CloseIcon /> : <MenuIcon />}
         </IconButton>

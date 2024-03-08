@@ -6,9 +6,54 @@
     "footnote-sg": "Singular"
   },
 
+  "aria": {
+    "change-settings": "Change Settings",
+    "drawer-close": "Close Surah Drawer",
+    "msg-close": "Close Message",
+    "nav-drawer-open": "Open Surah Drawer",
+    "play-surah": "Play Surah ${0}",
+    "pause-surah": "Play Surah ${0}",
+    "select-lng": "Select Language",
+    "sidebar-nav-close": "Close Navigation Sidebar",
+    "read-more": "Read more about ${0}",
+    "visit-us": "Visit us at ${0}",
+    "toggle-menu": "Toggle main menu",
+    "toggle-color-mode": "Change color mode"
+  },
+
   "player": {
-    "pauseAudio": "Pause Audio",
-    "playAudio": "Play Audio"
+    "close-audio-player": "Close Audio Player",
+    "currently-playing": "You are currently playing",
+    "delay-verse": "Delay between verse",
+    "download": "Download",
+    "full-surah": "Full Surah",
+    "manage-repeat-settings": "Manage repeat settings",
+    "mismatch": "Click on \"Start Over\" if you would like to play {{currentReadingChapter}} instead",
+    "pause": "Pause",
+    "pause-audio": "Pause Audio",
+    "play": "Play",
+    "play-audio": "Play Audio",
+    "play-range": "Play range",
+    "previous-ayah": "Previous Ayah",
+    "next-ayah": "Next Ayah",
+    "repeat-1-verse": "Repeat Verse",
+    "repeat-settings": "Repeat Settings",
+    "repeat-verse": "Repeat each verse",
+    "search-verse": "Search for a verse",
+    "single-verse": "Single Verse",
+    "start-over": "Start Over",
+    "start-playing": "Start Playing",
+    "stop-repeating": "Stop Repeating",
+    "times": "times",
+    "verses-range": "Range of verses"
+  },
+
+  "blocks/CourseHero/CourseHero.tsx": {
+    "Apply for private course": ""
+  },
+
+  "blocks/CourseList/CourseList.tsx": {
+    "Click here": ""
   },
 
   "blocks/Tutors/Tutors.tsx": {

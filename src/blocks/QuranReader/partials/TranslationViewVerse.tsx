@@ -10,6 +10,7 @@ import TranslationPageVerse from './TranslationPageVerse'
 import TranslationViewCellSkeleton from './TranslationViewCellSkeleton'
 
 const TranslationViewVerseContainer = styled('div')(({ theme }) => ({
+  position: 'relative',
   maxWidth: '100%',
   // marginInlineStart: 'auto',
   // marginInlineEnd: 'auto',

@@ -6,9 +6,11 @@ import { selectIsLoading } from '~/xstate/actors/audioPlayer/selectors'
 import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
 import { PauseIcon, PlayIcon } from '~/components/icons'
 import { logButtonClick } from '~/utils/eventLogger'
+import { useI18n } from '~/contexts'
 
 const PlayPauseButton = () => {
   const audioService = useContext(AudioPlayerMachineContext)
+  const { t } = useI18n()
 
   const isPlaying = useSelector(audioService, (state) =>
     state.matches('VISIBLE.AUDIO_PLAYER_INITIATED.PLAYING'),
@@ -29,7 +31,7 @@ const PlayPauseButton = () => {
   }
   if (isPlaying) {
     return (
-      <Tooltip title="audio.player.pause">
+      <Tooltip title={t('player').translate('pause')}>
         <IconButton
           disabled={isLoading}
           onClick={withStopPropagation(() => {
@@ -43,7 +45,7 @@ const PlayPauseButton = () => {
     )
   }
   return (
-    <Tooltip title="audio.player.play">
+    <Tooltip title={t('player').translate('play')}>
       <IconButton
         onClick={withStopPropagation(() => {
           logButtonClick('audio_player_play')

@@ -11,6 +11,7 @@ import {
 } from '~/store/slices/QuranReader/sidebarNavigation'
 import { selectIsReadingByRevelationOrder } from '~/store/slices/revelationOrder'
 import useOutsideClickDetector from '~/hooks/useOutsideClickDetector'
+import { useI18n } from '~/contexts'
 import { CloseIcon, Tabs } from '~/components'
 import SidebarNavigationSelections from './QuranDrawerSelections'
 
@@ -83,6 +84,7 @@ type QuranReaderDrawerProps = {
 const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranReaderDrawerProps) {
   const { locale } = props
 
+  const { t } = useI18n()
   const isVisible = useSelector(selectIsSidebarNavigationVisible)
   const selectedNavigationItem = useSelector(selectSelectedNavigationItem)
   const isReadingByRevelationOrder = useSelector(selectIsReadingByRevelationOrder)
@@ -146,7 +148,7 @@ const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranRead
                 borderRadius: 1,
                 p: 0.5,
               })}
-              aria-label={`Toggle Surah Drawer`}
+              aria-label={t('aria').translate(`nav-drawer-open`)}
               size="small"
             >
               <CloseIcon fontSize="small" />
@@ -192,7 +194,7 @@ const QuranReaderDrawer = React.memo(function QuranReaderDrawer(props: QuranRead
                 borderRadius: 1,
                 p: 0.5,
               })}
-              aria-label={`Toggle Surah Drawer`}
+              aria-label={t('aria').translate(`nav-drawer-open`)}
               size="small"
             >
               <CloseIcon fontSize="small" />

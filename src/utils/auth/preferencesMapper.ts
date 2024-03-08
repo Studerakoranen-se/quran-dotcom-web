@@ -1,6 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 // import { DEFAULT_XSTATE_INITIAL_STATE } from '~/store/defaultSettings/defaultSettings'
 // import AudioState from '~/store/types/AudioState'
+import { DEFAULT_XSTATE_INITIAL_STATE } from '~/store/defaultSettings/defaultSettings'
+import AudioState from '~/store/types/AudioState'
 import QuranReaderStyles from '~/store/types/QuranReaderStyles'
 import ReadingPreferences from '~/store/types/ReadingPreferences'
 import SliceName from '~/store/types/SliceName'
@@ -33,16 +35,16 @@ const getPreferenceGroupValue = (
     return { language: currentSliceValue }
   }
 
-  // if (sliceName === SliceName.AUDIO_PLAYER_STATE) {
-  //   const { showTooltipWhenPlayingAudio, enableAutoScrolling } = currentSliceValue as AudioState
-  //   // only partially pick those props
-  //   return {
-  //     reciter: DEFAULT_XSTATE_INITIAL_STATE.reciterId,
-  //     playbackRate: DEFAULT_XSTATE_INITIAL_STATE.playbackRate,
-  //     showTooltipWhenPlayingAudio,
-  //     enableAutoScrolling,
-  //   }
-  // }
+  if (sliceName === SliceName.AUDIO_PLAYER_STATE) {
+    const { showTooltipWhenPlayingAudio, enableAutoScrolling } = currentSliceValue as AudioState
+    // only partially pick those props
+    return {
+      reciter: DEFAULT_XSTATE_INITIAL_STATE.reciterId,
+      playbackRate: DEFAULT_XSTATE_INITIAL_STATE.playbackRate,
+      showTooltipWhenPlayingAudio,
+      enableAutoScrolling,
+    }
+  }
 
   if (sliceName === SliceName.READING_PREFERENCES) {
     const newPreferences = {

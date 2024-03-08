@@ -1,15 +1,7 @@
 import * as React from 'react'
 import { useSelector as useXstateSelector } from '@xstate/react'
 import { shallowEqual, useSelector } from 'react-redux'
-import {
-  ButtonBase,
-  Tooltip,
-  Typography,
-  styled,
-  tooltipClasses,
-  TooltipProps,
-  Box,
-} from '@mui/material'
+import { ButtonBase, Tooltip, styled } from '@mui/material'
 import {
   selectWordClickFunctionality,
   selectReadingPreference,
@@ -67,7 +59,7 @@ const QuranReaderIconText = styled('span')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-
+  margin: 0,
   // [`${QuranReaderVerseItem}:hover &`]: {
   //   span: {
   //     color: '#E0D2B4',
@@ -149,17 +141,6 @@ const QuranWordItem = styled(ButtonBase)<{
   // //     color: '#E0D2B4',
   // //   },
   // // },
-}))
-
-const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.arrow}`]: {
-    color: theme.vars.palette.common.black,
-  },
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.vars.palette.common.black,
-  },
 }))
 
 type QuranWordProps = {
@@ -283,14 +264,7 @@ function QuranWord(props: QuranWordProps) {
 
   return (
     <QuranWordRoot>
-      <HtmlTooltip
-        placement="top"
-        arrow
-        disableFocusListener
-        // open={showTooltipWhenPlayingAudio ? true : undefined}
-        title={<Typography variant="body2">{translationViewTooltipContent}</Typography>}
-        // open={isAudioPlayingWord && showTooltipWhenPlayingAudio ? true : undefined}
-      >
+      <Tooltip placement="top" arrow disableFocusListener title={translationViewTooltipContent}>
         <QuranWordItem
           {...(shouldHandleWordClicking && { onClick, onKeyPress: onClick })}
           tabIndex={0}
@@ -308,7 +282,7 @@ function QuranWord(props: QuranWordProps) {
         >
           {wordText}
         </QuranWordItem>
-      </HtmlTooltip>
+      </Tooltip>
 
       {isWordByWordAllowed && (
         <React.Fragment>

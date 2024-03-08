@@ -150,7 +150,7 @@ function Hero(props: HeroProps) {
                 href={ctaUrl}
                 variant="contained"
                 size="medium"
-                aria-label={t(__translationGroup)`Read more about "${heading}"`}
+                aria-label={t('aria').translate(`read-more`, { value: heading })}
                 startIcon={<QuranIcon color="primary" />}
               >
                 {ctaLabel}
@@ -161,7 +161,7 @@ function Hero(props: HeroProps) {
                   href={ctaUrl2}
                   variant="contained"
                   size="medium"
-                  aria-label={t(__translationGroup)`Read more about "${subheading}"`}
+                  aria-label={t('aria').translate(`read-more`, { value: heading })}
                   startIcon={<BookIcon color="primary" />}
                 >
                   {ctaLabel2}

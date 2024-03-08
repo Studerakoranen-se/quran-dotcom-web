@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material'
 import * as React from 'react'
 import { ReactNode } from 'react'
 import { WordByWordType } from '~/types/QuranReader'
@@ -14,12 +15,7 @@ import Word from '~/types/Word'
 const getTooltipText = (showTooltipFor: WordByWordType[], word: Word): ReactNode => (
   <React.Fragment>
     {showTooltipFor.map((tooltipTextType) => (
-      <p
-        key={tooltipTextType}
-        // className={styles.tooltipText}
-      >
-        {word?.[tooltipTextType]?.text}
-      </p>
+      <span key={tooltipTextType}>{word?.[tooltipTextType]?.text}</span>
     ))}
   </React.Fragment>
 )
