@@ -6,6 +6,7 @@ import { transformSanityMedia } from '~/api/sanity/utils'
 import { useI18n } from '~/contexts'
 import { ArrowForwardIcon, Html } from '~/components'
 import { SanityHtml } from '~/containers'
+import { ASPECT_RATIOS } from '~/utils/constants'
 
 const TeamRoot = styled('section')(({ theme }) => ({
   position: 'relative',
@@ -129,9 +130,9 @@ export default function Tutors(props: TutorsBlockQueryResult) {
               return (
                 <TeamItemCard key={idx}>
                   {image && (
-                    <MediaReveal>
+                    <MediaReveal {...ASPECT_RATIOS.category}>
                       {/* @ts-ignore */}
-                      <Media src={image.src} alt="" />
+                      <Media src={image.src} alt="" sx={{ height: '300px' }} />
                     </MediaReveal>
                   )}
                   <Box

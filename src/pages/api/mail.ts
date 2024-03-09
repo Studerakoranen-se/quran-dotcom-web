@@ -17,6 +17,14 @@ export interface CustomApiRequest extends NextApiRequest {
   file?: any
 }
 
+function hasEmailInTitle(arr) {
+  const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/
+
+  const objWithEmail = arr.find((obj) => emailRegex.test(obj.text))
+
+  return objWithEmail ? objWithEmail.text.match(emailRegex)[0] : null
+}
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
@@ -30,7 +38,12 @@ const transporter = nodemailer.createTransport({
 })
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-  if (req.method === 'POST' && req.body && req.body.teacher && req.body.teacher.mail) {
+  if (
+    req.method === 'POST' &&
+    req.body &&
+    req.body.teacher &&
+    hasEmailInTitle(req.body.teacher.extraFields) !== null
+  ) {
     const { body } = req
 
     const strings = localizedApplicationStrings[body.locale || 'ar']
@@ -39,7 +52,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       await Promise.all([
         transporter.sendMail({
           from: Email, // from Studera Koranen
-          to: req.body.teacher.mail, // To the teacher,
+          to: hasEmailInTitle(body.teacher.extraFields), // To the teacher,
           cc: `studerakoranen@gmail.com`, // To Administator
           subject: `${body.firstName} ${body.lastName}!`,
           html: render(ConfirmationTutorEmail(body)),

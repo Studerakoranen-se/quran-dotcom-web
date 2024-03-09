@@ -71,7 +71,19 @@ export default `
   successMessage,
   errorMessage,
   fetchOptions,
-  "tutors": *[_type == 'tutor'],
+  "tutors": *[_type == 'tutor']{
+    fullname,
+    "extraFields": extraFields[]{
+      "title": coalesce(
+        title[$locale],
+        title[$defaultLocale]
+      ),
+      "text": coalesce(
+        text[$locale],
+        text[$defaultLocale]
+      ),
+    }
+  },
   fields[] {
     'type': _type,
     name,
