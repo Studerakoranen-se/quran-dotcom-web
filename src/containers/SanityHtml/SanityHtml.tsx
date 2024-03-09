@@ -10,7 +10,8 @@ import RouterLink from '../RouterLink'
 const serializers = {
   marks: {
     link: (props: any) => {
-      return <RouterLink href={props?.value?.href}>{props?.text}</RouterLink>
+      const href = props?.value?.href?.url || props?.value?.href
+      return <RouterLink href={href}>{props?.text}</RouterLink>
     },
   },
 
