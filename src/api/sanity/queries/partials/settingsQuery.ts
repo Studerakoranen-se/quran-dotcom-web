@@ -1,4 +1,5 @@
 // @ts-nocheck
+import createImageQuery from './createImageQuery'
 import menuQuery, { MenuQueryResult } from './menuQuery'
 
 export interface SettingsQueryResult {
@@ -10,6 +11,7 @@ export interface SettingsQueryResult {
   siteAddress?: string
   siteCopyRight?: string
   siteDescription?: string
+  citationText?: string
   // termsAndConditionsPageUrl?: string
   // privacyPolicyPageUrl?: string
   // supportPageUrl?: string
@@ -86,6 +88,13 @@ export default `
           storeMessage[$locale],
           storeMessage[$defaultLocale]
         ),
+      },
+      "citationText": coalesce(
+        citationText[$locale],
+        citationText[$defaultLocale]
+      ),
+      "citationImages": citationImages[]{
+        "url": asset->url
       },
     }
 `

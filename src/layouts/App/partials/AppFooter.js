@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { IconButton, Typography, styled } from '@mui/material'
+import { Box, IconButton, Typography, styled } from '@mui/material'
+import { Media, MediaReveal } from '@noaignite/oui'
 import { useRemoteConfig, useI18n } from '~/contexts'
-import { RouterLink } from '~/containers'
+import { RouterLink, SanityHtml } from '~/containers'
 import { SITE_FOOTER_ID } from '~/utils/constants'
 import { BrandIcon, FacebookIcon, InstagramIcon, PinterestIcon, TwitterIcon } from '~/components'
 
@@ -112,11 +113,33 @@ const AppFooterBrandLink = styled(RouterLink)(({ theme }) => ({
 
 const AppFooterCopyRight = styled('div')(({ theme }) => ({
   position: 'relative',
+  textAlign: 'center',
+  display: 'flex',
+  alignItems: 'center',
   padding: theme.spacing(4, 0, 2),
+  flexDirection: 'column-reverse',
+  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    textAlign: 'right',
+  },
+}))
+
+const AppFooterCitation = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  margin: theme.spacing(8, 0, 4),
+  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+    margin: 0,
+    alignItems: 'flex-end',
+  },
 }))
 
 function AppFooter(props) {
-  const { menus, siteSocialLinks, siteCopyRight } = useRemoteConfig()
+  const { menus, siteSocialLinks, siteCopyRight, citationText, citationImages } = useRemoteConfig()
+
   const { t } = useI18n()
 
   let menu = menus?.footer || []
@@ -198,6 +221,24 @@ function AppFooter(props) {
 
         <AppFooterCopyRight>
           <Typography variant="body2" dangerouslySetInnerHTML={{ __html: siteCopyRight }} />
+          <AppFooterCitation>
+            {citationImages?.length > 0 && (
+              <Box display="flex" justifyContent="flex-end">
+                {citationImages.map((citationImage, idx) => (
+                  <Media src={citationImage.url} sx={{ height: '57px', width: '147px' }} />
+                ))}
+              </Box>
+            )}
+            <SanityHtml
+              blocks={citationText}
+              sx={(theme) => ({
+                mt: 1,
+                p: {
+                  ...theme.typography.body2,
+                },
+              })}
+            />
+          </AppFooterCitation>
         </AppFooterCopyRight>
       </AppFooterContainer>
     </AppFooterRoot>
