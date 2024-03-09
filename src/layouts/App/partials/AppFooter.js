@@ -17,14 +17,18 @@ const BREAKPOINT_KEY = 'md'
 
 const AppFooterRoot = styled('footer')(({ theme }) => ({
   padding: 'var(--cia-section-spacing) var(--cia-container-spacing)',
+  marginTop: theme.spacing(5),
   backgroundColor: theme.vars.palette.background.default,
   color: theme.vars.palette.text.textInverted,
   overflow: 'hidden',
   flexShrink: 0,
+  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+    marginTop: theme.spacing(10),
+  },
 }))
 
 const AppFooterContainer = styled('div')(({ theme }) => ({
-  ...theme.mixins.contain('lg'),
+  position: 'relative',
 }))
 
 const AppFooterGroups = styled('div')(({ theme }) => ({
@@ -36,6 +40,9 @@ const AppFooterGroups = styled('div')(({ theme }) => ({
     gridTemplateColumns: 'repeat(5, 1fr)',
     gridRowGap: '5rem',
     gridColumnGap: '5rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    gridTemplateColumns: '350px 1fr 1fr 1fr 1fr',
   },
 }))
 
@@ -51,17 +58,12 @@ const AppFooterAside = styled('aside')(({ theme }) => ({
   display: 'flex',
   alignItems: 'flex-start',
   marginBottom: 0,
-  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
-    flex: '1 1 350px',
-  },
 }))
 
 const AppFooterGroupHeader = styled('div')(({ theme }) => ({
-  ...theme.typography.body2,
-  marginBottom: theme.spacing(2.5),
+  marginBottom: theme.spacing(1.5),
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
     marginBottom: theme.spacing(4),
-    ...theme.typography.body1,
   },
 }))
 
@@ -95,6 +97,9 @@ const AppFooterNavListItemText = styled(RouterLink)(({ theme }) => ({
   [theme.breakpoints.up(BREAKPOINT_KEY)]: {
     ...theme.typography.body1,
   },
+}))
+const AppFooterNavListInnerItemText = styled(AppFooterNavListItemText)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightMedium,
 }))
 
 const AppFooterBrandLink = styled(RouterLink)(({ theme }) => ({
@@ -138,7 +143,8 @@ const AppFooterCitation = styled('div')(({ theme }) => ({
 }))
 
 function AppFooter(props) {
-  const { menus, siteSocialLinks, siteCopyRight, citationText, citationImages } = useRemoteConfig()
+  const { menus, madeByText, siteSocialLinks, siteCopyRight, citationText, citationImages } =
+    useRemoteConfig()
 
   const { t } = useI18n()
 
@@ -160,11 +166,22 @@ function AppFooter(props) {
             <AppFooterGroup key={idx}>
               <AppFooterGroupHeader>
                 {menuItem?.url ? (
-                  <AppFooterNavListItemText href={menuItem?.url}>
+                  <AppFooterNavListInnerItemText href={menuItem?.url}>
                     {menuItem.label}
-                  </AppFooterNavListItemText>
+                  </AppFooterNavListInnerItemText>
                 ) : (
-                  <Typography component="span">{menuItem.label}</Typography>
+                  <Typography
+                    component="span"
+                    sx={(theme) => ({
+                      ...theme.typography.body2,
+                      fontWeight: 'fontWeightMedium',
+                      [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+                        ...theme.typography.body1,
+                      },
+                    })}
+                  >
+                    {menuItem.label}
+                  </Typography>
                 )}
               </AppFooterGroupHeader>
 
@@ -186,7 +203,18 @@ function AppFooter(props) {
 
           <AppFooterGroup>
             <AppFooterGroupHeader>
-              <Typography component="span">Social</Typography>
+              <Typography
+                component="span"
+                sx={(theme) => ({
+                  ...theme.typography.body2,
+                  fontWeight: 'fontWeightMedium',
+                  [theme.breakpoints.up(BREAKPOINT_KEY)]: {
+                    ...theme.typography.body1,
+                  },
+                })}
+              >
+                Social
+              </Typography>
             </AppFooterGroupHeader>
 
             <AppFooterGroupBody>
@@ -220,7 +248,36 @@ function AppFooter(props) {
         </AppFooterGroups>
 
         <AppFooterCopyRight>
-          <Typography variant="body2" dangerouslySetInnerHTML={{ __html: siteCopyRight }} />
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              textAlign: {
+                xs: 'center',
+                md: 'left',
+              },
+            }}
+          >
+            <Typography
+              variant="body2"
+              dangerouslySetInnerHTML={{ __html: siteCopyRight }}
+              sx={{
+                marginBottom: {
+                  xs: 1,
+                  md: 0,
+                },
+              }}
+            />
+            <SanityHtml
+              blocks={madeByText}
+              sx={(theme) => ({
+                mt: 1,
+                p: {
+                  ...theme.typography.body2,
+                },
+              })}
+            />
+          </Box>
           <AppFooterCitation>
             {citationImages?.length > 0 && (
               <Box display="flex" justifyContent="flex-end">

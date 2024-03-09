@@ -69,6 +69,10 @@ export default `
         siteTitle[$locale],
         siteTitle[$defaultLocale]
       ),
+      "madeByText": coalesce(
+        madeByText[$locale],
+        madeByText[$defaultLocale]
+      ),
       "siteAddress": coalesce(
         siteAddress[$locale],
         siteAddress[$defaultLocale]
