@@ -149,9 +149,11 @@ function Hero(props: HeroProps) {
                 component={RouterLink}
                 href={ctaUrl}
                 variant="contained"
-                size="medium"
                 aria-label={t('aria').translate(`read-more`, { value: heading })}
-                startIcon={<QuranIcon color="primary" />}
+                startIcon={<QuranIcon fontSize="small" sx={{ mr: 0.5 }} />}
+                sx={{
+                  padding: '0.8rem 1.2rem',
+                }}
               >
                 {ctaLabel}
               </Button>
@@ -160,9 +162,11 @@ function Hero(props: HeroProps) {
                   component={RouterLink}
                   href={ctaUrl2}
                   variant="contained"
-                  size="medium"
                   aria-label={t('aria').translate(`read-more`, { value: heading })}
-                  startIcon={<BookIcon color="primary" />}
+                  startIcon={<BookIcon fontSize="small" sx={{ mr: 0.5 }} />}
+                  sx={{
+                    padding: '0.8rem 1.2rem',
+                  }}
                 >
                   {ctaLabel2}
                 </Button>
