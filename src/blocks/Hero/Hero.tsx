@@ -18,7 +18,7 @@ const HeroRoot = styled('section')(({ theme }) => ({
   },
 
   backgroundPosition: 'center',
-  backgroundSize: '90%',
+  backgroundSize: '200%',
   backgroundRepeat: 'no-repeat',
 
   [theme.breakpoints.up('md')]: {
