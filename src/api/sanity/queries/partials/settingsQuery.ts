@@ -1,5 +1,5 @@
 // @ts-nocheck
-import createImageQuery from './createImageQuery'
+import createLinkQuery from './createLinkQuery'
 import menuQuery, { MenuQueryResult } from './menuQuery'
 
 export interface SettingsQueryResult {
@@ -93,8 +93,9 @@ export default `
         citationText[$locale],
         citationText[$defaultLocale]
       ),
-      "citationImages": citationImages[]{
-        "url": asset->url
+      citationImages[]{
+        'src': image.asset->url,
+        'link': ${createLinkQuery('link')},
       },
     }
 `

@@ -225,7 +225,9 @@ function AppFooter(props) {
             {citationImages?.length > 0 && (
               <Box display="flex" justifyContent="flex-end">
                 {citationImages.map((citationImage, idx) => (
-                  <Media src={citationImage.url} sx={{ height: '57px', width: '147px' }} />
+                  <RouterLink href={citationImage.link}>
+                    <Media src={citationImage?.src} sx={{ height: '57px', width: '147px' }} />
+                  </RouterLink>
                 ))}
               </Box>
             )}
