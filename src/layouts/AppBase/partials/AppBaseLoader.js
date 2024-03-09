@@ -7,7 +7,7 @@ const AppBaseLoaderRoot = styled('div')(({ theme }) => ({
   inset: '0 0 auto',
   zIndex: theme.zIndex.tooltip,
   height: 2,
-  backgroundColor: theme.vars.palette.primary.main,
+  background: theme.vars.palette.text.primary,
   transformOrigin: 'left center',
   transform: 'scaleX(0)',
   pointerEvents: 'none',
