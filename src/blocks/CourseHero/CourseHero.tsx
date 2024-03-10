@@ -171,6 +171,8 @@ function CourseHero(props: CourseHeroProps) {
         <MediaReveal>
           <Media
             src="/assets/borderh.png"
+            alt={t('aria').translate(`horizontal-line`)}
+            aria-label={t('aria').translate(`horizontal-line`)}
             sx={(theme) => ({
               position: 'relative',
               width: '100%',

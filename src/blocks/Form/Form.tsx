@@ -40,7 +40,7 @@ const FormGrid = styled('div')<{ ownerState: { gridLayout?: boolean } }>(
   }),
 )
 
-const FormHeading = styled('h1')(({ theme }) => ({
+const FormHeading = styled('h2')(({ theme }) => ({
   ...theme.typography.h4,
   margin: 0,
   fontSize: `max(${theme.typography.h4.fontSize}, 2.2vw)`,

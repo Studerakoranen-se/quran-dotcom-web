@@ -54,9 +54,16 @@ function ArticleCard(props: ArticleCardProps) {
           </Typography>
         )}
 
-        {/* @ts-ignore */}
-        <Button component={RouterLink} href={ctaUrl} color="text" size="medium" variant="contained">
-          {ctaLabel || t(__translationGroup)`Read more`}
+        <Button
+          component={RouterLink}
+          href={ctaUrl}
+          // @ts-ignore
+          color="text"
+          size="medium"
+          variant="contained"
+          aria-label={t('aria').translate(`read-more`, { value: title })}
+        >
+          {ctaLabel || t('aria').translate(`read-more-about`)}
         </Button>
       </ArticleCardContent>
     </ArticleCardRoot>

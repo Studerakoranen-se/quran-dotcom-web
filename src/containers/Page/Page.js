@@ -9,9 +9,16 @@ import { i18n } from '../../../locales'
 
 const renderBlock = createRenderBlock(blockVariants)
 
-const makeUrl = (locale, uri) => {
-  if (locale === 'sv') {
+const makeUrl = (isHomePage, locale, uri) => {
+  if (isHomePage) {
+    if (locale === 'en') {
+      return `${process.env.APP_URL}/en`.replace(/\/$/, '')
+    }
     return `${process.env.APP_URL}`.replace(/\/$/, '')
+  }
+
+  if (locale === 'en') {
+    return `${process.env.APP_URL}/en/${uri}`.replace(/\/$/, '')
   }
   return `${process.env.APP_URL}/${uri}`.replace(/\/$/, '')
 }
@@ -28,17 +35,18 @@ function Page(props) {
     locale,
     defaultLocale,
     hasError,
+    isHomePage = false,
   } = props
 
   if (hasError) {
     return <div>Error</div>
   }
 
-  const url = makeUrl(locale || defaultLocale, uri)
+  const url = makeUrl(isHomePage, locale || defaultLocale, uri)
 
   const alternates = i18n.languages.map((alternateLocale) => ({
     hreflang: alternateLocale.id,
-    href: makeUrl(alternateLocale.id, uri),
+    href: makeUrl(isHomePage, alternateLocale.id, uri),
   }))
 
   return (
@@ -72,6 +80,7 @@ Page.propTypes = {
   locale: PropTypes.string,
   defaultLocale: PropTypes.string,
   hasError: PropTypes.string,
+  isHomePage: PropTypes.bool,
 }
 
 export default Page

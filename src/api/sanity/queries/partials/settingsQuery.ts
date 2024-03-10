@@ -98,6 +98,10 @@ export default `
         citationText[$defaultLocale]
       ),
       citationImages[]{
+        "altText": coalesce(
+          altText[$locale],
+          altText[$defaultLocale]
+        ),
         'src': image.asset->url,
         'link': ${createLinkQuery('link')},
       },

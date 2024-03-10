@@ -19,11 +19,13 @@
     "select-selector": "Språkväljare",
     "sidebar-nav-close": "Stäng sidofältet för navigering",
     "read-more": "Läs mer om ${0}",
+    "read-more-about": "Läs mer",
     "visit-us": "Besök oss på ${0}",
     "toggle-menu": "Växla huvudmenyn",
     "toggle-color-mode": "Ändra färgläge",
     "tabs": "Flikar",
-    "course-tab": "${0}flikar"
+    "course-tab": "${0}flikar",
+    "horizontal-line": "Horisontell linje"
   },
 
   "player": {

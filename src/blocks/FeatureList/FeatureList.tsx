@@ -198,7 +198,11 @@ function FeatureList(props: FeatureListBlockQueryResult) {
               }
               return (
                 <FeatureListItem key={idx}>
-                  <FeatureListIconButton key={idx} ownerState={{ verticalLayout }}>
+                  <FeatureListIconButton
+                    key={idx}
+                    ownerState={{ verticalLayout }}
+                    aria-label={entry.title}
+                  >
                     <Icon sx={{ color: '#E0D2B4' }} fontSize="large" />
                   </FeatureListIconButton>
                   <FeatureListItemContent ownerState={{ verticalLayout }}>

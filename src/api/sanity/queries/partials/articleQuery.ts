@@ -1,7 +1,7 @@
 // @ts-nocheck
 import blocksQuery, { BlocksQueryResult } from './blocksQuery'
 
-export interface ArticleQueryResult extends Pick<Sanity.Schema.Article, 'title'> {
+export interface ArticleQueryResult extends Pick<Sanity.Schema.Article, 'title' | 'seo'> {
   uri?: NonNullable<Sanity.Schema.Article['uri']>['current'] | undefined
   date?: Sanity.Schema.Article['publishedDate']
   blocks?: BlocksQueryResult[]

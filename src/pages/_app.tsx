@@ -1,7 +1,5 @@
 import '../../scripts/globals'
 import '../styles/globals.css'
-// Perfect Scrollbar
-import 'react-perfect-scrollbar/dist/css/styles.css'
 import * as React from 'react'
 import Head from 'next/head'
 import type { AppProps as NextAppProps } from 'next/app'
@@ -45,10 +43,7 @@ function App(props: AppProps) {
   return (
     <React.Fragment>
       <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-        />
+        <meta content="width=device-width,initial-scale=1" key="viewport" name="viewport" />
       </Head>
       <FontPreLoader locale={locale} />
       <DataContext.Provider value={page?.chaptersData}>

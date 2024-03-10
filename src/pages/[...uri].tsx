@@ -218,6 +218,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
         page: {
           ...page,
           blocks: blocksWithData,
+          seo: page?.seo ?? {},
+          siteTitle: settings?.siteTitle,
+          fallbackSeo: settings?.seo ?? {},
         },
       },
       revalidate: 60 * 10,

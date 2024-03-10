@@ -69,11 +69,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         settings,
         page: {
           blocks: blocksWithData,
-          // siteTitle: settings?.siteTitle,
-          // fallbackSeo: settings?.seo,
+          seo: page?.seo,
+          siteTitle: settings?.siteTitle,
+          fallbackSeo: settings?.seo,
           uri: page.uri,
           chaptersData: allChaptersData,
           chaptersResponse,
+          isHomePage: true,
         },
       },
       revalidate: 60 * 10, // 10 minutes

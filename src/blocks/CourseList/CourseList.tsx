@@ -132,6 +132,7 @@ function CourseList(props: CourseListBlockQueryResult) {
                     <MediaReveal style={{ height: '100%' }}>
                       <Media
                         src={image}
+                        alt={title}
                         sx={{
                           aspectRatio: 112 / 83,
                         }}
@@ -153,7 +154,7 @@ function CourseList(props: CourseListBlockQueryResult) {
                       href={uri}
                       variant="contained"
                       size="medium"
-                      aria-label={t('aria').translate(`read-more ${title}`)}
+                      aria-label={t('aria').translate(`read-more`, { value: title })}
                       color="primary"
                     >
                       {t(__translationGroup)`Click here`}

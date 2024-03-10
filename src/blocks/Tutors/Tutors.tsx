@@ -168,6 +168,7 @@ export default function Tutors(props: TutorsBlockQueryResult) {
                     )}
 
                     <ButtonBase
+                      aria-label={t('aria').translate(`read-more`, { value: fullname })}
                       onClick={() => handleClick(item)}
                       sx={{
                         mt: 'auto',
