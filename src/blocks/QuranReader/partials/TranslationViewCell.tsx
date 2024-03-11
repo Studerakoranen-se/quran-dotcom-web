@@ -86,25 +86,16 @@ type TranslationViewCellProps = {
 }
 
 function TranslationViewCell(props: TranslationViewCellProps) {
+  const router = useRouter()
   const { verse, quranReaderStyles, verseIndex, pageBookmarks, bookmarksRangeUrl, locale } = props
-
-  const {
-    value: selectedTranslations,
-    isQueryParamDifferent: translationsQueryParamDifferent,
-  }: { value: number[]; isQueryParamDifferent: boolean } = useGetQueryParamOrReduxValue(
-    QueryParam.Translations,
-  )
 
   const filteredTranslations = React.useMemo(
     () =>
-      verse.translations?.filter((item) =>
-        selectedTranslations?.includes(item.resourceId as number),
-      ),
+      verse.translations?.filter((item) => (router.locale === 'en' ? 20 : 48) === item.resourceId),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedTranslations],
+    [router],
   )
 
-  const router = useRouter()
   const { startingVerse } = router.query
 
   const audioService = React.useContext(AudioPlayerMachineContext)
