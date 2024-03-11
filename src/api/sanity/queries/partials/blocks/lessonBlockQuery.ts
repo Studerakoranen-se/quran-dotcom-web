@@ -1,7 +1,7 @@
 export interface LessonBlockQueryResult {
   id?: string
   title?: string
-  description?: string
+  description: []
   lessons: {
     title: string
     duration?: string
@@ -21,7 +21,7 @@ export interface LessonBlockQueryResult {
 
 export default `
   "title": ^.title,
-  'description': ^.description,
+  "description": ^.description[],
   'lessons': lessons[]->{
     title,
     'uri': uri.current,

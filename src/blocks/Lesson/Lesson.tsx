@@ -255,15 +255,7 @@ function Lesson(props: LessonProps) {
             <Typography variant="h2" gutterBottom>
               {title}
             </Typography>
-            {description && (
-              <Html
-                sx={{
-                  mt: 2,
-                  mb: 4,
-                }}
-                dangerouslySetInnerHTML={{ __html: description }}
-              />
-            )}
+            {description && <SanityHtml blocks={description} />}
 
             {lessons?.[activeLesson].youtubeVideo && (
               <RumblePlayer src={lessons?.[activeLesson].youtubeVideo} />

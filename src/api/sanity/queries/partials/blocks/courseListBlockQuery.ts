@@ -5,7 +5,9 @@ export interface CourseListBlockQueryResult {
   text: string
   entries: {
     title: string
-    description: string
+    description?: string
+    excerpt: string
+    unpublishCourse?: boolean
     image: MediaQueryResult
     uri: string
   }[]
@@ -16,8 +18,9 @@ export default `
   text,
   entries[]->{
     title,
-    description,
+    excerpt,
     image,
+    unpublishCourse,
     'uri': uri.current
   }
 `

@@ -62,20 +62,32 @@ const CourseListItems = styled('div')(({ theme }) => ({
   },
 }))
 
-const CourseListItem = styled('div')(({ theme }) => ({
-  display: 'grid',
-  overflow: 'hidden',
-  alignItems: 'center',
-  borderRadius: theme.spacing(),
-  backgroundColor: theme.vars.palette.common.white,
-  boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-  color: theme.vars.palette.primary.main,
+const CourseListItem = styled('div')<{ ownerState: { unpublishCourse?: boolean } }>(
+  ({ theme, ownerState }) => ({
+    display: 'grid',
+    overflow: 'hidden',
+    alignItems: 'center',
+    borderRadius: theme.spacing(),
+    backgroundColor: theme.vars.palette.common.white,
+    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+    color: theme.vars.palette.primary.main,
 
-  [theme.breakpoints.up('md')]: {
-    gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
-    gap: theme.spacing(1.5),
-  },
-}))
+    [theme.breakpoints.up('md')]: {
+      gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+      gap: theme.spacing(1.5),
+    },
+
+    ...(ownerState?.unpublishCourse && {
+      opacity: 0.5,
+      '-webkit-touch-callout': 'none',
+      '-webkit-user-select': 'none',
+      '-khtml-user-select': 'none',
+      '-moz-user-select': 'none',
+      '-ms-user-select': 'none',
+      'user-select': 'none',
+    }),
+  }),
+)
 
 const CourseListItemContent = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -118,7 +130,8 @@ function CourseList(props: CourseListBlockQueryResult) {
         {entries && entries?.length > 0 && (
           <CourseListItems>
             {entries.map((entry, idx: number) => {
-              const { image: sanityMediaProps, title, description, uri } = entry
+              const { image: sanityMediaProps, title, excerpt, uri, unpublishCourse } = entry
+
               // @ts-ignore
               const image = transformSanityImage(sanityMediaProps, {
                 dpr: 5,
@@ -127,7 +140,12 @@ function CourseList(props: CourseListBlockQueryResult) {
               })
 
               return (
-                <CourseListItem key={idx}>
+                <CourseListItem
+                  key={idx}
+                  ownerState={{
+                    unpublishCourse,
+                  }}
+                >
                   {image && (
                     <MediaReveal style={{ height: '100%' }}>
                       <Media
@@ -146,19 +164,22 @@ function CourseList(props: CourseListBlockQueryResult) {
                     <Html
                       sx={{ mb: 2 }}
                       dangerouslySetInnerHTML={{
-                        __html: description,
+                        __html: excerpt,
                       }}
                     />
-                    <Button
-                      component={RouterLink}
-                      href={uri}
-                      variant="contained"
-                      size="medium"
-                      aria-label={t('aria').translate(`read-more`, { value: title })}
-                      color="primary"
-                    >
-                      {t(__translationGroup)`Click here`}
-                    </Button>
+                    {!unpublishCourse && (
+                      <Button
+                        component={RouterLink}
+                        href={uri}
+                        variant="contained"
+                        size="medium"
+                        aria-label={t('aria').translate(`read-more`, { value: title })}
+                        color="primary"
+                        sx={{ mt: 'auto' }}
+                      >
+                        {t(__translationGroup)`Click here`}
+                      </Button>
+                    )}
                   </CourseListItemContent>
                 </CourseListItem>
               )
