@@ -25,7 +25,6 @@ const FeatureListRoot = styled('section')(({ theme }) => ({
   padding: theme.spacing(4, 2),
 
   [theme.breakpoints.up('md')]: {
-    minHeight: 650,
     padding: theme.spacing(14, 2),
   },
 }))

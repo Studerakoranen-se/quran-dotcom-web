@@ -17,7 +17,7 @@ const CourseListRoot = styled('section')(({ theme }) => ({
 
   [theme.breakpoints.up('md')]: {
     minHeight: 650,
-    padding: theme.spacing(14, 2),
+    padding: theme.spacing(10, 2),
   },
 }))
 
@@ -69,12 +69,19 @@ const CourseListItem = styled('div')<{ ownerState: { unpublishCourse?: boolean }
     alignItems: 'center',
     borderRadius: theme.spacing(),
     backgroundColor: theme.vars.palette.common.white,
-    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+    transition: theme.transitions.create(['box-shadow'], {
+      duration: theme.transitions.duration.complex,
+    }),
     color: theme.vars.palette.primary.main,
+    border: `1px solid ${theme.vars.palette.divider}`,
 
     [theme.breakpoints.up('md')]: {
       gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
       gap: theme.spacing(1.5),
+
+      '&:hover': {
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+      },
     },
 
     ...(ownerState?.unpublishCourse && {
