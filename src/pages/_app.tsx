@@ -53,13 +53,13 @@ function App(props: AppProps) {
       {process.env.NODE_ENV === 'production' && (
         <React.Fragment>
           <Script
-            id="gtag-script-dependency"
-            strategy="afterInteractive"
+            id="google-analytics-script-url"
+            strategy="lazyOnload"
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
           />
 
           <Script
-            id="gtag-script-loader"
+            id="google-analytics-script-code"
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `

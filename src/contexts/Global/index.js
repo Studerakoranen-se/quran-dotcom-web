@@ -1,6 +1,7 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
 import Router from 'next/router'
+import { getCookie, gtmEvent } from '~/utils'
 import { useRemoteConfig } from '../RemoteConfig'
 
 export const GlobalStateContext = React.createContext({})
@@ -49,6 +50,19 @@ function GlobalProvider(props) {
       closeAllMenus()
     }
 
+    // Record page view to Google analytics when user navigate to a new page.
+    const handleRouteChangeComplete = (url) => {
+      gtmEvent({
+        parameter1: '',
+        page_title: document.title,
+        page_location: `${window.location.origin}${window.location.pathname}`,
+        user_country: getCookie('COUNTRY') || '',
+        user_language: getCookie('LANGUAGE') || '',
+        user_locale: Router.locale,
+        page_path: url,
+      })
+    }
+
     if (!localStorage?.getItem(COOKIE_CONSENT_ID)) {
       setTimeout(() => {
         setCookieBarOpen(true)
@@ -56,8 +70,10 @@ function GlobalProvider(props) {
     }
 
     Router.events.on('routeChangeStart', handleRouteChangeStart)
+    Router.events.on('routeChangeComplete', handleRouteChangeComplete)
     return () => {
       Router.events.off('routeChangeStart', handleRouteChangeStart)
+      Router.events.off('routeChangeComplete', handleRouteChangeComplete)
     }
   }, [])
 

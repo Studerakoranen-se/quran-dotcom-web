@@ -14,8 +14,7 @@ import {
 import { Formit, Form as FormitForm, Field as FormitField } from '@noaignite/formit'
 import { useI18n, useRemoteConfig } from '~/contexts'
 import { FormitButton, FormitTextField, SanityHtml } from '~/containers'
-
-// import { gtmEvent } from '~/utils'
+import { gtmEvent } from '~/utils'
 
 const FormRoot = styled('section')({
   padding: 'var(--cia-section-spacing) var(--cia-container-spacing)',
@@ -194,6 +193,14 @@ function Form(props: FormProps) {
           return res.json()
         })
 
+        if (response.success) {
+          gtmEvent({
+            event: 'form_submit',
+            parameter1: id,
+            parameter2: heading,
+          })
+        }
+
         setStatus(response.success ? 'success' : 'error')
       } catch (err) {
         console.error(err)
@@ -202,7 +209,7 @@ function Form(props: FormProps) {
 
       setSubmitting(false)
     },
-    [endpointProp, fetchOptionsProp?.method, id, renderIndex, router.locale],
+    [endpointProp, fetchOptionsProp?.method, heading, id, renderIndex, router.locale],
   )
 
   // Compose Formit initialValues
