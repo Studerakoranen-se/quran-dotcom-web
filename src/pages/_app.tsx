@@ -2,6 +2,7 @@ import '../../scripts/globals'
 import '../styles/globals.css'
 import * as React from 'react'
 import Head from 'next/head'
+import { Analytics } from '@vercel/analytics/react'
 import type { AppProps as NextAppProps } from 'next/app'
 import type { NextPage } from 'next'
 import type { EmotionCache } from '@emotion/cache'
@@ -96,7 +97,7 @@ function App(props: AppProps) {
           </ReduxProvider>
         </AudioPlayerMachineProvider>
       </DataContext.Provider>
-
+      <Analytics />
       {/* This button closes the Next.js preview mode by linking to the api/exit-preview route */}
       {preview && (
         <Button
