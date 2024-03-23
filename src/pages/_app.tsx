@@ -6,6 +6,7 @@ import type { AppProps as NextAppProps } from 'next/app'
 import type { NextPage } from 'next'
 import type { EmotionCache } from '@emotion/cache'
 import { Button } from '@mui/material'
+import Script from 'next/script'
 import { RootProvider } from '~/contexts'
 import * as layoutVariants from '~/layouts'
 import { ErrorBoundary, RouterLink } from '~/containers'
@@ -45,6 +46,36 @@ function App(props: AppProps) {
       <Head>
         <meta content="width=device-width,initial-scale=1" key="viewport" name="viewport" />
       </Head>
+
+      {/* <!-- Google Tag Manager --> */}
+      {/* The next/script component is not allowed to be in Head */}
+
+      {process.env.NODE_ENV === 'production' && (
+        <React.Fragment>
+          <Script
+            id="gtag-script-dependency"
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+          />
+
+          <Script
+            id="gtag-script-loader"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){ dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+              page_path: window.location.pathname,
+            });
+          `,
+            }}
+          />
+        </React.Fragment>
+      )}
+      {/* <!-- End Google Tag Manager --> */}
+
       <FontPreLoader locale={locale} />
       <DataContext.Provider value={page?.chaptersData}>
         <AudioPlayerMachineProvider>
