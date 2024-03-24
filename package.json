@@ -42,6 +42,7 @@
     "@types/react-dom": "18.0.10",
     "@types/redux-persist": "^4.3.1",
     "@vercel/analytics": "^1.2.2",
+    "@vercel/speed-insights": "^1.0.10",
     "@xstate/react": "^3.0.1",
     "axios": "^1.2.2",
     "clsx": "^1.2.1",
