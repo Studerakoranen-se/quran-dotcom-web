@@ -61,13 +61,20 @@ const TeamItemCard = styled('div')(() => ({
 
 const ActiveTutorDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
-    ...theme.mixins.scrollbars,
     maxWidth: '100%',
-    width: 500, // By design.
-    height: '100vh',
-    padding: theme.spacing(6),
-    backgroundColor: theme.vars.palette.background.default,
+    width: 500,
+    overflowX: 'hidden',
   },
+}))
+
+const ActiveTutorDrawerScrollContainer = styled('div')(({ theme }) => ({
+  ...theme.mixins.scrollable,
+  ...theme.mixins.scrollbars,
+  display: 'inherit',
+  flexDirection: 'inherit',
+  flexGrow: 1,
+  padding: theme.spacing(6),
+  backgroundColor: theme.vars.palette.background.default,
 }))
 
 type ActiveTutorProps = {
@@ -188,43 +195,49 @@ export default function Tutors(props: TutorsBlockQueryResult) {
         </TeamList>
 
         <ActiveTutorDrawer onClose={handleClose} open={open} anchor="right">
-          <Typography variant="h3" gutterBottom>
-            {activeEntry?.fullname}
-          </Typography>
-          <Typography component="h5" variant="subtitle1" sx={{ mb: 2, fontStyle: 'italic' }}>
-            {activeEntry?.title}
-          </Typography>
-
-          {activeEntry?.tags && (
-            <Box my={2} gap={1} display={'flex'} flexWrap={'wrap'}>
-              {activeEntry.tags?.map((field, idx) => (
-                <Chip key={idx} label={field} />
-              ))}
-            </Box>
-          )}
-
-          {activeEntry?.extraFields?.map((field, idx) => (
-            <Typography key={idx} variant="body1" gutterBottom>
-              <strong>{field.title}</strong>: {field.text}
+          <ActiveTutorDrawerScrollContainer>
+            <Typography variant="h3" gutterBottom>
+              {activeEntry?.fullname}
             </Typography>
-          ))}
+            <Typography component="h5" variant="subtitle1" sx={{ mb: 2, fontStyle: 'italic' }}>
+              {activeEntry?.title}
+            </Typography>
 
-          {activeEntry?.languages && (
-            <Box mt={2}>
-              <Typography variant="body1">
-                <strong>{t(__translationGroup)`Speaks`}</strong>:
-              </Typography>
-              <Box mt={2} mb={4} gap={1} display={'flex'} flexWrap={'wrap'}>
-                {activeEntry.languages.map((field, idx) => (
+            {activeEntry?.tags && (
+              <Box my={2} gap={1} display={'flex'} flexWrap={'wrap'}>
+                {activeEntry.tags?.map((field, idx) => (
                   <Chip key={idx} label={field} />
                 ))}
               </Box>
-            </Box>
-          )}
+            )}
 
-          {activeEntry?.text && <SanityHtml sx={{ mt: 2 }} blocks={activeEntry.text} />}
+            {activeEntry?.extraFields?.map((field, idx) => (
+              <Typography key={idx} variant="body1" gutterBottom>
+                <strong>{field.title}</strong>: {field.text}
+              </Typography>
+            ))}
 
-          <Button onClick={handleClose} variant="contained" size="medium" sx={{ mt: 4 }}>
+            {activeEntry?.languages && (
+              <Box mt={2}>
+                <Typography variant="body1">
+                  <strong>{t(__translationGroup)`Speaks`}</strong>:
+                </Typography>
+                <Box mt={2} mb={4} gap={1} display={'flex'} flexWrap={'wrap'}>
+                  {activeEntry.languages.map((field, idx) => (
+                    <Chip key={idx} label={field} />
+                  ))}
+                </Box>
+              </Box>
+            )}
+
+            {activeEntry?.text && <SanityHtml sx={{ mt: 2 }} blocks={activeEntry.text} />}
+          </ActiveTutorDrawerScrollContainer>
+          <Button
+            onClick={handleClose}
+            variant="contained"
+            size="medium"
+            sx={{ my: 1, width: '120px', mx: 'auto' }}
+          >
             {t(__translationGroup)`Back`}
           </Button>
         </ActiveTutorDrawer>
