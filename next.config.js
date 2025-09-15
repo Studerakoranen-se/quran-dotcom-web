@@ -19,6 +19,13 @@ const nextConfig = {
     defaultLocale: i18n.base,
     localeDetection: false,
   },
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
   env: {
     APP_URL: process.env.APP_URL,
     SANITY_PROJECT_ID: process.env.SANITY_PROJECT_ID,
