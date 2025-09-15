@@ -1,7 +1,6 @@
-import { Body, Container, Head, Hr, Html, Preview, Text } from '@react-email/components'
-import * as React from 'react'
+import { Body, Container, Head, Html, Preview, Text } from '@react-email/components'
 
-interface ContactEmailAdminProps {
+export interface ContactEmailAdminProps {
   message: string
 }
 

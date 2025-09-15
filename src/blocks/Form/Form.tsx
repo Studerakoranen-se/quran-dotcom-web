@@ -1,5 +1,3 @@
-import * as React from 'react'
-import { useRouter } from 'next/router'
 import {
   Alert,
   Box,
@@ -8,12 +6,14 @@ import {
   MenuItem,
   Radio,
   RadioGroup,
-  Typography,
   styled,
+  Typography,
 } from '@mui/material'
-import { Formit, Form as FormitForm, Field as FormitField } from '@noaignite/formit'
-import { useI18n, useRemoteConfig } from '~/contexts'
+import { Field as FormitField, Form as FormitForm, Formit } from '@noaignite/formit'
+import { useRouter } from 'next/router'
+import * as React from 'react'
 import { FormitButton, FormitTextField, SanityHtml } from '~/containers'
+import { useI18n, useRemoteConfig } from '~/contexts'
 import { gtmEvent } from '~/utils'
 
 const FormRoot = styled('section')({

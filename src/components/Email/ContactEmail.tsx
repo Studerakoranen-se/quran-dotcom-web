@@ -12,7 +12,6 @@ import {
   Section,
   Text,
 } from '@react-email/components'
-import * as React from 'react'
 import { localizedStrings } from './localizedStrings'
 
 const main = {
@@ -47,6 +46,7 @@ export type ContactEmailProps = {
 
 const ContactEmail = ({ locale = 'ar' }: ContactEmailProps) => {
   const strings = localizedStrings[locale]
+  const currentYear = new Date().getFullYear()
 
   return (
     <Html lang={locale}>
@@ -103,7 +103,7 @@ const ContactEmail = ({ locale = 'ar' }: ContactEmailProps) => {
           </Row>
           <Row>
             <Text style={{ textAlign: 'center', color: '#706a7b' }}>
-              © 2024 StuderaKoranen, All Rights Reserved <br />
+              © {currentYear} StuderaKoranen, All Rights Reserved <br />
             </Text>
           </Row>
         </Section>

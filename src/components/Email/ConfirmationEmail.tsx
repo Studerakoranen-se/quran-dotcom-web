@@ -12,7 +12,6 @@ import {
   Section,
   Text,
 } from '@react-email/components'
-import * as React from 'react'
 import { localizedApplicationStrings } from './localizedStrings'
 
 export type ConfirmationEmailProps = {
@@ -46,7 +45,10 @@ const footer = {
 }
 
 const ConfirmationEmail = ({ locale = 'ar' }: ConfirmationEmailProps) => {
+  const currentYear = new Date().getFullYear()
+
   const strings = localizedApplicationStrings[locale]
+
   return (
     <Html>
       <Head />
@@ -78,23 +80,17 @@ const ConfirmationEmail = ({ locale = 'ar' }: ConfirmationEmailProps) => {
         <Section style={footer}>
           <Row>
             <Column align="right" style={{ width: '50%', paddingRight: '8px' }}>
-              <Link
-                className="text-gray-400 hover:text-gray-500"
-                href="https://www.facebook.com/people/StuderaKoranennu/61553792279856/"
-              >
+              <Link href="https://www.facebook.com/people/StuderaKoranennu/61553792279856/">
                 <Img
-                  src={`https://quran-dotcom-web.vercel.app/assets/Facebook.svg`}
+                  src={`https://studerakoranen.nu/facebook.svg`}
                   style={{ width: '24px', height: '24px' }}
                 />
               </Link>
             </Column>
             <Column align="left" style={{ width: '50%', paddingLeft: '8px' }}>
-              <Link
-                className="text-gray-400 hover:text-gray-500"
-                href="https://www.instagram.com/studerakoranen.nu"
-              >
+              <Link href="https://www.instagram.com/studerakoranen.nu">
                 <Img
-                  src={`https://quran-dotcom-web.vercel.app/assets/Instagram.svg`}
+                  src={`https://studerakoranen.nu/instagram.svg`}
                   style={{ width: '24px', height: '24px' }}
                 />
               </Link>
@@ -102,7 +98,7 @@ const ConfirmationEmail = ({ locale = 'ar' }: ConfirmationEmailProps) => {
           </Row>
           <Row>
             <Text style={{ textAlign: 'center', color: '#706a7b' }}>
-              © 2024 StuderaKoranen, All Rights Reserved <br />
+              © {currentYear} StuderaKoranen, All Rights Reserved <br />
             </Text>
           </Row>
         </Section>
