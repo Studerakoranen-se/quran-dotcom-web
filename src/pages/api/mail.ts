@@ -1,9 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import nodemailer from 'nodemailer'
-import { render } from '@react-email/render'
-import ConfirmationEmail from '~/components/Email/ConfirmationEmail'
-import ConfirmationTutorEmail from '~/components/Email/ConfirmationTutorEmail'
 import { localizedApplicationStrings } from '~/components/Email/localizedStrings'
+import { rateLimitByKey } from '~/utils/limiter'
+import { sendEmail } from '~/utils/send-email'
 
 const Email = process.env.NODE_MAILER_EMAIL
 const password = process.env.NODE_MAILER_PASSWORD
@@ -25,18 +23,6 @@ function hasEmailInTitle(arr) {
   return objWithEmail ? objWithEmail.text.match(emailRegex)[0] : null
 }
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // true for 465, false for other ports
-  auth: {
-    user: Email,
-    pass: password,
-  },
-  logger: true,
-})
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (
     req.method === 'POST' &&
@@ -48,23 +34,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const strings = localizedApplicationStrings[body.locale || 'ar']
 
-    try {
-      await Promise.all([
-        transporter.sendMail({
-          from: Email, // from Studera Koranen
-          to: hasEmailInTitle(body.teacher.extraFields), // To the teacher,
-          cc: `studerakoranen@gmail.com`, // To Administator
-          subject: `${body.firstName} ${body.lastName}!`,
-          html: render(ConfirmationTutorEmail(body)),
-        }),
+    await rateLimitByKey({ key: body.email, limit: 1, window: 30000 })
 
-        transporter.sendMail({
-          from: Email, // from Studera Koranen
-          to: body.email, // to the student
-          subject: `${strings.previewText} ${body.firstName} ${body.lastName}!`,
-          html: render(ConfirmationEmail({ locale: body.locale })),
-        }),
-      ])
+    try {
+      // 1) Send to the teacher inbox with Reply-To set to the user's email
+      await sendEmail({
+        data: body,
+        replyTo: body.email,
+        subject: `New Student ${body?.firstName} ${body?.lastName}`,
+        template: 'CONFIRMATION_TUTOR',
+        to: hasEmailInTitle(body.teacher.extraFields), // To the teacher,
+      })
+
+      // 2) Auto-reply to the user confirming receipt
+      await sendEmail({
+        data: body,
+        subject: `${strings.previewText} ${body.firstName} ${body.lastName}!`,
+        template: 'CONFIRMATION_STUDENT',
+        to: body.email,
+      })
+
       return res.status(200).json({ success: true })
     } catch (error: any) {
       return res.status(400).json({ message: error.message })

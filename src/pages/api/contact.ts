@@ -1,9 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import nodemailer from 'nodemailer'
-import { render } from '@react-email/render'
-import ContactEmail from '~/components/Email/ContactEmail'
-import ContactEmailAdmin from '~/components/Email/ContactEmailAdmin'
 import { localizedStrings } from '~/components/Email/localizedStrings'
+import { rateLimitByKey } from '~/utils/limiter'
+import { sendEmail } from '~/utils/send-email'
 
 const Email = process.env.NODE_MAILER_EMAIL
 const password = process.env.NODE_MAILER_PASSWORD
@@ -17,45 +15,31 @@ export interface CustomApiRequest extends NextApiRequest {
   file?: any
 }
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  host: 'smtp.gmail.com',
-  // host: 'mailout.one.com',
-  port: 465,
-  secure: true, // true for 465, false for other ports
-  // requireTLS: true,
-  auth: {
-    user: Email,
-    pass: password,
-  },
-  logger: true,
-})
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === 'POST') {
     const { body } = req
 
     const strings = localizedStrings[body.locale || 'ar']
 
+    await rateLimitByKey({ key: body.email, limit: 1, window: 30000 })
+
     try {
-      await Promise.all([
-        transporter.sendMail({
-          from: Email, // sender address
-          to: Email, // list of receivers
-          subject: `${body.firstName} ${body.lastName}!`,
-          html: render(ContactEmailAdmin({ message: body.message })),
-        }),
-        transporter.sendMail({
-          from: Email, // sender address
-          to: body.email, // list of receivers
-          subject: `${strings.previewText} ${body.firstName} ${body.lastName}!`,
-          html: render(
-            ContactEmail({
-              locale: body.locale,
-            }),
-          ),
-        }),
-      ])
+      // 1) Send to the Studera Korranen inbox with Reply-To set to the user's email
+      await sendEmail({
+        data: body,
+        replyTo: body.email,
+        subject: `Studera Korranen: ${body?.firstName} ${body?.lastName}`,
+        template: 'CONTACT_FORM_ADMIN',
+        to: Email as string,
+      })
+
+      // 2) Auto-reply to the user confirming contact form submission
+      await sendEmail({
+        data: body,
+        subject: `${strings.previewText} ${body.firstName} ${body.lastName}!`,
+        template: 'CONTACT_FORM_USER',
+        to: body.email,
+      })
 
       return res.status(200).json({ success: true })
     } catch (error: any) {
