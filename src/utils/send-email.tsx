@@ -59,7 +59,6 @@ export async function sendEmail({
 }) {
   const Template = EMAIL_TEMPLATE[template] as React.ComponentType<any>
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
   const emailHtml = await render(<Template {...data} />)
 
   const res = await transporter.sendMail({
