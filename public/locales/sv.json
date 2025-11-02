@@ -55,6 +55,21 @@
     "verses-range": "Omfattning av verser"
   },
 
+  "tafsir": {
+    "font-size": "Tafsir-teckenstorlek",
+    "group-message": "Du läser en tafsir för gruppen av verser {{from}} till {{to}}",
+    "no-text": "{{tafsirName}} är inte tillgänglig för den aktuella versen.",
+    "surah": "Tafsir-surah",
+    "tafsir-desc": "Läs {{tafsirName}} för Ayah {{verseNumber}} av Surah {{surahName}}",
+    "tafsirs-desc": "Läs olika Tafsir av Ayah {{ayahNumber}} av Surah {{surahName}} av betrodda Tafsir-lärda",
+    "title": "Tafsir"
+  },
+
+  "counter": {
+    "decrease": "Minska",
+    "increase": "Öka"
+  },
+
   "blocks/CourseHero/CourseHero.tsx": {
     "Apply for private course": "Ansök till privat kurs"
   },
