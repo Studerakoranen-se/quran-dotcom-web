@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { styled, Theme } from '@mui/material/styles'
 import { SxProps } from '@mui/material'
+import { styled, Theme } from '@mui/material/styles'
+import * as React from 'react'
 
 export const HtmlRoot = styled('div')(({ theme }) => ({
   ...theme.typography.body1,
@@ -68,6 +68,10 @@ export const HtmlRoot = styled('div')(({ theme }) => ({
 interface HtmlProps {
   children?: React.ReactNode
   component?: any
+  className?: string
+  lang?: string
+
+  dir?: string
   sx?: SxProps<Theme>
   dangerouslySetInnerHTML?: {
     __html: string
