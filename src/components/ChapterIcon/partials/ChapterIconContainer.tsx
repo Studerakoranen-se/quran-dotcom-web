@@ -1,6 +1,6 @@
-import * as React from 'react'
+import { SxProps, Typography } from '@mui/material'
 import { styled, Theme } from '@mui/material/styles'
-import { Typography, SxProps } from '@mui/material'
+import * as React from 'react'
 import ChapterIcon from '../ChapterIcon'
 
 export enum ChapterIconsSize {

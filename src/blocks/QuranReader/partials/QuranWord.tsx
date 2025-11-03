@@ -2,7 +2,6 @@ import { ButtonBase, styled, Tooltip } from '@mui/material'
 import { useSelector as useXstateSelector } from '@xstate/react'
 import * as React from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
-import { ChapterNumberIcon } from '~/components'
 import getTooltipText from '~/components/QuranWord/getToolTipText'
 import GlyphWord from '~/components/QuranWord/GlyphWord'
 import InlineWordByWord from '~/components/QuranWord/InlineWordByWord'
@@ -38,7 +37,7 @@ const QuranReaderIconContainer = styled('div')(() => ({
   width: 45,
   height: 45,
   span: {
-    color: 'white',
+    // color: 'white',
     textAlign: 'center',
     marginTop: 2,
   },
@@ -56,6 +55,8 @@ const QuranReaderIconContainer = styled('div')(() => ({
 const QuranReaderIconText = styled('span')(({ theme }) => ({
   ...theme.typography.subtitle1,
   ...theme.mixins.absolute(0),
+  fontSize: theme.typography.pxToRem(38),
+  color: theme.palette.mode === 'dark' ? '#E0D2B4' : theme.vars.palette.primary.main,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -259,7 +260,7 @@ function QuranWord(props: QuranWordProps) {
     return (
       <QuranReaderIconContainer>
         <QuranReaderIconText>{wordText}</QuranReaderIconText>
-        <ChapterNumberIcon />
+        {/* <ChapterNumberIcon /> */}
       </QuranReaderIconContainer>
     )
   }

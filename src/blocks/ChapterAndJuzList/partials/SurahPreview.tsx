@@ -1,6 +1,6 @@
-import { Box, Typography, styled } from '@mui/material'
-import { RouterLink } from '~/containers'
+import { Box, styled, Typography } from '@mui/material'
 import { ChapterNumberIcon } from '~/components'
+import { RouterLink } from '~/containers'
 import SurahPreviewBlock from './SurahPreviewBlock'
 // import ChapterIconContainer from '~/components/ChapterIcon/partials/ChapterIconContainer'
 
@@ -144,7 +144,7 @@ const SurahPreview = (props: SurahPreviewProps) => {
         </Box>
         <SurahPreviewContentLeft>
           <Typography
-            className={`icon-surah icon-surah${chapterId.toString()}`}
+            // className={`icon-surah icon-surah${chapterId.toString()}`}
             component="span"
             translate="no"
             variant="preamble"
