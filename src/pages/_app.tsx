@@ -121,10 +121,8 @@ function App(props: AppProps) {
           zIndex: 1000,
         }}
         onClick={() => {
-          // Replace with your WhatsApp number
-          const phoneNumber = '46123456789' // Update this with your actual WhatsApp number
-          const message = 'Hej Arabiskacentret!! Jag har en fråga om Koranläsningen.' // Default message in Swedish
-          const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+          const whatsappUrl =
+            'https://api.whatsapp.com/send/?phone=46762621036&text=Hej+Arabiskacentret%21&type=phone_number&app_absent=0'
           window.open(whatsappUrl, '_blank')
         }}
         aria-label="Contact us on WhatsApp"
