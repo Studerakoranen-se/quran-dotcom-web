@@ -1,17 +1,17 @@
 import { GetStaticPropsContext } from 'next'
-import * as blockPropGetters from '~/blocks/getBlockProps'
-import type { GetBlockPropsFunctions } from '~/blocks/getBlockProps'
-import { createGetBlocksProps } from '~/utils'
 import {
   frontpageQuery,
-  siteSettingsQuery,
-  getClient as getSanityClient,
   FrontpageQueryResult,
+  getClient as getSanityClient,
+  siteSettingsQuery,
   SiteSettingsQueryResult,
 } from '~/api/sanity'
-import { getAllChaptersData } from '~/utils/chapter'
+import type { GetBlockPropsFunctions } from '~/blocks/getBlockProps'
+import * as blockPropGetters from '~/blocks/getBlockProps'
 import { ChaptersResponse } from '~/types/ApiResponses'
 import ChaptersData from '~/types/ChaptersData'
+import { createGetBlocksProps } from '~/utils'
+import { getAllChaptersData } from '~/utils/chapter'
 
 export { default } from '~/containers/Page'
 
@@ -30,9 +30,11 @@ const getBlocksProps = createGetBlocksProps(
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const { locale, defaultLocale, preview = false } = context
+  const currentLocale = locale || 'en'
+  const currentDefaultLocale = defaultLocale || 'en'
   const sanityClient = getSanityClient(preview)
 
-  const allChaptersData = await getAllChaptersData(locale)
+  const allChaptersData = await getAllChaptersData(currentLocale)
   const chaptersResponse = {
     chapters: Object.keys(allChaptersData).map((chapterId) => {
       const chapterData = allChaptersData[chapterId]
@@ -41,15 +43,15 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 
   const [page, settings] = await Promise.all([
-    sanityClient.fetch(frontpageQuery, {
-      locale,
+    (sanityClient as any).fetch(frontpageQuery, {
+      locale: currentLocale,
       preview,
-      defaultLocale,
+      defaultLocale: currentDefaultLocale,
     }),
-    sanityClient.fetch(siteSettingsQuery, {
-      locale,
+    (sanityClient as any).fetch(siteSettingsQuery, {
+      locale: currentLocale,
       preview,
-      defaultLocale,
+      defaultLocale: currentDefaultLocale,
     }),
   ])
 
@@ -64,8 +66,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       props: {
         headerMode: page?.headerMode,
-        defaultLocale: context.defaultLocale,
-        locale: context.locale,
+        defaultLocale: currentDefaultLocale,
+        locale: currentLocale,
         settings,
         page: {
           blocks: blocksWithData,

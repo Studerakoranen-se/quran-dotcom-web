@@ -1,34 +1,35 @@
 import { configureStore } from '@reduxjs/toolkit'
-import storage from 'redux-persist/lib/storage'
 import { combineReducers } from 'redux'
 import {
-  persistReducer,
   createMigrate,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
+  persistReducer,
   PURGE,
   REGISTER,
+  REHYDRATE,
 } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import { getStoreInitialState } from './defaultSettings/util'
+import history from './historySlice'
+import DefaultSettingsMiddleware from './middleware/defaultSettingsMiddleware'
+import migrations from './migrations'
 import audioPlayerPersistConfig from './slices/AudioPlayer/persistConfig'
 import audioPlayerState from './slices/AudioPlayer/state'
-import navbar from './slices/navbar'
-import readingTracker from './slices/QuranReader/readingTracker'
-import sidebarNavigation from './slices/QuranReader/sidebarNavigation'
-import readingPreferences from './slices/QuranReader/readingPreferences'
-import quranReaderStyles from './slices/QuranReader/styles'
-import translations from './slices/QuranReader/translations'
-import fontFaces from './slices/QuranReader/font-faces'
-import readingViewVerse from './slices/QuranReader/readingViewVerse'
-import revelationOrder from './slices/revelationOrder'
 import defaultSettings from './slices/defaultSettings'
-import history from './historySlice'
-import { userSlice } from './userSlice'
+import navbar from './slices/navbar'
+import fontFaces from './slices/QuranReader/font-faces'
+import readingPreferences from './slices/QuranReader/readingPreferences'
+import readingTracker from './slices/QuranReader/readingTracker'
+import readingViewVerse from './slices/QuranReader/readingViewVerse'
+import sidebarNavigation from './slices/QuranReader/sidebarNavigation'
+import quranReaderStyles from './slices/QuranReader/styles'
+import tafsirs from './slices/QuranReader/tafsirs'
+import translations from './slices/QuranReader/translations'
+import revelationOrder from './slices/revelationOrder'
 import themeConfigSlice from './themeConfigSlice'
-import migrations from './migrations'
-import DefaultSettingsMiddleware from './middleware/defaultSettingsMiddleware'
-import { getStoreInitialState } from './defaultSettings/util'
+import { userSlice } from './userSlice'
 
 const persistConfig = {
   key: 'root',
@@ -53,6 +54,7 @@ const reducers = combineReducers({
   readingViewVerse,
   defaultSettings,
   navbar,
+  tafsirs,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers)

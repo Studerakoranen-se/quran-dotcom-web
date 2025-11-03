@@ -1,27 +1,26 @@
-import * as React from 'react'
-import { useRouter } from 'next/router'
-import { useSelector as useSelectorXstate } from '@xstate/react'
 import { Box, styled } from '@mui/material'
+import { useSelector as useSelectorXstate } from '@xstate/react'
+import { useRouter } from 'next/router'
+import * as React from 'react'
 import { useSelector } from 'react-redux'
-import QuranReaderStyles from '~/store/types/QuranReaderStyles'
-import useScroll, { SMOOTH_SCROLL_TO_CENTER } from '~/hooks/useScrollToElement'
-import BookmarksMap from '~/types/BookmarksMap'
-import Verse from '~/types/Verse'
-import Translation from '~/types/Translation'
-import { getVerseWords, makeVerseKey } from '~/utils'
-import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
-import { selectEnableAutoScrolling } from '~/store/slices/AudioPlayer/state'
 import PlayVerseAudioButton from '~/components/Verse/PlayVerseAudioButton'
 import VerseLink from '~/components/VerseLink'
-import useGetQueryParamOrReduxValue from '~/hooks/useGetQueryParamOrReduxValue'
-import QueryParam from '~/types/QueryParam'
+import useScroll, { SMOOTH_SCROLL_TO_CENTER } from '~/hooks/useScrollToElement'
+import { selectEnableAutoScrolling } from '~/store/slices/AudioPlayer/state'
+import QuranReaderStyles from '~/store/types/QuranReaderStyles'
+import BookmarksMap from '~/types/BookmarksMap'
+import Translation from '~/types/Translation'
+import Verse from '~/types/Verse'
+import { getVerseWords, makeVerseKey } from '~/utils'
+import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
 import {
   verseFontChanged,
   verseTranslationChanged,
   verseTranslationFontChanged,
 } from '../utils/memoization'
-import VerseText from './VerseText'
+import TafsirVerseAction from './TafsirView/TafsirVerseAction'
 import TranslationText from './TranslationText'
+import VerseText from './VerseText'
 
 const TranslationViewCellRoot = styled('div')<{ ownerState: { isHighlighted?: boolean } }>(
   ({ theme, ownerState }) => ({
@@ -86,8 +85,15 @@ type TranslationViewCellProps = {
 }
 
 function TranslationViewCell(props: TranslationViewCellProps) {
-  const router = useRouter()
   const { verse, quranReaderStyles, verseIndex, pageBookmarks, bookmarksRangeUrl, locale } = props
+
+  const router = useRouter()
+
+  const [isTafsirOpen, setIsTafsirOpen] = React.useState(false)
+
+  const onActionTriggered = () => {
+    setIsTafsirOpen(false)
+  }
 
   const filteredTranslations = React.useMemo(
     () =>
@@ -149,6 +155,24 @@ function TranslationViewCell(props: TranslationViewCellProps) {
               <PlayVerseAudioButton
                 verseKey={verse.verseKey}
                 timestamp={verse?.timestamps?.timestampFrom}
+              />
+            </Box>
+
+            <Box
+              sx={(theme) => ({
+                display: 'inline-block',
+                marginInlineEnd: 'calc(0.5 * 0.375rem)',
+                [theme.breakpoints.up('md')]: {
+                  marginInlineEnd: 0,
+                },
+              })}
+            >
+              <TafsirVerseAction
+                verseNumber={verse.verseNumber}
+                chapterId={verse.chapterId as number}
+                // isTranslationView={isTranslationView}
+                onActionTriggered={onActionTriggered}
+                locale={locale}
               />
             </Box>
           </TranslationViewCellActionsLeft>

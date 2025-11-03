@@ -1,28 +1,28 @@
-import * as React from 'react'
+import { ButtonBase, styled, Tooltip } from '@mui/material'
 import { useSelector as useXstateSelector } from '@xstate/react'
+import * as React from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
-import { ButtonBase, Tooltip, styled } from '@mui/material'
-import {
-  selectWordClickFunctionality,
-  selectReadingPreference,
-  selectTooltipContentType,
-  selectInlineDisplayWordByWordPreferences,
-} from '~/store/slices/QuranReader/readingPreferences'
-import { selectShowTooltipWhenPlayingAudio } from '~/store/slices/AudioPlayer/state'
 import { ChapterNumberIcon } from '~/components'
-import TajweedWord from '~/components/QuranWord/TajweedWordImage'
-import TextWord from '~/components/QuranWord/TextWord'
 import getTooltipText from '~/components/QuranWord/getToolTipText'
 import GlyphWord from '~/components/QuranWord/GlyphWord'
-import { isQCFFont } from '~/utils/fontFaceHelper'
-import { areArraysEqual } from '~/utils/array'
-import { getChapterNumberFromKey, getWordTimeSegment, makeWordLocation } from '~/utils'
-import Word, { CharType } from '~/types/Word'
-import { QuranFont, ReadingPreference, WordClickFunctionality } from '~/types/QuranReader'
 import InlineWordByWord from '~/components/QuranWord/InlineWordByWord'
+import TajweedWord from '~/components/QuranWord/TajweedWordImage'
+import TextWord from '~/components/QuranWord/TextWord'
+import { selectShowTooltipWhenPlayingAudio } from '~/store/slices/AudioPlayer/state'
+import {
+  selectInlineDisplayWordByWordPreferences,
+  selectReadingPreference,
+  selectTooltipContentType,
+  selectWordClickFunctionality,
+} from '~/store/slices/QuranReader/readingPreferences'
+import { QuranFont, ReadingPreference, WordClickFunctionality } from '~/types/QuranReader'
+import Word, { CharType } from '~/types/Word'
+import { getChapterNumberFromKey, getWordTimeSegment, makeWordLocation } from '~/utils'
+import { areArraysEqual } from '~/utils/array'
 import { milliSecondsToSeconds } from '~/utils/datetime'
-import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
 import { logButtonClick } from '~/utils/eventLogger'
+import { isQCFFont } from '~/utils/fontFaceHelper'
+import { AudioPlayerMachineContext } from '~/xstate/AudioPlayerMachineContext'
 import playWordAudio from './playWordAudio'
 
 export const DATA_ATTRIBUTE_WORD_LOCATION = 'data-word-location'
@@ -199,7 +199,7 @@ function QuranWord(props: QuranWordProps) {
       <GlyphWord
         font={font}
         qpcUthmaniHafs={word.qpcUthmaniHafs}
-        pageNumber={word.pageNumber}
+        pageNumber={word.pageNumber as number}
         textCodeV1={word.codeV1}
         textCodeV2={word.codeV2}
         isFontLoaded={isFontLoaded}

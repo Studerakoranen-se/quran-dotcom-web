@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IRootState } from '~/store'
 import resetSettings from '~/store/actions/reset-settings'
 import syncUserPreferences from '~/store/actions/sync-user-preferences'
 import { getQuranReaderStylesInitialState } from '~/store/defaultSettings/util'
-import { IRootState } from '~/store'
 import QuranReaderStyles from '~/store/types/QuranReaderStyles'
 import SliceName from '~/store/types/SliceName'
 import PreferenceGroup from '~/types/auth/PreferenceGroup'
@@ -10,7 +10,7 @@ import { MushafLines, QuranFont } from '~/types/QuranReader'
 
 export const MAXIMUM_QURAN_FONT_STEP = 10
 export const MAXIMUM_TRANSLATIONS_FONT_STEP = 10
-export const MAXIMUM_TAFSIR_FONT_STEP = 10
+export const MAXIMUM_TAFSIR_FONT_STEP = 5
 export const MAXIMUM_WORD_BY_WORD_FONT_STEP = 6
 export const MINIMUM_FONT_STEP = 1
 

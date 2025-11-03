@@ -1,16 +1,16 @@
+import { styled } from '@mui/material'
 import * as React from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
-import { styled } from '@mui/material'
-import { selectIsSidebarNavigationVisible } from '~/store/slices/QuranReader/sidebarNavigation'
 import { selectReadingPreference } from '~/store/slices/QuranReader/readingPreferences'
+import { selectIsSidebarNavigationVisible } from '~/store/slices/QuranReader/sidebarNavigation'
 import { selectQuranReaderStyles } from '~/store/slices/QuranReader/styles'
-import { QuranReaderDataType, ReadingPreference } from '~/types/QuranReader'
 import { ChapterInfoResponse, ChapterResponse, VersesResponse } from '~/types/ApiResponses'
+import { QuranReaderDataType, ReadingPreference } from '~/types/QuranReader'
 // import { addToHistory, updateVerseCount } from '~/store/historySlice'
 import { VerseTrackerContextProvider } from '~/contexts/VerseTrackerContext'
 import QuranReaderDrawer from './partials/QuranReaderDrawer'
-import QuranReaderView from './partials/QuranReaderView'
 import QuranReaderInfoDrawer from './partials/QuranReaderInfoDrawer'
+import QuranReaderView from './partials/QuranReaderView'
 
 const QuranReaderRoot = styled('section')<{
   ownerState: {

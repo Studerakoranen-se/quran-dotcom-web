@@ -1,5 +1,5 @@
-import { useContext, useMemo } from 'react'
 import { useSelector as useXstateSelector } from '@xstate/react'
+import { useContext, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import {
   getQuranReaderStylesInitialState,
