@@ -7,6 +7,7 @@ import PlayVerseAudioButton from '~/components/Verse/PlayVerseAudioButton'
 import VerseLink from '~/components/VerseLink'
 import useScroll, { SMOOTH_SCROLL_TO_CENTER } from '~/hooks/useScrollToElement'
 import { selectEnableAutoScrolling } from '~/store/slices/AudioPlayer/state'
+import { selectSelectedTranslations } from '~/store/slices/QuranReader/translations'
 import QuranReaderStyles from '~/store/types/QuranReaderStyles'
 import BookmarksMap from '~/types/BookmarksMap'
 import Translation from '~/types/Translation'
@@ -95,11 +96,15 @@ function TranslationViewCell(props: TranslationViewCellProps) {
     setIsTafsirOpen(false)
   }
 
+  // Get selected translations from Redux store instead of hardcoded values
+  const selectedTranslations = useSelector(selectSelectedTranslations)
+
   const filteredTranslations = React.useMemo(
     () =>
-      verse.translations?.filter((item) => (router.locale === 'en' ? 20 : 48) === item.resourceId),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [router],
+      verse.translations?.filter(
+        (item) => item.resourceId && selectedTranslations.includes(item.resourceId),
+      ),
+    [verse.translations, selectedTranslations],
   )
 
   const { startingVerse } = router.query

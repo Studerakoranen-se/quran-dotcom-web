@@ -1,22 +1,24 @@
-import * as React from 'react'
-import { Action } from '@reduxjs/toolkit'
-import { useDispatch, useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
 import { ListItemText, MenuItem, MenuList, SvgIcon } from '@mui/material'
-import { selectIsUsingDefaultSettings } from '~/store/slices/defaultSettings'
+import { Action } from '@reduxjs/toolkit'
+import { useRouter } from 'next/router'
+import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import resetSettings from '~/store/actions/reset-settings'
+import { getTranslationsInitialState } from '~/store/defaultSettings/util'
+import { selectIsUsingDefaultSettings } from '~/store/slices/defaultSettings'
 import {
   selectTranslations,
   setSelectedTranslations,
 } from '~/store/slices/QuranReader/translations'
 // import { logValueChange } from '~/utils/eventLogger';
-import useRemoveQueryParam from '~/hooks/useRemoveQueryParam'
-import { setLocaleCookie } from '~/utils/cookies'
 import usePersistPreferenceGroup from '~/hooks/auth/usePersistPreferenceGroup'
+import useRemoveQueryParam from '~/hooks/useRemoveQueryParam'
 import PreferenceGroup from '~/types/auth/PreferenceGroup'
+import { setLocaleCookie } from '~/utils/cookies'
 // import QueryParam from '~/types/QueryParam'
-import { useGlobalHandlers } from '~/contexts'
 import { i18n } from '@/locales'
+// eslint-disable-next-line import/order
+import { useGlobalHandlers } from '~/contexts'
 
 const LanguageSelector = React.forwardRef(function LanguageSelector(props) {
   const router = useRouter()
@@ -82,7 +84,8 @@ const LanguageSelector = React.forwardRef(function LanguageSelector(props) {
     // add the selectedTranslationId to redux
     // if unchecked, remove it from redux
 
-    const nextTranslations = locale === 'en' ? [20] : [48]
+    // Use the default translations for the selected locale instead of hardcoded values
+    const nextTranslations = getTranslationsInitialState(locale).selectedTranslations
 
     onTranslationsSettingsChange(
       nextTranslations,
