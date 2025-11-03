@@ -14,7 +14,7 @@ import {
 } from '~/utils/staticPageGeneration'
 import { isValidVerseKey } from '~/utils/validator'
 import { getVerseAndChapterNumbersFromKey } from '~/utils/verse'
-import styles from '../[verseId]/tafsirs.module.scss'
+import styles from '../../../../blocks/QuranReader/partials/TafsirView/TafsirView.module.scss'
 
 type AyahTafsirProp = {
   verseNumber: string
