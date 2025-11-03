@@ -1,15 +1,19 @@
-import * as React from 'react'
-import PropTypes from 'prop-types'
 import i18n, { i18nConfig } from 'es2015-i18n-tag'
+import PropTypes from 'prop-types'
+import * as React from 'react'
 
 interface I18nContextValue {
   defaultLocale?: string
   foundPreferredLocale?: string
   locale?: string
   t: typeof i18n
+  translate: typeof i18n.translate
 }
 
-export const I18nContext = React.createContext<I18nContextValue>({ t: i18n })
+export const I18nContext = React.createContext<I18nContextValue>({
+  t: i18n,
+  translate: i18n.translate,
+})
 
 if (process.env.NODE_ENV !== 'production') {
   I18nContext.displayName = 'I18nContext'
@@ -51,6 +55,7 @@ function I18nProvider(props: I18nProviderProps) {
       defaultLocale,
       locale,
       t: i18n,
+      translate: i18n.translate,
     }),
     [defaultLocale, locale],
   )

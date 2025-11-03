@@ -1,6 +1,6 @@
-import * as React from 'react'
-import PropTypes from 'prop-types'
 import Router from 'next/router'
+import PropTypes from 'prop-types'
+import * as React from 'react'
 import { getCookie, gtmEvent } from '~/utils'
 import { useRemoteConfig } from '../RemoteConfig'
 
@@ -35,7 +35,7 @@ function GlobalProvider(props) {
   const [isStoreMessageOpen, setStoreMessageOpen] = React.useState(!!storeMessage)
   const [isFilterMenuOpen, setFilterMenuOpen] = React.useState(true)
   const [isSurahInfoDialogOpen, setSurahInfoDialogOpen] = React.useState(false)
-
+  const [isTafsirDialogOpen, setTafsirDialogOpen] = React.useState(false)
   // Helpers
 
   const closeAllMenus = () => {
@@ -140,6 +140,18 @@ function GlobalProvider(props) {
     setSurahInfoDialogOpen((prev) => !prev)
   }, [])
 
+  const onTafsirDialogClose = React.useCallback(() => {
+    setTafsirDialogOpen(false)
+  }, [])
+
+  const onTafsirDialogOpen = React.useCallback(() => {
+    setTafsirDialogOpen(true)
+  }, [])
+
+  const onTafsirDialogToggle = React.useCallback(() => {
+    setTafsirDialogOpen((prev) => !prev)
+  }, [])
+
   const stateContextValue = React.useMemo(
     () => ({
       isCookieBarOpen,
@@ -148,6 +160,7 @@ function GlobalProvider(props) {
       isSearchMenuOpen,
       isStoreMessageOpen,
       isSurahInfoDialogOpen,
+      isTafsirDialogOpen,
       // Computed props
       isSomeMenuOpen: isNavMenuOpen || isSearchMenuOpen,
       isFilterMenuOpen,
@@ -160,6 +173,7 @@ function GlobalProvider(props) {
       isSearchMenuOpen,
       isStoreMessageOpen,
       isSurahInfoDialogOpen,
+      isTafsirDialogOpen,
     ],
   )
 
@@ -179,6 +193,9 @@ function GlobalProvider(props) {
       onSurahInfoDialogClose,
       onSurahInfoDialogOpen,
       onSurahInfoDialogToggle,
+      onTafsirDialogClose,
+      onTafsirDialogOpen,
+      onTafsirDialogToggle,
     }),
     [
       onCookieBarClose,
@@ -195,6 +212,9 @@ function GlobalProvider(props) {
       onSurahInfoDialogClose,
       onSurahInfoDialogOpen,
       onSurahInfoDialogToggle,
+      onTafsirDialogClose,
+      onTafsirDialogOpen,
+      onTafsirDialogToggle,
     ],
   )
 
