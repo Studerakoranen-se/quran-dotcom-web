@@ -260,6 +260,7 @@ const areVersesEqual = (
   !verseTranslationChanged(prevProps.verse, nextProps.verse) &&
   !verseTranslationFontChanged(prevProps.quranReaderStyles, nextProps.quranReaderStyles) &&
   JSON.stringify(prevProps?.pageBookmarks) === JSON.stringify(nextProps?.pageBookmarks) &&
-  prevProps.bookmarksRangeUrl === nextProps.bookmarksRangeUrl
+  prevProps.bookmarksRangeUrl === nextProps.bookmarksRangeUrl &&
+  prevProps.locale === nextProps.locale
 
 export default React.memo(TranslationViewCell, areVersesEqual)

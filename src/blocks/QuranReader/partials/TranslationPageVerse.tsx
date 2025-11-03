@@ -2,12 +2,12 @@ import * as React from 'react'
 // import useSWRImmutable from 'swr/immutable'
 import { useVerseTrackerContext } from '~/contexts/VerseTrackerContext'
 import QuranReaderStyles from '~/store/types/QuranReaderStyles'
-import { toLocalizedNumber } from '~/utils'
-import Verse from '~/types/Verse'
 import { VersesResponse } from '~/types/ApiResponses'
 import Translation from '~/types/Translation'
-import TranslationViewCell from './TranslationViewCell'
+import Verse from '~/types/Verse'
+import { toLocalizedNumber } from '~/utils'
 import ChapterHeader from './ChapterHeader'
+import TranslationViewCell from './TranslationViewCell'
 // import { getPageBookmarks } from '~/utils/auth/api';
 
 type TranslationPageVerseProps = {
@@ -114,7 +114,7 @@ function TranslationPageVerse(props: TranslationPageVerseProps) {
       <TranslationViewCell
         verseIndex={verseIdx}
         verse={verse}
-        key={verse.id}
+        key={`${verse.id}-${locale}`}
         quranReaderStyles={quranReaderStyles}
         // pageBookmarks={pageBookmarks}
         pageBookmarks={undefined}
