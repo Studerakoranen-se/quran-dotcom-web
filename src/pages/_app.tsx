@@ -1,23 +1,24 @@
-import '../../scripts/globals'
-import '../styles/globals.css'
-import * as React from 'react'
-import Head from 'next/head'
+import type { EmotionCache } from '@emotion/cache'
+import { Button, IconButton } from '@mui/material'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import type { AppProps as NextAppProps } from 'next/app'
 import type { NextPage } from 'next'
-import type { EmotionCache } from '@emotion/cache'
-import { Button } from '@mui/material'
+import type { AppProps as NextAppProps } from 'next/app'
+import Head from 'next/head'
 import Script from 'next/script'
-import { RootProvider } from '~/contexts'
-import * as layoutVariants from '~/layouts'
-import { ErrorBoundary, RouterLink } from '~/containers'
-import FontPreLoader from '~/components/Fonts/FontPreLoader'
-import DataContext from '~/contexts/DataContext'
-import ChaptersData from '~/types/ChaptersData'
-import ReduxProvider from '~/contexts/ReduxStoreProvider'
-import { AudioPlayerMachineProvider } from '~/xstate/AudioPlayerMachineContext'
+import * as React from 'react'
 import AudioPlayer from '~/components/AudioPlayer/AudioPlayer'
+import FontPreLoader from '~/components/Fonts/FontPreLoader'
+import { WhatsappIcon } from '~/components/icons'
+import { ErrorBoundary, RouterLink } from '~/containers'
+import { RootProvider } from '~/contexts'
+import DataContext from '~/contexts/DataContext'
+import ReduxProvider from '~/contexts/ReduxStoreProvider'
+import * as layoutVariants from '~/layouts'
+import ChaptersData from '~/types/ChaptersData'
+import { AudioPlayerMachineProvider } from '~/xstate/AudioPlayerMachineContext'
+import '../../scripts/globals'
+import '../styles/globals.css'
 
 export interface AppProps extends NextAppProps {
   Component: NextPage<Page>
@@ -88,9 +89,11 @@ function App(props: AppProps) {
               locale={locale}
               {...other}
             >
+              {/* @ts-ignore */}
               <LayoutComponent headerMode={headerMode}>
+                {/* @ts-ignore */}
                 <ErrorBoundary>
-                  <Component {...page} />
+                  <Component {...(page as any)} />
                   <AudioPlayer />
                 </ErrorBoundary>
               </LayoutComponent>
@@ -100,6 +103,35 @@ function App(props: AppProps) {
       </DataContext.Provider>
       <Analytics />
       <SpeedInsights />
+
+      {/* WhatsApp contact button */}
+      <IconButton
+        sx={{
+          position: 'fixed',
+          right: 16,
+          bottom: preview ? 64 : 16,
+          backgroundColor: '#25D366',
+          color: 'white',
+          width: 56,
+          height: 56,
+          '&:hover': {
+            backgroundColor: '#20BD5A',
+          },
+          boxShadow: '0 4px 12px rgba(37, 211, 102, 0.4)',
+          zIndex: 1000,
+        }}
+        onClick={() => {
+          // Replace with your WhatsApp number
+          const phoneNumber = '46123456789' // Update this with your actual WhatsApp number
+          const message = 'Hej Arabiskacentret!! Jag har en fråga om Koranläsningen.' // Default message in Swedish
+          const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+          window.open(whatsappUrl, '_blank')
+        }}
+        aria-label="Contact us on WhatsApp"
+      >
+        <WhatsappIcon />
+      </IconButton>
+
       {/* This button closes the Next.js preview mode by linking to the api/exit-preview route */}
       {preview && (
         <Button
