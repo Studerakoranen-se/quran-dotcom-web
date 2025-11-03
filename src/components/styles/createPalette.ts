@@ -1,5 +1,5 @@
+import { alpha, PaletteOptions } from '@mui/material'
 import { deepmerge } from '@mui/utils'
-import { PaletteOptions, alpha } from '@mui/material'
 import blue from '../colors/blue'
 import common from '../colors/common'
 import green from '../colors/green'
@@ -44,7 +44,7 @@ export const light = {
   background: {
     default: '#f1f1f1',
     paper: '#f1f1f1',
-    dark: 'rgb(218 218 218 / 80%)',
+    dark: 'rgb(218 218 218 / 100%)',
   },
   // The colors used to style the action elements.
   action: {
@@ -74,7 +74,7 @@ export const dark = {
   background: {
     default: green[500],
     paper: '#61717D',
-    dark: 'rgba(0, 29, 29, 0.8)',
+    dark: green[500],
   },
   action: {
     active: common.white,
