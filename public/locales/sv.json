@@ -57,11 +57,11 @@
 
   "tafsir": {
     "font-size": "Tafsir-teckenstorlek",
-    "group-message": "Du läser en tafsir för gruppen av verser {{from}} till {{to}}",
-    "no-text": "{{tafsirName}} är inte tillgänglig för den aktuella versen.",
+    "group-message": "Du läser en tafsir för gruppen av verser ${0} till ${1}",
+    "no-text": "${0} är inte tillgänglig för den aktuella versen.",
     "surah": "Tafsir-surah",
-    "tafsir-desc": "Läs {{tafsirName}} för Ayah {{verseNumber}} av Surah {{surahName}}",
-    "tafsirs-desc": "Läs olika Tafsir av Ayah {{ayahNumber}} av Surah {{surahName}} av betrodda Tafsir-lärda",
+    "tafsir-desc": "Läs ${0} för Ayah ${1} av Surah ${2}",
+    "tafsirs-desc": "Läs olika Tafsir av Ayah ${0} av Surah ${1} av betrodda Tafsir-lärda",
     "title": "Tafsir"
   },
 

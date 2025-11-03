@@ -57,11 +57,11 @@
 
   "tafsir": {
     "font-size": "Tafsir font size",
-    "group-message": "You are reading a tafsir for the group of verses {{from}} to {{to}}",
-    "no-text": "{{tafsirName}} is not available for the current verse.",
+    "group-message": "You are reading a tafsir for the group of verses ${0} to ${1}",
+    "no-text": "${0} is not available for the current verse.",
     "surah": "Tafsir Surah",
-    "tafsir-desc": "Read {{tafsirName}} for Ayah {{verseNumber}} of Surah {{surahName}}",
-    "tafsirs-desc": "Read various Tafsirs of Ayah {{ayahNumber}} of Surah {{surahName}} by trusted Tafsir scholars",
+    "tafsir-desc": "Read ${0} for Ayah ${1} of Surah ${2}",
+    "tafsirs-desc": "Read various Tafsirs of Ayah ${0} of Surah ${1} by trusted Tafsir scholars",
     "title": "Tafsir"
   },
 
