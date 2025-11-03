@@ -122,7 +122,7 @@ function App(props: AppProps) {
         }}
         onClick={() => {
           const whatsappUrl =
-            'https://api.whatsapp.com/send/?phone=46762621036&text=Hej+Arabiskacentret%21&type=phone_number&app_absent=0'
+            'https://api.whatsapp.com/send/?phone=46762621036&text=Hej+StuderaKoranen%21&type=phone_number&app_absent=0'
           window.open(whatsappUrl, '_blank')
         }}
         aria-label="Contact us on WhatsApp"
