@@ -91,9 +91,9 @@ const QuranWordItem = styled(ButtonBase)<{
     },
   }),
 
-  // ...(ownerState?.shouldBeHighLighted && {
-  //   color: theme.palette.mode === 'dark' ? '#E0D2B4' : theme.vars.palette.primary.main,
-  // }),
+  ...(ownerState?.shouldBeHighLighted && {
+    color: theme.palette.mode === 'dark' ? '#E0D2B4' : '#5ea9a9',
+  }),
 
   ...(ownerState?.shouldShowSecondaryHighlight && {
     backgroundColor: '#efe2cd',
@@ -187,7 +187,12 @@ function QuranWord(props: QuranWordProps) {
   // Determine if the audio player is currently playing the word
   const isAudioPlayingWord = useXstateSelector(audioService, (state) => {
     const { surah, ayahNumber, wordLocation: wordPosition } = state.context
-    return `${surah}:${ayahNumber}:${wordPosition}` === wordLocation
+    // Check if this word matches the currently playing audio position
+    return (
+      surah === Number(word.verseKey?.split(':')[0]) &&
+      ayahNumber === Number(word.verseKey?.split(':')[1]) &&
+      wordPosition === word.position
+    )
   })
 
   const isWordByWordLayout = showWordByWordTranslation || showWordByWordTransliteration
@@ -220,7 +225,8 @@ function QuranWord(props: QuranWordProps) {
   */
   const showTooltip =
     word.charTypeName === CharType.Word && isWordByWordAllowed && !!showTooltipFor.length
-  const shouldBeHighLighted = isHighlighted || isTooltipOpened || isAudioHighlightingAllowed
+  const shouldBeHighLighted =
+    isHighlighted || isTooltipOpened || (isAudioHighlightingAllowed && isAudioPlayingWord)
   const translationViewTooltipContent = React.useMemo(
     () => (isWordByWordAllowed ? getTooltipText(showTooltipFor, word) : null),
     [isWordByWordAllowed, showTooltipFor, word],

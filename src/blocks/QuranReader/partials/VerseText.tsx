@@ -1,21 +1,20 @@
-import * as React from 'react'
-import clsx from 'clsx'
 import { Box } from '@mui/material'
+import * as React from 'react'
 import { shallowEqual, useSelector } from 'react-redux'
 import useIntersectionObserver from '~/hooks/useObserveElement'
 import { selectInlineDisplayWordByWordPreferences } from '~/store/slices/QuranReader/readingPreferences'
 import {
-  selectReadingViewSelectedVerseKey,
   selectReadingViewHoveredVerseKey,
+  selectReadingViewSelectedVerseKey,
 } from '~/store/slices/QuranReader/readingViewVerse'
 import { selectQuranReaderStyles } from '~/store/slices/QuranReader/styles'
 // import { getFontClassName } from '~/utils/fontFaceHelper'
-import { getFirstWordOfSurah } from '~/utils/verse'
 import {
   // FALLBACK_FONT,
   QuranFont,
 } from '~/types/QuranReader'
 import Word from '~/types/Word'
+import { getFirstWordOfSurah } from '~/utils/verse'
 import { QURAN_READER_OBSERVER_ID } from '../observer'
 // import useIsFontLoaded from '../hooks/useIsFontLoaded'
 import isCenterAlignedPage from '../utils/pageUtils'
@@ -126,6 +125,7 @@ const VerseText = ({
             isFontLoaded={isFontLoaded}
             isHighlighted={word.verseKey === selectedVerseKey}
             shouldShowSecondaryHighlight={word.verseKey === hoveredVerseKey}
+            isAudioHighlightingAllowed
           />
         ))}
       </Box>
