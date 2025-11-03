@@ -4,7 +4,13 @@ import * as React from 'react'
 
 export const HtmlRoot = styled('div')(({ theme }) => ({
   ...theme.typography.body1,
-  h1: theme.typography.h1,
+  h1: {
+    ...theme.typography.h1,
+    span: {
+      color: 'white !important',
+      fontSize: `${theme.typography.h3.fontSize} !important`,
+    },
+  },
   h2: {
     ...theme.typography.h4,
     margin: 0,
@@ -26,6 +32,7 @@ export const HtmlRoot = styled('div')(({ theme }) => ({
   '& *:not(style):last-child': {
     marginBottom: 0,
   },
+
   blockquote: {
     '& p': theme.typography.h4,
     '& cite': theme.typography.caption,

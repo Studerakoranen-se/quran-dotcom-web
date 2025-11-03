@@ -57,14 +57,18 @@ const LanguageAndTafsirSelection = ({
           </TextField>
         </Box>
 
-        <Box sx={{}}>
+        <Box>
           {data &&
             data.tafsirs
               ?.filter(
                 (tafsir) =>
-                  tafsir.languageName === selectedLanguage ||
-                  selectedTafsirIdOrSlug === tafsir.slug ||
-                  Number(selectedTafsirIdOrSlug) === tafsir.id,
+                  // Filter out specific tafsirs that should not be shown in UI
+                  tafsir.slug !== 'tazkiru-quran-ur' &&
+                  tafsir.slug !== 'tazkirul-quran-en' &&
+                  tafsir.slug !== 'en-tafsir-maarif-ul-quran' &&
+                  (tafsir.languageName === selectedLanguage ||
+                    selectedTafsirIdOrSlug === tafsir.slug ||
+                    Number(selectedTafsirIdOrSlug) === tafsir.id),
               )
               .map((tafsir) => {
                 const selected =
