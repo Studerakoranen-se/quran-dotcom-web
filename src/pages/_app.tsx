@@ -1,5 +1,5 @@
 import type { EmotionCache } from '@emotion/cache'
-import { Button, IconButton } from '@mui/material'
+import { Button } from '@mui/material'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { NextPage } from 'next'
@@ -9,7 +9,6 @@ import Script from 'next/script'
 import * as React from 'react'
 import AudioPlayer from '~/components/AudioPlayer/AudioPlayer'
 import FontPreLoader from '~/components/Fonts/FontPreLoader'
-import { WhatsappIcon } from '~/components/icons'
 import { ErrorBoundary, RouterLink } from '~/containers'
 import { RootProvider } from '~/contexts'
 import DataContext from '~/contexts/DataContext'
@@ -104,7 +103,7 @@ function App(props: AppProps) {
       <Analytics />
       <SpeedInsights />
 
-      {/* WhatsApp contact button */}
+      {/* WhatsApp contact button
       <IconButton
         sx={{
           position: 'fixed',
@@ -128,7 +127,7 @@ function App(props: AppProps) {
         aria-label="Contact us on WhatsApp"
       >
         <WhatsappIcon />
-      </IconButton>
+      </IconButton> */}
 
       {/* This button closes the Next.js preview mode by linking to the api/exit-preview route */}
       {preview && (
